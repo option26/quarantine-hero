@@ -14,7 +14,6 @@ module.exports = {
 
       black: '#000',
       white: '#fff',
-
       gray: {
         100: '#f7fafc',
         200: '#edf2f7',
@@ -125,6 +124,8 @@ module.exports = {
         800: '#97266d',
         900: '#702459',
       },
+      'secondary': '#fff4e8',
+      'primary': '#a70045',
     },
     spacing: {
       px: '1px',

@@ -3,3 +3,7 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.btn-primary {
+    @apply rounded p-4 bg-primary text-secondary w-full inline-block text-center font-bold;
+}
