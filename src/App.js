@@ -37,10 +37,10 @@ function App (props) {
     <div className="flex justify-center bg-secondary min-h-screen">
       <div className="phone-width">
         <Router>
-          <div className="mt-4 flex justify-between items-center">
+          <div className="mt-4 flex justify-between items-center sm:flex-col">
             <div>
               <Link to="/" className="font-bold mr-2 text-sm">Home</Link>
-              {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null }
+              {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null}
               <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>
               <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>
             </div>
