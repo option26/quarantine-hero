@@ -24,7 +24,7 @@ const Signup = (props) => {
     } = props;
 
     if (user) {
-        return <Redirect to="/dashboard"/>;
+        return <Redirect to="/ask-for-help"/>;
     }
 
     return <form>

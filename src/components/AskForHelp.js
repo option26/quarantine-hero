@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import PlacesAutocomplete, { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
+import { useHistory } from 'react-router-dom';
 
 export default function AskForHelp () {
 
   const [request, setRequest] = useState('');
-  const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
   const [coordinates, setCoodinates] = useState({
     lat: null,
     lng: null
   });
-
+  const history = useHistory();
   // Create a Firestore reference
 
   const handleSubmit = e => {
@@ -33,6 +32,8 @@ export default function AskForHelp () {
       coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
       location
     });
+
+    return history.push('/success')
   };
 
   const handleSelect = address => {
@@ -50,27 +51,6 @@ export default function AskForHelp () {
   return (<form style={{ maxWidth: '1000px', margin: 'auto' }} onSubmit={handleSubmit}>
       <h1 className="text-4xl py-4 pt-10">Um Unterstützung bitten</h1>
 
-      <div className="py-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-          Email
-        </label>
-        <input onChange={e => setEmail(e.target.value)}
-               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-               id="username" type="email" placeholder="Deine Email-Adresse">
-        </input>
-      </div>
-
-
-      {/*<div className="py-3">*/}
-      {/*    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">*/}
-      {/*        Telefonnummer*/}
-      {/*    </label>*/}
-      {/*    <input*/}
-      {/*        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"*/}
-      {/*        id="phone" type="tel" placeholder="Deine Telefonnummer">*/}
-      {/*    </input>*/}
-      {/*</div>*/}
-
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
@@ -78,7 +58,7 @@ export default function AskForHelp () {
         <PlacesAutocomplete onChange={setLocation} value={location} onSelect={handleSelect}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <input
+              <input required="required"
                 {...getInputProps({
                   placeholder: 'Dein Standort...',
                   className: 'location-search-input appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
@@ -118,7 +98,7 @@ export default function AskForHelp () {
             Wobei kann man dir helfen?
           </label>
           <textarea className="border leading-tight rounded border-gray-400 py-2 px-3 pb-20 w-full"
-                    placeholder="Deine Anfrage hier" onChange={e => setRequest(e.target.value)}/>
+                    required="required" placeholder="Deine Anfrage hier" onChange={e => setRequest(e.target.value)}/>
         </div>
         <div className="mt-8 mb-10 w-full text-gray-700">
           Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine Email-Adresse ist

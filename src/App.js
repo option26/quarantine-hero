@@ -7,19 +7,43 @@ import Impressum from './components/Impressum.js';
 import Signup from "./signup/Signup";
 import AskForHelp from "./components/AskForHelp";
 import Overview from "./components/Overview";
-
+import Success from './components/Success';
+import withFirebaseAuth from 'react-with-firebase-auth'
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import firebaseApp from 'firebase';
 import {
   HashRouter as Router,
   Switch,
   Route,
+  Link
 } from 'react-router-dom';
 
-function App () {
+const firebaseAppAuth = firebaseApp.auth();
+const providers = {
+  googleProvider: new firebase.auth.GoogleAuthProvider(),
+};
+
+function App (props) {
+  const {
+    user,
+    signOut
+  } = props;
 
   return (
     <div className="flex justify-center bg-secondary min-h-screen">
       <div className="phone-width">
         <Router>
+          <div className="mt-4 flex justify-between items-center">
+            <div>
+              <Link to="/" className="mr-2 text-sm">Home</Link>
+              <Link to="/faq" className="mx-2 text-sm">FAQs</Link>
+              <Link to="/impressum" className="ml-2 text-sm">Impressum</Link>
+            </div>
+            {user ?
+              (<div><span className='text-gray-700 text-sm'>{user.email}</span> <button className="bg-primary p-2 ml-4 text-white rounded text-sm">Logout</button></div>)
+              : null}
+          </div>
           <Switch>
             <Route path="/offer-help/:id">
               <OfferHelp/>
@@ -42,6 +66,9 @@ function App () {
             <Route path="/overview">
               <Overview/>
             </Route>
+            <Route path="/success">
+              <Success/>
+            </Route>
             <Route path="/">
               <Main/>
             </Route>
@@ -52,4 +79,7 @@ function App () {
   );
 }
 
-export default App;
+export default withFirebaseAuth({
+  providers,
+  firebaseAppAuth
+})(App);
