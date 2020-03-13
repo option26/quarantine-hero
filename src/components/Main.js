@@ -39,7 +39,7 @@ export default function Main() {
                     erledigen für euch Einkäufe, Botengänge oder gehen mit eurem Hund Gassi.<br/>
                     <br/>
                     Das geht ganz einfach. Wer Hilfe benötigt, stellt eine Anfrage. Wer helfen möchte, guckt sich die
-                    Anfragen in seiner Nähe an und kann entscheiden, wo er/sie aktiv werden kann. Die Kontaktaufnahme
+                    Anfragen in der Nähe an und kann entscheiden, wo er/sie aktiv werden kann. Die Kontaktaufnahme
                     läuft dann über diese Plattform.<br/>
                     <br/>
                     Tragt diese Infos bitte auch an andere weiter, die gerne helfe wollen oder die Hilfe von außen
