@@ -8,6 +8,7 @@ export default function AskForHelp () {
 
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([]);
+  const [searchCompleted, setSearchCompleted] = useState(false);
 
   // Create a Firestore reference
   const geofirestore = new GeoFirestore(fb.store);
@@ -24,6 +25,7 @@ export default function AskForHelp () {
         query.get().then((value) => {
           // All GeoDocument returned by GeoQuery, like the GeoDocument added above
           setEntries(value.docs.map(doc => ({...doc.data(), id: doc.id})));
+          setSearchCompleted(true);
         });
       })
       .catch(error => console.error('Error', error));
@@ -36,7 +38,7 @@ export default function AskForHelp () {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <PlacesAutocomplete onChange={setLocation} value={location} onSelect={handleSelect}  searchOptions={{
+        <PlacesAutocomplete onChange={val => {setLocation(val); setSearchCompleted(false)}} value={location} onSelect={handleSelect}  searchOptions={{
           types: [ "(regions)"],
           componentRestrictions: {country: ["de","at","ch"]},
         }}>
@@ -75,7 +77,7 @@ export default function AskForHelp () {
         </PlacesAutocomplete>
       </div>
       <div className="py-3">
-        {entries.length === 0 ? (location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
+        {entries.length === 0 ? (!searchCompleted || location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );
