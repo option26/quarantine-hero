@@ -4,7 +4,7 @@ import React from 'react';
 export default function FAQ () {
 
   return (<div>
-      <div className="mt-4 p-1">
+      <div className="mt-4">
           <p className="text-2xl font-semibold">Hier werden deine wichtigsten Fragen beantwortet!</p>
           <p className="text-xl font-semibold mt-2">Wie läuft das ganze ab?</p>
           <p className="mt-1">Auf quarantänehelden.de findest du Anfragen von Personen, die etwas benötigen. Du kannst dir Anfrangen in deiner Nähe anzeigen lassen und Diese beantworten. Wir leiten deine Nachricht dann an den Anfragensteller weiter der dann zu dir Kontakt aufnimmt. Dann könnt ihr alles weitere wie Details zur Anfrage und Übergabe Zeit und Ort klären.</p>
