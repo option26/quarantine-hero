@@ -2,6 +2,8 @@ import React from 'react';
 import './styles/App.css';
 import Main from './components/Main.js';
 import Entry from './components/Entry.js';
+import FAQ from './components/FAQ.js';
+
 import {
   HashRouter as Router,
   Switch,
@@ -23,6 +25,9 @@ function App () {
             </Route>
             <Route path="/dashboard">
               <div>Dashboard</div>
+            </Route>
+            <Route path="/faq">
+              <FAQ />
             </Route>
             <Route path="/">
               <Main/>
