@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import fb from '../firebase';
 import { useParams } from 'react-router-dom';
 import { GeoFirestore } from 'geofirestore';
-import Entry from "./Entry";
+import Entry from './Entry';
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');
@@ -32,7 +32,7 @@ export default function OfferHelp () {
         console.log('No such document!');
       } else {
         console.log('Document data:', doc.data());
-        setEntry(doc.data());
+        setEntry({ id: doc.id, ...doc.data() });
       }
     });
     /*
