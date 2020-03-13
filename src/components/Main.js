@@ -20,10 +20,11 @@ export default function Main() {
     return (
         <div>
             <div>
-                <div className="w-full flex justify-center items-center mt-16">
+                <div className="w-full flex flex-col justify-center items-center mt-16">
                     <img src={require('../logo.png')}/>
+                    <p className="text-xl py-4">Wir sind Menschen. In Zeiten der Not helfen wir uns. Sei ein Teil
+                        davon.</p>
                 </div>
-                <p className="text-xl py-4">Wir sind Menschen. In Zeiten der Not helfen wir uns. Sei ein Teil davon.</p>
                 <p className="text-xl pt-2 pb-2">Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise
                     in
                     häuslicher Quarantäne. Wenn ihr diesen Menschen helfen wollt, könnt ihr hier sehen, wobei ihr eure
