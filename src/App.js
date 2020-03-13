@@ -45,6 +45,7 @@ function App (props) {
               {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null}
               <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>
               <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>
+              <Link to="/dsgvo" className="font-bold ml-2 text-sm">Datenschutz</Link>
             </div>
             {user ?
               (<div>
