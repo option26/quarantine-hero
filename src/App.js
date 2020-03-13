@@ -12,11 +12,7 @@ import Signup from "./signup/Signup";
 function App () {
 
   return (
-    <div className="flex items-center flex-col">
-      <header className="phone-width">
-        <h1 className="text-6xl text-center">Quarantine Hero</h1>
-      </header>
-      <section className="phone-width">
+    <div>
         <Router>
           <Switch>
             <Route path="/entry/:id">
@@ -33,7 +29,6 @@ function App () {
             </Route>
           </Switch>
         </Router>
-      </section>
     </div>
   );
 }
