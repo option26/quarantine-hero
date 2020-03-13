@@ -14,6 +14,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseApp from 'firebase';
 import SuccessOffer from './components/SuccessOffer';
+import CookieConsent from 'react-cookie-consent';
 
 import {
   HashRouter as Router,
@@ -84,6 +85,15 @@ function App (props) {
             </Route>
           </Switch>
         </Router>
+        <CookieConsent
+          location="bottom"
+          buttonText="Okay"
+          cookieName="myAwesomeCookieName2"
+          style={{ background: '#2B373B' }}
+          buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+          expires={150}>
+          Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
+        </CookieConsent>
       </div>
     </div>
   );
