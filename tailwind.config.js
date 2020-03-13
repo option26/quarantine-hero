@@ -125,7 +125,7 @@ module.exports = {
         900: '#702459',
       },
       'secondary': '#fff4e8',
-      'primary': '#a70045',
+      'primary': '#8A2547',
     },
     spacing: {
       px: '1px',

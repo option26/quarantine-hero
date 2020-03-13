@@ -1,26 +1,28 @@
 import React from 'react';
 import './styles/App.css';
 import Main from './components/Main.js';
-import Entry from './components/Entry.js';
+import OfferHelp from './components/OfferHelp.js';
 import FAQ from './components/FAQ.js';
 import Impressum from './components/Impressum.js';
+import Signup from "./signup/Signup";
+import AskForHelp from "./components/AskForHelp";
+import Overview from "./components/Overview";
 
 import {
   HashRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
-import Signup from "./signup/Signup";
-import AskForHelp from "./components/AskForHelp";
 
 function App () {
 
   return (
-    <div>
+    <div className="flex justify-center bg-secondary min-h-screen">
+      <div className="phone-width">
         <Router>
           <Switch>
-            <Route path="/entry/:id">
-              <Entry/>
+            <Route path="/offer-help/:id">
+              <OfferHelp/>
             </Route>
             <Route path="/signup">
               <Signup/>
@@ -37,11 +39,15 @@ function App () {
             <Route path="/impressum">
               <Impressum />
             </Route>
+            <Route path="/overview">
+              <Overview/>
+            </Route>
             <Route path="/">
               <Main/>
             </Route>
           </Switch>
         </Router>
+      </div>
     </div>
   );
 }

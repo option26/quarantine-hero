@@ -1,25 +1,39 @@
 import {Link} from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { GeoFirestore } from 'geofirestore';
+import fb from '../firebase';
+import Entry from './Entry';
 
 export default function Main() {
 
-    const entrys = [
-        {
-            id: 1,
-            location: 'München',
-            text: 'Brauche jemand, der für mich einkauft',
-            timestamp: Date.now(),
-        }, {
-            id: 2,
-            location: 'München',
-            text: 'Brauche jemand, der für mich einkauft',
-            timestamp: Date.now(),
-        }, {
-            id: 3,
-            location: 'München',
-            text: 'Brauche jemand, der für mich einkauft',
-            timestamp: Date.now(),
-        }];
+  const [entries, setEntries] = useState([]);
+
+
+  const getUserData = () => {
+// Create a Firestore reference
+
+// Create a GeoFirestore reference
+    const geofirestore = new GeoFirestore(fb.store);
+
+// Create a GeoCollection reference
+    const geocollection = geofirestore.collection('ask-for-help');
+
+// Add a GeoDocument to a GeoCollection
+    geocollection.get().then(value => {
+      console.log(value.docs)
+      setEntries(value.docs.map(doc => ({...doc.data(), id: doc.id})));
+    });
+    /*
+    // Create a GeoQuery based on a location
+        const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(40.7589, -73.9851), radius: 1000 });
+
+    // Get query (as Promise)
+        query.get().then((value) => {
+          // All GeoDocument returned by GeoQuery, like the GeoDocument added above
+          //setEntry(value.docs[0].data());
+        });*/
+  };
+  useEffect(getUserData, []);
 
 
     return (
@@ -33,7 +47,7 @@ export default function Main() {
             flexDirection: 'column',
             padding: '30px'
         }}>
-            <div style={{maxWidth: '1000px', margin: 'auto'}}>
+            <div>
                 <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <img style={{height: '300px'}} src={require('../logo.png')}></img>
                 </div>
@@ -47,16 +61,7 @@ export default function Main() {
                           className="font-bold py-8 px-4 rounded hover:bg-blue-100">Ich brauche Hilfe
                     </Link>
                 </div>
-
-                {entrys.map(entry => {
-                    return <Link to={`/entry/${entry.id}`}
-                                 className="p-4 border border-gray-400 rounded w-full m-1 text-xl block" key={entry.id}>
-                        Jemand in <span className="font-bold">{entry.location}</span> bittet um: <span
-                        className="italic">{entry.text}</span><br/>
-                        <span
-                            className="text-gray-500 inline-block text-right w-full text-base">{(new Date(entry.timestamp)).toISOString()}</span>
-                    </Link>;
-                })}
+                {entries.map(entry => (<Entry {...entry}/>))}
             </div>
         </div>
     );
