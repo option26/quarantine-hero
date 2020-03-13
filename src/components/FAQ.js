@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-export default function Entry () {
+export default function FAQ () {
 
   return (<div>
       <div className="mt-4 p-1">
