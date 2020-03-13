@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import fb from '../firebase';
 import { useParams } from 'react-router-dom';
 import { GeoFirestore } from 'geofirestore';
+import Entry from "./Entry";
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');
@@ -61,13 +62,7 @@ export default function OfferHelp () {
 
   return (<form onSubmit={handleSubmit}>
       <div className="mt-4 p-1">
-        <label className="text-base text-gray-700">Anfrage</label>
-        {
-          <Link to={`/entry/${entry.id}`} className="p-4 border border-gray-400 rounded w-full text-xl block">
-            Jemand in <span className="font-bold">{entry.location}</span> bittet um: <span className="italic">{entry.request}</span><br/>
-            <span className="text-gray-500 inline-block text-right w-full text-base">{(new Date(entry.timestamp)).toISOString()}</span>
-          </Link>
-        }
+        <Entry {...entry} showFullText/>
       </div>
       <div className="mt-4 p-1 w-full">
         <label className="text-base text-gray-700">Deine Antwort</label>

@@ -4,8 +4,8 @@ import formatDistance from 'date-fns/formatDistance';
 import {de} from 'date-fns/locale';
 
 export default function Entry(props) {
-
-    const {showFullText, location, id, request, timestamp} = props;
+    
+    const {showFullText = false, location = "", id = "", request = "", timestamp = Date.now()} = props;
     const date = formatDistance(new Date(timestamp), Date.now(), {locale: de});
 
     let textToDisplay;
