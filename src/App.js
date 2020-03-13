@@ -36,9 +36,9 @@ function App (props) {
         <Router>
           <div className="mt-4 flex justify-between items-center">
             <div>
-              <Link to="/" className="mr-2 text-sm">Home</Link>
-              <Link to="/faq" className="mx-2 text-sm">FAQs</Link>
-              <Link to="/impressum" className="ml-2 text-sm">Impressum</Link>
+              <Link to="/" className="font-bold mr-2 text-sm">Home</Link>
+              <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>
+              <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>
             </div>
             {user ?
               (<div>
