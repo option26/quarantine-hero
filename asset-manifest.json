@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/quarantine-hero/static/css/main.103036a8.chunk.css",
-    "main.js": "/quarantine-hero/static/js/main.d4873be1.chunk.js",
-    "main.js.map": "/quarantine-hero/static/js/main.d4873be1.chunk.js.map",
+    "main.js": "/quarantine-hero/static/js/main.9ce9fb5f.chunk.js",
+    "main.js.map": "/quarantine-hero/static/js/main.9ce9fb5f.chunk.js.map",
     "runtime-main.js": "/quarantine-hero/static/js/runtime-main.b517a2e1.js",
     "runtime-main.js.map": "/quarantine-hero/static/js/runtime-main.b517a2e1.js.map",
-    "static/js/2.ab92d00e.chunk.js": "/quarantine-hero/static/js/2.ab92d00e.chunk.js",
-    "static/js/2.ab92d00e.chunk.js.map": "/quarantine-hero/static/js/2.ab92d00e.chunk.js.map",
+    "static/js/2.01b499c2.chunk.js": "/quarantine-hero/static/js/2.01b499c2.chunk.js",
+    "static/js/2.01b499c2.chunk.js.map": "/quarantine-hero/static/js/2.01b499c2.chunk.js.map",
     "index.html": "/quarantine-hero/index.html",
-    "precache-manifest.170a8f124420d01f4e7b618690e034d0.js": "/quarantine-hero/precache-manifest.170a8f124420d01f4e7b618690e034d0.js",
+    "precache-manifest.17063245cda71e569e0a866696616bf2.js": "/quarantine-hero/precache-manifest.17063245cda71e569e0a866696616bf2.js",
     "service-worker.js": "/quarantine-hero/service-worker.js",
     "static/css/main.103036a8.chunk.css.map": "/quarantine-hero/static/css/main.103036a8.chunk.css.map",
-    "static/js/2.ab92d00e.chunk.js.LICENSE.txt": "/quarantine-hero/static/js/2.ab92d00e.chunk.js.LICENSE.txt",
+    "static/js/2.01b499c2.chunk.js.LICENSE.txt": "/quarantine-hero/static/js/2.01b499c2.chunk.js.LICENSE.txt",
     "static/media/logo.png": "/quarantine-hero/static/media/logo.f5ab7345.png"
   },
   "entrypoints": [
     "static/js/runtime-main.b517a2e1.js",
-    "static/js/2.ab92d00e.chunk.js",
+    "static/js/2.01b499c2.chunk.js",
     "static/css/main.103036a8.chunk.css",
-    "static/js/main.d4873be1.chunk.js"
+    "static/js/main.9ce9fb5f.chunk.js"
   ]
 }
