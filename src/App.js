@@ -14,6 +14,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseApp from 'firebase';
 import SuccessOffer from './components/SuccessOffer';
+import DSGVO from './components/DSGVO';
 import CookieConsent from 'react-cookie-consent';
 
 import {
@@ -79,6 +80,9 @@ function App (props) {
             </Route>
             <Route path="/success-offer">
               <SuccessOffer/>
+            </Route>
+            <Route path="/dsgvo">
+              <DSGVO/>
             </Route>
             <Route path="/">
               <Main/>
