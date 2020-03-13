@@ -4,7 +4,7 @@ import Main from './components/Main.js';
 import OfferHelp from './components/OfferHelp.js';
 import FAQ from './components/FAQ.js';
 import Impressum from './components/Impressum.js';
-import Signup from './signup/Signup';
+import Signup from './components/Signup';
 import AskForHelp from './components/AskForHelp';
 import Overview from './components/Overview';
 import Success from './components/Success';

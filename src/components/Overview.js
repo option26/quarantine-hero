@@ -74,7 +74,7 @@ export default function AskForHelp () {
         </PlacesAutocomplete>
       </div>
       <div className="py-3">
-        {entries.length === 0 ? (location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry {...entry}/>))}
+        {entries.length === 0 ? (location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );

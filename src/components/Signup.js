@@ -16,16 +16,18 @@ const Signup = (props) => {
     const [password, setPassword] = React.useState('');
     const {
         user,
-        signOut,
         signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
-        signInWithFacebook,
-        signInWithGoogle
     } = props;
 
     if (user) {
         return <Redirect to="/ask-for-help"/>;
     }
+
+    const signInOrRegister = async () => {
+      const result = await createUserWithEmailAndPassword(email, password);
+      if(result.code === 'auth/email-already-in-use') await signInWithEmailAndPassword(email, password);
+    };
 
     return <form>
         <div className="mb-4">
@@ -50,7 +52,7 @@ const Signup = (props) => {
             <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
-                onClick={() => createUserWithEmailAndPassword(email, password)}>
+                onClick={signInOrRegister}>
                 Jetzt Registrieren
             </button>
         </div>
