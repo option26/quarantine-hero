@@ -7,6 +7,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import Signup from "./signup/Signup";
 
 function App () {
 
@@ -20,6 +21,12 @@ function App () {
           <Switch>
             <Route path="/entry/:id">
               <Entry/>
+            </Route>
+            <Route path="/signup">
+              <Signup/>
+            </Route>
+            <Route path="/dashboard">
+              <div>Dashboard</div>
             </Route>
             <Route path="/">
               <Main/>

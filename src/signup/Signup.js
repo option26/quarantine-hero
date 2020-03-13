@@ -3,6 +3,7 @@ import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from '../firebaseConfig';
+import {Redirect} from "react-router-dom";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -24,35 +25,37 @@ const Signup = (props) => {
     } = props;
 
     if (user) {
-        // TODO: Redirect to dashboard;
-        return <button onClick={signOut}>Abmelden</button>;
-    } else {
-        return (
-            <React.Fragment>
-                <h1>Jetzt zum Helden werden</h1>
-                <input type="text"
-                       value={email}
-                       onChange={(e) => setEmail(e.target.value)}
-                       placeholder={"Email-Adresse"}/>
-                <input type="password"
-                       value={password}
-                       onChange={e => setPassword(e.target.value)}
-                       placeholder={"Passwort"}/>
-                <button onClick={() => createUserWithEmailAndPassword(email, password)}>Registrieren</button>
-            </React.Fragment>
-        )
-
+        return <Redirect to="/dashboard"/>;
     }
 
-
-    return <div className="App">
-
-        {user ? <div> Hello {user.email}</div> :
-            <div><input value={email} onChange={(e) => setEmail(e.target.value)} placeholder={"Email"}/><br/>
-                <input value={password} onChange={e => setPassword(e.target.value)} placeholder={"Passwort"}/><br/>
-                <button onClick={() => createUserWithEmailAndPassword(email, password)}>Registrieren</button>
-            </div>}
-    </div>;
+    return <form>
+        <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                Email
+            </label>
+            <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" placeholder="Username" value={email}
+                onChange={e => setEmail(e.target.value)}/>
+        </div>
+        <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                Passwort
+            </label>
+            <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" type="password" placeholder="******************" value={password}
+                onChange={e => setPassword(e.target.value)}/>
+        </div>
+        <div className="flex items-center justify-between">
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={() => createUserWithEmailAndPassword(email, password)}>
+                Jetzt Registrieren
+            </button>
+        </div>
+    </form>;
 }
 
 export default withFirebaseAuth({
