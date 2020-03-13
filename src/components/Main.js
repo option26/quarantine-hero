@@ -43,7 +43,7 @@ export default function Main() {
                           className="font-bold py-8 px-4 rounded hover:bg-blue-100">Ich möchte helfen
                     </Link>
                     <div style={{width: '30px'}}></div>
-                    <Link to="/signup" style={{flexGrow: 1, backgroundColor: '#8A2547', color: 'white', textAlign: 'center'}}
+                    <Link to="/ask-for-help" style={{flexGrow: 1, backgroundColor: '#8A2547', color: 'white', textAlign: 'center'}}
                           className="font-bold py-8 px-4 rounded hover:bg-blue-100">Ich brauche Hilfe
                     </Link>
                 </div>
