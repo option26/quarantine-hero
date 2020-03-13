@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/quarantine-hero/static/css/main.103036a8.chunk.css",
-    "main.js": "/quarantine-hero/static/js/main.df7f1392.chunk.js",
-    "main.js.map": "/quarantine-hero/static/js/main.df7f1392.chunk.js.map",
+    "main.js": "/quarantine-hero/static/js/main.8f6b134e.chunk.js",
+    "main.js.map": "/quarantine-hero/static/js/main.8f6b134e.chunk.js.map",
     "runtime-main.js": "/quarantine-hero/static/js/runtime-main.b517a2e1.js",
     "runtime-main.js.map": "/quarantine-hero/static/js/runtime-main.b517a2e1.js.map",
     "static/js/2.7079dbe4.chunk.js": "/quarantine-hero/static/js/2.7079dbe4.chunk.js",
     "static/js/2.7079dbe4.chunk.js.map": "/quarantine-hero/static/js/2.7079dbe4.chunk.js.map",
     "index.html": "/quarantine-hero/index.html",
-    "precache-manifest.fb10e60a8f837685534fc0432f598cc6.js": "/quarantine-hero/precache-manifest.fb10e60a8f837685534fc0432f598cc6.js",
+    "precache-manifest.d61ae6e4490eacf133e24159c413bbaf.js": "/quarantine-hero/precache-manifest.d61ae6e4490eacf133e24159c413bbaf.js",
     "service-worker.js": "/quarantine-hero/service-worker.js",
     "static/css/main.103036a8.chunk.css.map": "/quarantine-hero/static/css/main.103036a8.chunk.css.map",
     "static/js/2.7079dbe4.chunk.js.LICENSE.txt": "/quarantine-hero/static/js/2.7079dbe4.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.b517a2e1.js",
     "static/js/2.7079dbe4.chunk.js",
     "static/css/main.103036a8.chunk.css",
-    "static/js/main.df7f1392.chunk.js"
+    "static/js/main.8f6b134e.chunk.js"
   ]
 }
