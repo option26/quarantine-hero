@@ -35,15 +35,15 @@ export default function OfferHelp () {
         setEntry(doc.data());
       }
     });
-/*
-// Create a GeoQuery based on a location
-    const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(40.7589, -73.9851), radius: 1000 });
+    /*
+    // Create a GeoQuery based on a location
+        const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(40.7589, -73.9851), radius: 1000 });
 
-// Get query (as Promise)
-    query.get().then((value) => {
-      // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-      //setEntry(value.docs[0].data());
-    });*/
+    // Get query (as Promise)
+        query.get().then((value) => {
+          // All GeoDocument returned by GeoQuery, like the GeoDocument added above
+          //setEntry(value.docs[0].data());
+        });*/
   };
 
   const handleSubmit = (evt) => {
@@ -62,6 +62,7 @@ export default function OfferHelp () {
 
   return (<form onSubmit={handleSubmit}>
       <div className="mt-4 p-1">
+        <label className="text-base text-gray-700">Anfrage</label>
         <Entry {...entry} showFullText/>
       </div>
       <div className="mt-4 p-1 w-full">
