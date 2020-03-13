@@ -14,6 +14,7 @@ const Signup = (props) => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [error, setError] = React.useState('');
     const {
         user,
         signInWithEmailAndPassword,
@@ -25,8 +26,9 @@ const Signup = (props) => {
     }
 
     const signInOrRegister = async () => {
-      const result = await createUserWithEmailAndPassword(email, password);
-      if(result.code === 'auth/email-already-in-use') await signInWithEmailAndPassword(email, password);
+      let result = await createUserWithEmailAndPassword(email, password);
+      if(result.code === 'auth/email-already-in-use') result = await signInWithEmailAndPassword(email, password);
+      if(result.code) setError(result.message);
     };
 
     return <form>
@@ -48,7 +50,8 @@ const Signup = (props) => {
                 id="password" type="password" placeholder="******************" value={password}
                 onChange={e => setPassword(e.target.value)}/>
         </div>
-        <div className="flex items-center justify-between">
+
+        <div className="flex items-center justify-between mb-6 ">
             <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
@@ -56,6 +59,9 @@ const Signup = (props) => {
                 Jetzt Registrieren
             </button>
         </div>
+      {error ? <div className="text-red-500">
+        {error}
+        </div> : ''}
     </form>;
 }
 
