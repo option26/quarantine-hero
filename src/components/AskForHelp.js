@@ -55,12 +55,14 @@ export default function AskForHelp () {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <PlacesAutocomplete onChange={setLocation} value={location} onSelect={handleSelect}>
+        <PlacesAutocomplete onChange={setLocation} value={location} onSelect={handleSelect} searchOptions={{
+         types: [ "(cities)"]
+        }}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
               <input required="required"
                 {...getInputProps({
-                  placeholder: 'Dein Standort...',
+                  placeholder: 'Deine Stadt...',
                   className: 'location-search-input appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
                 })}
               />

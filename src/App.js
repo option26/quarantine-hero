@@ -4,11 +4,11 @@ import Main from './components/Main.js';
 import OfferHelp from './components/OfferHelp.js';
 import FAQ from './components/FAQ.js';
 import Impressum from './components/Impressum.js';
-import Signup from "./signup/Signup";
-import AskForHelp from "./components/AskForHelp";
-import Overview from "./components/Overview";
+import Signup from './signup/Signup';
+import AskForHelp from './components/AskForHelp';
+import Overview from './components/Overview';
 import Success from './components/Success';
-import withFirebaseAuth from 'react-with-firebase-auth'
+import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseApp from 'firebase';
@@ -16,7 +16,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from 'react-router-dom';
 
 const firebaseAppAuth = firebaseApp.auth();
@@ -27,7 +27,7 @@ const providers = {
 function App (props) {
   const {
     user,
-    signOut
+    signOut,
   } = props;
 
   return (
@@ -41,7 +41,10 @@ function App (props) {
               <Link to="/impressum" className="ml-2 text-sm">Impressum</Link>
             </div>
             {user ?
-              (<div><span className='text-gray-700 text-sm'>{user.email}</span> <button className="bg-primary p-2 ml-4 text-white rounded text-sm">Logout</button></div>)
+              (<div>
+                <span className='text-gray-700 text-sm'>{user.email}</span>
+                <button className="bg-primary p-2 ml-4 text-white rounded text-sm" onClick={signOut}>Logout</button>
+              </div>)
               : null}
           </div>
           <Switch>
@@ -58,10 +61,10 @@ function App (props) {
               <div>Dashboard</div>
             </Route>
             <Route path="/faq">
-              <FAQ />
+              <FAQ/>
             </Route>
             <Route path="/impressum">
-              <Impressum />
+              <Impressum/>
             </Route>
             <Route path="/overview">
               <Overview/>
@@ -81,5 +84,5 @@ function App (props) {
 
 export default withFirebaseAuth({
   providers,
-  firebaseAppAuth
+  firebaseAppAuth,
 })(App);
