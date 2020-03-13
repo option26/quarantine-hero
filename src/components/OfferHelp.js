@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import fb from '../firebase';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,8 @@ export default function OfferHelp () {
   });
 
   let { id } = useParams();
+
+  const history = useHistory();
 
 // Create a GeoFirestore reference
   const geofirestore = new GeoFirestore(fb.store);
@@ -56,6 +58,9 @@ export default function OfferHelp () {
       email,
       timestamp: Date.now(),
     });
+
+    return history.push('/success-offer')
+
   };
 
   useEffect(getUserData, []);

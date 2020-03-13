@@ -12,6 +12,8 @@ import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseApp from 'firebase';
+import SuccessOffer from './components/SuccessOffer';
+
 import {
   HashRouter as Router,
   Switch,
@@ -71,6 +73,9 @@ function App (props) {
             </Route>
             <Route path="/success">
               <Success/>
+            </Route>
+            <Route path="/success-offer">
+              <SuccessOffer/>
             </Route>
             <Route path="/">
               <Main/>
