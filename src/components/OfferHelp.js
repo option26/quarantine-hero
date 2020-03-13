@@ -2,28 +2,28 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import fb from '../firebase';
 import { useParams } from 'react-router-dom';
-import { GeoCollectionReference, GeoFirestore, GeoQuery, GeoQuerySnapshot } from 'geofirestore';
+import { GeoFirestore } from 'geofirestore';
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');
-  const [mail, setMail] = useState('');
+  const [email, setEmail] = useState('');
   const [entry, setEntry] = useState({
-    id: 1,
-    location: 'München',
-    request: 'Brauche jemand, der für mich einkauft',
-    timestamp: Date.now(),
+    id: null,
+    location: null,
+    request: null,
+    timestamp: null,
   });
 
   let { id } = useParams();
 
-  const getUserData = () => {
-// Create a Firestore reference
-
 // Create a GeoFirestore reference
-    const geofirestore = new GeoFirestore(fb.store);
+  const geofirestore = new GeoFirestore(fb.store);
 
 // Create a GeoCollection reference
-    const geocollection = geofirestore.collection('ask-for-help');
+  const geocollection = geofirestore.collection('/ask-for-help');
+
+  const getUserData = () => {
+// Create a Firestore reference
 
 // Add a GeoDocument to a GeoCollection
     geocollection.doc(id).get().then(doc => {
@@ -48,6 +48,13 @@ export default function OfferHelp () {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
+    const collection = fb.store.collection(`/ask-for-help/${id}/offer-help`);
+
+    collection.add({
+      answer,
+      email,
+      timestamp: Date.now(),
+    });
   };
 
   useEffect(getUserData, []);
@@ -69,7 +76,7 @@ export default function OfferHelp () {
       </div>
       <div className="mt-4 p-1 w-full">
         <label className="text-base text-gray-700">Deine E-Mail</label>
-        <input className="border rounded border-gray-400 p-4 text-xl w-full" type="email" onChange={e => setMail(e.target.value)}
+        <input className="border rounded border-gray-400 p-4 text-xl w-full" type="email" onChange={e => setEmail(e.target.value)}
                placeholder="ich@helfer.de"/>
       </div>
       <div className="mt-4 m-1 w-full">
