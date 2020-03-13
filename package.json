@@ -26,7 +26,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "/quarantine-hero/",
   "eslintConfig": {
     "extends": "react-app"
   },
