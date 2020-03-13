@@ -70,7 +70,7 @@ export default function FAQ() {
                 bist, kannst du
                 das dem Anfragesteller mitteilen und zum Beispiel ein Attest erfragen.</p>
 
-            <h2 className="text-xl font-semibold mt-8">Wie können wir unterstützen? Da habe ich die Frage nicht ganz verstanden</h2>
+            <h2 className="text-xl font-semibold mt-8">Wie kann ich Quarantänehelden unterstützen?</h2>
 
             <p>Schau einfach mal, ob eine Person in deinem Umfeld Hilfe benötigt!</p>
 
