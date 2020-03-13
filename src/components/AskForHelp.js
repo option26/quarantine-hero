@@ -56,7 +56,8 @@ export default function AskForHelp () {
           Wo bist du?
         </label>
         <PlacesAutocomplete onChange={setLocation} value={location} onSelect={handleSelect} searchOptions={{
-         types: [ "(regions)"]
+         types: [ "(regions)"],
+          componentRestrictions: {country: ["de","at","ch"]},
         }}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
