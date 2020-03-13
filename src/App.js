@@ -10,6 +10,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Signup from "./signup/Signup";
+import AskForHelp from "./components/AskForHelp";
 
 function App () {
 
@@ -22,6 +23,9 @@ function App () {
             </Route>
             <Route path="/signup">
               <Signup/>
+            </Route>
+            <Route path="/ask-for-help">
+              <AskForHelp/>
             </Route>
             <Route path="/dashboard">
               <div>Dashboard</div>
