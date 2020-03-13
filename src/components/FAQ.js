@@ -80,6 +80,11 @@ export default function FAQ() {
                 Projekt ihren kleinen Beitrag
                 leisten und Menschen helfen möchten.</p>
 
-        </div>
+            <h2 className="text-xl font-semibold mt-8">Wie werden Daten verwendet?</h2>
+
+            <p>Wenn du eine Anfrage stellt, wird diese Öffentlich (ohne deine E-Mail) an alle Nutzer gezeigt.
+              Wenn Du eine Anfrage beantwortest, wird deine Antwort und deine E-Mail Adresse an den Anfragensteller geschickt.</p>
+
+      </div>
     );
 }
