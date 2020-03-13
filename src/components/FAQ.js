@@ -11,9 +11,8 @@ export default function FAQ() {
             <p>Auf der Plattform quarantänehelden.de kommen Menschen zusammen, die sich gegenseitig unterstützen. Hier
                 findest du Anfragen von Personen, die etwas benötigen, aber selbst ihr Zuhause oder ihren Quarantäne-Ort
                 nicht verlassen können. Du kannst dir Anfragen in deiner Nähe anzeigen lassen und diese beantworten. Wir
-                leiten deine Nachricht an den Anfragensteller weiter, der dann zu dir Kontakt aufnimmt. Dann könnt ihr
-                alle
-                weiteren Details zur Anfrage (was wird benötigt, wann und wo?) klären.</p>
+                leiten deine Nachricht an den/die Anfragensteller*in weiter, die dann zu dir Kontakt aufnehmen. Dann könnt ihr
+                alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) klären.</p>
 
             <h2 className="text-xl font-semibold mt-8">Welche Art von Anfragen kann ich stellen?</h2>
 
