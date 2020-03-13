@@ -8,12 +8,12 @@ export default function Main() {
     const [entries, setEntries] = useState([]);
 
     const collection = fb.store.collection('ask-for-help');
-    const getUserData = () => {
-        collection.get().then(value => {
-      console.log(value.docs);
-            setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
+    const query = collection.orderBy('d.timestamp', 'desc').limit(10);
 
-    });
+    const getUserData = () => {
+        query.get().then(value => {
+            setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
+        });
     };
     useEffect(getUserData, []);
 
