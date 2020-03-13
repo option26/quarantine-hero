@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/App.css';
 import Main from './components/Main.js';
 import OfferHelp from './components/OfferHelp.js';
+import Dashboard from './components/Dashboard.js';
 import FAQ from './components/FAQ.js';
 import Impressum from './components/Impressum.js';
 import Signup from './components/Signup';
@@ -39,6 +40,7 @@ function App (props) {
           <div className="mt-4 flex justify-between items-center">
             <div>
               <Link to="/" className="font-bold mr-2 text-sm">Home</Link>
+              {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null }
               <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>
               <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>
             </div>
@@ -60,7 +62,7 @@ function App (props) {
               <AskForHelp/>
             </Route>
             <Route path="/dashboard">
-              <div>Dashboard</div>
+              <Dashboard/>
             </Route>
             <Route path="/faq">
               <FAQ/>
