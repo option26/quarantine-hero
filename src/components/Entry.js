@@ -34,7 +34,7 @@ export default function Entry(props) {
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <span className="text-gray-500 inline-block text-right w-full text-xs font-open-sans">vor {date}</span>
       {fb.auth.currentUser && fb.auth.currentUser.uid  === props.uid ? <div>
-        <button className="btn-primary" onClick={handleDelete}>Deine Anfrage löschen.</button>
+        <button className="btn-primary btn-green" onClick={handleDelete}>Deine Anfrage löschen.</button>
       </div> : ''}
     </Link>);
 }
