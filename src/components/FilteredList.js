@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import fb from '../firebase';
-import { GeoFirestore } from 'geofirestore';
-import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
+import {GeoFirestore} from 'geofirestore';
+import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
 import withFirebaseAuth from "react-with-firebase-auth";
@@ -16,26 +16,20 @@ const NotifyMe = (props) => {
 
   const [email, setEmail] = useState('');
 
-  const geofirestore = new GeoFirestore(fb.store);
-  const offerHelpCollection = geofirestore.collection('/offer-help');
-
   const handleClick = async () => {
+    window.localStorage.setItem('emailForSignIn', email);
 
     await firebaseApp.auth().sendSignInLinkToEmail(email, {
-      url: 'http://localhost:3000/#/complete-offer-help',
+      url: 'http://localhost:3000/#/complete-offer-help?location='+location,
       handleCodeInApp: true,
     });
 
-    window.localStorage.setItem('emailForSignIn', email);
+    // TODO: Display to user
+    // TODO: Templates for email
+    // TODO: Show what will be entered in the dashboard
+    // TODO: Allow users to delete this
+    // TODO: If things get big don't always notify all users!
 
-    await offerHelpCollection.add({
-      // uid: fb.auth.currentUser.uid,
-      timestamp: Date.now(),
-      email,
-      // The coordinates field must be a GeoPoint!
-      coordinates: new fb.app.firestore.GeoPoint(10, 10),
-      location,
-    });
   };
 
   return (
@@ -54,7 +48,7 @@ const NotifyMe = (props) => {
   );
 };
 
-export default function FilteredList () {
+export default function FilteredList() {
 
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([{
@@ -67,7 +61,7 @@ export default function FilteredList () {
 
   const getUserData = () => {
     query.get().then(value => {
-      setEntries(value.docs.map(doc => ({ ...doc.data().d, id: doc.id })));
+      setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
     });
   };
 
@@ -83,8 +77,11 @@ export default function FilteredList () {
     setLocation(address);
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(coordinates =>  {
-        const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
+      .then(coordinates => {
+        const query = geocollection.near({
+          center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
+          radius: 30
+        });
         query.get().then((value) => {
           // All GeoDocument returned by GeoQuery, like the GeoDocument added above
           console.log(value.docs)
@@ -97,7 +94,7 @@ export default function FilteredList () {
 
   return (<div>
       <div className="py-3">
-        <LocationInput onChange={setLocation} value={location} onSelect={handleSelect} />
+        <LocationInput onChange={setLocation} value={location} onSelect={handleSelect}/>
       </div>
       <div className="py-3 w-full">
         {entries.length === 0 ? (!searchCompleted || location.length === 0 ?
