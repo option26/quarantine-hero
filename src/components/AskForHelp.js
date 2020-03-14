@@ -45,10 +45,6 @@ export default function AskForHelp () {
       .catch(error => console.error('Error', error));
   };
 
-  useEffect(() => {
-    console.log(location);
-  });
-
   if(!fb.auth.currentUser || !fb.auth.currentUser.email) {
     return <Redirect to="/signup"/>;
   }
