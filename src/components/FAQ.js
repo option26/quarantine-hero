@@ -80,7 +80,7 @@ export default function FAQ() {
             <h2 className="text-xl font-teaser mt-8">Wie kann ich Leuten helfen, die kein Internet haben?</h2>
             <p className="font-open-sans">Du kannst auch einen Aushang im Treppenhaus deiner Wohnung aufhängen. Eine Vorlage
               haben wir dir
-              <a href='/assets/aushang.pdf'> hier zum Download</a> bereitgestellt</p>
+              <a href='/assets/aushang.pdf' className="text-primary underline" download="/assets/aushang.pdf"> hier zum Download</a> bereitgestellt</p>
             <h2 className="text-xl font-teaser mt-8">Wer seid ihr?</h2>
 
             <p className="font-open-sans">Wir sind Andy, Florian, Henrike, Jakob, Julia, Keno, Nicolai und Philipp, eine Gruppe von Freunden, die mit diesem
