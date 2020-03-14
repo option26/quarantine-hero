@@ -9,3 +9,22 @@
 .btn-primary {
     @apply rounded p-4 bg-primary text-secondary w-full inline-block text-center font-bold;
 }
+
+.btn-green {
+    background-color: #87a544;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: 0;
+    @apply rounded py-2 pl-4 text-white text-center pr-8 relative;
+}
+
+.btn-green::after {
+    content: ">";
+    font-weight: bold;
+    font-size: 1.5em;
+    position: absolute;
+    top: 1px;
+    right: 12px;
+}

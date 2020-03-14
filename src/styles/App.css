@@ -30,10 +30,14 @@
     letter-spacing: 0;
 }
 
-
 .angle-cut-background {
     background: #f9f7f0;
     position: relative;
+}
+@media (min-width: 835px) {
+    .angle-cut-background {
+        background: white;
+    }
 }
 .angle-cut-background::before {
     position:absolute;
@@ -63,4 +67,11 @@
     border-color: #222 #222 transparent transparent;
     border-radius: 0px;
     z-index: 10;
+}
+.max-w-360 {
+    max-width: 360px;
+}
+
+.bg-kaki {
+    background-color: #f9f7f0;
 }
