@@ -1,16 +1,12 @@
 import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
-import * as firebase from 'firebase/app';
+import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import firebaseApp from 'firebase';
 import {Redirect} from "react-router-dom";
 import Footer from './Footer';
 import fb from '../firebase';
 
 const firebaseAppAuth = firebaseApp.auth();
-const providers = {
-    googleProvider: new firebase.auth.GoogleAuthProvider(),
-};
 
 const Signup = (props) => {
 
@@ -91,6 +87,6 @@ const Signup = (props) => {
 };
 
 export default withFirebaseAuth({
-    providers,
+    providers: [],
     firebaseAppAuth
 })(Signup);

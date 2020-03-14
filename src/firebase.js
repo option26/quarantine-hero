@@ -1,4 +1,4 @@
-import app from 'firebase/app';
+import * as app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/analytics';

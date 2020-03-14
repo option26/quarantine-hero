@@ -12,7 +12,6 @@ import Success from './components/Success';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseApp from 'firebase';
 import SuccessOffer from './components/SuccessOffer';
 import DSGVO from './components/DSGVO';
 import CookieConsent from 'react-cookie-consent';
@@ -25,7 +24,7 @@ import {
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
 
-const firebaseAppAuth = firebaseApp.auth();
+const firebaseAppAuth = firebase.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
