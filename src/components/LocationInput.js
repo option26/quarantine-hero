@@ -16,7 +16,7 @@ export default function LocationInput(props) {
               className: 'location-search-input appearance-none input-focus',
             })}
           />
-          <div className="absolute w-full shadow-xl">
+          <div className="absolute w-full shadow-xl z-10">
             {suggestions.map(suggestion => {
               const className = suggestion.active
                 ? 'p-2 suggestion-item--active'
