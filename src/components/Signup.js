@@ -18,7 +18,6 @@ const Signup = (props) => {
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
     const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
-    const [passwordResetError, setPasswordResetError] = React.useState(false);
 
     const {
         user,
@@ -81,7 +80,7 @@ const Signup = (props) => {
                 handleCodeInApp: false
             })
                 .then(() => setPasswordResetSuccess(true))
-                .catch((err) => setPasswordResetError(true));
+                .catch((err) => console.log(error));
         }}
                 className="btn-green w-full">
             Passwort zurücksetzen
@@ -89,7 +88,7 @@ const Signup = (props) => {
         {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!</div>}
         <Footer/>
     </div>;
-}
+};
 
 export default withFirebaseAuth({
     providers,

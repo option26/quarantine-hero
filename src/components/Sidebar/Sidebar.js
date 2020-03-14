@@ -1,4 +1,4 @@
-import {HashRouter as Router, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React from "react";
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from "@material-ui/core/Drawer";

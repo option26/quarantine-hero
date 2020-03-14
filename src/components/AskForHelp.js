@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
