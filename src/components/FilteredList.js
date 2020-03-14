@@ -8,7 +8,9 @@ import LocationInput from './LocationInput';
 export default function FilteredList () {
 
   const [location, setLocation] = useState('');
-  const [entries, setEntries] = useState([{}]);
+  const [entries, setEntries] = useState([{
+    id: "placeholder-id"
+  }]);
   const [searchCompleted, setSearchCompleted] = useState(false);
 
   const collection = fb.store.collection('ask-for-help');
