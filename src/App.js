@@ -43,10 +43,10 @@ function App (props) {
       <div className="phone-width bg-white shadow-xl overflow-hidden md:px-16 min-h-screen">
         <Router>
           <div style={{zIndex: 101}}className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-end items-center pr-5">
-            <MenuIcon style={{fontSize: '40px'}} className="fixed text-gray-600" onClick={() => setMenuOpen(true)}></MenuIcon>
+            <MenuIcon style={{fontSize: '40px'}} className="fixed text-gray-600" onClick={() => setMenuOpen(true)}>
+            </MenuIcon>
           </div>
-
-          <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)}/>
+          <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut}/>
           {/*<div className="mt-4 flex justify-between items-center sm:flex-col">*/}
           {/*  <div>*/}
           {/*    <Link to="/" className="font-bold mr-2 text-sm">Home</Link>*/}

@@ -3,7 +3,9 @@ import React from "react";
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from "@material-ui/core/Drawer";
 
-export default function Sidebar({open = true, onClose}) {
+export default function Sidebar(props) {
+
+    const {open = true, onClose, signOut, isLoggedIn} = props;
 
     if (!open) {
         return null;
@@ -23,7 +25,6 @@ export default function Sidebar({open = true, onClose}) {
     );
 
     const _onClose = () => {
-        console.log("Hello World");
         onClose();
     };
 
@@ -48,10 +49,14 @@ export default function Sidebar({open = true, onClose}) {
             <MenuItem to="/">Home</MenuItem>
             <MenuItem to="/ask-for-help">Ich brauche Hilfe</MenuItem>
             <MenuItem to="/overview">Ich möchte helfen</MenuItem>
-            <MenuItem to="/dashboard">Deine Übersicht</MenuItem>
+            {props.isLoggedIn && <MenuItem to="/dashboard">Deine Übersicht</MenuItem>}
             <MenuItem to="/faq">FAQs</MenuItem>
             <MenuItem to="/impressum">Impressum</MenuItem>
             <MenuItem to="/dsgvo">Datenschutz</MenuItem>
+            {props.isLoggedIn && <li className="pt-6"><Link to="/" onClick={() => {
+                props.signOut();
+                _onClose();
+            }}>Abmelden</Link></li>}
         </ul>
     );
 
@@ -60,7 +65,7 @@ export default function Sidebar({open = true, onClose}) {
         <Drawer open={open} onClose={_onClose} anchor="right">
             <CloseIcon style={{position: 'absolute', top: '20', right: '20', fontSize: '30px'}}
                        onClick={() => onClose()}/>
-            <Menu/>
+            <Menu isLoggedIn={isLoggedIn} signOut={signOut}/>
         </Drawer>
 
     )
