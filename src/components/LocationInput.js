@@ -6,7 +6,7 @@ export default function LocationInput(props) {
   return (
     <PlacesAutocomplete onChange={props.onChange} value={props.value} onSelect={props.onSelect}  searchOptions={{
       types: [ "(regions)"],
-      componentRestrictions: {country: ["de","at","ch"]},
+      componentRestrictions: {country: ["de","at","ch", "it"]},
     }}>
       {({ getInputProps, suggestions, getSuggestionItemProps }) => (
         <div className="relative">
