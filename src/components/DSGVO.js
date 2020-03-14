@@ -104,7 +104,7 @@ export default function DSGVO () {
         <p>80807 München</p>
         <p>Deutschland</p>
         <p>Tel.: 08935627565</p>
-        <p>E-Mail: quarantaenehelden@keno.digital</p>
+        <p>E-Mail: help@quarantaenehelden.org</p>
         <p>Website: www.quarantaenehelden.org</p>
 
         <h4 className="font-teaser my-4">3. Cookies</h4>

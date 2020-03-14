@@ -13,7 +13,7 @@ export default function Impressum () {
             Florian Schmidt<br/>
           </p><p><strong>Kontakt:</strong> <br/>
             Telefon: 089-35627565<br/>
-            E-Mail: quarantänehelden@keno.digital</p><p>
+            E-Mail: help@quarantaenehelden.org</p><p>
             <strong>Haftungsausschluss: </strong><br></br><strong>Haftung für Links</strong><br/>
             Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
             fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
