@@ -95,9 +95,6 @@ function App (props) {
           cookieName="myAwesomeCookieName2"
           style={{ background: '#2B373B' }}
           buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-          onAccept={({ acceptedByScrolling }) => {
-            fb.app.analytics();
-          }}
           expires={150}>
           Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
         </CookieConsent>

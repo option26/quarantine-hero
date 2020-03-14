@@ -11,6 +11,7 @@ class Firebase {
     this.app = app;
     this.auth = app.auth();
     this.db = app.database();
+    this.analytics = app.analytics();
     this.store = app.firestore();
   }
 }
