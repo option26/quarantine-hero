@@ -9,6 +9,12 @@
     font-size: 29px;
 }
 
+.font-exo2 {
+    font-family: 'Exo 2', sans-serif;
+}
+
+
+
 .font-teaser {
     font-family: 'Exo 2', sans-serif;
     font-weight: 600;
@@ -75,4 +81,6 @@
 .bg-kaki {
     background-color: #f9f7f0;
 }
-
+.logo-margin {
+    margin-left: -30px;
+}

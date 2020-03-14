@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import LocationInput from './LocationInput';
 import Footer from './Footer';
 
 export default function AskForHelp () {
-
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
   const [coordinates, setCoodinates] = useState({
@@ -49,6 +48,11 @@ export default function AskForHelp () {
   useEffect(() => {
     console.log(location);
   });
+
+  if(!fb.auth.currentUser || !fb.auth.currentUser.email) {
+    return <Redirect to="/signup"/>;
+  }
+
 
   return (<form onSubmit={handleSubmit} className="p-4">
       <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten. Weniger ist mehr …</h1>

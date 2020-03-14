@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
 import Entry from "./Entry";
+import { Redirect } from 'react-router-dom';
 
 export default function Dashboard() {
 
@@ -20,6 +21,10 @@ export default function Dashboard() {
 
 
   useEffect(getUserData, []);
+
+  if(!fb.auth.currentUser || !fb.auth.currentUser.email) {
+    return <Redirect to="/signup"/>;
+  }
 
   return (<div>
     <h2 className="text-2xl">Deine Hilfegesuche</h2>
