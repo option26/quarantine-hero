@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from "./Footer";
 
 export default function DSGVO () {
 
@@ -438,6 +439,7 @@ export default function DSGVO () {
           Christian Solmecke</a> erstellt.
         </p>
       </div>
+      <Footer/>
     </div>
     );
     };

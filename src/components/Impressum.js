@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from "./Footer";
 
 export default function Impressum () {
 
@@ -54,6 +55,7 @@ export default function Impressum () {
           Impressum vom <a href="https://www.impressum-generator.de">Impressum Generator</a> der <a
             href="https://www.kanzlei-hasselbach.de/standorte/bonn/">Kanzlei Hasselbach, Bonn</a></div>
       </div>
+        <Footer/>
     </div>
   );
 }
