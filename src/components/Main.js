@@ -9,7 +9,7 @@ export default function Main () {
   return (
     <div className="flex items-center flex-col">
       <div className="phone-width">
-        <div className="font-main flex text-white">
+        <div className="font-main flex text-white mt-16">
           <img src={(require('../assets/logo_main.png'))}/>
         </div>
         <div className="flex text-center font-teaser justify-center w-full md:my-10">

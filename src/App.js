@@ -16,7 +16,7 @@ import firebaseApp from 'firebase';
 import SuccessOffer from './components/SuccessOffer';
 import DSGVO from './components/DSGVO';
 import CookieConsent from 'react-cookie-consent';
-
+import MenuIcon from '@material-ui/icons/Menu';
 import {
   HashRouter as Router,
   Switch,
@@ -42,23 +42,26 @@ function App (props) {
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <div className="phone-width bg-white shadow-xl overflow-hidden md:px-16 min-h-screen">
         <Router>
-          <div className="w-10 h-10 m-5 p-5 rounded fixed top-0 right-0 bg-red-900 flex justify-center items-center text-white" onClick={() => setMenuOpen(true)}>MENU</div>
-          <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)}/>
-          <div className="mt-4 flex justify-between items-center sm:flex-col">
-            <div>
-              <Link to="/" className="font-bold mr-2 text-sm">Home</Link>
-              {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null}
-              <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>
-              <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>
-              <Link to="/dsgvo" className="font-bold ml-2 text-sm">Datenschutz</Link>
-            </div>
-            {user ?
-              (<div>
-                <span className='text-gray-700 text-sm'>{user.email}</span>
-                <button className="bg-primary p-2 ml-4 text-white rounded text-sm" onClick={signOut}>Logout</button>
-              </div>)
-              : null}
+          <div style={{zIndex: 101}}className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-end items-center pr-5">
+            <MenuIcon style={{fontSize: '40px'}} className="fixed" onClick={() => setMenuOpen(true)}></MenuIcon>
           </div>
+
+          <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)}/>
+          {/*<div className="mt-4 flex justify-between items-center sm:flex-col">*/}
+          {/*  <div>*/}
+          {/*    <Link to="/" className="font-bold mr-2 text-sm">Home</Link>*/}
+          {/*    {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null}*/}
+          {/*    <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>*/}
+          {/*    <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>*/}
+          {/*    <Link to="/dsgvo" className="font-bold ml-2 text-sm">Datenschutz</Link>*/}
+          {/*  </div>*/}
+          {/*  {user ?*/}
+          {/*    (<div>*/}
+          {/*      <span className='text-gray-700 text-sm'>{user.email}</span>*/}
+          {/*      <button className="bg-primary p-2 ml-4 text-white rounded text-sm" onClick={signOut}>Logout</button>*/}
+          {/*    </div>)*/}
+          {/*    : null}*/}
+          {/*</div>*/}
           <Switch>
             <Route path="/offer-help/:id">
               <OfferHelp/>
