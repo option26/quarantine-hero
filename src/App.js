@@ -44,22 +44,7 @@ function App (props) {
       <div className="phone-width bg-white shadow-xl min-h-screen">
         <Router>
 
-          <DesktopMenu />
-          {/*<div className="mt-4 flex justify-between items-center sm:flex-col">*/}
-          {/*  <div>*/}
-          {/*    <Link to="/" className="font-bold mr-2 text-sm">Home</Link>*/}
-          {/*    {user ? <Link to="/dashboard" className="font-bold mr-2 text-sm">Deine Übersicht</Link> : null}*/}
-          {/*    <Link to="/faq" className="font-bold mx-2 text-sm">FAQs</Link>*/}
-          {/*    <Link to="/impressum" className="font-bold ml-2 text-sm">Impressum</Link>*/}
-          {/*    <Link to="/dsgvo" className="font-bold ml-2 text-sm">Datenschutz</Link>*/}
-          {/*  </div>*/}
-          {/*  {user ?*/}
-          {/*    (<div>*/}
-          {/*      <span className='text-gray-700 text-sm'>{user.email}</span>*/}
-          {/*      <button className="bg-primary p-2 ml-4 text-white rounded text-sm" onClick={signOut}>Logout</button>*/}
-          {/*    </div>)*/}
-          {/*    : null}*/}
-          {/*</div>*/}
+          <DesktopMenu isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden ">
             <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-end items-center pr-5">
               <MenuIcon style={{ fontSize: '40px' }} className="fixed text-gray-600" onClick={() => setMenuOpen(true)}/>

@@ -27,7 +27,7 @@ export default function Dashboard() {
   }
 
   return (<div>
-    <h2 className="text-2xl">Deine Hilfegesuche</h2>
+    <h2 className="text-2xl font-teaser mt-8">Deine Hilfegesuche</h2>
     {entries.map(entry => (<Entry {...entry} key={entry.id} owner={true}/>))}
   </div>);
 }

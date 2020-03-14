@@ -25,7 +25,7 @@ export default function Main () {
           <Link to="/signup" className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1"><img
             className="w-8" src={require('../assets/need_help.png')}/>ICH BRAUCHE HILFE</Link>
         </div>
-        <p className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
+        <div className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
           <p className="mb-4 md:leading-7 md:text-justify flex-1">
             Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher Quarantäne</strong>. Wenn ihr diesen Menschen
             helfen wollt, könnt
@@ -39,7 +39,7 @@ export default function Main () {
             das hier euren Mitmenschen mitteilen!
           </p>
 
-        </p>
+        </div>
         <div className="flex justify-center w-full">
           <div className="arrow-down">
           </div>

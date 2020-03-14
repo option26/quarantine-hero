@@ -55,7 +55,7 @@ export default function AskForHelp () {
 
 
   return (<form onSubmit={handleSubmit} className="p-4">
-      <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten. Weniger ist mehr …</h1>
+      <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten.</h1>
       <div className="font-open-sans">
         Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
         Alles weitere könnt ihr per E-Mail besprechen.
