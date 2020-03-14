@@ -440,6 +440,5 @@ export default function DSGVO () {
         </p>
       </div>
       <Footer/>
-    </div>
-    );
+    </div>);
     };
