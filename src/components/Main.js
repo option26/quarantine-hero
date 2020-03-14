@@ -1,4 +1,4 @@
-import { HashRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import '../styles/App.css';
 import FilteredList from './FilteredList';
@@ -26,14 +26,14 @@ export default function Main () {
             className="w-8" src={require('../assets/need_help.png')}/>ICH BRAUCHE HILFE</Link>
         </div>
         <p className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
-          <p className="mb-4 lg:leading-7 md:text-justify flex-1">
+          <p className="mb-4 md:leading-7 md:text-justify flex-1">
             Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher Quarantäne</strong>. Wenn ihr diesen Menschen
             helfen wollt, könnt
             ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!
           </p>
-          <div className="m-4">
+          <div className="md:m-4">
           </div>
-          <p className=" lg:leading-7 md:text-justify flex-1">
+          <p className=" md:leading-7 md:text-justify flex-1">
             Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung
             bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund benötigt könnt ihr
             das hier euren Mitmenschen mitteilen!

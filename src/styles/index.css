@@ -26,5 +26,18 @@
     font-size: 1.5em;
     position: absolute;
     top: 1px;
-    right: 12px;
+    margin-left: 10px;
+}
+.input-focus {
+    border-width: 1px;
+    margin-bottom: 2px;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    @apply border rounded p-3 leading-tight w-full;
+}
+
+.input-focus:focus {
+    border-bottom: 3px solid #87a544;
+    margin-bottom: 0;
+    outline: none;
 }

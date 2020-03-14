@@ -61,7 +61,7 @@ const Signup = (props) => {
       </div> : ''}
         <div className="flex justify-end my-6">
             <button
-                className="btn-green"
+                className="btn-green w-full"
                 type="submit">
                 Jetzt Registrieren
             </button>

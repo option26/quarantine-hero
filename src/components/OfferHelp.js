@@ -4,6 +4,7 @@ import fb from '../firebase';
 import { useParams } from 'react-router-dom';
 import { GeoFirestore } from 'geofirestore';
 import Entry from './Entry';
+import Footer from './Footer';
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');
@@ -26,9 +27,6 @@ export default function OfferHelp () {
   const geocollection = geofirestore.collection('/ask-for-help');
 
   const getUserData = () => {
-// Create a Firestore reference
-
-// Add a GeoDocument to a GeoCollection
     geocollection.doc(id).get().then(doc => {
       if (!doc.exists) {
         console.log('No such document!');
@@ -37,15 +35,6 @@ export default function OfferHelp () {
         setEntry({ id: doc.id, ...doc.data() });
       }
     });
-    /*
-    // Create a GeoQuery based on a location
-        const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(40.7589, -73.9851), radius: 1000 });
-
-    // Get query (as Promise)
-        query.get().then((value) => {
-          // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-          //setEntry(value.docs[0].data());
-        });*/
   };
 
   const handleSubmit = (evt) => {
@@ -65,27 +54,28 @@ export default function OfferHelp () {
 
   useEffect(getUserData, []);
 
-  return (<form onSubmit={handleSubmit}>
-      <div className="mt-4 p-1">
-        <label className="text-base text-gray-700">Anfrage</label>
-        <Entry {...entry} showFullText/>
+  return (<form onSubmit={handleSubmit} className="p-4">
+      <div className="mt-4 p-1 font-teaser">
+        Antworte auf die Anfrage und beschreibe wie und wann du helfen kannst.
       </div>
+      <Entry {...entry} showFullText/>
       <div className="mt-4 p-1 w-full">
-        <label className="text-base text-gray-700">Deine Antwort</label>
-        <textarea className="border rounded border-gray-400 p-4 text-xl w-full" onChange={e => setAnswer(e.target.value)}
+        <label className="text-gray-700 text-sm font-open-sans">Deine Antwort</label>
+        <textarea className="input-focus" onChange={e => setAnswer(e.target.value)}
                   placeholder="Ich kann helfen!"/>
       </div>
-      <div className="mt-4 p-1 w-full">
-        <label className="text-base text-gray-700">Deine E-Mail</label>
-        <input className="border rounded border-gray-400 p-4 text-xl w-full" type="email" onChange={e => setEmail(e.target.value)}
+      <div className="mt-1 w-full">
+        <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
+        <input className="input-focus" type="email" onChange={e => setEmail(e.target.value)}
                placeholder="ich@helfer.de"/>
       </div>
       <div className="mt-4 m-1 w-full">
         Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.
       </div>
       <div className="mt-4 m-1 w-full">
-        <button type="submit" className="btn-primary">Senden</button>
+        <button type="submit" className="btn-green w-full">NACHRICHT ABSCHICKEN</button>
       </div>
+      <Footer/>
     </form>
   );
 }

@@ -76,12 +76,3 @@
     background-color: #f9f7f0;
 }
 
-.input-focus {
-    border-width: 1px;
-    margin-bottom: 2px;
-}
-
-.input-focus:focus {
-    border-bottom: 3px solid #87a544;
-    margin-bottom: 0;
-}
