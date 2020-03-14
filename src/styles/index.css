@@ -28,6 +28,10 @@
     top: 1px;
     margin-left: 10px;
 }
+.btn-green:hover {
+    opacity: 0.75;
+}
+
 .input-focus {
     border-width: 1px;
     margin-bottom: 2px;
