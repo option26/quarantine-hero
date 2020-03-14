@@ -9,10 +9,10 @@ export default function Main () {
   return (
     <div className="flex items-center flex-col">
       <div className="phone-width">
-        <div className="font-main flex md:hidden text-white mt-16">
+        <div className="font-main flex md:hidden text-white ">
           <img className="logo-margin" src={(require('../assets/logo.svg'))}/>
         </div>
-        <div className="flex text-center font-teaser justify-center w-full md:my-10">
+        <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
           Wir sind Menschen.<br/>
           In Zeiten der Not helfen wir uns.<br/>
           Sei ein Teil davon.<br/>

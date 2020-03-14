@@ -45,47 +45,53 @@ function App (props) {
         <Router>
 
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
-          <div className="md:px-16 overflow-hidden ">
-            <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-end items-center pr-5">
-              <MenuIcon style={{ fontSize: '40px' }} className="fixed text-gray-600" onClick={() => setMenuOpen(true)}/>
+          <div className="md:px-16 overflow-hidden">
+            <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
+              {/* <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>QuaratäneHelden</Link>  */}
+              <div></div>
+              <div>
+                <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)}/>
+              </div>
             </div>
 
             <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut}/>
-            <Switch >
-              <Route path="/offer-help/:id">
-                <OfferHelp/>
-              </Route>
-              <Route path="/signup">
-                <Signup/>
-              </Route>
-              <Route path="/ask-for-help">
-                <AskForHelp/>
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard/>
-              </Route>
-              <Route path="/faq">
-                <FAQ/>
-              </Route>
-              <Route path="/impressum">
-                <Impressum/>
-              </Route>
-              <Route path="/overview">
-                <Overview/>
-              </Route>
-              <Route path="/success">
-                <Success/>
-              </Route>
-              <Route path="/success-offer">
-                <SuccessOffer/>
-              </Route>
-              <Route path="/dsgvo">
-                <DSGVO/>
-              </Route>
-              <Route path="/">
-                <Main/>
-              </Route>
-            </Switch>
+            <div className="mt-20 md:mt-0">
+              <Switch >
+                <Route path="/offer-help/:id">
+                  <OfferHelp/>
+                </Route>
+                <Route path="/signup">
+                  <Signup/>
+                </Route>
+                <Route path="/ask-for-help">
+                  <AskForHelp/>
+                </Route>
+                <Route path="/dashboard">
+                  <Dashboard/>
+                </Route>
+                <Route path="/faq">
+                  <FAQ/>
+                </Route>
+                <Route path="/impressum">
+                  <Impressum/>
+                </Route>
+                <Route path="/overview">
+                  <Overview/>
+                </Route>
+                <Route path="/success">
+                  <Success/>
+                </Route>
+                <Route path="/success-offer">
+                  <SuccessOffer/>
+                </Route>
+                <Route path="/dsgvo">
+                  <DSGVO/>
+                </Route>
+                <Route path="/">
+                  <Main/>
+                </Route>
+              </Switch>
+            </div>
           </div>
         </Router>
       </div>
