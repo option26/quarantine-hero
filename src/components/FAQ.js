@@ -29,9 +29,6 @@ export default function FAQ() {
 
           <p className="font-open-sans">Diese Plattform funktioniert auf Vertrauensbasis. Quarantänehelden kann für die eingestellten Anfragen keine Haftung übernehmen. Bitte sprecht euch vorher gut ab und entscheidet selbst, ob ihr eine Anfrage bearbeiten wollt. Ihr könnt zum Beispiel eure Telefonnummern tauschen. Telefonisch können Absprachen besser getroffen werden. Um Missbrauch zu verhindern, appellieren wir an euren Menschenverstand und eure Ehrlichkeit.</p>
 
-
-
-
             <h2 className="text-xl font-teaser mt-8">Wer kann meine Hilfeanfrage sehen?</h2>
 
             <p className="font-open-sans">Deine Anfrage und ein ungefährer Ort sind öffentlich einsehbar. Dein Name und deine Emailadresse sind

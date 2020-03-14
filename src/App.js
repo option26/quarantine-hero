@@ -10,8 +10,7 @@ import AskForHelp from './components/AskForHelp';
 import Overview from './components/Overview';
 import Success from './components/Success';
 import withFirebaseAuth from 'react-with-firebase-auth';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import fb from './firebase';
 import SuccessOffer from './components/SuccessOffer';
 import DSGVO from './components/DSGVO';
 import CookieConsent from 'react-cookie-consent';
@@ -24,11 +23,6 @@ import {
 } from 'react-router-dom';
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
-
-const firebaseAppAuth = firebase.auth();
-const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider(),
-};
 
 function App (props) {
   const {
@@ -101,6 +95,9 @@ function App (props) {
           cookieName="myAwesomeCookieName2"
           style={{ background: '#2B373B' }}
           buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+          onAccept={({ acceptedByScrolling }) => {
+            fb.app.analytics();
+          }}
           expires={150}>
           Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
         </CookieConsent>
@@ -109,6 +106,6 @@ function App (props) {
 }
 
 export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth,
+  providers: [],
+  firebaseAppAuth: fb.auth,
 })(App);
