@@ -27,7 +27,11 @@ export default function Dashboard() {
   }
 
   return (<div>
-    <h2 className="text-2xl font-teaser mt-8">Deine Hilfegesuche</h2>
-    {entries.map(entry => (<Entry {...entry} key={entry.id} owner={true}/>))}
+    <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
+
+    {entries.length === 0
+      ? <div className="font-open-sans">Du hast keine Hilfegesuche eingestellt.</div>
+      : entries.map(entry => (<Entry {...entry} key={entry.id} owner={true}/>))}
+
   </div>);
 }
