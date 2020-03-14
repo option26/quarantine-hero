@@ -27,7 +27,40 @@
 
 .font-open-sans {
     font-family: 'OpenSans', sans-serif;
-    font-size: 16px;
     letter-spacing: 0;
-    line-height: 27px;
+}
+
+
+.angle-cut-background {
+    background: #f9f7f0;
+    position: relative;
+}
+.angle-cut-background::before {
+    position:absolute;
+    content: " ";
+    display:block;
+    left:0;
+    top:0;
+    width:100%;
+    border-style: solid;
+    border-width: 30px 100vw 0 0;
+    border-color: white transparent transparent transparent;
+}
+.arrow-down {
+    position: relative;
+}
+.arrow-down::before {
+    content: " ";
+    transform: rotate(135deg);
+    border-style: solid;
+    position: absolute;
+    left: -15px;
+    top: -10px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    border-width: 5px 5px 0 0;
+    border-color: #222 #222 transparent transparent;
+    border-radius: 0px;
+    z-index: 10;
 }

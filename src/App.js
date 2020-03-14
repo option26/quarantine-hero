@@ -39,8 +39,7 @@ function App (props) {
   const [menuOpen, setMenuOpen] = React.useState(true);
 
   return (
-    <div className="flex justify-center min-h-screen">
-      <div className="phone-width">
+    <div className="flex justify-center min-h-screen flex-col">
         <Router>
           <div className="w-10 h-10 m-5 p-5 rounded fixed top-0 right-0 bg-red-900 flex justify-center items-center text-white" onClick={() => setMenuOpen(true)}>MENU</div>
           <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)}/>
@@ -105,7 +104,6 @@ function App (props) {
           Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
         </CookieConsent>
       </div>
-    </div>
   );
 }
 
