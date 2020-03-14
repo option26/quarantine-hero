@@ -29,7 +29,7 @@ export default function Entry(props) {
     };
 
     return (deleted ? false : <Link to={`/offer-help/${props.id}`}
-                  className="bg-white px-4 py-2 rounded w-full my-3 text-xl block" key={id} style={{boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.1), 0 0 5px 0 rgba(0, 0, 0, 0.1)'}}>
+                  className="bg-white px-4 py-2 rounded w-full my-3 text-xl block entry" key={id}>
       <span className="text-xs font-open-sans text-gray-800 mt-2">Jemand in <span className="font-bold">{location}</span> braucht Hilfe!</span>
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <span className="text-gray-500 inline-block text-right w-full text-xs font-open-sans">vor {date}</span>
