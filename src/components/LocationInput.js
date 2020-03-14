@@ -10,10 +10,10 @@ export default function LocationInput(props) {
     }}>
       {({ getInputProps, suggestions, getSuggestionItemProps }) => (
         <div className="relative">
-          <input
+          <input required="required"
             {...getInputProps({
-              placeholder: 'Deine Stadt...',
-              className: 'location-search-input appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+              placeholder: 'Deine Postleitzahl oder Nachbarschaft...',
+              className: 'location-search-input appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus',
             })}
           />
           <div className="absolute w-full shadow-xl">

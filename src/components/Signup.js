@@ -27,13 +27,14 @@ const Signup = (props) => {
     }
 
     const signInOrRegister = async e => {
+      console.log("ell")
       e.preventDefault();
       let result = await createUserWithEmailAndPassword(email, password);
       if(result.code === 'auth/email-already-in-use') result = await signInWithEmailAndPassword(email, password);
       if(result.code) setError(result.message);
     };
 
-    return <form className="p-4 mt-8">
+    return <form className="p-4 mt-8" onSubmit={signInOrRegister}>
         <div className="mb-4">
           <div className="font-teaser mb-6">
             Registriere dich mit deiner E-Mail und einem Passwort um eine Hilfe-Anfrage zu posten.
@@ -61,8 +62,7 @@ const Signup = (props) => {
         <div className="flex justify-end my-6">
             <button
                 className="btn-green"
-                type="submit"
-                onSubmit={signInOrRegister}>
+                type="submit">
                 Jetzt Registrieren
             </button>
         </div>
