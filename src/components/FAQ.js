@@ -17,7 +17,7 @@ export default function FAQ() {
             <h2 className="text-xl font-teaser mt-8">Welche Art von Anfragen kann ich stellen?</h2>
 
             <p className="font-open-sans">Prinzipiell können alle Anfragen gestellt werden, bei denen Hilfe von außen benötigt wird. Das kann ein
-                Einkauf der nötigsten Lebensmittel, ein Botengang, eine Erledigung oder das Gassigehen mit dem Hund
+                Einkauf der nötigsten Lebensmittel, ein Botengang oder eine Erledigung
                 sein.</p>
 
         <h2 className="text-xl font-teaser mt-8">Wie wird für den Einkauf bezahlt?</h2>
