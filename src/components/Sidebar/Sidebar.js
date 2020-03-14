@@ -29,7 +29,7 @@ export default function Sidebar(props) {
     };
 
     const MenuItem = (props) => {
-        return <li className="pt-6">
+        return <li className="pt-6 hover:opacity-75">
             <Link onClick={_onClose} to={props.to}>{props.children}</Link>
         </li>
     };

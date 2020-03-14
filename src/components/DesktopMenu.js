@@ -4,7 +4,7 @@ import React from 'react';
 export default function DesktopMenu (props) {
 
   const MenuItem = (props) => {
-    return <li className="mr-6">
+    return <li className="mr-6 hover:opacity-75">
       <Link to={props.to} onClick={props.onClick}>{props.children}</Link>
     </li>;
   };
