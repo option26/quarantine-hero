@@ -48,8 +48,10 @@ export default function FilteredList () {
       <div className="py-3">
         <LocationInput onChange={setLocation} value={location} onSelect={handleSelect} />
       </div>
-      <div className="py-3">
-        {entries.length === 0 ? (!searchCompleted || location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
+      <div className="py-3 w-full">
+        {entries.length === 0 ? (!searchCompleted || location.length === 0 ?
+          <span>Bitte gib deinen Standort ein.</span> :
+          <span className="my-5 font-open-sans text-gray-800">In {location} gibt es aktuell keine Anfragen.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );

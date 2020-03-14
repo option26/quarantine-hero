@@ -5,28 +5,28 @@ export default function DSGVO () {
   return (
     <div className="mt-4">
       <div className='impressum'>
-        <h4 className="text-3xl">Datenschutzerklärung</h4>
+        <h4 className="font-teaser my-4">Datenschutzerklärung</h4>
 
         <p>Wir freuen uns sehr über Ihr Interesse an unserem Unternehmen. Datenschutz hat einen besonders hohen Stellenwert für die Geschäftsleitung
-          der Demo. Eine Nutzung der Internetseiten der Demo ist grundsätzlich ohne jede Angabe personenbezogener Daten möglich. Sofern eine
+          der QuarantäneHelden. Eine Nutzung der Internetseiten der QuarantäneHelden ist grundsätzlich ohne jede Angabe personenbezogener Daten möglich. Sofern eine
           betroffene Person besondere Services unseres Unternehmens über unsere Internetseite in Anspruch nehmen möchte, könnte jedoch eine
           Verarbeitung personenbezogener Daten erforderlich werden. Ist die Verarbeitung personenbezogener Daten erforderlich und besteht für eine
           solche Verarbeitung keine gesetzliche Grundlage, holen wir generell eine Einwilligung der betroffenen Person ein.</p>
 
         <p>Die Verarbeitung personenbezogener Daten, beispielsweise des Namens, der Anschrift, E-Mail-Adresse oder Telefonnummer einer betroffenen
-          Person, erfolgt stets im Einklang mit der Datenschutz-Grundverordnung und in Übereinstimmung mit den für die Demo geltenden
+          Person, erfolgt stets im Einklang mit der Datenschutz-Grundverordnung und in Übereinstimmung mit den für die QuarantäneHelden geltenden
           landesspezifischen Datenschutzbestimmungen. Mittels dieser Datenschutzerklärung möchte unser Unternehmen die Öffentlichkeit über Art, Umfang
           und Zweck der von uns erhobenen, genutzten und verarbeiteten personenbezogenen Daten informieren. Ferner werden betroffene Personen mittels
           dieser Datenschutzerklärung über die ihnen zustehenden Rechte aufgeklärt.</p>
 
-        <p>Die Demo hat als für die Verarbeitung Verantwortlicher zahlreiche technische und organisatorische Maßnahmen umgesetzt, um einen möglichst
+        <p>Die QuarantäneHelden hat als für die Verarbeitung Verantwortlicher zahlreiche technische und organisatorische Maßnahmen umgesetzt, um einen möglichst
           lückenlosen Schutz der über diese Internetseite verarbeiteten personenbezogenen Daten sicherzustellen. Dennoch können Internetbasierte
           Datenübertragungen grundsätzlich Sicherheitslücken aufweisen, sodass ein absoluter Schutz nicht gewährleistet werden kann. Aus diesem Grund
           steht es jeder betroffenen Person frei, personenbezogene Daten auch auf alternativen Wegen, beispielsweise telefonisch, an uns zu
           übermitteln.</p>
 
-        <h4>1. Begriffsbestimmungen</h4>
-        <p>Die Datenschutzerklärung der Demo beruht auf den Begrifflichkeiten, die durch den Europäischen Richtlinien- und Verordnungsgeber beim
+        <h4 className="font-teaser my-4">1. Begriffsbestimmungen</h4>
+        <p>Die Datenschutzerklärung der QuarantäneHelden beruht auf den Begrifflichkeiten, die durch den Europäischen Richtlinien- und Verordnungsgeber beim
           Erlass der Datenschutz-Grundverordnung (DS-GVO) verwendet wurden. Unsere Datenschutzerklärung soll sowohl für die Öffentlichkeit als auch
           für unsere Kunden und Geschäftspartner einfach lesbar und verständlich sein. Um dies zu gewährleisten, möchten wir vorab die verwendeten
           Begrifflichkeiten erläutern.</p>
@@ -34,69 +34,69 @@ export default function DSGVO () {
         <p>Wir verwenden in dieser Datenschutzerklärung unter anderem die folgenden Begriffe:</p>
 
         <ul className="list-none">
-          <li><h4>a) personenbezogene Daten</h4>
+          <li><h4 className="font-teaser my-4">a) personenbezogene Daten</h4>
             <p>Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person (im Folgenden
               „betroffene Person“) beziehen. Als identifizierbar wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels
               Zuordnung zu einer Kennung wie einem Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung oder zu einem oder mehreren
               besonderen Merkmalen, die Ausdruck der physischen, physiologischen, genetischen, psychischen, wirtschaftlichen, kulturellen oder
               sozialen Identität dieser natürlichen Person sind, identifiziert werden kann.</p>
           </li>
-          <li><h4>b) betroffene Person</h4>
+          <li><h4 className="font-teaser my-4">b) betroffene Person</h4>
             <p>Betroffene Person ist jede identifizierte oder identifizierbare natürliche Person, deren personenbezogene Daten von dem für die
               Verarbeitung Verantwortlichen verarbeitet werden.</p>
           </li>
-          <li><h4>c) Verarbeitung</h4>
+          <li><h4 className="font-teaser my-4">c) Verarbeitung</h4>
             <p>Verarbeitung ist jeder mit oder ohne Hilfe automatisierter Verfahren ausgeführte Vorgang oder jede solche Vorgangsreihe im Zusammenhang
               mit personenbezogenen Daten wie das Erheben, das Erfassen, die Organisation, das Ordnen, die Speicherung, die Anpassung oder
               Veränderung, das Auslesen, das Abfragen, die Verwendung, die Offenlegung durch Übermittlung, Verbreitung oder eine andere Form der
               Bereitstellung, den Abgleich oder die Verknüpfung, die Einschränkung, das Löschen oder die Vernichtung.</p>
           </li>
-          <li><h4>d) Einschränkung der Verarbeitung</h4>
+          <li><h4 className="font-teaser my-4">d) Einschränkung der Verarbeitung</h4>
             <p>Einschränkung der Verarbeitung ist die Markierung gespeicherter personenbezogener Daten mit dem Ziel, ihre künftige Verarbeitung
               einzuschränken.</p>
           </li>
-          <li><h4>e) Profiling</h4>
+          <li><h4 className="font-teaser my-4">e) Profiling</h4>
             <p>Profiling ist jede Art der automatisierten Verarbeitung personenbezogener Daten, die darin besteht, dass diese personenbezogenen Daten
               verwendet werden, um bestimmte persönliche Aspekte, die sich auf eine natürliche Person beziehen, zu bewerten, insbesondere, um Aspekte
               bezüglich Arbeitsleistung, wirtschaftlicher Lage, Gesundheit, persönlicher Vorlieben, Interessen, Zuverlässigkeit, Verhalten,
               Aufenthaltsort oder Ortswechsel dieser natürlichen Person zu analysieren oder vorherzusagen.</p>
           </li>
-          <li><h4>f) Pseudonymisierung</h4>
+          <li><h4 className="font-teaser my-4">f) Pseudonymisierung</h4>
             <p>Pseudonymisierung ist die Verarbeitung personenbezogener Daten in einer Weise, auf welche die personenbezogenen Daten ohne Hinzuziehung
               zusätzlicher Informationen nicht mehr einer spezifischen betroffenen Person zugeordnet werden können, sofern diese zusätzlichen
               Informationen gesondert aufbewahrt werden und technischen und organisatorischen Maßnahmen unterliegen, die gewährleisten, dass die
               personenbezogenen Daten nicht einer identifizierten oder identifizierbaren natürlichen Person zugewiesen werden.</p>
           </li>
-          <li><h4>g) Verantwortlicher oder für die Verarbeitung Verantwortlicher</h4>
+          <li><h4 className="font-teaser my-4">g) Verantwortlicher oder für die Verarbeitung Verantwortlicher</h4>
             <p>Verantwortlicher oder für die Verarbeitung Verantwortlicher ist die natürliche oder juristische Person, Behörde, Einrichtung oder
               andere Stelle, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
               entscheidet. Sind die Zwecke und Mittel dieser Verarbeitung durch das Unionsrecht oder das Recht der Mitgliedstaaten vorgegeben, so kann
               der Verantwortliche beziehungsweise können die bestimmten Kriterien seiner Benennung nach dem Unionsrecht oder dem Recht der
               Mitgliedstaaten vorgesehen werden.</p>
           </li>
-          <li><h4>h) Auftragsverarbeiter</h4>
+          <li><h4 className="font-teaser my-4">h) Auftragsverarbeiter</h4>
             <p>Auftragsverarbeiter ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle, die personenbezogene Daten im
               Auftrag des Verantwortlichen verarbeitet.</p>
           </li>
-          <li><h4>i) Empfänger</h4>
+          <li><h4 className="font-teaser my-4">i) Empfänger</h4>
             <p>Empfänger ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle, der personenbezogene Daten offengelegt
               werden, unabhängig davon, ob es sich bei ihr um einen Dritten handelt oder nicht. Behörden, die im Rahmen eines bestimmten
               Untersuchungsauftrags nach dem Unionsrecht oder dem Recht der Mitgliedstaaten möglicherweise personenbezogene Daten erhalten, gelten
               jedoch nicht als Empfänger.</p>
           </li>
-          <li><h4>j) Dritter</h4>
+          <li><h4 className="font-teaser my-4">j) Dritter</h4>
             <p>Dritter ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle außer der betroffenen Person, dem
               Verantwortlichen, dem Auftragsverarbeiter und den Personen, die unter der unmittelbaren Verantwortung des Verantwortlichen oder des
               Auftragsverarbeiters befugt sind, die personenbezogenen Daten zu verarbeiten.</p>
           </li>
-          <li><h4>k) Einwilligung</h4>
+          <li><h4 className="font-teaser my-4">k) Einwilligung</h4>
             <p>Einwilligung ist jede von der betroffenen Person freiwillig für den bestimmten Fall in informierter Weise und unmissverständlich
               abgegebene Willensbekundung in Form einer Erklärung oder einer sonstigen eindeutigen bestätigenden Handlung, mit der die betroffene
               Person zu verstehen gibt, dass sie mit der Verarbeitung der sie betreffenden personenbezogenen Daten einverstanden ist.</p>
           </li>
         </ul>
 
-        <h4>2. Name und Anschrift des für die Verarbeitung Verantwortlichen</h4>
+        <h4 className="font-teaser my-4">2. Name und Anschrift des für die Verarbeitung Verantwortlichen</h4>
         <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden
           Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter ist die:</p>
 
@@ -107,8 +107,8 @@ export default function DSGVO () {
         <p>E-Mail: quarantaenehelden@keno.digital</p>
         <p>Website: www.quarantaenehelden.org</p>
 
-        <h4>3. Cookies</h4>
-        <p>Die Internetseiten der Demo verwenden Cookies. Cookies sind Textdateien, welche über einen Internetbrowser auf einem Computersystem
+        <h4 className="font-teaser my-4">3. Cookies</h4>
+        <p>Die Internetseiten der QuarantäneHelden verwenden Cookies. Cookies sind Textdateien, welche über einen Internetbrowser auf einem Computersystem
           abgelegt und gespeichert werden.</p>
 
         <p>Zahlreiche Internetseiten und Server verwenden Cookies. Viele Cookies enthalten eine sogenannte Cookie-ID. Eine Cookie-ID ist eine eindeuti
@@ -117,7 +117,7 @@ export default function DSGVO () {
           der betroffenen Person von anderen Internetbrowsern, die andere Cookies enthalten, zu unterscheiden. Ein bestimmter Internetbrowser kann
           über die eindeutige Cookie-ID wiedererkannt und identifiziert werden.</p>
 
-        <p>Durch den Einsatz von Cookies kann die Demo den Nutzern dieser Internetseite nutzerfreundlichere Services bereitstellen, die ohne die
+        <p>Durch den Einsatz von Cookies kann die QuarantäneHelden den Nutzern dieser Internetseite nutzerfreundlichere Services bereitstellen, die ohne die
           Cookie-Setzung nicht möglich wären.</p>
 
         <p>Mittels eines Cookies können die Informationen und Angebote auf unserer Internetseite im Sinne des Benutzers optimiert werden. Cookies
@@ -133,8 +133,8 @@ export default function DSGVO () {
           Deaktiviert die betroffene Person die Setzung von Cookies in dem genutzten Internetbrowser, sind unter Umständen nicht alle Funktionen
           unserer Internetseite vollumfänglich nutzbar.</p>
 
-        <h4>4. Erfassung von allgemeinen Daten und Informationen</h4>
-        <p>Die Internetseite der Demo erfasst mit jedem Aufruf der Internetseite durch eine betroffene Person oder ein automatisiertes System eine
+        <h4 className="font-teaser my-4">4. Erfassung von allgemeinen Daten und Informationen</h4>
+        <p>Die Internetseite der QuarantäneHelden erfasst mit jedem Aufruf der Internetseite durch eine betroffene Person oder ein automatisiertes System eine
           Reihe von allgemeinen Daten und Informationen. Diese allgemeinen Daten und Informationen werden in den Logfiles des Servers gespeichert.
           Erfasst werden können die (1) verwendeten Browsertypen und Versionen, (2) das vom zugreifenden System verwendete Betriebssystem, (3) die
           Internetseite, von welcher ein zugreifendes System auf unsere Internetseite gelangt (sogenannte Referrer), (4) die Unterwebseiten, welche
@@ -142,17 +142,17 @@ export default function DSGVO () {
           Internetseite, (6) eine Internet-Protokoll-Adresse (IP-Adresse), (7) der Internet-Service-Provider des zugreifenden Systems und (8) sonstige
           ähnliche Daten und Informationen, die der Gefahrenabwehr im Falle von Angriffen auf unsere informationstechnologischen Systeme dienen.</p>
 
-        <p>Bei der Nutzung dieser allgemeinen Daten und Informationen zieht die Demo keine Rückschlüsse auf die betroffene Person. Diese Informationen
+        <p>Bei der Nutzung dieser allgemeinen Daten und Informationen zieht die QuarantäneHelden keine Rückschlüsse auf die betroffene Person. Diese Informationen
           werden vielmehr benötigt, um (1) die Inhalte unserer Internetseite korrekt auszuliefern, (2) die Inhalte unserer Internetseite sowie die
           Werbung für diese zu optimieren, (3) die dauerhafte Funktionsfähigkeit unserer informationstechnologischen Systeme und der Technik unserer
           Internetseite zu gewährleisten sowie (4) um Strafverfolgungsbehörden im Falle eines Cyberangriffes die zur Strafverfolgung notwendigen
-          Informationen bereitzustellen. Diese anonym erhobenen Daten und Informationen werden durch die Demo daher einerseits statistisch und ferner
+          Informationen bereitzustellen. Diese anonym erhobenen Daten und Informationen werden durch die QuarantäneHelden daher einerseits statistisch und ferner
           mit dem Ziel ausgewertet, den Datenschutz und die Datensicherheit in unserem Unternehmen zu erhöhen, um letztlich ein optimales Schutzniveau
           für die von uns verarbeiteten personenbezogenen Daten sicherzustellen. Die anonymen Daten der Server-Logfiles werden getrennt von allen
           durch eine betroffene Person angegebenen personenbezoge
           nen Daten gespeichert.</p>
 
-        <h4>5. Registrierung auf unserer Internetseite</h4>
+        <h4 className="font-teaser my-4">5. Registrierung auf unserer Internetseite</h4>
         <p>Die betroffene Person hat die Möglichkeit, sich auf der Internetseite des für die Verarbeitung Verantwortlichen unter Angabe von
           personenbezogenen Daten zu registrieren. Welche personenbezogenen Daten dabei an den für die Verarbeitung Verantwortlichen übermittelt
           werden, ergibt sich aus der jeweiligen Eingabemaske, die für die Registrierung verwendet wird. Die von der betroffenen Person eingegebenen
@@ -179,8 +179,8 @@ export default function DSGVO () {
           der Mitarbeiter des für die Verarbeitung Verantwortlichen stehen der betroffenen Person in diesem Zusammenhang als Ansprechpartner zur
           Verfügung.</p>
 
-        <h4>6. Kontaktmöglichkeit über die Internetseite</h4>
-        <p>Die Internetseite der Demo enthält aufgrund von gesetzlichen Vorschriften Angaben, die eine schnelle elektronische Kontaktaufnahme zu
+        <h4 className="font-teaser my-4">6. Kontaktmöglichkeit über die Internetseite</h4>
+        <p>Die Internetseite der QuarantäneHelden enthält aufgrund von gesetzlichen Vorschriften Angaben, die eine schnelle elektronische Kontaktaufnahme zu
           unserem Unternehmen sowie eine unmittelbare Kommunikation mit uns ermöglichen, was ebenfalls eine allgemeine Adresse der sogenannten
           elektronischen Post (E-Mail-Adresse) umfasst. Sofern eine betroffene Person per E-Mail oder über ein Kontaktformular den Kontakt mit dem für
           die Verarbeitung Verantwortlichen aufnimmt, werden die von der betroffenen Person übermittelten personenbezogenen Daten automatisch
@@ -188,7 +188,7 @@ export default function DSGVO () {
           personenbezogenen Daten werden für Zwecke der Bearbeitung oder der Kontaktaufnahme zur betroffenen Person gespeichert. Es erfolgt keine
           Weitergabe dieser personenbezogenen Daten an Dritte.</p>
 
-        <h4>7. Routinemäßige Löschung und Sperrung von personenbezogenen Daten</h4>
+        <h4 className="font-teaser my-4">7. Routinemäßige Löschung und Sperrung von personenbezogenen Daten</h4>
         <p>Der für die Verarbeitung Verantwortliche verarbeitet und speichert personenbezogene Daten der betroffenen Person nur für den Zeitraum, der
           zur Erreichung des Speicherungszwecks erforderlich ist oder sofern dies durch den Europäischen Richtlinien- und Verordnungsgeber oder einen
           and
@@ -198,15 +198,15 @@ export default function DSGVO () {
           Gesetzgeber vorgeschriebene Speicherfrist ab, werden die personenbezogenen Daten routinemäßig und entsprechend den gesetzlichen Vorschriften
           gesperrt oder gelöscht.</p>
 
-        <h4>8. Rechte der betroffenen Person</h4>
+        <h4 className="font-teaser my-4">8. Rechte der betroffenen Person</h4>
         <ul className="list-none">
-          <li><h4>a) Recht auf Bestätigung</h4>
+          <li><h4 className="font-teaser my-4">a) Recht auf Bestätigung</h4>
             <p>Jede betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber eingeräumte Recht, von dem für die Verarbeitung
               Verantwortlichen eine Bestätigung darüber zu verlangen, ob sie betreffende personenbezogene Daten verarbeitet werden. Möchte eine
               betroffene Person dieses Bestätigungsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die
               Verarbeitung Verantwortlichen wenden.</p>
           </li>
-          <li><h4>b) Recht auf Auskunft</h4>
+          <li><h4 className="font-teaser my-4">b) Recht auf Auskunft</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, jederzeit von dem für die Verarbeitung Verantwortlichen unentgeltliche Auskunft über die zu seiner Person gespeicherten
               personenbezogenen Daten und eine Kopie dieser Auskunft zu erhalten. Ferner hat der Europäische Richtlinien- und Verordnungsgeber der
@@ -241,7 +241,7 @@ export default function DSGVO () {
             <p>Möchte eine betroffene Person dieses Auskunftsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die
               Verarbeitung Verantwortlichen wenden.</p>
           </li>
-          <li><h4>c) Recht auf Berichtigung</h4>
+          <li><h4 className="font-teaser my-4">c) Recht auf Berichtigung</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, die unverzügliche Berichtigung sie betreffender unrichtiger personenbezogener Daten zu verlangen. Ferner steht der betroffenen
               Person das Recht zu, unter Berücksichtigung der Zwecke der Verarbeitung, die Vervollständigung unvollständiger personenbezogener Daten —
@@ -250,7 +250,7 @@ export default function DSGVO () {
             <p>Möchte eine betroffene Person dieses Berichtigungsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für
               die Verarbeitung Verantwortlichen wenden.</p></li>
           <li>
-            <h4>d)
+            <h4 className="font-teaser my-4">d)
               Recht auf Löschung (Recht auf Vergessen werden)</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, von dem Verantwortlichen zu verlangen, dass die sie betreffenden personenbezogenen Daten unverzüglich gelöscht werden, sofern
@@ -276,19 +276,19 @@ export default function DSGVO () {
               </li>
 
             </ul>
-            <p>Sofern einer der oben genannten Gründe zutrifft und eine betroffene Person die Löschung von personenbezogenen Daten, die bei der Demo
+            <p>Sofern einer der oben genannten Gründe zutrifft und eine betroffene Person die Löschung von personenbezogenen Daten, die bei der QuarantäneHelden
               gespeichert sind, veranlassen möchte, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die Verarbeitung Verantwortlichen
-              wenden. Der Mitarbeiter der Demo wird veranlassen, dass dem Löschverlangen unverzüglich nachgekommen wird.</p>
+              wenden. Der Mitarbeiter der QuarantäneHelden wird veranlassen, dass dem Löschverlangen unverzüglich nachgekommen wird.</p>
 
-            <p>Wurden die personenbezogenen Daten von der Demo öffentlich gemacht und ist unser Unternehmen als Verantwortlicher gemäß Art. 17 Abs. 1
-              DS-GVO zur Löschung der personenbezogenen Daten verpflichtet, so trifft die Demo unter Berücksichtigung der verfügbaren Technologie und
+            <p>Wurden die personenbezogenen Daten von der QuarantäneHelden öffentlich gemacht und ist unser Unternehmen als Verantwortlicher gemäß Art. 17 Abs. 1
+              DS-GVO zur Löschung der personenbezogenen Daten verpflichtet, so trifft die QuarantäneHelden unter Berücksichtigung der verfügbaren Technologie und
               der Implementierungskosten angemessene Maßnahmen, auch technischer Art, um andere für die Datenverarbeitung Verantwortliche, welche die
               veröffentlichten personenbezogenen Daten verarbeiten, darüber in Kenntnis zu setzen, dass die betroffene Person von diesen anderen für
               die Datenverarbeitung Verantwortlichen die Löschung sämtlicher Links zu diesen personenbezogenen Daten oder von Kopien oder
-              Replikationen dieser personenbezogenen Daten verlangt hat, soweit die Verarbeitung nicht erforderlich ist. Der Mitarbeiter der Demo wird
+              Replikationen dieser personenbezogenen Daten verlangt hat, soweit die Verarbeitung nicht erforderlich ist. Der Mitarbeiter der QuarantäneHelden wird
               im Einzelfall das Notwendige veranlassen.</p>
           </li>
-          <li><h4>e) Recht auf Einschränkung der Verarbeitung</h4>
+          <li><h4 className="font-teaser my-4">e) Recht auf Einschränkung der Verarbeitung</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, von dem Verantwortlichen die Einschränkung der Verarbeitung zu verlangen, wenn eine der folgenden Voraussetzungen gegeben
               ist:</p>
@@ -309,11 +309,11 @@ export default function DSGVO () {
 
             </ul>
             <p>Sofern eine der oben genannten Voraussetzu
-              ngen gegeben ist und eine betroffene Person die Einschränkung von personenbezogenen Daten, die bei der Demo gespeichert sind, verlangen
-              möchte, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die Verarbeitung Verantwortlichen wenden. Der Mitarbeiter der Demo
+              ngen gegeben ist und eine betroffene Person die Einschränkung von personenbezogenen Daten, die bei der QuarantäneHelden gespeichert sind, verlangen
+              möchte, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die Verarbeitung Verantwortlichen wenden. Der Mitarbeiter der QuarantäneHelden
               wird die Einschränkung der Verarbeitung veranlassen.</p>
           </li>
-          <li><h4>f) Recht auf Datenübertragbarkeit</h4>
+          <li><h4 className="font-teaser my-4">f) Recht auf Datenübertragbarkeit</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, die sie betreffenden personenbezogenen Daten, welche durch die betroffene Person einem Verantwortlichen bereitgestellt wurden, in
               einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten. Sie hat außerdem das Recht, diese Daten einem anderen
@@ -327,37 +327,37 @@ export default function DSGVO () {
               erwirken, dass die personenbezogenen Daten direkt von einem Verantwortlichen an einen anderen Verantwortlichen übermittelt werden,
               soweit dies technisch machbar ist und sofern hiervon nicht die Rechte und Freiheiten anderer Personen beeinträchtigt werden.</p>
 
-            <p>Zur Geltendmachung des Rechts auf Datenübertragbarkeit kann sich die betroffene Person jederzeit an einen Mitarbeiter der Demo
+            <p>Zur Geltendmachung des Rechts auf Datenübertragbarkeit kann sich die betroffene Person jederzeit an einen Mitarbeiter der QuarantäneHelden
               wenden.</p>
 
           </li>
           <li>
-            <h4>g) Recht auf Widerspruch</h4>
+            <h4 className="font-teaser my-4">g) Recht auf Widerspruch</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, aus Gründen, die sich aus ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung sie betreffender personenbezogener
               Daten, die aufgrund von Art. 6 Abs. 1 Buchstaben e oder f DS-GVO erfolgt, Widerspruch einzulegen. Dies gilt auch für ein auf diese
               Bestimmungen gestütztes Profiling.</p>
 
-            <p>Die Demo verarbeitet die personenbezogenen Daten im Falle des Widerspruchs nicht mehr, es sei denn, wir können zwingende schutzwürdige
+            <p>Die QuarantäneHelden verarbeitet die personenbezogenen Daten im Falle des Widerspruchs nicht mehr, es sei denn, wir können zwingende schutzwürdige
               Gründe für die Verarbeitung nachweisen, die den Interessen, Rechten und Freiheiten der betroffenen Person überwiegen, oder die
               Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
 
-            <p>Verarbeitet die Demo personenbezogene Daten, um Direktwerbung zu betreiben, so hat die betroffene Person das Recht, jederzeit
+            <p>Verarbeitet die QuarantäneHelden personenbezogene Daten, um Direktwerbung zu betreiben, so hat die betroffene Person das Recht, jederzeit
               Widerspruch gegen die Verarbeitung der personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen. Dies gilt auch für das
-              Profiling, soweit es mit solcher Direktwerbung in Verbindung steht. Widerspricht die betroffene Person gegenüber der Demo der
-              Verarbeitung für Zwecke der Direktwerbung, so wird die Demo die personenbezogenen Daten nicht mehr für diese Zwecke verarbeiten.</p>
+              Profiling, soweit es mit solcher Direktwerbung in Verbindung steht. Widerspricht die betroffene Person gegenüber der QuarantäneHelden der
+              Verarbeitung für Zwecke der Direktwerbung, so wird die QuarantäneHelden die personenbezogenen Daten nicht mehr für diese Zwecke verarbeiten.</p>
 
             <p>Zudem hat die betroffene Person das Recht, aus Gründen, die sich aus ihrer besonderen Situation ergeben, gegen die sie betreffende
-              Verarbeitung personenbezogener Daten, die bei der Demo zu wissenschaftlichen oder historischen Forschungszwecken oder zu statistischen
+              Verarbeitung personenbezogener Daten, die bei der QuarantäneHelden zu wissenschaftlichen oder historischen Forschungszwecken oder zu statistischen
               Zwecken gemäß Art. 89 Abs. 1 DS-GVO erfolgen, Widerspruch einzulegen, es sei denn, eine solche Verarbeitung ist zur Erfüllung einer im
               öffentlichen Interesse liegenden Aufgabe erforderlich.</p>
 
-            <p>Zur Ausübung des Rechts auf Widerspruch kann sich die betroffene Person direkt an jeden Mitarbeiter der Demo oder einen anderen
+            <p>Zur Ausübung des Rechts auf Widerspruch kann sich die betroffene Person direkt an jeden Mitarbeiter der QuarantäneHelden oder einen anderen
               Mitarbeiter wenden. Der betroffenen Person steht es ferner frei, im Zusammenhang mit der Nutzung von Diensten der
               Informationsgesellschaft, ungeachtet der Richtlinie 2002/58/EG, ihr Widerspruchsrecht mi
               ttels automatisierter Verfahren auszuüben, bei denen technische Spezifikationen verwendet werden.</p>
           </li>
-          <li><h4>h) Automatisierte Entscheidungen im Einzelfall einschließlich Profiling</h4>
+          <li><h4 className="font-teaser my-4">h) Automatisierte Entscheidungen im Einzelfall einschließlich Profiling</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung — einschließlich Profiling — beruhenden Entscheidung
               unterworfen zu werden, die ihr gegenüber rechtliche Wirkung entfaltet oder sie in ähnlicher Weise erheblich beeinträchtigt, sofern die
@@ -367,7 +367,7 @@ export default function DSGVO () {
               der betroffenen Person enthalten oder (3) mit ausdrücklicher Einwilligung der betroffenen Person erfolgt.</p>
 
             <p>Ist die Entscheidung (1) für den Abschluss oder die Erfüllung eines Vertrags zwischen der betroffenen Person und dem Verantwortlichen
-              erforderlich oder (2) erfolgt sie mit ausdrücklicher Einwilligung der betroffenen Person, trifft die Demo angemessene Maßnahmen, um die
+              erforderlich oder (2) erfolgt sie mit ausdrücklicher Einwilligung der betroffenen Person, trifft die QuarantäneHelden angemessene Maßnahmen, um die
               Rechte und Freiheiten sowie die berechtigten Interessen der betroffenen Person zu wahren, wozu mindestens das Recht auf Erwirkung des
               Eingreifens einer Person seitens des Verantwortlichen, auf Darlegung des eigenen Standpunkts und auf Anfechtung der Entscheidung
               gehört.</p>
@@ -376,7 +376,7 @@ export default function DSGVO () {
               Mitarbeiter des für die Verarbeitung Verantwortlichen wenden.</p>
 
           </li>
-          <li><h4>i) Recht auf Widerruf einer datenschutzrechtlichen Einwilligung</h4>
+          <li><h4 className="font-teaser my-4">i) Recht auf Widerruf einer datenschutzrechtlichen Einwilligung</h4>
             <p>Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
               Recht, eine Einwilligung zur Verarbeitung personenbezogener Daten jederzeit zu widerrufen.</p>
 
@@ -385,7 +385,7 @@ export default function DSGVO () {
 
           </li>
         </ul>
-        <h4>9. Rechtsgrundlage der Verarbeitung</h4>
+        <h4 className="font-teaser my-4">9. Rechtsgrundlage der Verarbeitung</h4>
         <p>Art. 6 I lit. a DS-GVO dient unserem Unternehmen als Rechtsgrundlage für Verarbeitungsvorgänge, bei denen wir eine Einwilligung für einen
           bestimmten Verarbeitungszweck einholen. Ist die Verarbeitung personenbezogener Daten zur Erfüllung eines Vertrags, dessen Vertragspartei die
           betroffene Person ist, erforderlich, wie dies beispielsweise bei Verarbeitungsvorgängen der Fall ist, die für eine Lieferung von Waren oder
@@ -406,16 +406,16 @@ export default function DSGVO () {
           Verantwortlichen ist (Erwägungsgrund 47 Satz 2 DS-GVO).
         </p>
 
-        <h4>10. Berechtigte Interessen an der Verarbeitung, die von dem Verantwortlichen oder einem Dritten verfolgt werden</h4>
+        <h4 className="font-teaser my-4">10. Berechtigte Interessen an der Verarbeitung, die von dem Verantwortlichen oder einem Dritten verfolgt werden</h4>
         <p>Basiert die Verarbeitung personenbezogener Daten auf Artikel 6 I lit. f DS-GVO ist unser berechtigtes Interesse die Durchführung unserer
           Geschäftstätigkeit zugunsten des Wohlergehens all unserer Mitarbeiter und unserer Anteilseigner.</p>
 
-        <h4>11. Dauer, für die die personenbezogenen Daten gespeichert werden</h4>
+        <h4 className="font-teaser my-4">11. Dauer, für die die personenbezogenen Daten gespeichert werden</h4>
         <p>Das Kriterium für die Dauer der Speicherung von personenbezogenen Daten ist die jeweilige gesetzliche Aufbewahrungsfrist. Nach Ablauf der
           Frist werden die entsprechenden Daten routinemäßig gelöscht, sofern sie nicht mehr zur Vertragserfüllung oder Vertragsanbahnung erforderlich
           sind.</p>
 
-        <h4>12. Gesetzliche oder vertragliche Vorschriften zur Bereitstellung der personenbezogenen Daten; Erforderlichkeit für den Vertragsabschluss;
+        <h4 className="font-teaser my-4">12. Gesetzliche oder vertragliche Vorschriften zur Bereitstellung der personenbezogenen Daten; Erforderlichkeit für den Vertragsabschluss;
           Verpflichtung der betroffenen Person, die personenbezogenen Daten bereitzustellen; mögliche Folgen der Nichtbereitstellung</h4>
         <p>Wir klären Sie darüber auf, dass die Bereitstellung personenbezogener Daten zum Teil gesetzlich vorgeschrieben ist (z.B.
           Steuervorschriften) oder sich auch aus vertraglichen Regelungen (z.B. Angaben zum Vertragspartner) ergeben kann.
@@ -429,7 +429,7 @@ export default function DSGVO () {
           bereitzustellen, und welche Folgen die Nichtbereitstellung der personenbezogenen Daten hätte.
         </p>
 
-        <h4>13. Bestehen einer automatisierten Entscheidungsfindung</h4>
+        <h4 className="font-teaser my-4">13. Bestehen einer automatisierten Entscheidungsfindung</h4>
         <p>Als verantwortungsbewusstes Unternehmen verzichten wir auf eine automatische Entscheidungsfindung oder ein Profiling.</p>
 
         <p>Diese Datenschutzerklärung wurde durch den Datenschutzerklärungs-Generator der DGD Deutsche Gesellschaft für Datenschutz GmbH, die als <a
