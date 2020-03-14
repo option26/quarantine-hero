@@ -2,6 +2,7 @@ import { HashRouter as Router, Link } from 'react-router-dom';
 import React from 'react';
 import '../styles/App.css';
 import FilteredList from './FilteredList';
+import Footer from './Footer';
 
 export default function Main () {
 
@@ -59,13 +60,7 @@ export default function Main () {
             </button>
           </div>
         </div>
-        <div className="flex justify-center text-sm text-gray-700 mb-4 mt-8">
-          <Link to="/faq">FAQ's</Link>
-          <div className="px-1">|</div>
-          <Link to="/impressum">Impressum</Link>
-          <div className="px-1">|</div>
-          <Link to="/dsgvo">Datenschutz</Link>
-        </div>
+<Footer />
       </div>
     </div>
   );

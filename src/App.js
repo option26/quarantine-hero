@@ -39,8 +39,8 @@ function App (props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex justify-center items-center min-h-screen flex-col bg-kaki">
-      <div className="phone-width bg-white shadow-xl overflow-hidden md:px-16">
+    <div className="flex items-center min-h-screen flex-col bg-kaki">
+      <div className="phone-width bg-white shadow-xl overflow-hidden md:px-16 min-h-screen">
         <Router>
           <div className="w-10 h-10 m-5 p-5 rounded fixed top-0 right-0 bg-red-900 flex justify-center items-center text-white" onClick={() => setMenuOpen(true)}>MENU</div>
           <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)}/>

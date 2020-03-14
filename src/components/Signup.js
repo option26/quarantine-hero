@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseApp from 'firebase';
 import {Redirect} from "react-router-dom";
+import Footer from './Footer';
 
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
@@ -25,43 +26,48 @@ const Signup = (props) => {
         return <Redirect to="/ask-for-help"/>;
     }
 
-    const signInOrRegister = async () => {
+    const signInOrRegister = async e => {
+      e.preventDefault();
       let result = await createUserWithEmailAndPassword(email, password);
       if(result.code === 'auth/email-already-in-use') result = await signInWithEmailAndPassword(email, password);
       if(result.code) setError(result.message);
     };
 
-    return <form>
+    return <form className="p-4 mt-8">
         <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          <div className="font-teaser mb-6">
+            Registriere dich mit deiner E-Mail und einem Passwort um eine Hilfe-Anfrage zu posten.
+          </div>
+            <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
                 Email
             </label>
             <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username" type="text" placeholder="Username" value={email}
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
+                id="username" type="email" placeholder="Deine E-Mailadresse" value={email} required="required"
                 onChange={e => setEmail(e.target.value)}/>
         </div>
-        <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+        <div className="mb-8">
+            <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
                 Passwort
             </label>
             <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password" type="password" placeholder="******************" value={password}
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
+                id="password" type="password" placeholder="Dein Passwort" value={password} required="required"
                 onChange={e => setPassword(e.target.value)}/>
-        </div>
-
-        <div className="flex items-center justify-between mb-6 ">
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-                onClick={signInOrRegister}>
-                Jetzt Registrieren
-            </button>
         </div>
       {error ? <div className="text-red-500">
         {error}
-        </div> : ''}
+      </div> : ''}
+        <div className="flex justify-end my-6">
+            <button
+                className="btn-green"
+                type="submit"
+                onSubmit={signInOrRegister}>
+                Jetzt Registrieren
+            </button>
+        </div>
+
+          <Footer />
     </form>;
 }
 
