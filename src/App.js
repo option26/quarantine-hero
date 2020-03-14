@@ -23,6 +23,7 @@ import {
 } from 'react-router-dom';
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
+import CompleteOfferHelp from "./components/CompleteOfferHelp";
 
 function App (props) {
   const {
@@ -80,6 +81,9 @@ function App (props) {
                 </Route>
                 <Route path="/dsgvo">
                   <DSGVO/>
+                </Route>
+                <Route path="/complete-offer-help">
+                  <CompleteOfferHelp />
                 </Route>
                 <Route path="/">
                   <Main/>
