@@ -6,6 +6,13 @@ import Footer from './Footer';
 
 export default function Main () {
 
+  function scrollTo() {
+    const el = document.getElementById("anfragen");
+    if (el) {
+      el.scrollIntoView({behavior: 'smooth'})
+    }
+  }
+
   return (
     <div className="flex items-center flex-col">
       <div className="phone-width">
@@ -40,15 +47,14 @@ export default function Main () {
           </p>
 
         </div>
-        <div className="flex justify-center w-full">
-          <div className="arrow-down">
-          </div>
+        <div className="flex justify-center w-full" onClick={scrollTo}>
+          <img className="arrow-down" src={require('../assets/arrow_down.png')} />
         </div>
       </div>
       <div className="angle-cut-background pt-16 w-full">
         <div className="p-4">
           <div className="flex justify-center items-center flex-col">
-            <div className="font-teaser text-center">
+            <div className="font-teaser text-center" id="anfragen">
               Aktuelle Anfragen
             </div>
             <div className="font-open-sans leading-6 text-center mb-8 max-w-360">

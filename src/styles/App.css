@@ -56,21 +56,9 @@
 }
 .arrow-down {
     position: relative;
-}
-.arrow-down::before {
-    content: " ";
-    transform: rotate(135deg);
-    border-style: solid;
-    position: absolute;
-    left: -15px;
-    top: -10px;
-    width: 30px;
-    height: 30px;
-    display: block;
-    border-width: 5px 5px 0 0;
-    border-color: #222 #222 transparent transparent;
-    border-radius: 0;
-    z-index: 10;
+    width: 5rem;
+    margin-bottom: -3rem;
+    z-index:10;
 }
 .max-w-360 {
     max-width: 360px;
