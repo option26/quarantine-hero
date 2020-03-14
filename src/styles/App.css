@@ -2,3 +2,32 @@
     width: 100%;
     max-width: 800px;
 }
+
+.font-main {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 800;
+    font-size: 29px;
+}
+
+.font-teaser {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    line-height: 1.55;
+    color: #222;
+    font-size: 22px;
+}
+
+.btn-main {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: 0;
+}
+
+.font-open-sans {
+    font-family: 'OpenSans', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 27px;
+}

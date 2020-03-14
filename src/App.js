@@ -36,7 +36,7 @@ function App (props) {
   } = props;
 
   return (
-    <div className="flex justify-center bg-secondary min-h-screen">
+    <div className="flex justify-center min-h-screen">
       <div className="phone-width">
         <Router>
           <div className="mt-4 flex justify-between items-center sm:flex-col">
