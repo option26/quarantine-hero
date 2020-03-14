@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
-import PlacesAutocomplete, { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
+import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { useHistory } from 'react-router-dom';
 import LocationInput from './LocationInput';
+import Footer from './Footer';
 
 export default function AskForHelp () {
 
@@ -78,6 +79,7 @@ export default function AskForHelp () {
           <button type="submit" className="btn-green w-full md:w-1/3">Jetzt um Hilfe bitten</button>
         </div>
       </div>
+      <Footer />
     </form>
   );
 }

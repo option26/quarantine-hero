@@ -18,10 +18,12 @@ export default function Main () {
           Sei ein Teil davon.<br/>
         </div>
         <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full">
-          <Link to="/overview" className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1"><img className="w-8 mr-1"  src={require('../assets/hero.png')} />ICH MÖCHTE HELFEN</Link>
+          <Link to="/overview" className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1"><img
+            className="w-8 mr-1" src={require('../assets/hero.png')}/>ICH MÖCHTE HELFEN</Link>
           <div className="m-1 md:m-4">
           </div>
-          <Link to="/signup" className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1"><img className="w-8"  src={require('../assets/need_help.png')} />ICH BRAUCHE HILFE</Link>
+          <Link to="/signup" className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1"><img
+            className="w-8" src={require('../assets/need_help.png')}/>ICH BRAUCHE HILFE</Link>
         </div>
         <p className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
           <p className="mb-4 lg:leading-7 md:text-justify flex-1">
@@ -53,14 +55,14 @@ export default function Main () {
               Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
             </div>
           </div>
-          <FilteredList />
+          <FilteredList/>
           <div className="flex justify-center items-center">
-            <button className="btn-green">
+            <Link to="/overview" className="btn-green">
               ALLE ANFRAGEN
-            </button>
+            </Link>
           </div>
         </div>
-<Footer />
+        <Footer/>
       </div>
     </div>
   );

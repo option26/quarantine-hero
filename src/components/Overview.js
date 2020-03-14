@@ -3,6 +3,9 @@ import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import PlacesAutocomplete, { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import Entry from './Entry';
+import LocationInput from './LocationInput';
+import FilteredList from './FilteredList';
+import Footer from './Footer';
 
 export default function AskForHelp () {
 
@@ -31,54 +34,15 @@ export default function AskForHelp () {
       .catch(error => console.error('Error', error));
   };
 
-  return (<div>
-      <h1 className="text-4xl py-4 pt-10">Hilfe Anbieten</h1>
-
-      <div className="py-3">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-          Wo bist du?
-        </label>
-        <PlacesAutocomplete onChange={val => {setLocation(val); setSearchCompleted(false)}} value={location} onSelect={handleSelect}  searchOptions={{
-          types: [ "(regions)"],
-          componentRestrictions: {country: ["de","at","ch"]},
-        }}>
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: 'Deine Stadt...',
-                  className: 'location-search-input appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
+  return (<div className="p-4">
+      <h1 className="py-4 pt-10 font-teaser">Aktuelle Anfragen</h1>
+      <div className="font-open-sans">
+        Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
       </div>
       <div className="py-3">
-        {entries.length === 0 ? (!searchCompleted || location.length === 0 ? <span>Bitte gib deinen Standort ein.</span> : <span>Bei in der Nähe hat aktuell Niemand Hilfe angefragt.</span>) : entries.map(entry => (<Entry key={entry.id} {...entry}/>))}
+        <FilteredList />
       </div>
+      <Footer />
     </div>
   );
 }
