@@ -1,7 +1,9 @@
 import {HashRouter as Router, Link} from "react-router-dom";
 import React from "react";
+import CloseIcon from '@material-ui/icons/Close';
+import Drawer from "@material-ui/core/Drawer";
 
-export default function Sidebar({open = false, onClose}) {
+export default function Sidebar({open = true, onClose}) {
 
     if (!open) {
         return null;
@@ -20,48 +22,46 @@ export default function Sidebar({open = false, onClose}) {
         </div>
     );
 
+    const _onClose = () => {
+        console.log("Hello World");
+        onClose();
+    };
+
+    const MenuItem = (props) => {
+        return <li className="pt-6">
+            <Link onClick={_onClose} to={props.to}>{props.children}</Link>
+        </li>
+    };
+
+    const Menu = (props) => (
+        <ul style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'baseline',
+            marginTop: '100px',
+            marginLeft: '40px',
+            marginRight: '80px',
+            fontSize: '20px',
+            fontWeight: '600'
+        }} className="font-main">
+            <MenuItem to="/">Home</MenuItem>
+            <MenuItem to="/ask-for-help">Ich brauche Hilfe</MenuItem>
+            <MenuItem to="/overview">Ich möchte helfen</MenuItem>
+            <MenuItem to="/dashboard">Deine Übersicht</MenuItem>
+            <MenuItem to="/faq">FAQs</MenuItem>
+            <MenuItem to="/impressum">Impressum</MenuItem>
+            <MenuItem to="/dsgvo">Datenschutz</MenuItem>
+        </ul>
+    );
+
     return (
-        <div>
-            <Backdrop/>
 
+        <Drawer open={open} onClose={_onClose} anchor="right">
+            <CloseIcon style={{position: 'absolute', top: '20', right: '20', fontSize: '30px'}}
+                       onClick={() => onClose()}/>
+            <Menu/>
+        </Drawer>
 
-            <div style={{
-                width: '70vw',
-                maxWidth: '400px',
-                height: '100%',
-                position: 'fixed',
-                backgroundColor: 'white',
-                top: 0,
-                right: 0,
-                zIndex: 2
-            }}
-                 className="shadow-2xl"
-            >
-                <ul style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'baseline',
-                    marginTop: '70px',
-                    marginLeft: '30px',
-                    fontSize: '20px'
-                }} className="font-main">
-                    <li>
-                        <Link onClick={() => onClose()} to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link onClick={() => onClose()} to="/overview">Deine Übersicht</Link>
-                    </li>
-                    <li>
-                        <Link onClick={() => onClose()} to="/faq">FAQ</Link>
-                    </li>
-                    <li>
-                        <Link onClick={() => onClose()} to="/impressum">Impressum</Link>
-                    </li>
-                    <li>
-                        <Link onClick={() => onClose()} to="/datenschutz">Datenschutz</Link>
-                    </li>
-                </ul>
-            </div>
-        </div>)
+    )
 }
