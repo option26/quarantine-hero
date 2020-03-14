@@ -20,6 +20,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
+  Link
 } from 'react-router-dom';
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
