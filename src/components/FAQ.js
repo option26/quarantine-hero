@@ -83,7 +83,7 @@ export default function FAQ() {
 
             <h2 className="text-xl font-teaser mt-8">Wer seid ihr?</h2>
 
-            <p className="font-open-sans">Wir sind Florian, Henrike und Keno, eine Gruppe von Freunden, die mit diesem
+            <p className="font-open-sans">Wir sind Florian, Henrike, Julia, Nicolai, Jakob, Andy und Keno, eine Gruppe von Freunden, die mit diesem
                 Projekt ihren kleinen Beitrag
                 leisten und Menschen helfen möchten.</p>
 
