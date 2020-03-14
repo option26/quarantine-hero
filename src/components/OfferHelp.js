@@ -61,12 +61,12 @@ export default function OfferHelp () {
       <Entry {...entry} showFullText/>
       <div className="mt-4 p-1 w-full">
         <label className="text-gray-700 text-sm font-open-sans">Deine Antwort</label>
-        <textarea className="input-focus" onChange={e => setAnswer(e.target.value)}
+        <textarea className="input-focus" onChange={e => setAnswer(e.target.value)} required="required"
                   placeholder="Ich kann helfen!"/>
       </div>
       <div className="mt-1 w-full">
         <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
-        <input className="input-focus" type="email" onChange={e => setEmail(e.target.value)}
+        <input className="input-focus" type="email" onChange={e => setEmail(e.target.value)} required="required"
                placeholder="ich@helfer.de"/>
       </div>
       <div className="mt-4 m-1 w-full">

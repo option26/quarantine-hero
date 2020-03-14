@@ -26,7 +26,6 @@ const Signup = (props) => {
     }
 
     const signInOrRegister = async e => {
-        console.log("ell")
         e.preventDefault();
         let result = await createUserWithEmailAndPassword(email, password);
         if (result.code === 'auth/email-already-in-use') result = await signInWithEmailAndPassword(email, password);
@@ -70,13 +69,14 @@ const Signup = (props) => {
             </div>
         </form>
         <button onClick={(e) => {
-            e.preventDefault();
-            fb.auth.sendPasswordResetEmail(email, {
+          e.preventDefault();
+          if(!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
+          fb.auth.sendPasswordResetEmail(email, {
                 url: 'https://www.quarantaenehelden.org/#/signup',
                 handleCodeInApp: false
             })
                 .then(() => setPasswordResetSuccess(true))
-                .catch((err) => console.log(error));
+                .catch((err) => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
         }}
                 className="btn-green w-full">
             Passwort zurücksetzen
