@@ -40,7 +40,7 @@ export default function FilteredList () {
   const handleChange = e => {
     setLocation(e.target.value);
     if (!isMapsApiEnabled) {
-      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(String(e.target.value).slice(0,2)) === 0));
+      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(e.target.value) === 0));
     }
   };
 
