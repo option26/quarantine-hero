@@ -10,6 +10,10 @@
     @apply rounded p-4 bg-primary text-secondary w-full inline-block text-center font-bold;
 }
 
+.btn-secondary {
+    @apply rounded p-4 bg-secondary text-secondary w-full inline-block text-center font-bold;
+}
+
 .btn-green {
     background-color: #87a544;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -25,7 +29,7 @@
     font-weight: bold;
     font-size: 1.5em;
     position: absolute;
-    top: 1px;
+    bottom: 2px;
     margin-left: 10px;
 }
 .btn-green:hover {
@@ -48,7 +52,7 @@
     font-weight: bold;
     font-size: 1.5em;
     position: absolute;
-    top: 1px;
+    bottom: 2px;
     margin-left: 10px;
 }
 .btn-green-secondary:hover {
