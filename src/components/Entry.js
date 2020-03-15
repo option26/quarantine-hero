@@ -26,7 +26,7 @@ export default function Entry(props) {
       e.preventDefault();
       const doc = await fb.store.collection(`/ask-for-help`).doc(props.id).get();
       await fb.store.collection(`/deleted`).add({
-        aksForHelpId: doc.id, ...doc.data()
+        askForHelpId: doc.id, ...doc.data()
       });
       fb.store.collection(`/ask-for-help`).doc(props.id).delete();
       setDeleted(true);
