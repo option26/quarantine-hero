@@ -4,7 +4,7 @@ import Footer from "./Footer";
 export default function Impressum () {
 
   return (<div>
-      <div className="mt-4">
+      <div className="mt-4 p-4">
         <div className='impressum'><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>Keno Dreßel <br/>
           Georgenschwaigstraße 16a<br/>
           80807 München</p>

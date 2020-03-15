@@ -22,8 +22,12 @@ export default function Entry(props) {
         }
     }
 
-    const handleDelete = e => {
+    const handleDelete = async e => {
       e.preventDefault();
+      const doc = await fb.store.collection(`/ask-for-help`).doc(props.id).get();
+      await fb.store.collection(`/deleted`).add({
+        askForHelpId: doc.id, ...doc.data()
+      });
       fb.store.collection(`/ask-for-help`).doc(props.id).delete();
       setDeleted(true);
     };
@@ -33,7 +37,7 @@ export default function Entry(props) {
       <span className="text-xs font-open-sans text-gray-800 mt-2">Jemand in <span className="font-bold">{location}</span> braucht Hilfe!</span>
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <span className="text-gray-500 inline-block text-right w-full text-xs font-open-sans">vor {date}</span>
-      {fb.auth.currentUser && fb.auth.currentUser.uid  === props.uid ? <div>
+      {fb.auth.currentUser && ((fb.auth.currentUser.uid  === props.uid) || fb.auth.currentUser.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')? <div>
         <button className="btn-green my-2" onClick={handleDelete}>Deine Anfrage löschen.</button>
       </div> : ''}
     </Link>);

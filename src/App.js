@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/App.css';
 import Main from './components/Main.js';
 import OfferHelp from './components/OfferHelp.js';
@@ -23,6 +23,7 @@ import {
 } from 'react-router-dom';
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
+import VerifyEmail from "./components/VerifyEmail";
 import CompleteOfferHelp from "./components/CompleteOfferHelp";
 
 function App (props) {
@@ -30,6 +31,22 @@ function App (props) {
     user,
     signOut,
   } = props;
+
+
+  const addListener = () => {
+    fb.analytics = fb.app.analytics();
+    const handleHashChange = () => {
+      const hash = document.location.hash;
+      fb.analytics.logEvent('page_view', { page_path: hash.substring(1) });
+    };
+    handleHashChange();
+
+    window.addEventListener("hashchange", handleHashChange);
+  };
+
+  useEffect(() => {
+    if(document.cookie.indexOf('cookieConsent') > -1) addListener();
+  }, []);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -57,6 +74,9 @@ function App (props) {
                 </Route>
                 <Route path="/signup">
                   <Signup/>
+                </Route>
+                <Route path="/verify-email">
+                  <VerifyEmail/>
                 </Route>
                 <Route path="/ask-for-help">
                   <AskForHelp/>
@@ -93,16 +113,17 @@ function App (props) {
           </div>
         </Router>
       </div>
-        <CookieConsent
-          location="bottom"
-          buttonText="Okay"
-          cookieName="myAwesomeCookieName2"
-          style={{ background: '#2B373B' }}
-          buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-          expires={150}>
-          Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
-        </CookieConsent>
-      </div>
+      <CookieConsent
+        location="bottom"
+        buttonText="Okay"
+        cookieName="cookieConsent"
+        style={{ background: '#2B373B' }}
+        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+        onAccept={addListener}
+        expires={365}>
+        Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
+      </CookieConsent>
+    </div>
   );
 }
 

@@ -5,6 +5,7 @@ import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Redirect, useHistory } from 'react-router-dom';
 import LocationInput from './LocationInput';
 import Footer from './Footer';
+import { isMapsApiEnabled } from '../featureFlags.js';
 
 export default function AskForHelp () {
   const [request, setRequest] = useState('');
@@ -32,9 +33,17 @@ export default function AskForHelp () {
       // The coordinates field must be a GeoPoint!
       coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
       location,
+      plz: location
     });
 
     return history.push('/success');
+  };
+
+  const handleChange = address => {
+    setLocation(address);
+    if(!isMapsApiEnabled) {
+      setCoodinates({lat: 0, lng: 0});
+    }
   };
 
   const handleSelect = address => {
@@ -49,7 +58,6 @@ export default function AskForHelp () {
     return <Redirect to="/signup"/>;
   }
 
-
   return (<form onSubmit={handleSubmit} className="p-4">
       <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten.</h1>
       <div className="font-open-sans">
@@ -60,7 +68,7 @@ export default function AskForHelp () {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <LocationInput value={location} onChange={setLocation} onSelect={handleSelect}/>
+        <LocationInput value={location} onChange={handleChange} onSelect={handleSelect}/>
       </div>
 
 

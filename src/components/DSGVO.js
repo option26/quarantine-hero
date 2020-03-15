@@ -4,7 +4,7 @@ import Footer from "./Footer";
 export default function DSGVO () {
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 p-4">
       <div className='impressum'>
         <h4 className="font-teaser my-4">Datenschutzerklärung</h4>
 

@@ -4,12 +4,8 @@ import {GeoFirestore} from 'geofirestore';
 import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
-import withFirebaseAuth from "react-with-firebase-auth";
-import * as firebaseApp from "firebase/app";
-import 'firebase/auth';
+import { isMapsApiEnabled } from '../featureFlags.js';
 import CloseIcon from '@material-ui/icons/Close';
-
-const firebaseAppAuth = firebaseApp.auth();
 
 const NotifyMe = (props) => {
 
@@ -22,7 +18,7 @@ const NotifyMe = (props) => {
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
-      await firebaseApp.auth().sendSignInLinkToEmail(email, {
+      await fb.auth.sendSignInLinkToEmail(email, {
         url: 'http://localhost:3000/#/complete-offer-help?location=' + location,
         handleCodeInApp: true,
       });
@@ -59,17 +55,23 @@ const NotifyMe = (props) => {
 export default function FilteredList() {
 
   const [location, setLocation] = useState('');
-  const [entries, setEntries] = useState([{
-    id: "placeholder-id"
-  }]);
+  const [entries, setEntries] = useState([
+    {
+      id: 'placeholder-id',
+    }]);
+  const [filteredEntries, setFilteredEntries] = useState([
+    {
+      id: 'placeholder-id',
+    }]);
   const [searchCompleted, setSearchCompleted] = useState(false);
 
   const collection = fb.store.collection('ask-for-help');
-  const query = collection.orderBy('d.timestamp', 'desc').limit(10);
+  const query = collection.orderBy('d.timestamp', 'desc');
 
   const getUserData = () => {
     query.get().then(value => {
       setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
+      setFilteredEntries(value.docs.map(doc => ({ ...doc.data().d, id: doc.id })));
     });
   };
 
@@ -81,23 +83,30 @@ export default function FilteredList() {
 // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
+  const handleChange = address => {
+    setLocation(address);
+    if (!isMapsApiEnabled) {
+      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(address) === 0));
+    }
+  };
+
   const handleSelect = address => {
     setLocation(address);
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(coordinates => {
-        const query = geocollection.near({
-          center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
-          radius: 30
-        });
-        query.get().then((value) => {
-          // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-          console.log(value.docs)
-          setEntries(value.docs.map(doc => ({...doc.data(), id: doc.id})));
-          setSearchCompleted(true);
-        });
-      })
-      .catch(error => console.error('Error', error));
+    if (isMapsApiEnabled) {
+      geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(coordinates => {
+          const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
+          query.get().then((value) => {
+            // All GeoDocument returned by GeoQuery, like the GeoDocument added above
+            console.log(value.docs[0].data())
+            setEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            setFilteredEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            setSearchCompleted(true);
+          });
+        })
+        .catch(error => console.error('Error', error));
+    }
   };
 
   const NoHelpNeeded = (props) => {
@@ -106,11 +115,12 @@ export default function FilteredList() {
 
   return (<div>
       <div className="pt-3">
-        <LocationInput onChange={setLocation} value={location} onSelect={handleSelect}/>
+        <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
       </div>
       <div className="py-3 w-full">
         <NotifyMe location={location}/>
-        {entries.length === 0 ? <NoHelpNeeded /> : entries.map(entry => (
+        {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
+          entry => (
           <Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
