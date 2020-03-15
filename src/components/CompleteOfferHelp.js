@@ -6,6 +6,7 @@ import fb from "../firebase";
 import {GeoFirestore} from "geofirestore";
 import {geocodeByAddress, getLatLng} from "react-places-autocomplete";
 import {Link} from "react-router-dom";
+import {isMapsApiEnabled} from '../featureFlags.js';
 
 export default function CompleteOfferHelp(props) {
 
@@ -38,13 +39,19 @@ export default function CompleteOfferHelp(props) {
 
         const geofirestore = new GeoFirestore(fb.store);
         const offerHelpCollection = geofirestore.collection('/offer-help');
-
-        const result = await geocodeByAddress(location);
-        const {lat, lng} = await getLatLng(result[0]);
+        let lat = 0;
+        let lng = 0;
+        if(isMapsApiEnabled) {
+          const result = await geocodeByAddress(location);
+          const coordinates = await getLatLng(result[0]);
+          lat = coordinates.lat;
+          lng = coordinates.lng;
+        }
 
         await offerHelpCollection.add({
           email: email,
           location: location,
+          plz: location,
           uid: firebase.auth().currentUser.uid,
           timestamp: Date.now(),
           coordinates: new fb.app.firestore.GeoPoint(lat, lng),
