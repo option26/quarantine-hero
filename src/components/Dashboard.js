@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
 import Entry from "./Entry";
 import {Redirect} from 'react-router-dom';
-import CloseIcon from '@material-ui/icons/Close';
 
 export default function Dashboard() {
 
@@ -57,7 +56,7 @@ export default function Dashboard() {
     const [hidden, setHidden] = useState(false);
 
     return <div>{ hidden ? '' : <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">Du wirst benachrichtigt, wenn jemand
-      in der Nähe von {props.location} Hilfe benötigt <CloseIcon className="cursor-pointer" onClick={() => {setHidden(true); handleDelete(props.id)}} /></div> }</div>
+      in der Nähe von {props.location} Hilfe benötigt <div className="cursor-pointer font-bold" onClick={() => {setHidden(true); handleDelete(props.id)}} />&times;</div> }</div>
   };
 
   return (<div className="p-4">

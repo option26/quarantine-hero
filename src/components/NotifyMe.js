@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import fb from '../firebase';
-import CloseIcon from '@material-ui/icons/Close';
 import LocationInput from './LocationInput';
 import Footer from './Footer';
 
@@ -44,7 +43,6 @@ export default function NotifyMe() {
         <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center border">
           Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir
           werden dich dann benachrichtigen, wenn Leute in {location} Hilfe benötigen.
-          <CloseIcon/>
         </div>
       </div>
 
