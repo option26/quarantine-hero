@@ -66,7 +66,7 @@ export default function CompleteOfferHelp(props) {
   }, []);
 
   return (
-    <div>
+    <div className="p-4">
       <h1 className="text-2xl font-exo2 mt-10 mb-6">Du bist eine Held*in!</h1>
       <p>
         Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand

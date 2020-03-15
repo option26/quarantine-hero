@@ -37,7 +37,7 @@ export default function NotifyMe() {
 
   if (signInLinkSent) {
     return (
-      <div>
+      <div  className="p-4">
         <div className="font-teaser my-6">
           Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
@@ -51,7 +51,7 @@ export default function NotifyMe() {
     )
   } else {
     return (
-      <div>
+      <div className="p-4">
         <div className="font-teaser my-6">
           Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
