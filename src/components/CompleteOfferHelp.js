@@ -15,9 +15,11 @@ export default function CompleteOfferHelp(props) {
     async function completeSignup() {
       if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
 
-        let email = window.localStorage.getItem('emailForSignIn');
-
-        if (!email) {
+        const emailRegex = window.location.href.match(/email=([^&]*)/);
+        let email;
+        if (emailRegex && emailRegex.length > 1 && emailRegex[1]) {
+          email = emailRegex[1];
+        } else {
           // TODO: Use nice input for this!
           // We only end up here if there is no email set in the localStorage of the users browser
           // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
@@ -25,7 +27,7 @@ export default function CompleteOfferHelp(props) {
           email = window.prompt('Bitte geben sie die Email ein, mit der sie sich registriert haben');
         }
 
-        await firebase.auth().signInWithEmailLink(email, window.location.href)
+        await fb.auth.signInWithEmailLink(email, window.location.href);
         window.localStorage.removeItem('emailForSignIn');
 
         const urlParams = new URLSearchParams(window.location.hash);
@@ -33,6 +35,7 @@ export default function CompleteOfferHelp(props) {
 
         const location = urlParams.get('#/complete-offer-help?location');
         setLocation(location);
+
         const geofirestore = new GeoFirestore(fb.store);
         const offerHelpCollection = geofirestore.collection('/offer-help');
 

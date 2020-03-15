@@ -5,52 +5,7 @@ import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags.js';
-import CloseIcon from '@material-ui/icons/Close';
-
-const NotifyMe = (props) => {
-
-  const {location} = props;
-
-  const [email, setEmail] = useState('');
-  const [signInLinkSent, setSignInLinkSent] = useState(false);
-
-  const handleClick = async () => {
-    window.localStorage.setItem('emailForSignIn', email);
-
-    try {
-      await fb.auth.sendSignInLinkToEmail(email, {
-        url: 'http://localhost:3000/#/complete-offer-help?location=' + location,
-        handleCodeInApp: true,
-      });
-
-      setSignInLinkSent(true);
-
-    } catch (error) {
-      // TODO: handle error
-    }
-  };
-
-  if (signInLinkSent) {
-    return (
-      <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center border">
-        Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir
-        werden dich dann benachrichtigen, wenn Leute in {location} Hilfe benötigen.
-        <CloseIcon/>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <input className="px-2 py-2 w-full rounded border" type="email" placeholder="Deine Emailadresse"
-               onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
-        <button style={{color: 'white'}} className="mt-4 mb-4 btn text-white btn-secondary border"
-                onClick={handleClick}>
-          Benachrichtige mich wenn jemand in {location && location !== '' ? location : 'meiner Nähe'} Hilfe braucht!
-        </button>
-      </div>
-    );
-  }
-};
+import { Link } from 'react-router-dom';
 
 export default function FilteredList() {
 
@@ -118,7 +73,10 @@ export default function FilteredList() {
         <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
       </div>
       <div className="py-3 w-full">
-        <NotifyMe location={location}/>
+        <div className="my-3 w-full">
+          <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block">
+            Benachrichtige mich wenn jemand in {location && location !== '' ? location : 'meiner Nähe'} Hilfe braucht!</Link>
+        </div>
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
           <Entry key={entry.id} {...entry}/>))}

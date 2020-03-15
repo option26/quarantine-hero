@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
 import Entry from "./Entry";
 import {Redirect} from 'react-router-dom';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function Dashboard() {
 
@@ -11,7 +10,7 @@ export default function Dashboard() {
   const [offers, setOffers] = useState([]);
   const [user, setUser] = useState(null);
 
-  firebase.auth().onAuthStateChanged(user => {
+  fb.auth.onAuthStateChanged(user => {
     setUser(user);
   });
 
@@ -36,9 +35,12 @@ export default function Dashboard() {
     setOffers(offers);
   };
 
+  const handleDelete = (id) => {
+    offerHelpCollection.doc(id).delete();
+  };
 
   useEffect(() => {
-    setUser(firebase.auth().currentUser);
+    setUser(fb.auth.currentUser);
     getUserData();
     getOffers();
   }, [user]);
@@ -47,16 +49,18 @@ export default function Dashboard() {
   //  this redirects b.c the user migth not immediately be available
   //  eventhough he is logged in technically
   if(!fb.auth.currentUser || !fb.auth.currentUser.email) {
-    return <Redirect to="/signup"/>;
+    return <Redirect to="/signup/dashboard"/>;
   }
 
   const Notification = (props) => {
     // TODO: Add option to delete this!
-    return <div className="shadow rounded border mb-4 px-4 py-2">Du wirst benachrichtigt, wenn jemand
-      in {props.location} Hilfe benötigt</div>
+    const [hidden, setHidden] = useState(false);
+
+    return <div>{ hidden ? '' : <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">Du wirst benachrichtigt, wenn jemand
+      in der Nähe von {props.location} Hilfe benötigt <CloseIcon className="cursor-pointer" onClick={() => {setHidden(true); handleDelete(props.id)}} /></div> }</div>
   };
 
-  return (<div>
+  return (<div className="p-4">
     <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
 
     {entries.length === 0
@@ -67,7 +71,7 @@ export default function Dashboard() {
 
     {offers.length === 0
       ? <div className="font-open-sans">Du hast keine Hilfegesuche eingestellt.</div>
-      : offers.map(offer => <Notification location={offer.location}/>)}
+      : offers.map(offer => <Notification location={offer.location} id={offer.id} key={offer.id}/>)}
 
   </div>);
 }

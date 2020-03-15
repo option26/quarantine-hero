@@ -25,6 +25,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
 import VerifyEmail from "./components/VerifyEmail";
 import CompleteOfferHelp from "./components/CompleteOfferHelp";
+import NotifyMe from './components/NotifyMe';
 
 function App (props) {
   const {
@@ -72,6 +73,9 @@ function App (props) {
                 <Route path="/offer-help/:id">
                   <OfferHelp/>
                 </Route>
+                <Route path="/signup/:returnUrl">
+                  <Signup/>
+                </Route>
                 <Route path="/signup">
                   <Signup/>
                 </Route>
@@ -101,6 +105,9 @@ function App (props) {
                 </Route>
                 <Route path="/dsgvo">
                   <DSGVO/>
+                </Route>
+                <Route path="/notify-me">
+                  <NotifyMe />
                 </Route>
                 <Route path="/complete-offer-help">
                   <CompleteOfferHelp />

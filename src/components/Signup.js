@@ -2,7 +2,7 @@ import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import {Redirect} from "react-router-dom";
+import { Redirect, useParams } from 'react-router-dom';
 import Footer from './Footer';
 import fb from '../firebase';
 
@@ -20,8 +20,12 @@ const Signup = (props) => {
         signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
     } = props;
+  let { returnUrl } = useParams();
 
-    if (user) return user.emailVerified ? <Redirect to="/ask-for-help"/> : <Redirect to="/verify-email"/>;
+  if (user) {
+      if(returnUrl) return <Redirect to={`/${returnUrl}`}/>;
+      return user.emailVerified ? <Redirect to="/ask-for-help"/> : <Redirect to="/verify-email"/>;
+    }
 
     const signInOrRegister = async e => {
         e.preventDefault();
