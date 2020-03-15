@@ -33,7 +33,6 @@ function App (props) {
 
   const addListener = () => {
     fb.analytics = fb.app.analytics();
-
     const handleHashChange = () => {
       const hash = document.location.hash;
       fb.analytics.logEvent('page_view', { page_path: hash.substring(1) });
