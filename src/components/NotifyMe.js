@@ -15,7 +15,7 @@ export default function NotifyMe() {
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: 'http://localhost:3000/#/complete-offer-help?location=' + location + '&email=' + email,
+        url: 'https://quarantaenehelden.org/#/complete-offer-help?location=' + location + '&email=' + email,
         handleCodeInApp: true,
       });
 
