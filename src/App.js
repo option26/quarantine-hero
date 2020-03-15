@@ -24,6 +24,9 @@ import {
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
 import VerifyEmail from "./components/VerifyEmail";
+import CompleteOfferHelp from "./components/CompleteOfferHelp";
+import NotifyMe from './components/NotifyMe';
+import ScrollToTop from "./components/ScrollToTop";
 
 function App (props) {
   const {
@@ -53,7 +56,7 @@ function App (props) {
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <div className="phone-width bg-white shadow-xl min-h-screen">
         <Router>
-
+          <ScrollToTop/>
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden">
             <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
@@ -70,6 +73,9 @@ function App (props) {
               <Switch >
                 <Route path="/offer-help/:id">
                   <OfferHelp/>
+                </Route>
+                <Route path="/signup/:returnUrl">
+                  <Signup/>
                 </Route>
                 <Route path="/signup">
                   <Signup/>
@@ -100,6 +106,12 @@ function App (props) {
                 </Route>
                 <Route path="/dsgvo">
                   <DSGVO/>
+                </Route>
+                <Route path="/notify-me">
+                  <NotifyMe />
+                </Route>
+                <Route path="/complete-offer-help">
+                  <CompleteOfferHelp />
                 </Route>
                 <Route path="/">
                   <Main/>
