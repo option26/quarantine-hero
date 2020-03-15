@@ -20,7 +20,7 @@ export default function FilteredList () {
   const [searchCompleted, setSearchCompleted] = useState(false);
 
   const collection = fb.store.collection('ask-for-help');
-  const query = collection.orderBy('d.timestamp', 'desc').limit(10);
+  const query = collection.orderBy('d.timestamp', 'desc');
 
   const getUserData = () => {
     query.get().then(value => {
