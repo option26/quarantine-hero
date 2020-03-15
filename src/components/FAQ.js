@@ -89,7 +89,7 @@ export default function FAQ() {
 
             <h2 className="text-xl font-teaser mt-8">Wie werden Daten verwendet?</h2>
 
-            <p className="font-open-sans">Wenn du eine Anfrage stellt, wird diese Öffentlich (ohne deine E-Mail) an alle Nutzer gezeigt.
+            <p className="font-open-sans">Wenn du eine Anfrage stellst, wird diese öffentlich (ohne deine E-Mail) an alle Nutzer gezeigt.
               Wenn Du eine Anfrage beantwortest, wird deine Antwort und deine E-Mail Adresse an den Anfragensteller geschickt.</p>
         <Footer />
       </div>
