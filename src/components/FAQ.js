@@ -3,7 +3,7 @@ import Footer from './Footer';
 
 export default function FAQ() {
 
-    return (<div className="mb-10">
+    return (<div className="mb-10 p-4">
             <h1 className="text-2xl font-main mt-8">Hier werden deine wichtigsten Fragen beantwortet!</h1>
 
             <h2 className="text-xl font-teaser mt-8">Wie funktioniert quarantänehelden.org?</h2>
