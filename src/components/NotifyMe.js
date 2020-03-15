@@ -18,6 +18,7 @@ export default function NotifyMe() {
         url: 'https://quarantaenehelden.org/#/complete-offer-help?location=' + location + '&email=' + email,
         handleCodeInApp: true,
       });
+      fb.analytics.logEvent('success_subscribe_region');
 
       setSignInLinkSent(true);
 

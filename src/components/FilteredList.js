@@ -74,7 +74,7 @@ export default function FilteredList() {
       </div>
       <div className="py-3 w-full">
         <div className="my-3 w-full">
-          <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block">
+          <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
             Benachrichtige mich wenn jemand in {location && location !== '' ? location : 'meiner Nähe'} Hilfe braucht!</Link>
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
