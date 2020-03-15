@@ -15,9 +15,10 @@ export default function NotifyMe() {
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: 'http://localhost:3000/#/complete-offer-help?location=' + location + '&email=' + email,
+        url: 'https://quarantaenehelden.org/#/complete-offer-help?location=' + location + '&email=' + email,
         handleCodeInApp: true,
       });
+      fb.analytics.logEvent('success_subscribe_region');
 
       setSignInLinkSent(true);
 
@@ -36,7 +37,7 @@ export default function NotifyMe() {
 
   if (signInLinkSent) {
     return (
-      <div>
+      <div  className="p-4">
         <div className="font-teaser my-6">
           Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
@@ -50,7 +51,7 @@ export default function NotifyMe() {
     )
   } else {
     return (
-      <div>
+      <div className="p-4">
         <div className="font-teaser my-6">
           Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
