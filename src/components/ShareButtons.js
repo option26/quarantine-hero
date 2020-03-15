@@ -12,13 +12,35 @@ import {
   WhatsappIcon,
   WhatsappShareButton
 } from "react-share";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Link from "@material-ui/core/Link";
 
 export default function ShareButtons(props) {
 
   const linkToShare = "https://www.quarantaenehelden.org/";
 
+  const CopyToClipboardButton = (
+    <Link
+      href={"#"}
+      onClick={(event) => {
+        event.preventDefault();
+        navigator.clipboard.writeText(linkToShare);
+      }}
+    >
+      <Box display="flex"
+           justifyContent="center"
+           alignItems="center"
+           mx={.2}
+           style={{"width": "40px", "height": "40px"}}
+           className="bg-primary text-white">
+        <FileCopyIcon/>
+      </Box>
+    </Link>
+  );
+
   return (
-    <Box style={props.style}>
+    <Box style={{...props.style}}>
+      {CopyToClipboardButton}
       <Box mx={.2}>
         <EmailShareButton url={linkToShare}>
           <EmailIcon size={40} round={false}/>

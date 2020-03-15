@@ -53,7 +53,10 @@ export default function Sidebar(props) {
     <Drawer open={open} onClose={_onClose} anchor="right">
       <CloseIcon style={{position: 'absolute', top: '20', right: '20', fontSize: '30px'}}
                  onClick={() => onClose()}/>
-      <ShareButtons style={{"display": "flex", "justifyContent": "flex-start", "marginBottom": "-40px"}}/>
+      <ShareButtons style={{
+        "display": "flex", "justifyContent": "flex-start",
+        "flexWrap": "wrap", "maxWidth": "50%", "marginBottom": "-60px"
+      }}/>
       <Menu isLoggedIn={isLoggedIn} signOut={signOut}/>
     </Drawer>
 
