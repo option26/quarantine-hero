@@ -37,23 +37,6 @@ export default function Main() {
                 onClick={() => fb.analytics.logEvent('button_need_help')}>
             <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
         </div>
-        <div className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
-          <p className="mb-4 md:leading-7 md:text-justify flex-1">
-            Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher
-            Quarantäne</strong>. Wenn ihr diesen Menschen
-            helfen wollt, könnt
-            ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!
-          </p>
-          <div className="md:m-4">
-          </div>
-          <p className=" md:leading-7 md:text-justify flex-1">
-            Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung
-            bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund
-            benötigt könnt ihr
-            das hier euren Mitmenschen mitteilen!
-          </p>
-        </div>
-
         <div className="p-4 bg-yellow-100 rounded border font-open-sans">
 
           <h1 className="text-2xl mb-4">Wichtiger Hinweis!</h1>
@@ -78,6 +61,22 @@ export default function Main() {
             Minimum und helft konsistent. Weniger ist mehr!
           </p>
 
+        </div>
+        <div className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
+          <p className="mb-4 md:leading-7 md:text-justify flex-1">
+            Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher
+            Quarantäne</strong>. Wenn ihr diesen Menschen
+            helfen wollt, könnt
+            ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!
+          </p>
+          <div className="md:m-4">
+          </div>
+          <p className=" md:leading-7 md:text-justify flex-1">
+            Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung
+            bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund
+            benötigt könnt ihr
+            das hier euren Mitmenschen mitteilen!
+          </p>
         </div>
 
         <div className="flex justify-center w-full" onClick={scrollTo}>
