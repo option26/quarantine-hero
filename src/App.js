@@ -27,6 +27,7 @@ import VerifyEmail from "./components/VerifyEmail";
 import CompleteOfferHelp from "./components/CompleteOfferHelp";
 import NotifyMe from './components/NotifyMe';
 import ScrollToTop from "./components/ScrollToTop";
+import ShareButtons from "./components/ShareButtons";
 
 function App (props) {
   const {
@@ -57,8 +58,10 @@ function App (props) {
       <div className="phone-width bg-white shadow-xl min-h-screen">
         <Router>
           <ScrollToTop/>
+
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden">
+
             <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
               <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>
                 <img src={require('./assets/logo_invert.svg')} className="h-10" />
