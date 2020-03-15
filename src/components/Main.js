@@ -37,7 +37,7 @@ export default function Main() {
                 onClick={() => fb.analytics.logEvent('button_need_help')}>
             <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
         </div>
-        <div className="p-4 bg-yellow-100 rounded border font-open-sans">
+        <div className="p-4 bg-yellow-100 rounded border font-open-sans mb-4 md:mb-8">
 
           <h1 className="text-2xl mb-4">Wichtiger Hinweis!</h1>
           <p>Generell gilt es in diesen Tagen, den Kontakt zwischen Menschen so stark wie möglich zu reduzieren. Das
