@@ -8,6 +8,7 @@ import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebaseApp from "firebase/app";
 import 'firebase/auth';
 import CloseIcon from '@material-ui/icons/Close';
+
 const firebaseAppAuth = firebaseApp.auth();
 
 const NotifyMe = (props) => {
@@ -35,24 +36,20 @@ const NotifyMe = (props) => {
 
   if (signInLinkSent) {
     return (
-      <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center">
+      <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center border">
         Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir
         werden dich dann benachrichtigen, wenn Leute in {location} Hilfe benötigen.
-        <CloseIcon />
+        <CloseIcon/>
       </div>
     )
   } else {
     return (
       <div>
-        <div className="mb-2 mt-4">In <span className="text-secondary">{location}</span> gibt es aktuell keine Anfragen. Du kannst von uns automatisch
-          benachrichtigt werden wenn
-          jemand in deiner Nähe Hilfe braucht.
-        </div>
-        <input className="px-2 py-2 w-full rounded border-2" type="email" placeholder="Deine Emailadresse"
+        <input className="px-2 py-2 w-full rounded border" type="email" placeholder="Deine Emailadresse"
                onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
-        <button style={{color: 'white'}} className="mt-4 mb-16 btn text-white btn-primary bg-primary"
+        <button style={{color: 'white'}} className="mt-4 mb-4 btn text-white btn-secondary border"
                 onClick={handleClick}>
-          Benachrichtigen, wenn jemand in meiner Nähe Hilfe braucht
+          Benachrichtige mich wenn jemand in {location && location !== '' ? location : 'meiner Nähe'} Hilfe braucht!
         </button>
       </div>
     );
@@ -103,14 +100,17 @@ export default function FilteredList() {
       .catch(error => console.error('Error', error));
   };
 
+  const NoHelpNeeded = (props) => {
+    return <div className="w-full text-center my-10">In {location} wird gerade aktuell keine Hilfe gebraucht!</div>
+  };
+
   return (<div>
-      <div className="py-3">
+      <div className="pt-3">
         <LocationInput onChange={setLocation} value={location} onSelect={handleSelect}/>
       </div>
       <div className="py-3 w-full">
-        {/*<NotifyMe location="Hof, Germany" />*/}
-        {entries.length === 0 ? (!searchCompleted || location.length === 0 ?
-          <span>Bitte gib deinen Standort ein.</span> : <NotifyMe location={location}/>) : entries.map(entry => (
+        <NotifyMe location={location}/>
+        {entries.length === 0 ? <NoHelpNeeded /> : entries.map(entry => (
           <Entry key={entry.id} {...entry}/>))}
       </div>
     </div>

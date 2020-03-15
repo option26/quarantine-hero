@@ -10,6 +10,10 @@
     @apply rounded p-4 bg-primary text-secondary w-full inline-block text-center font-bold;
 }
 
+.btn-secondary {
+    @apply rounded p-4 bg-secondary text-secondary w-full inline-block text-center font-bold;
+}
+
 .btn-green {
     background-color: #87a544;
     font-family: 'Open Sans Condensed', sans-serif;
