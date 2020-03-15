@@ -7,7 +7,7 @@ import LocationInput from './LocationInput';
 import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebaseApp from "firebase/app";
 import 'firebase/auth';
-
+import CloseIcon from '@material-ui/icons/Close';
 const firebaseAppAuth = firebaseApp.auth();
 
 const NotifyMe = (props) => {
@@ -15,37 +15,48 @@ const NotifyMe = (props) => {
   const {location} = props;
 
   const [email, setEmail] = useState('');
+  const [signInLinkSent, setSignInLinkSent] = useState(false);
 
   const handleClick = async () => {
     window.localStorage.setItem('emailForSignIn', email);
 
-    await firebaseApp.auth().sendSignInLinkToEmail(email, {
-      url: 'http://localhost:3000/#/complete-offer-help?location='+location,
-      handleCodeInApp: true,
-    });
+    try {
+      await firebaseApp.auth().sendSignInLinkToEmail(email, {
+        url: 'http://localhost:3000/#/complete-offer-help?location=' + location,
+        handleCodeInApp: true,
+      });
 
-    // TODO: Display to user
-    // TODO: Templates for email
-    // TODO: Show what will be entered in the dashboard
-    // TODO: Allow users to delete this
-    // TODO: If things get big don't always notify all users!
+      setSignInLinkSent(true);
 
+    } catch (error) {
+      // TODO: handle error
+    }
   };
 
-  return (
-    <div>
-      <div className="mb-2 mt-4">In {location} gibt es aktuell keine Anfragen. Du kannst von uns automatisch
-        benachrichtigt werden wenn
-        jemand in deiner Nähe Hilfe braucht.
+  if (signInLinkSent) {
+    return (
+      <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center">
+        Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir
+        werden dich dann benachrichtigen, wenn Leute in {location} Hilfe benötigen.
+        <CloseIcon />
       </div>
-      <input className="px-2 py-2 w-full rounded border-2" type="email" placeholder="Deine Emailadresse"
-             onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
-      <button style={{color: 'white'}} className="mt-4 mb-16 btn text-white btn-primary bg-primary"
-              onClick={handleClick}>
-        Benachrichtigen, wenn jemand in meiner Nähe Hilfe braucht
-      </button>
-    </div>
-  );
+    )
+  } else {
+    return (
+      <div>
+        <div className="mb-2 mt-4">In <span className="text-secondary">{location}</span> gibt es aktuell keine Anfragen. Du kannst von uns automatisch
+          benachrichtigt werden wenn
+          jemand in deiner Nähe Hilfe braucht.
+        </div>
+        <input className="px-2 py-2 w-full rounded border-2" type="email" placeholder="Deine Emailadresse"
+               onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
+        <button style={{color: 'white'}} className="mt-4 mb-16 btn text-white btn-primary bg-primary"
+                onClick={handleClick}>
+          Benachrichtigen, wenn jemand in meiner Nähe Hilfe braucht
+        </button>
+      </div>
+    );
+  }
 };
 
 export default function FilteredList() {
@@ -97,6 +108,7 @@ export default function FilteredList() {
         <LocationInput onChange={setLocation} value={location} onSelect={handleSelect}/>
       </div>
       <div className="py-3 w-full">
+        {/*<NotifyMe location="Hof, Germany" />*/}
         {entries.length === 0 ? (!searchCompleted || location.length === 0 ?
           <span>Bitte gib deinen Standort ein.</span> : <NotifyMe location={location}/>) : entries.map(entry => (
           <Entry key={entry.id} {...entry}/>))}
