@@ -37,10 +37,10 @@ export default function FilteredList () {
 // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
-  const handleChange = e => {
-    setLocation(e.target.value);
+  const handleChange = address => {
+    setLocation(address);
     if (!isMapsApiEnabled) {
-      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(e.target.value) === 0));
+      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(address) === 0));
     }
   };
 
@@ -53,7 +53,9 @@ export default function FilteredList () {
           const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
           query.get().then((value) => {
             // All GeoDocument returned by GeoQuery, like the GeoDocument added above
+            console.log(value.docs[0].data())
             setEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            setFilteredEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
             setSearchCompleted(true);
           });
         })

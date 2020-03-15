@@ -46,7 +46,7 @@ export default function LocationInput(props) {
   } else {
     return (
       <div className="w-full">
-        <input type="number" className="input-focus" maxLength={5} max={99999}  placeholder="Deine Postleitzahl" onChange={props.onChange} />
+        <input type="number" className="input-focus" maxLength={5} max={99999}  placeholder="Deine Postleitzahl" onChange={e=> props.onChange(e.target.value)} />
       </div>
     )
   }

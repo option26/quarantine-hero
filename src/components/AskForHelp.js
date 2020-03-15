@@ -39,8 +39,8 @@ export default function AskForHelp () {
     return history.push('/success');
   };
 
-  const handleChange = e => {
-    setLocation(e.target.value);
+  const handleChange = address => {
+    setLocation(address);
     if(!isMapsApiEnabled) {
       setCoodinates({lat: 0, lng: 0});
     }
