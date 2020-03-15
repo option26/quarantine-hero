@@ -33,6 +33,7 @@ const Signup = (props) => {
         if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
         if (signUpResult.code === 'auth/email-already-in-use'){
             const signInResult = await signInWithEmailAndPassword(email, password);
+            if (signInResult.code) return setError(signInResult.message);
             if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
         }
         if (signUpResult.code) setError(signUpResult.message);
