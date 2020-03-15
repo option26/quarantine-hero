@@ -21,15 +21,28 @@ const Signup = (props) => {
         createUserWithEmailAndPassword,
     } = props;
 
-    if (user) {
-        return <Redirect to="/ask-for-help"/>;
-    }
+    if (user) return user.emailVerified ? <Redirect to="/ask-for-help"/> : <Redirect to="/verify-email"/>;
 
     const signInOrRegister = async e => {
         e.preventDefault();
-        let result = await createUserWithEmailAndPassword(email, password);
-        if (result.code === 'auth/email-already-in-use') result = await signInWithEmailAndPassword(email, password);
-        if (result.code) setError(result.message);
+        let signUpResult = await createUserWithEmailAndPassword(email, password);
+        if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
+        if (signUpResult.code === 'auth/email-already-in-use'){
+            const signInResult = await signInWithEmailAndPassword(email, password);
+            if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
+        }
+        if (signUpResult.code) setError(signUpResult.message);
+    };
+
+    const sendPasswordResetMail = async e => {
+        e.preventDefault();
+        if (!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
+        fb.auth.sendPasswordResetEmail(email, {
+            url: 'https://www.quarantaenehelden.org/#/signup',
+            handleCodeInApp: false
+        })
+          .then(() => setPasswordResetSuccess(true))
+          .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
     };
 
     return <div className="p-4 mt-8">
@@ -68,17 +81,7 @@ const Signup = (props) => {
                 </button>
             </div>
         </form>
-        <button onClick={(e) => {
-          e.preventDefault();
-          if(!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
-          fb.auth.sendPasswordResetEmail(email, {
-                url: 'https://www.quarantaenehelden.org/#/signup',
-                handleCodeInApp: false
-            })
-                .then(() => setPasswordResetSuccess(true))
-                .catch((err) => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
-        }}
-                className="btn-green w-full">
+        <button onClick={sendPasswordResetMail} className="btn-green-secondary w-full">
             Passwort zurücksetzen
         </button>
         {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!</div>}

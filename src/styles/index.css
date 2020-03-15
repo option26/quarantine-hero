@@ -32,6 +32,29 @@
     opacity: 0.75;
 }
 
+.btn-green-secondary {
+    border: 2px solid #87a544;
+    color: #87a544;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: 0;
+    @apply rounded py-2 pl-4 text-center pr-8 relative;
+}
+
+.btn-green-secondary::after {
+    content: ">";
+    font-weight: bold;
+    font-size: 1.5em;
+    position: absolute;
+    top: 1px;
+    margin-left: 10px;
+}
+.btn-green-secondary:hover {
+    opacity: 0.75;
+}
+
 .input-focus {
     border-width: 1px;
     margin-bottom: 2px;

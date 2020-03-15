@@ -23,6 +23,7 @@ import {
 } from 'react-router-dom';
 import Sidebar from "./components/Sidebar/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
+import VerifyEmail from "./components/VerifyEmail";
 
 function App (props) {
   const {
@@ -72,6 +73,9 @@ function App (props) {
                 </Route>
                 <Route path="/signup">
                   <Signup/>
+                </Route>
+                <Route path="/verify-email">
+                  <VerifyEmail/>
                 </Route>
                 <Route path="/ask-for-help">
                   <AskForHelp/>
