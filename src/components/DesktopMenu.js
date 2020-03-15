@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import React from 'react';
+import ShareButtons from "./ShareButtons";
 
-export default function DesktopMenu (props) {
+export default function DesktopMenu(props) {
 
   const MenuItem = (props) => {
     return <li className="mr-6 hover:opacity-75">
@@ -24,13 +25,13 @@ export default function DesktopMenu (props) {
     </ul>
   );
 
-  return (
+  return (<React.Fragment>
+    <ShareButtons style={{"display": "flex", "justifyContent": "flex-end", "marginBottom": "-40px"}}/>
     <div className="hidden md:flex justify-between relative pt-8 ">
       <Link className="logo-margin block" to="/">
         <img alt="logo" src={require('../assets/logo.svg')}/>
       </Link>
       <Menu {...props}/>
     </div>
-
-  );
+  </React.Fragment>);
 }
