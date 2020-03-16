@@ -4,8 +4,8 @@ import {GeoFirestore} from 'geofirestore';
 import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
-import { isMapsApiEnabled } from '../featureFlags.js';
-import { Link } from 'react-router-dom';
+import {isMapsApiEnabled} from '../featureFlags.js';
+import {Link} from 'react-router-dom';
 
 export default function FilteredList() {
 
