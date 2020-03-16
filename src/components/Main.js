@@ -37,32 +37,35 @@ export default function Main() {
                 onClick={() => fb.analytics.logEvent('button_need_help')}>
             <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
         </div>
-        <div className="p-4 bg-yellow-100 rounded border font-open-sans mb-4 md:mb-8">
-
-          <h1 className="text-2xl mb-4">Wichtiger Hinweis!</h1>
-          <p>Generell gilt es in diesen Tagen, den Kontakt zwischen Menschen so stark wie möglich zu reduzieren. Das
-            heißt
-            leider auch, dass überbordender Aktionismus hier potentiell Schaden anrichten kann: wenn ein infizierter
-            Mensch in vielen Haushalten hilft, läuft er Gefahr die Krankheit stärker zu verbreiten als wenn er (der
-            Mensch) seinem normalen Verhalten nachgeht.
-          </p>
-
-          <ol>
-            <li className="mb-2 mt-4">1. Helft lokal, das heißt z.B. euren Nachbar*innen.</li>
-            <li className="mb-2">2. Helft wenigen, aber das konsistent. Wenn ihr z.B. babysitten wollt, sucht euch eine Familie und
-              helft nur dieser Familie.
-            </li>
-            <li className="mb-4">3. Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt.</li>
-          </ol>
-
-          <p>
-            Wenn ihr Quarantäneheld*innen seid oder sein möchtet, probiert nicht möglichst vielen anderen zu helfen,
-            sondern reduziert die Kontakte auf das absolute
-            Minimum und helft konsistent. Weniger ist mehr!
-          </p>
-
+        <div className="p-4 font-open-sans md:mb-4 mt-4 md:mt-12 sm:pl-0 sm:pr-4 flex flex-col sm:flex-row">
+          <div className="flex sm:flex-1 xs:justify-between items-center sm:flex-col sm:mt-4 sm:pr-6 sm:text-center">
+            <img className="pr-5 pl-2 sm:pl-0 sm:pr-0 sm:mb-4 w-30 h-10" src={require('../assets/lokal.svg')} alt=""/>
+            <div className="flex-grow">
+              <div className="font-bold">Lokal</div>
+              <p>
+                Helft in eurer Nachbarschaft, zum Beispiel euren Haus Mitbewohner*innen.
+              </p></div>
+          </div>
+          <div className="flex sm:flex-1 xs:justify-between mt-5 items-center sm:flex-col sm:pr-6 sm:text-center">
+            <img className="pr-5 pl-2 sm:pl-0 sm:pr-0 sm:mb-4 w-30 h-10" src={require('../assets/konsistent.svg')} alt=""/>
+            <div className="flex-grow">
+              <div className="font-bold">Konsistent</div>
+              <p>
+                Helft wenigen, aber das konsistent. Sucht euch zum Beispiel eine Familie und helft nur dieser.
+              </p></div>
+          </div>
+          <div className="flex sm:flex-1 xs:justify-between mt-5 items-center sm:flex-col sm:text-center">
+            <img className="pr-5 pl-2 sm:pl-0 sm:pr-0 sm:mb-4 w-30 h-10" src={require('../assets/distanziert.svg')} alt=""/>
+            <div className="flex-grow">
+              <div className="font-bold">Distanziert</div>
+              <p>
+                Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt <span
+                className="font-bold">KEINEN</span> Kontakt mit
+                Personen in Quarantäne!
+              </p></div>
+          </div>
         </div>
-        <div className="p-4 mb-16 font-open-sans flex flex-col md:flex-row space-between md:p-0">
+        <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0">
           <p className="mb-4 md:leading-7 md:text-justify flex-1">
             Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher
             Quarantäne</strong>. Wenn ihr diesen Menschen
@@ -77,6 +80,12 @@ export default function Main() {
             benötigt könnt ihr
             das hier euren Mitmenschen mitteilen!
           </p>
+        </div>
+
+        <div style={{backgroundColor: 'rgb(249, 247, 240)'}} className="mt-8 md:mt-12 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0">
+          <img className="w-16 h-16 mr-4" src={require('../assets/aushang.svg')} alt=""/>
+          <p>Nicht jeder Mensch hat Internet. <br className="sm:hidden"/>
+            Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
         </div>
 
         <div className="flex justify-center w-full" onClick={scrollTo}>
