@@ -37,7 +37,7 @@ export default function Main() {
                 onClick={() => fb.analytics.logEvent('button_need_help')}>
             <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
         </div>
-        <div className="p-4 font-open-sans mb-4 mt-16 sm:pl-0 sm:pr-4 flex flex-col sm:flex-row">
+        <div className="p-4 font-open-sans md:mb-4 mt-4 md:mt-12 sm:pl-0 sm:pr-4 flex flex-col sm:flex-row">
           <div className="flex sm:flex-1 xs:justify-between items-center sm:flex-col sm:mt-4 sm:pr-6 sm:text-center">
             <img className="pr-5 pl-2 sm:pl-0 sm:pr-0 sm:mb-4 w-30 h-10" src={require('../assets/lokal.svg')} alt=""/>
             <div className="flex-grow">
@@ -82,7 +82,7 @@ export default function Main() {
           </p>
         </div>
 
-        <div style={{backgroundColor: 'rgb(249, 247, 240)'}} className="mt-12 ml-4 mr-4 mb-20 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0">
+        <div style={{backgroundColor: 'rgb(249, 247, 240)'}} className="mt-8 md:mt-12 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0">
           <img className="w-16 h-16 mr-4" src={require('../assets/aushang.svg')} alt=""/>
           <p>Nicht jeder Mensch hat Internet. <br className="sm:hidden"/>
             Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
