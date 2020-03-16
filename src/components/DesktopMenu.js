@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import React from 'react';
+import ShareButtons from "./ShareButtons";
+import Box from "@material-ui/core/Box";
 
-export default function DesktopMenu (props) {
+export default function DesktopMenu(props) {
 
   const MenuItem = (props) => {
     return <li className="mr-6 hover:opacity-75">
@@ -10,27 +12,29 @@ export default function DesktopMenu (props) {
   };
 
   const Menu = (props) => (
-    <ul className="font-exo2 flex justify-around w-1/2 text-xl font-semibold mt-16">
-      {props.isLoggedIn ?
-        <MenuItem to="/dashboard">DEINE ÜBERSICHT</MenuItem> :
-        (<React.Fragment>
-          <MenuItem to="/ask-for-help">HILFE ANFRAGEN</MenuItem>
-          <MenuItem to="/overview">HELFEN</MenuItem>
-        </React.Fragment>)}
-      <MenuItem to="/faq">FAQs</MenuItem>
-      {props.isLoggedIn ?
-        <MenuItem to="#" onClick={props.signOut}>LOGOUT</MenuItem> :
-        ''}
-    </ul>
+    <Box className={"flex w-1/2"} flexDirection={"column"}>
+      <ShareButtons style={{"display": "flex", "justifyContent": "flex-end"}}/>
+      <ul className="font-exo2 flex justify-around text-xl font-semibold mt-10">
+        {props.isLoggedIn ?
+          <MenuItem to="/dashboard">DEINE ÜBERSICHT</MenuItem> :
+          (<React.Fragment>
+            <MenuItem to="/ask-for-help">HILFE ANFRAGEN</MenuItem>
+            <MenuItem to="/overview">HELFEN</MenuItem>
+          </React.Fragment>)}
+        <MenuItem to="/faq">FAQs</MenuItem>
+        {props.isLoggedIn ?
+          <MenuItem to="#" onClick={props.signOut}>LOGOUT</MenuItem> :
+          ''}
+      </ul>
+    </Box>
   );
 
-  return (
-    <div className="hidden md:flex justify-between relative pt-8 ">
-      <Link className="logo-margin block" to="/">
+  return (<React.Fragment>
+    <div className="hidden md:flex justify-between relative">
+      <Link className="logo-margin block mt-8" to="/">
         <img alt="logo" src={require('../assets/logo.svg')}/>
       </Link>
       <Menu {...props}/>
     </div>
-
-  );
+  </React.Fragment>);
 }
