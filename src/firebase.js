@@ -10,7 +10,6 @@ class Firebase {
     app.initializeApp(config);
     this.app = app;
     this.auth = app.auth();
-    this.db = app.database();
     this.analytics = {
       logEvent: () => {}
     };
