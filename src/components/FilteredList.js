@@ -79,7 +79,7 @@ export default function FilteredList() {
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
-            <Entry key={entry.id} numberOfResponses={entry.responses || 0}{...entry}/>))}
+            <Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );

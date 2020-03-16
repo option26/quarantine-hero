@@ -12,7 +12,7 @@ export default function Entry(props) {
     id = "",
     request = "",
     timestamp = Date.now(),
-    numberOfResponses = 1,
+    responses = 0,
     highlightLeft = false
   } = props;
 
@@ -43,12 +43,12 @@ export default function Entry(props) {
 
   let numberOfResponsesText = "";
 
-  if (numberOfResponses === 0) {
+  if (responses === 0) {
     numberOfResponsesText = "Noch keine Nachricht erhalten";
-  } else if (numberOfResponses === 1) {
+  } else if (responses === 1) {
     numberOfResponsesText = "1 Nachricht erhalten"
   } else {
-    numberOfResponsesText = `${numberOfResponses} Nachrichten erhalten`
+    numberOfResponsesText = `${responses} Nachrichten erhalten`
   }
 
   const style = (highlightLeft)
