@@ -64,7 +64,7 @@ function App (props) {
 
             <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
               <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>
-                <img src={require('./assets/logo_invert.svg')} className="h-10" />
+                <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
               </Link>
               <div>
                 <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)}/>

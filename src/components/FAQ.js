@@ -83,7 +83,7 @@ export default function FAQ() {
               <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">hier zum Download</a> bereitgestellt</p>
             <h2 className="text-xl font-teaser mt-8">Wer seid ihr?</h2>
 
-            <p className="font-open-sans">Wir sind Andy, Florian, Henrike, Jakob, Julia, Keno, Nicolai und Philipp, eine Gruppe von Freunden, die mit diesem
+            <p className="font-open-sans">Wir sind Andy, Florian, Henrike, Jakob, Julia, Keno, Nicolai, Milena, Philipp und Sophie, eine Gruppe von Freunden, die mit diesem
                 Projekt ihren kleinen Beitrag
                 leisten und Menschen helfen möchten.</p>
 

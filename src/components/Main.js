@@ -80,7 +80,7 @@ export default function Main() {
         </div>
 
         <div className="flex justify-center w-full" onClick={scrollTo}>
-          <img className="arrow-down" src={require('../assets/arrow_down.png')}/>
+          <img alt="arrow-down" className="arrow-down" src={require('../assets/arrow_down.png')}/>
         </div>
       </div>
       <div className="angle-cut-background pt-16 w-full">

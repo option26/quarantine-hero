@@ -4,8 +4,8 @@ import {GeoFirestore} from 'geofirestore';
 import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
-import { isMapsApiEnabled } from '../featureFlags.js';
-import { Link } from 'react-router-dom';
+import {isMapsApiEnabled} from '../featureFlags.js';
+import {Link} from 'react-router-dom';
 
 export default function FilteredList() {
 
@@ -18,7 +18,6 @@ export default function FilteredList() {
     {
       id: 'placeholder-id',
     }]);
-  const [searchCompleted, setSearchCompleted] = useState(false);
 
   const collection = fb.store.collection('ask-for-help');
   const query = collection.orderBy('d.timestamp', 'desc');
@@ -54,10 +53,8 @@ export default function FilteredList() {
           const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
           query.get().then((value) => {
             // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-            console.log(value.docs[0].data())
             setEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
             setFilteredEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-            setSearchCompleted(true);
           });
         })
         .catch(error => console.error('Error', error));
@@ -79,7 +76,7 @@ export default function FilteredList() {
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
-          <Entry key={entry.id} {...entry}/>))}
+            <Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );
