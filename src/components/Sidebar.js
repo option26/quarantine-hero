@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from "@material-ui/core/Drawer";
-import ShareButtons from "../ShareButtons";
+import ShareButtons from "./ShareButtons";
 
 export default function Sidebar(props) {
 
@@ -45,6 +45,9 @@ export default function Sidebar(props) {
         props.signOut();
         _onClose();
       }}>Abmelden</Link></li>}
+      <div className="mt-4">
+        <ShareButtons  />
+      </div>
     </ul>
   );
 
@@ -53,10 +56,6 @@ export default function Sidebar(props) {
     <Drawer open={open} onClose={_onClose} anchor="right">
       <CloseIcon style={{position: 'absolute', top: '20', right: '20', fontSize: '30px'}}
                  onClick={() => onClose()}/>
-      <ShareButtons style={{
-        "display": "flex", "justifyContent": "flex-start",
-        "flexWrap": "wrap", "maxWidth": "50%", "marginBottom": "-60px"
-      }}/>
       <Menu isLoggedIn={isLoggedIn} signOut={signOut}/>
     </Drawer>
 

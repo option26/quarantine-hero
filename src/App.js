@@ -21,7 +21,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./components/Sidebar";
 import DesktopMenu from './components/DesktopMenu';
 import VerifyEmail from "./components/VerifyEmail";
 import CompleteOfferHelp from "./components/CompleteOfferHelp";
@@ -57,7 +57,7 @@ function App (props) {
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <Router>
       <div className="hidden md:flex justify-end md:mt-16 w-full phone-width items-center">
-        <Link className="mr-2" to={`/`}>Presse</Link><ShareButtons />
+        <Link className="mr-4" to={`/`}>Presse</Link><ShareButtons />
       </div>
       <div className="phone-width bg-white shadow-xl min-h-screen md:mt-8">
           <ScrollToTop/>
