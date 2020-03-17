@@ -9,6 +9,11 @@ export default function AskForHelp () {
       <div className="font-open-sans">
         Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
       </div>
+      <div className="m-4 p-4 flex flex-row justify-start items-center rounded md:mx-0 bg-kaki">
+        <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt=""/>
+        <p>Nicht jeder Mensch hat Internet. <br className="sm:hidden"/>
+          Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
+      </div>
       <div className="py-3">
         <FilteredList />
       </div>
