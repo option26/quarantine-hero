@@ -55,14 +55,15 @@ function App (props) {
 
   return (
     <div className="flex items-center min-h-screen flex-col bg-kaki">
-      <div className="phone-width bg-white shadow-xl min-h-screen">
-        <Router>
+      <Router>
+      <div className="hidden md:flex justify-end md:mt-16 w-full phone-width items-center">
+        <Link className="mr-2" to={`/`}>Presse</Link><ShareButtons />
+      </div>
+      <div className="phone-width bg-white shadow-xl min-h-screen md:mt-8">
           <ScrollToTop/>
-
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden">
-
-            <div style={{zIndex: 101}} className="visible sm:visible md:invisible lg:invisible xl:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
+            <div style={{zIndex: 101}} className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
               <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>
                 <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
               </Link>
@@ -70,7 +71,6 @@ function App (props) {
                 <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)}/>
               </div>
             </div>
-
             <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut}/>
             <div className="mt-20 md:mt-0">
               <Switch >
@@ -122,8 +122,9 @@ function App (props) {
               </Switch>
             </div>
           </div>
-        </Router>
+
       </div>
+      </Router>
       <CookieConsent
         location="bottom"
         buttonText="Okay"
