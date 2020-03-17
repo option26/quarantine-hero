@@ -91,7 +91,7 @@ export default function Main () {
             <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
         </div>
 
-        <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 md:mb-8">
+        <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
           <p className="mb-4 md:leading-7 md:text-justify flex-1">
             Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher
             Quarantäne</strong>. Wenn ihr diesen Menschen
