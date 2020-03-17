@@ -38,7 +38,7 @@ export default function NotifyMe() {
     return (
       <div  className="p-4">
         <div className="font-teaser my-6">
-          Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
+          Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
         <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center border">
           Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir
@@ -51,7 +51,7 @@ export default function NotifyMe() {
     return (
       <div className="p-4">
         <div className="font-teaser my-6">
-          Lass Dich benachrichten, wenn Jemand in Deiner Umgebung Hilfe braucht.
+          Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
         <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
         <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"

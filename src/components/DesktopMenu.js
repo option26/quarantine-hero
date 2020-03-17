@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
-import ShareButtons from "./ShareButtons";
 import Box from "@material-ui/core/Box";
 
 export default function DesktopMenu(props) {
@@ -13,7 +12,6 @@ export default function DesktopMenu(props) {
 
   const Menu = (props) => (
     <Box className={"flex w-1/2"} flexDirection={"column"}>
-      <ShareButtons style={{"display": "flex", "justifyContent": "flex-end"}}/>
       <ul className="font-exo2 flex justify-around text-xl font-semibold mt-10">
         {props.isLoggedIn ?
           <MenuItem to="/dashboard">DEINE ÜBERSICHT</MenuItem> :
@@ -31,7 +29,7 @@ export default function DesktopMenu(props) {
 
   return (<React.Fragment>
     <div className="hidden md:flex justify-between relative">
-      <Link className="logo-margin block mt-8" to="/">
+      <Link className="-ml-8 block -mt-12" to="/">
         <img alt="logo" src={require('../assets/logo.svg')}/>
       </Link>
       <Menu {...props}/>
