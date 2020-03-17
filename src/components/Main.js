@@ -82,7 +82,7 @@ export default function Main() {
           </p>
         </div>
 
-        <div style={{backgroundColor: 'rgb(249, 247, 240)'}} className="mt-8 md:mt-12 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0">
+        <div className="mt-8 md:mt-12 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0 bg-kaki">
           <img className="w-16 h-16 mr-4" src={require('../assets/aushang.svg')} alt=""/>
           <p>Nicht jeder Mensch hat Internet. <br className="sm:hidden"/>
             Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
