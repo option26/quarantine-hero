@@ -44,7 +44,7 @@ export default function Presse () {
             </div>
           </div>
         </div>
-        {articles.map(article => <Article {...article} />)}
+        {articles.map(article => <Article {...article} key={article.link} />)}
         <Footer/>
       </div>
     </div>
