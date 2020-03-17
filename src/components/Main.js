@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/App.css';
 import FilteredList from './FilteredList';
 import Footer from './Footer';
@@ -13,6 +13,19 @@ export default function Main() {
       el.scrollIntoView({behavior: 'smooth'})
     }
   }
+
+  const [stats, setStats] = useState({
+    regionSubscribed: 0,
+    offerHelp: 0,
+    askForHelp: 0
+  });
+
+  useEffect(() => {
+    const getStats =  async () => {
+      setStats((await fb.store.collection('stats').doc('external').get()).data());
+    };
+    getStats();
+  }, []);
 
   return (
     <div className="flex items-center flex-col">
@@ -97,6 +110,20 @@ export default function Main() {
           <div className="flex justify-center items-center flex-col">
             <div className="font-teaser text-center" id="anfragen">
               Aktuelle Anfragen
+            </div>
+            <div className="flex my-6">
+              <div className="mx-4 md:mx-8 w-24 text-center">
+                <div className="font-bold text-xs font-open-sans">ANFRAGEN</div>
+                <div className="font-open-sans text-3xl font-light">{stats.askForHelp}</div>
+              </div>
+              <div className="mx-4 md:mx-8 w-24 text-center">
+                <div className="font-bold text-xs font-open-sans">HELDEN</div>
+                <div className="font-open-sans text-3xl font-light">{stats.regionSubscribed}</div>
+              </div>
+              <div className="mx-4 md:mx-8 w-24 text-center">
+                <div className="font-bold text-xs font-open-sans">NACHRICHTEN</div>
+                <div className="font-open-sans text-3xl font-light">{stats.offerHelp}</div>
+              </div>
             </div>
             <div className="font-open-sans leading-6 text-center mb-8 max-w-360">
               Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
