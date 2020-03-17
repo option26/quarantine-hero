@@ -57,10 +57,10 @@ function App (props) {
   return (
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <Router>
-      <div className="hidden md:flex justify-end md:mt-16 w-full phone-width items-center">
-        <Link className="mr-4" to={`/`}>Presse</Link><ShareButtons />
+      <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
+        <Link className="mr-4 font-open-sans" to={`/presse`}>Presse</Link><ShareButtons />
       </div>
-      <div className="phone-width bg-white shadow-xl min-h-screen md:mt-8">
+      <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <ScrollToTop/>
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden">
