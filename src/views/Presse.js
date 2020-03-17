@@ -14,11 +14,11 @@ export default function Presse () {
   };
 
   const articles = [
-    {
+    /* {
       date: '17.03.2020',
       title: 'BUNTE - Menschlichkeit in Corona Zeiten, junge Menschen helfen.',
       link: 'https://www.bunte.de/asdfgasewrgfaerghasergasergasergaserg'
-    }
+    } */
   ];
 
   return (<div>
@@ -40,7 +40,7 @@ export default function Presse () {
             </div>
             Logos, Pressetext, Grafiken
             <div>
-              <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">QuarantaeneHelden.zip</a>
+              <a href='https://we.tl/t-FhgDBEFBih' className="text-secondary hover:underline" target="_blank" rel="noopener noreferrer">QuarantaeneHelden.zip</a>
             </div>
           </div>
         </div>
