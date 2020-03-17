@@ -33,7 +33,7 @@ export default function AskForHelp () {
       // The coordinates field must be a GeoPoint!
       coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
       location,
-      plz: location
+      plz: location,
     });
 
     return history.push('/success');
@@ -41,8 +41,8 @@ export default function AskForHelp () {
 
   const handleChange = address => {
     setLocation(address);
-    if(!isMapsApiEnabled) {
-      setCoodinates({lat: 0, lng: 0});
+    if (!isMapsApiEnabled) {
+      setCoodinates({ lat: 0, lng: 0 });
     }
   };
 
@@ -54,7 +54,7 @@ export default function AskForHelp () {
       .catch(error => console.error('Error', error));
   };
 
-  if(!fb.auth.currentUser || !fb.auth.currentUser.email) {
+  if (!fb.auth.currentUser || !fb.auth.currentUser.email) {
     return <Redirect to="/signup"/>;
   }
 
@@ -63,6 +63,10 @@ export default function AskForHelp () {
       <div className="font-open-sans">
         Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
         Alles weitere könnt ihr per E-Mail besprechen.
+        <div className=" w-full rounded p-4 bg-kaki mt-4">
+          <strong>Bitte hier stellt keine ANGEBOTE rein.</strong> Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze <a
+          href="http://quarantaenehelden.org/#/notify-me" className="underline">diese Funktion</a>.
+        </div>
       </div>
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
@@ -87,7 +91,7 @@ export default function AskForHelp () {
           <button type="submit" className="btn-green w-full md:w-1/3">Jetzt um Hilfe bitten</button>
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </form>
   );
 }
