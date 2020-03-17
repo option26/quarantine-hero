@@ -126,7 +126,6 @@ function App (props) {
               </Switch>
             </div>
           </div>
-
       </div>
       </Router>
       <CookieConsent
