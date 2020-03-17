@@ -28,6 +28,7 @@ import CompleteOfferHelp from "./components/CompleteOfferHelp";
 import NotifyMe from './components/NotifyMe';
 import ScrollToTop from "./components/ScrollToTop";
 import ShareButtons from "./components/ShareButtons";
+import Presse from './views/Presse';
 
 function App (props) {
   const {
@@ -109,6 +110,9 @@ function App (props) {
                 </Route>
                 <Route path="/dsgvo">
                   <DSGVO/>
+                </Route>
+                <Route path="/presse">
+                  <Presse/>
                 </Route>
                 <Route path="/notify-me">
                   <NotifyMe />
