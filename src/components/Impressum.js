@@ -5,16 +5,31 @@ export default function Impressum () {
 
   return (<div>
       <div className="mt-4 p-4">
-        <div className='impressum'><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>Keno Dreßel <br/>
-          Georgenschwaigstraße 16a<br/>
-          80807 München</p>
-          <p><strong>Vertreten durch: </strong><br/>
+        <div className='impressum'>
+          <strong>Impressum</strong>
+          <p>Angaben gemäß § 5 TMG</p>
+          <br/>
+          <p>
+            Keno Dreßel<br/>
+            devize marketing GmbH<br/>
+            Chaussee Str. 13<br/>
+            10115 Berlin 
+          </p>
+          <br/>
+          <p>
+            <strong>Vertreten durch:</strong><br/>
             Keno Dreßel<br/>
             Henrike von Zimmermann<br/>
             Florian Schmidt<br/>
-          </p><p><strong>Kontakt:</strong> <br/>
+          </p>
+          <br/>
+          <p>
+            <strong>Kontakt:</strong><br/>
             Telefon: 089-35627565<br/>
-            E-Mail: help@quarantaenehelden.org</p><p>
+            E-Mail: help@quarantaenehelden.org
+          </p>
+          <br/>
+          <p>
             <strong>Haftungsausschluss: </strong><br></br><strong>Haftung für Links</strong><br/>
             Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
             fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
