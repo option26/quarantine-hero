@@ -6,8 +6,11 @@ import Entry from './Entry';
 import LocationInput from './LocationInput';
 import {isMapsApiEnabled} from '../featureFlags.js';
 import {Link} from 'react-router-dom';
+import Pagination from './Pagination';
 
 export default function FilteredList() {
+
+  const pageSize = 10
 
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([
@@ -19,11 +22,24 @@ export default function FilteredList() {
       id: 'placeholder-id',
     }]);
 
+  const [firstEntry, setFirstEntry] = useState(undefined);
+  const [lastEntry, setLastEntry] = useState(undefined);
+
   const collection = fb.store.collection('ask-for-help');
-  const query = collection.orderBy('d.timestamp', 'desc');
+  const baseQuery = collection.orderBy('d.timestamp', 'desc');
+  var query = baseQuery.limit(pageSize);
 
   const getUserData = () => {
     query.get().then(value => {
+      if(value.docs.length < 1) return;
+      if(value.docs.length < pageSize) {
+        //TODO: Differentiate between last and first page
+        //query = 
+      }
+
+      setFirstEntry(value.docs[0]);
+      setLastEntry(value.docs[value.docs.length - 1]);
+
       setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
       setFilteredEntries(value.docs.map(doc => ({ ...doc.data().d, id: doc.id })));
     });
@@ -36,6 +52,16 @@ export default function FilteredList() {
 
 // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
+
+  const nextPage = () => {
+    query = baseQuery.limit(pageSize).startAfter(lastEntry);
+    getUserData();
+  }
+
+  const prevPage = () => {
+    query = baseQuery.limitToLast(pageSize).endBefore(firstEntry);
+    getUserData();
+  }
 
   const handleChange = address => {
     setLocation(address);
@@ -77,6 +103,9 @@ export default function FilteredList() {
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
             <Entry key={entry.id} {...entry}/>))}
+        <div className="flex justify-center pt-3">
+          <Pagination onPrevPage={prevPage} onNextPage={nextPage} />
+        </div>
       </div>
     </div>
   );
