@@ -49,7 +49,7 @@ export default function Main () {
             <div className="flex-grow">
               <div className="font-bold">Lokal</div>
               <p>
-                Helft in eurer Nachbarschaft, zum Beispiel euren Haus Mitbewohner*innen.
+                Helft in eurer Nachbarschaft, zum Beispiel euren Haus-Mitbewohner*innen.
               </p></div>
           </div>
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0  md:text-center">
