@@ -44,11 +44,11 @@ export default function Entry(props) {
   let numberOfResponsesText = "";
 
   if (responses === 0) {
-    numberOfResponsesText = "Noch keine Nachricht erhalten";
+    numberOfResponsesText = "Noch keine Antworten erhalten";
   } else if (responses === 1) {
-    numberOfResponsesText = "1 Nachricht erhalten"
+    numberOfResponsesText = "1 Antwort erhalten"
   } else {
-    numberOfResponsesText = `${responses} Nachrichten erhalten`
+    numberOfResponsesText = `${responses} Antworten erhalten`
   }
 
   const style = (highlightLeft)
