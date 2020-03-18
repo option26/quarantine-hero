@@ -1,26 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import fb from '../firebase';
-import {GeoFirestore} from 'geofirestore';
-import {getLatLng, geocodeByAddress} from 'react-places-autocomplete';
+import { GeoFirestore } from 'geofirestore';
+import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
-import {isMapsApiEnabled} from '../featureFlags.js';
-import {Link} from 'react-router-dom';
+import { isMapsApiEnabled } from '../featureFlags.js';
+import { Link } from 'react-router-dom';
 import Pagination from './Pagination';
 
 export default function FilteredList(props) {
 
   const {
-    enablePagination = true,
-    pageSize = 10
+    pageSize = 0
   } = props;
 
+  const [paginationOverwrite, overwritePagination] = useState(false);
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([
-    {
-      id: 'placeholder-id',
-    }]);
-  const [filteredEntries, setFilteredEntries] = useState([
     {
       id: 'placeholder-id',
     }]);
@@ -29,31 +25,6 @@ export default function FilteredList(props) {
   const [lastEntry, setLastEntry] = useState(undefined);
 
   const collection = fb.store.collection('ask-for-help');
-  const baseQuery = collection.orderBy('d.timestamp', 'desc');
-
-  var query;
-  const restoreQuery = () => {
-    query = enablePagination ? baseQuery.limit(pageSize) : baseQuery;
-  }
-  restoreQuery();
-
-  const getUserData = () => {
-    query.get().then(value => {
-      if(value.docs.length < pageSize && value.query.bm["endAt"] !== null) {
-        restoreQuery();
-        getUserData();
-        return;
-      }
-
-      setFirstEntry(value.docs[0]);
-      setLastEntry(value.docs[value.docs.length - 1]);
-
-      setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
-      setFilteredEntries(value.docs.map(doc => ({ ...doc.data().d, id: doc.id })));
-    });
-  };
-
-  useEffect(getUserData, []);
 
   // Create a Firestore reference
   const geofirestore = new GeoFirestore(fb.store);
@@ -61,48 +32,108 @@ export default function FilteredList(props) {
   // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
+  const buildQuery = async (location = undefined, startAfter = undefined, endBefore = undefined, limit = pageSize) => {
+    var queryResult;
+
+    //If map api is available, 
+    if (isMapsApiEnabled && location && location !== '') {
+      queryResult = geocollection;
+      overwritePagination(true);
+
+      try {
+        var results = await geocodeByAddress(location);
+        var coordinates = await getLatLng(results[0]);
+        queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
+      } catch (error) {
+        queryResult = collection.orderBy('d.timestamp', 'desc');
+        console.error('Error', error);
+      }
+    } else {
+      queryResult = collection;
+
+      if (location && location !== '') {
+        queryResult = queryResult.orderBy('d.plz', 'asc');
+        overwritePagination(true);
+
+        var lowerLimit = Number.parseInt(location) * (Math.pow(10, Math.max(5 - location.length, 0)));
+        var upperLimit = (Number.parseInt(location) + 1) * (Math.pow(10, Math.max(5 - location.length, 0)));
+
+        queryResult = queryResult.where("d.plz", ">=", lowerLimit.toString());
+        queryResult = queryResult.where("d.plz", "<=", upperLimit.toString());
+      } else {
+        queryResult = queryResult.orderBy('d.timestamp', 'desc');
+        overwritePagination(false);
+
+        if (startAfter !== undefined) {
+          queryResult = queryResult.startAfter(startAfter);
+          if (limit > 0) queryResult = queryResult.limit(limit);
+        } else if (endBefore !== undefined) {
+          queryResult = queryResult.endBefore(endBefore);
+          if (limit > 0) queryResult = queryResult.limitToLast(limit);
+        } else {
+          if (limit > 0) queryResult = queryResult.limit(limit);
+        }
+      }
+    }
+
+    return queryResult;
+  };
+
+  const getUserData = async (queryPromise) => {
+    var query = await queryPromise;
+    console.log(query);
+
+    query.get().then(value => {
+      //If we go to the prev. page, it could happen that new request were coming in. Hence,
+      //we need to check whether we are showing too few request
+      if (value.docs.length < pageSize && value.query?.bm["endAt"]) {
+        getUserData(buildQuery());
+        return;
+      }
+
+      setFirstEntry(value.docs[0]);
+      setLastEntry(value.docs[value.docs.length - 1]);
+
+      setEntries(value.docs.map(doc => {
+        var data = doc.data();
+        return { ...(data.d || data), id: doc.id }
+      }));
+    });
+  };
+
+  useEffect(() => {
+    getUserData(buildQuery())
+  }, []);
+
   const nextPage = () => {
-    if(enablePagination) {
-      query = baseQuery.limit(pageSize).startAfter(lastEntry);
-      getUserData();
+    if (pageSize > 0 && !paginationOverwrite) {
+      getUserData(buildQuery(location, lastEntry));
     }
   }
 
   const prevPage = () => {
-    if(enablePagination) {
-      query = baseQuery.limitToLast(pageSize).endBefore(firstEntry);
-      getUserData();
+    if (pageSize > 0 && !paginationOverwrite) {
+      getUserData(buildQuery(location, undefined, firstEntry));
     }
   }
 
   const showCurrent = () => {
-    if(enablePagination) {
-      restoreQuery();
-      getUserData();
+    if (pageSize > 0 && !paginationOverwrite) {
+      getUserData(buildQuery(location));
     }
   }
 
   const handleChange = address => {
     setLocation(address);
-    if (!isMapsApiEnabled) {
-      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(address) === 0));
+    if (!isMapsApiEnabled || !address || address === '') {
+      getUserData(buildQuery(address));
     }
   };
 
   const handleSelect = address => {
     setLocation(address);
     if (isMapsApiEnabled) {
-      geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(coordinates => {
-          const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
-          query.get().then((value) => {
-            // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-            setEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-            setFilteredEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-          });
-        })
-        .catch(error => console.error('Error', error));
+      getUserData(buildQuery(address));
     }
   };
 
@@ -111,22 +142,22 @@ export default function FilteredList(props) {
   };
 
   return (<div>
-      <div className="pt-3">
-        <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
-      </div>
-      <div className="py-3 w-full">
-        <div className="my-3 w-full">
-          <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
-            Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!</Link>
-        </div>
-        {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
-          entry => (
-            <Entry key={entry.id} {...entry}/>))}
-        {enablePagination ? <div className="flex justify-center pt-3">
-          <Pagination onPrevPage={prevPage} onNextPage={nextPage} onShowCurrent={showCurrent}/>
-        </div> : null}
-      </div>
+    <div className="pt-3">
+      <LocationInput onChange={handleChange} value={location} onSelect={handleSelect} />
     </div>
+    <div className="py-3 w-full">
+      <div className="my-3 w-full">
+        <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
+          Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!</Link>
+      </div>
+      {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
+        entry => (
+          <Entry key={entry.id} {...entry} />))}
+      {(pageSize > 0 && !paginationOverwrite) ? <div className="flex justify-center pt-3">
+        <Pagination onPrevPage={prevPage} onNextPage={nextPage} onShowCurrent={showCurrent} />
+      </div> : null}
+    </div>
+  </div>
   );
 }
 
