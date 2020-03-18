@@ -62,7 +62,7 @@ export default function FilteredList() {
   };
 
   const NoHelpNeeded = (props) => {
-    return <div className="w-full text-center my-10">In {location} wird gerade aktuell keine Hilfe gebraucht!</div>
+    return <div className="w-full text-center my-10">In {location} wird aktuell keine Hilfe gebraucht!</div>
   };
 
   return (<div>
