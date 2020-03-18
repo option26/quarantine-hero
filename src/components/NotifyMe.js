@@ -56,8 +56,9 @@ export default function NotifyMe() {
         <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
         <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
                onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
-        <button className="mt-6 btn-green w-full"
-                onClick={handleClick}>
+        <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed"
+                onClick={handleClick}
+                disabled={!(location && location !== '' && email && email !== '')}>
           Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
         </button>
         <Footer />
