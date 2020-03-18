@@ -135,7 +135,7 @@ export default function Main () {
               Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
             </div>
           </div>
-          <FilteredList enablePagination={true} pageSize={20}/>
+          <FilteredList pageSize={20}/>
           <div className="flex justify-center items-center">
             <Link to="/overview" className="btn-green">
               ALLE ANFRAGEN
