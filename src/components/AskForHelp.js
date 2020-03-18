@@ -64,7 +64,7 @@ export default function AskForHelp () {
         Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
         Alles weitere könnt ihr per E-Mail besprechen.
         <div className=" w-full rounded p-4 bg-kaki mt-4">
-          <strong>Bitte hier stellt keine ANGEBOTE rein.</strong> Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze <a
+          <strong>Bitte stellt hier keine Angebote ein.</strong> Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze <a
           href="http://quarantaenehelden.org/#/notify-me" className="underline">diese Funktion</a>.
         </div>
       </div>
