@@ -58,7 +58,7 @@ function App (props) {
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <Router>
       <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-        <Link className="mr-4 font-open-sans" to={`/presse`}>Presse</Link><ShareButtons />
+        <Link className="mr-4 font-open-sans text-gray-700" to={`/presse`}>Presse</Link><ShareButtons />
       </div>
       <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <ScrollToTop/>

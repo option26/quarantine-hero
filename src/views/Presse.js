@@ -50,7 +50,7 @@ export default function Presse () {
           Neben vielen lokalen Helden haben unter anderem diese Medien geholfen die QuarantäneHelden bekannt zu machen um noch mehr Hilfesuchende zu unterstützen.
           Hier findet ihr aktuelle Artikel und Nachrichten.
         </div>
-        <div className="bg-kaki p-4 mb-6 mt-4 font-open-sans flex">
+        <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex items-center rounded">
           <div>
             <img src={require('../assets/clipboard.svg')} alt="Clipboard" className="w-12 mr-4" />
           </div>
@@ -64,7 +64,7 @@ export default function Presse () {
             </div>
           </div>
         </div>
-        <div className="my-8 flex flex-wrap">
+        <div className="my-8 flex flex-wrap mb-16">
           <div className="w-1/3 h-auto" >
             <img alt="bunte" src={require('../assets/bunte_de.jpg')} />
           </div>
