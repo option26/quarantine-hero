@@ -66,22 +66,22 @@ export default function Presse () {
         </div>
         <div className="my-8 flex flex-wrap">
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/bunte_de.jpg')} />
+            <img alt="bunte" src={require('../assets/bunte_de.jpg')} />
           </div>
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/business_insider.jpg')} />
+            <img alt="businessinsider" src={require('../assets/business_insider.jpg')} />
           </div>
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/rpr1.jpg')} />
+            <img alt="rpr1" src={require('../assets/rpr1.jpg')} />
           </div>
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/sat1_regional.jpg')} />
+            <img alt="sat1 regional" src={require('../assets/sat1_regional.jpg')} />
           </div>
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/utopia.jpg')} />
+            <img alt="utopia" src={require('../assets/utopia.jpg')} />
           </div>
           <div className="w-1/3 h-auto" >
-            <img src={require('../assets/youfm.jpg')} />
+            <img alt="youfm" src={require('../assets/youfm.jpg')} />
           </div>
         </div>
         {articles.map(article => <Article {...article} key={article.link} />)}
