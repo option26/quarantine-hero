@@ -8,9 +8,12 @@ import {isMapsApiEnabled} from '../featureFlags.js';
 import {Link} from 'react-router-dom';
 import Pagination from './Pagination';
 
-export default function FilteredList() {
+export default function FilteredList(props) {
 
-  const pageSize = 10
+  const {
+    enablePagination = true,
+    pageSize = 10
+  } = props;
 
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([
@@ -27,14 +30,19 @@ export default function FilteredList() {
 
   const collection = fb.store.collection('ask-for-help');
   const baseQuery = collection.orderBy('d.timestamp', 'desc');
-  var query = baseQuery.limit(pageSize);
+
+  var query;
+  const restoreQuery = () => {
+    query = enablePagination ? baseQuery.limit(pageSize) : baseQuery;
+  }
+  restoreQuery();
 
   const getUserData = () => {
     query.get().then(value => {
-      if(value.docs.length < 1) return;
-      if(value.docs.length < pageSize) {
-        //TODO: Differentiate between last and first page
-        //query = 
+      if(value.docs.length < pageSize && value.query.bm["endAt"] !== null) {
+        restoreQuery();
+        getUserData();
+        return;
       }
 
       setFirstEntry(value.docs[0]);
@@ -50,17 +58,28 @@ export default function FilteredList() {
   // Create a Firestore reference
   const geofirestore = new GeoFirestore(fb.store);
 
-// Create a GeoCollection reference
+  // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
   const nextPage = () => {
-    query = baseQuery.limit(pageSize).startAfter(lastEntry);
-    getUserData();
+    if(enablePagination) {
+      query = baseQuery.limit(pageSize).startAfter(lastEntry);
+      getUserData();
+    }
   }
 
   const prevPage = () => {
-    query = baseQuery.limitToLast(pageSize).endBefore(firstEntry);
-    getUserData();
+    if(enablePagination) {
+      query = baseQuery.limitToLast(pageSize).endBefore(firstEntry);
+      getUserData();
+    }
+  }
+
+  const showCurrent = () => {
+    if(enablePagination) {
+      restoreQuery();
+      getUserData();
+    }
   }
 
   const handleChange = address => {
@@ -103,9 +122,9 @@ export default function FilteredList() {
         {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
             <Entry key={entry.id} {...entry}/>))}
-        <div className="flex justify-center pt-3">
-          <Pagination onPrevPage={prevPage} onNextPage={nextPage} />
-        </div>
+        {enablePagination ? <div className="flex justify-center pt-3">
+          <Pagination onPrevPage={prevPage} onNextPage={nextPage} onShowCurrent={showCurrent}/>
+        </div> : null}
       </div>
     </div>
   );
