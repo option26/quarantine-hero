@@ -64,7 +64,7 @@ export default function Dashboard() {
 
     {entries.length === 0
       ? <div className="font-open-sans">
-          Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch <Link class="underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> erstellen.
+          Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch <Link class="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> erstellen.
         </div>
       : entries.map(entry => (<Entry {...entry} key={entry.id} owner={true}/>))}
 
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
     {offers.length === 0
       ? <div className="font-open-sans">
-          Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen <Link class="underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> registrieren.
+          Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen <Link class="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> registrieren.
         </div>
       : offers.map(offer => <Notification location={offer.location} id={offer.id} key={offer.id}/>)}
 
