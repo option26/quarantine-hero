@@ -1,33 +1,40 @@
 {
   "files": {
     "main.css": "/static/css/main.0c817c52.chunk.css",
-    "main.js": "/static/js/main.0197600f.chunk.js",
-    "main.js.map": "/static/js/main.0197600f.chunk.js.map",
+    "main.js": "/static/js/main.524e6115.chunk.js",
+    "main.js.map": "/static/js/main.524e6115.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.5ba2f042.js",
     "runtime-main.js.map": "/static/js/runtime-main.5ba2f042.js.map",
-    "static/js/2.cbd40bce.chunk.js": "/static/js/2.cbd40bce.chunk.js",
-    "static/js/2.cbd40bce.chunk.js.map": "/static/js/2.cbd40bce.chunk.js.map",
+    "static/js/2.8aa2fcfc.chunk.js": "/static/js/2.8aa2fcfc.chunk.js",
+    "static/js/2.8aa2fcfc.chunk.js.map": "/static/js/2.8aa2fcfc.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.4ae6bc7dbc529a2e01ecea59707959cf.js": "/precache-manifest.4ae6bc7dbc529a2e01ecea59707959cf.js",
+    "precache-manifest.19b05911cc5621aa11cf945ac4a2a516.js": "/precache-manifest.19b05911cc5621aa11cf945ac4a2a516.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.0c817c52.chunk.css.map": "/static/css/main.0c817c52.chunk.css.map",
-    "static/js/2.cbd40bce.chunk.js.LICENSE.txt": "/static/js/2.cbd40bce.chunk.js.LICENSE.txt",
+    "static/js/2.8aa2fcfc.chunk.js.LICENSE.txt": "/static/js/2.8aa2fcfc.chunk.js.LICENSE.txt",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
+    "static/media/bunte_de.jpg": "/static/media/bunte_de.f7b1ea8c.jpg",
+    "static/media/business_insider.jpg": "/static/media/business_insider.739c81d0.jpg",
     "static/media/clipboard.svg": "/static/media/clipboard.d5681166.svg",
     "static/media/distanziert.svg": "/static/media/distanziert.1d6cc75d.svg",
     "static/media/fb.svg": "/static/media/fb.745240d0.svg",
+    "static/media/gh.svg": "/static/media/gh.031ea242.svg",
     "static/media/ig.svg": "/static/media/ig.70332335.svg",
     "static/media/konsistent.svg": "/static/media/konsistent.d8a5ce7d.svg",
     "static/media/logo.svg": "/static/media/logo.c3831aea.svg",
     "static/media/logo_invert.svg": "/static/media/logo_invert.d492beec.svg",
     "static/media/lokal.svg": "/static/media/lokal.2b286f77.svg",
+    "static/media/rpr1.jpg": "/static/media/rpr1.9be1c872.jpg",
+    "static/media/sat1_regional.jpg": "/static/media/sat1_regional.cc454ba9.jpg",
     "static/media/success.svg": "/static/media/success.ceaaf435.svg",
-    "static/media/tw.svg": "/static/media/tw.b76bad5a.svg"
+    "static/media/tw.svg": "/static/media/tw.b76bad5a.svg",
+    "static/media/utopia.jpg": "/static/media/utopia.ef49e28f.jpg",
+    "static/media/youfm.jpg": "/static/media/youfm.307a3bd7.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.5ba2f042.js",
-    "static/js/2.cbd40bce.chunk.js",
+    "static/js/2.8aa2fcfc.chunk.js",
     "static/css/main.0c817c52.chunk.css",
-    "static/js/main.0197600f.chunk.js"
+    "static/js/main.524e6115.chunk.js"
   ]
 }
