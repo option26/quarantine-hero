@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
 import Entry from "./Entry";
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 export default function Dashboard() {
 
@@ -63,13 +63,17 @@ export default function Dashboard() {
     <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
 
     {entries.length === 0
-      ? <div className="font-open-sans">Du hast keine Hilfegesuche eingestellt.</div>
+      ? <div className="font-open-sans">
+          Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch <Link class="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> erstellen.
+        </div>
       : entries.map(entry => (<Entry {...entry} key={entry.id} owner={true}/>))}
 
     <h1 className="font-teaser py-4 pt-10">Deine Benachrichtigungen </h1>
 
     {offers.length === 0
-      ? <div className="font-open-sans">Du hast keine Hilfegesuche eingestellt.</div>
+      ? <div className="font-open-sans">
+          Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen <Link class="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link> registrieren.
+        </div>
       : offers.map(offer => <Notification location={offer.location} id={offer.id} key={offer.id}/>)}
 
   </div>);
