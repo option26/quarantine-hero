@@ -1,7 +1,7 @@
-import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
-import {de} from 'date-fns/locale';
+import { de } from 'date-fns/locale';
 import fb from '../firebase';
 
 export default function Entry(props) {
@@ -18,7 +18,7 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState('');
 
-  const date = formatDistance(new Date(timestamp), Date.now(), {locale: de});
+  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
 
   let textToDisplay;
   if (showFullText) {
@@ -61,14 +61,15 @@ export default function Entry(props) {
 
   return (
     <Link to={`/offer-help/${props.id}`}
-          className={style}
-          key={id}>
+      className={style}
+      key={id}>
       <span className="text-xs font-open-sans text-gray-800 mt-2">Jemand in <span
         className="font-bold">{location}</span> braucht Hilfe!</span>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
         <span className="text-gray-500 inline-block text-right text-xs font-open-sans">vor {date}</span>
+        {/* add button here with "Melden function" */}
       </div>
       {fb.auth.currentUser && ((fb.auth.currentUser.uid === props.uid) || fb.auth.currentUser.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2') ?
         <div>
