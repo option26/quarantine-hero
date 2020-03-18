@@ -62,7 +62,7 @@ export default function FilteredList() {
   };
 
   const NoHelpNeeded = (props) => {
-    return <div className="w-full text-center my-10">In {location} wird gerade aktuell keine Hilfe gebraucht!</div>
+    return <div className="w-full text-center my-10">In {location} wird aktuell keine Hilfe gebraucht!</div>
   };
 
   return (<div>
@@ -74,11 +74,10 @@ export default function FilteredList() {
           <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!</Link>
         </div>
-        {entries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
+        {filteredEntries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
           entry => (
             <Entry key={entry.id} {...entry}/>))}
       </div>
     </div>
   );
 }
-
