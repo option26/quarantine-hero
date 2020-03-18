@@ -58,7 +58,7 @@ export default function NotifyMe() {
                onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
         <button className="mt-6 btn-green w-full"
                 onClick={handleClick}>
-          Benachrichtige mich wenn jemand in {location && location !== '' ? location : 'meiner Nähe'} Hilfe braucht!
+          Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
         </button>
         <Footer />
       </div>
