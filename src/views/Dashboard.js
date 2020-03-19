@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
 import Entry from "../components/Entry";
 import {Redirect, Link} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 export default function Dashboard() {
+
+  const { t, i18n } = useTranslation();
 
   const [entries, setEntries] = useState([]);
   const [offers, setOffers] = useState([]);
@@ -60,7 +63,7 @@ export default function Dashboard() {
   };
 
   return (<div className="p-4">
-    <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
+    <h1 className="font-teaser py-4 pt-10">{t('dashboard.yourRequests')}</h1>
 
     {entries.length === 0
       ? <div className="font-open-sans">

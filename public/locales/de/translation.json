@@ -48,5 +48,26 @@
   "locationInput": {
     "yourPostalCodeOrNeighbourhood": "Deine Postleitzahl oder Nachbarschaft...",
     "yourPostalCode": "Deine Postleitzahl oder Nachbarschaft..."
+  },
+  "askForHelp": {
+    "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
+    "whenSomeoneWantsToHelpExplanation": "Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.\n Alles weitere könnt ihr per E-Mail besprechen.",
+    "noRequestsHere": "Bitte stellt hier keine Angebote ein.",
+    "ifYouWantToGetNotified": "Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze",
+    "thisFunction": "diese Funktion",
+    "whereAreYou": "Wo bist du?",
+    "whatCanWeDo": "Wobei kann man dir helfen?",
+    "requestIsPublic": "Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.",
+    "askNow": "Jetzt um Hilfe bitten"
+  },
+  "completeOfferHelp": {
+    "mailYouRegistered": "Bitte geben sie die Email ein, mit der sie sich registriert haben",
+    "youAreHero":  "Du bist eine Held*in!",
+    "mailVerified": "Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand in",
+    "needsHelp": "Hilfe benötigt",
+    "toYourOverview": "ZU DEINER ÜBERSICHT"
+  },
+  "dashboard": {
+    "yourRequests": "Deine Hilfegesuche"
   }
 }

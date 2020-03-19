@@ -7,9 +7,11 @@ import {GeoFirestore} from "geofirestore";
 import {geocodeByAddress, getLatLng} from "react-places-autocomplete";
 import {Link} from "react-router-dom";
 import {isMapsApiEnabled} from '../featureFlags.js';
+import {useTranslation} from "react-i18next";
 
 export default function CompleteOfferHelp(props) {
 
+  const { t, i18n } = useTranslation();
   const [location, setLocation] = useState('');
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function CompleteOfferHelp(props) {
           // We only end up here if there is no email set in the localStorage of the users browser
           // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
           // link in his mobile phones email client.
-          email = window.prompt('Bitte geben sie die Email ein, mit der sie sich registriert haben');
+          email = window.prompt(t('completeOfferHelp.mailYouRegistered'));
         }
 
         await fb.auth.signInWithEmailLink(email, window.location.href);
@@ -67,14 +69,13 @@ export default function CompleteOfferHelp(props) {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-exo2 mt-10 mb-6">Du bist eine Held*in!</h1>
+      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('completeOfferHelp.youAreHero')}</h1>
       <p>
-        Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand
-        in <span className="text-secondary">{location}</span> Hilfe benötigt.
+        {t('completeOfferHelp.youAreHero')} <span className="text-secondary">{location}</span> {t('completeOfferHelp.needsHelp')}.
       </p>
       <div className="flex justify-center flex-col items-center mb-8">
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt=""/>
-        <Link className="btn-green mt-10" to={'/dashboard'}>ZU DEINER ÜBERSICHT</Link>
+        <Link className="btn-green mt-10" to={'/dashboard'}>{t('completeOfferHelp.toYourOverview')}</Link>
       </div>
       <Footer/>
     </div>

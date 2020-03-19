@@ -6,6 +6,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags.js';
+import {useTranslation} from "react-i18next";
 
 export default function AskForHelp () {
   const [request, setRequest] = useState('');
@@ -14,6 +15,7 @@ export default function AskForHelp () {
     lat: null,
     lng: null,
   });
+  const { t, i18n } = useTranslation();
   const history = useHistory();
   // Create a Firestore reference
 
@@ -59,18 +61,17 @@ export default function AskForHelp () {
   }
 
   return (<form onSubmit={handleSubmit} className="p-4">
-      <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten.</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('askForHelp.createRequest')}</h1>
       <div className="font-open-sans">
-        Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
-        Alles weitere könnt ihr per E-Mail besprechen.
+        {t('askForHelp.whenSomeoneWantsToHelpExplanation')}
         <div className=" w-full rounded p-4 bg-kaki mt-4">
-          <strong>Bitte stellt hier keine Angebote ein.</strong> Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze <a
-          href="http://quarantaenehelden.org/#/notify-me" className="underline">diese Funktion</a>.
+          <strong>{t('askForHelp.noRequestsHere')}</strong> {t('askForHelp.ifYouWantToGetNotified')} <a
+          href="http://quarantaenehelden.org/#/notify-me" className="underline">{t('askForHelp.thisFunction')}</a>.
         </div>
       </div>
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-          Wo bist du?
+          {t('askForHelp.whereAreYou')}
         </label>
         <LocationInput value={location} onChange={handleChange} onSelect={handleSelect}/>
       </div>
@@ -79,16 +80,16 @@ export default function AskForHelp () {
       <div className="py-3">
         <div className="w-full">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-            Wobei kann man dir helfen?
+            {t('askForHelp.whatCanWeDo')}
           </label>
           <textarea className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
-                    required="required" placeholder="Wobei kann man dir helfen?" onChange={e => setRequest(e.target.value)}/>
+                    required="required" placeholder="{t('askForHelp.whatCanWeDo')}" onChange={e => setRequest(e.target.value)}/>
         </div>
         <div className="mt-4 mb-6 w-full text-gray-700">
-          Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.
+          {t('askForHelp.requestIsPublic')}
         </div>
         <div className="mt-4 w-full flex justify-end">
-          <button type="submit" className="btn-green w-full md:w-1/3">Jetzt um Hilfe bitten</button>
+          <button type="submit" className="btn-green w-full md:w-1/3">{t('askForHelp.askNow')}</button>
         </div>
       </div>
       <Footer/>
