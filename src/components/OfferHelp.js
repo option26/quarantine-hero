@@ -72,7 +72,7 @@ export default function OfferHelp () {
                  placeholder="ich@helfer.de"/>
         </div>
         <div className="mt-4 m-1 w-full">
-          Wenn Sie das abschicken stimmen Sie zu, dass wir Ihre Kontaktdaten an den Anfragensteller weiterleiten.
+          Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.
         </div>
         <div className="mt-4 m-1 w-full">
           <button type="submit" className="btn-green w-full">NACHRICHT ABSCHICKEN</button>
