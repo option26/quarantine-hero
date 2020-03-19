@@ -17,6 +17,7 @@ export default function Entry(props) {
   } = props;
 
   const [deleted, setDeleted] = useState('');
+  const [reported, setReported] = useState(false);
 
   const date = formatDistance(new Date(timestamp), Date.now(), {locale: de});
 
@@ -41,6 +42,45 @@ export default function Entry(props) {
     setDeleted(true);
   };
 
+  const reportEntry = async event => {
+    // prevents redirect to the parent component, as this is clicked on a button within a Link component
+    // https://stackoverflow.com/a/53005834/8547462
+    event.preventDefault();
+
+    const collectionName = 'reported-posts';
+    const reportedPostsCollection = fb.store.collection(collectionName);
+    const existingEntry = await reportedPostsCollection.doc(id).get();
+
+    if(!existingEntry) {
+      const data = {
+        request,
+        id,
+        user_ids: [fb.auth.currentUser.uid],
+        timestamp: Date.now()
+      }
+      await reportedPostsCollection.add(data);
+      setReported(true)
+      return;
+    }
+
+    const { user_ids }  = existingEntry;
+    // early return if user reported this entry already
+    if (user_ids.includes(id)) {
+      setReported(true);
+      return;
+    }
+
+    user_ids.push(id)
+    const data = {
+      request,
+      id,
+      user_ids,
+      timestamp: Date.now()
+    }
+    await reportedPostsCollection.add(data);
+    setReported(true)
+  };
+
   let numberOfResponsesText = "";
 
   if (responses === 0) {
@@ -59,12 +99,22 @@ export default function Entry(props) {
     return null;
   }
 
+  const reportEntryButtonClass = reported === false
+    ? "btn-report-entry btn-report-entry-enabled my-2"
+    : "btn-report-entry btn-report-entry-disabled my-2";
+
+  const buttonText = reported === false
+    ? "Melden"
+    : "Gemeldet!";
+
   return (
     <Link to={`/offer-help/${props.id}`}
           className={style}
           key={id}>
-      <span className="text-xs font-open-sans text-gray-800 mt-2">Jemand in <span
-        className="font-bold">{location}</span> braucht Hilfe!</span>
+      <span className="text-xs font-open-sans text-gray-800 mt-2">
+        Jemand in <span className="font-bold">{location}</span> braucht Hilfe!
+      </span>
+      <button className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
