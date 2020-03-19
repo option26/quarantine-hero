@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebaseApp from "firebase";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 const firebaseAppAuth = firebaseApp.auth();
 

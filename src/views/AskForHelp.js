@@ -3,8 +3,8 @@ import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Redirect, useHistory } from 'react-router-dom';
-import LocationInput from './LocationInput';
-import Footer from './Footer';
+import LocationInput from '../components/LocationInput';
+import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags.js';
 
 export default function AskForHelp () {
