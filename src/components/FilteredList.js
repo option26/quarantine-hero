@@ -6,7 +6,6 @@ import Entry from './Entry';
 import LocationInput from './LocationInput';
 import {isMapsApiEnabled} from '../featureFlags.js';
 import {Link} from 'react-router-dom';
-import Pagination from './Pagination';
 
 export default function FilteredList(props) {
 
@@ -14,14 +13,11 @@ export default function FilteredList(props) {
     pageSize = 0
   } = props;
 
-  const [paginationOverwrite, overwritePagination] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
-  const [entries, setEntries] = useState([
-    {
-      id: 'placeholder-id',
-    }]);
+  const [entries, setEntries] = useState([]);
+  const [scheduledSearch, scheduleSearch] = useState([]);
 
-  const [firstEntry, setFirstEntry] = useState(undefined);
   const [lastEntry, setLastEntry] = useState(undefined);
 
   const collection = fb.store.collection('ask-for-help');
@@ -32,13 +28,22 @@ export default function FilteredList(props) {
   // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
-  const buildQuery = async (location = undefined, startAfter = undefined, endBefore = undefined, limit = pageSize) => {
+  const buildQuery = async (location = undefined, lastLoaded = undefined, limit = pageSize) => {
     var queryResult;
+
+    if (searching) {
+      setEntries([]);
+      if(!location) {
+        setSearching(false);
+      }
+    } else if (!searching && location) {
+      setEntries([]);
+      setSearching(true);
+    }
 
     //If map api is available, 
     if (isMapsApiEnabled && location && location !== '') {
       queryResult = geocollection;
-      overwritePagination(true);
 
       try {
         var results = await geocodeByAddress(location);
@@ -53,7 +58,6 @@ export default function FilteredList(props) {
 
       if (location && location !== '') {
         queryResult = queryResult.orderBy('d.plz', 'asc');
-        overwritePagination(true);
 
         var lowerLimit = Number.parseInt(location) * (Math.pow(10, Math.max(5 - location.length, 0)));
         var upperLimit = (Number.parseInt(location) + 1) * (Math.pow(10, Math.max(5 - location.length, 0)));
@@ -62,14 +66,10 @@ export default function FilteredList(props) {
         queryResult = queryResult.where("d.plz", "<=", upperLimit.toString());
       } else {
         queryResult = queryResult.orderBy('d.timestamp', 'desc');
-        overwritePagination(false);
 
-        if (startAfter !== undefined) {
-          queryResult = queryResult.startAfter(startAfter);
+        if (lastLoaded !== undefined) {
+          queryResult = queryResult.startAfter(lastLoaded);
           if (limit > 0) queryResult = queryResult.limit(limit);
-        } else if (endBefore !== undefined) {
-          queryResult = queryResult.endBefore(endBefore);
-          if (limit > 0) queryResult = queryResult.limitToLast(limit);
         } else {
           if (limit > 0) queryResult = queryResult.limit(limit);
         }
@@ -79,60 +79,62 @@ export default function FilteredList(props) {
     return queryResult;
   };
 
-  const getUserData = async (queryPromise) => {
-    var query = await queryPromise;
-
+  
+  const initialize = async () => {
+    var query = await buildQuery();
     query.get().then(value => {
-      //If we go to the prev. page, it could happen that new request were coming in. Hence,
-      //we need to check whether we are showing too few request
-      if (value.docs.length < pageSize && value.query?.bm["endAt"]) {
-        getUserData(buildQuery());
-        return;
-      }
-
-      setFirstEntry(value.docs[0]);
-      setLastEntry(value.docs[value.docs.length - 1]);
-
-      setEntries(value.docs.map(doc => {
-        var data = doc.data();
-        return { ...(data.d || data), id: doc.id }
-      }));
+      appendDocuments(value.docs)
     });
   };
 
   useEffect(() => {
-    getUserData(buildQuery())
+    initialize();
   }, []);
-
-  const nextPage = () => {
-    if (pageSize > 0 && !paginationOverwrite) {
-      getUserData(buildQuery(location, lastEntry));
-    }
+  
+  const loadMore = async () => {
+    var query = await buildQuery(undefined, lastEntry);
+    query.get().then(value => {
+      appendDocuments(value.docs);
+    })
   }
 
-  const prevPage = () => {
-    if (pageSize > 0 && !paginationOverwrite) {
-      getUserData(buildQuery(location, undefined, firstEntry));
-    }
+  const loadFilteredData = async (queryPromise) => {
+    var query = await queryPromise;
+    query.get().then(value => {
+      appendDocuments(value.docs)
+    });
   }
 
-  const showCurrent = () => {
-    if (pageSize > 0 && !paginationOverwrite) {
-      getUserData(buildQuery(location));
-    }
+  const appendDocuments = (documents) => {
+    setLastEntry(documents[documents.length - 1]);
+    var newEntries = documents.map(doc => {
+      var data = doc.data();
+      return { ...(data.d || data), id: doc.id }
+    });
+    setEntries(entries => ([...entries, ...newEntries]));
   }
 
   const handleChange = address => {
     setLocation(address);
-    if (!isMapsApiEnabled || !address || address === '') {
-      getUserData(buildQuery(address));
+    if (!isMapsApiEnabled) {
+      if(scheduledSearch) {
+        clearTimeout(scheduledSearch);
+      }
+      scheduleSearch(setTimeout(() => {
+        loadFilteredData(buildQuery(address));
+      }, 500));
     }
   };
 
   const handleSelect = address => {
     setLocation(address);
     if (isMapsApiEnabled) {
-      getUserData(buildQuery(address));
+      if(scheduledSearch) {
+        clearTimeout(scheduledSearch);
+      }
+      scheduleSearch(setTimeout(() => {
+        loadFilteredData(buildQuery(address));
+      }, 500));
     }
   };
 
@@ -153,8 +155,10 @@ export default function FilteredList(props) {
           entry => (
             <Entry key={entry.id} {...entry}/>))
         }
-        {(pageSize > 0 && !paginationOverwrite) ? <div className="flex justify-center pt-3">
-          <Pagination onPrevPage={prevPage} onNextPage={nextPage} onShowCurrent={showCurrent} />
+        {(pageSize > 0 && !searching) ? <div className="flex justify-center pt-3">
+          <button onClick={loadMore} className="items-center rounded py-3 pl-1 px-3 btn-main btn-gray md:flex-1 hover:opacity-75">
+            Weitere anzeigen...
+          </button>
         </div> : null
         }
       </div>
