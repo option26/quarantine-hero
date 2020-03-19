@@ -136,11 +136,6 @@ export default function Main () {
             </div>
           </div>
           <FilteredList pageSize={20}/>
-          <div className="flex justify-center items-center">
-            <Link to="/overview" className="btn-green">
-              ALLE ANFRAGEN
-            </Link>
-          </div>
         </div>
         <Footer/>
       </div>
