@@ -9,7 +9,7 @@ export default function NotifyMe() {
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
 
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
@@ -53,13 +53,14 @@ export default function NotifyMe() {
         <div className="font-teaser my-6">
           Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.
         </div>
-        <LocationInput onChange={handleChange} value={location} onSelect={handleSelect}/>
-        <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
-               onChange={(e) => setEmail(e.target.value)} value={email} required="required"></input>
-        <button className="mt-6 btn-green w-full"
-                onClick={handleClick}>
-          Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
-        </button>
+        <form onSubmit={handleSubmit}>
+          <LocationInput required={true} onChange={handleChange} value={location} onSelect={handleSelect}/>
+          <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
+                onChange={(e) => setEmail(e.target.value)} value={email} required={true}></input>
+          <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
+            Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
+          </button>
+        </form>
         <Footer />
       </div>
     );
