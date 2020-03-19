@@ -16,7 +16,7 @@ export default function FilteredList(props) {
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
   const [entries, setEntries] = useState([]);
-  const [scheduledSearch, scheduleSearch] = useState([]);
+  const [scheduledSearch, setScheduledSearch] = useState([]);
 
   const [lastEntry, setLastEntry] = useState(undefined);
 
@@ -58,12 +58,7 @@ export default function FilteredList(props) {
 
       if (location && location !== '') {
         queryResult = queryResult.orderBy('d.plz', 'asc');
-
-        var lowerLimit = Number.parseInt(location) * (Math.pow(10, Math.max(5 - location.length, 0)));
-        var upperLimit = (Number.parseInt(location) + 1) * (Math.pow(10, Math.max(5 - location.length, 0)));
-
-        queryResult = queryResult.where("d.plz", ">=", lowerLimit.toString());
-        queryResult = queryResult.where("d.plz", "<=", upperLimit.toString());
+        queryResult = queryResult.startAt(location).endAt(location + "\uf8ff");
       } else {
         queryResult = queryResult.orderBy('d.timestamp', 'desc');
 
@@ -120,7 +115,7 @@ export default function FilteredList(props) {
       if(scheduledSearch) {
         clearTimeout(scheduledSearch);
       }
-      scheduleSearch(setTimeout(() => {
+      setScheduledSearch(setTimeout(() => {
         loadFilteredData(buildQuery(address));
       }, 500));
     }
@@ -132,14 +127,14 @@ export default function FilteredList(props) {
       if(scheduledSearch) {
         clearTimeout(scheduledSearch);
       }
-      scheduleSearch(setTimeout(() => {
+      setScheduledSearch(setTimeout(() => {
         loadFilteredData(buildQuery(address));
       }, 500));
     }
   };
 
   const NoHelpNeeded = (props) => {
-    return <div className="w-full text-center my-10">In {location} wird gerade aktuell keine Hilfe gebraucht!</div>
+    return <div className="w-full text-center my-10 font-open-sans">In {location} wird gerade keine Hilfe gebraucht!</div>
   };
 
   return (<div>
