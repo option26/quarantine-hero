@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as firebase from "firebase/app";
 import 'firebase/auth';
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import fb from "../firebase";
 import {GeoFirestore} from "geofirestore";
 import {geocodeByAddress, getLatLng} from "react-places-autocomplete";

@@ -1,6 +1,6 @@
 import React from 'react';
-import FilteredList from './FilteredList';
-import Footer from './Footer';
+import FilteredList from '../components/FilteredList';
+import Footer from '../components/Footer';
 
 export default function AskForHelp () {
 

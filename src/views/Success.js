@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 import fb from '../firebase';
 
 export default function Success () {

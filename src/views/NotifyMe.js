@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import fb from '../firebase';
-import LocationInput from './LocationInput';
-import Footer from './Footer';
+import LocationInput from '../components/LocationInput';
+import Footer from '../components/Footer';
 
 export default function NotifyMe() {
 

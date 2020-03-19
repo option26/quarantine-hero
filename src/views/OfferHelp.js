@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import fb from '../firebase';
 import { useParams } from 'react-router-dom';
 import { GeoFirestore } from 'geofirestore';
-import Entry from './Entry';
-import Footer from './Footer';
+import Entry from '../components/Entry';
+import Footer from '../components/Footer';
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import fb from '../firebase';
-import Entry from "./Entry";
+import Entry from "../components/Entry";
 import {Redirect, Link} from 'react-router-dom';
 
 export default function Dashboard() {
