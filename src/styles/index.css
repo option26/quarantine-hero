@@ -59,6 +59,32 @@
     opacity: 0.75;
 }
 
+.btn-report-entry {
+    float: right;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 0.75em;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: 0;
+}
+
+.btn-report-entry:hover {
+    opacity: 0.75;
+}
+
+.btn-report-entry-enabled {
+    color: #B6223E;
+}
+
+.btn-report-entry-disabled {
+    color: #87A544;
+    pointer-events: none;  /* make button non-clickable */
+}
+
+.btn-report-entry-disabled:hover {
+    opacity: 0.75;
+}
+
 .input-focus {
     border-width: 1px;
     margin-bottom: 2px;
