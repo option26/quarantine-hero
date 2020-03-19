@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import './styles/App.css';
 import Main from './views/Main.js';
 import OfferHelp from './views/OfferHelp.js';
@@ -29,8 +29,9 @@ import NotifyMe from './views/NotifyMe';
 import ScrollToTop from "./components/ScrollToTop";
 import ShareButtons from "./components/ShareButtons";
 import Presse from './views/Presse';
+import {useTranslation} from "react-i18next";
 
-function App (props) {
+function App(props) {
   const {
     user,
     signOut,
@@ -41,7 +42,7 @@ function App (props) {
     fb.analytics = fb.app.analytics();
     const handleHashChange = () => {
       const hash = document.location.hash;
-      fb.analytics.logEvent('page_view', { page_path: hash.substring(1) });
+      fb.analytics.logEvent('page_view', {page_path: hash.substring(1)});
     };
     handleHashChange();
 
@@ -49,96 +50,99 @@ function App (props) {
   };
 
   useEffect(() => {
-    if(document.cookie.indexOf('cookieConsent') > -1) addListener();
+    if (document.cookie.indexOf('cookieConsent') > -1) addListener();
   }, []);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const {t} = useTranslation();
+
   return (
-    <div className="flex items-center min-h-screen flex-col bg-kaki">
-      <Router>
-      <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-        <Link className="mr-4 font-open-sans text-gray-700" to={`/presse`}>Presse</Link><ShareButtons />
-      </div>
-      <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
-          <ScrollToTop/>
-          <DesktopMenu isLoggedIn={user} signOut={signOut} />
-          <div className="md:px-16 overflow-hidden">
-            <div style={{zIndex: 101}} className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
-              <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>
-                <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
-              </Link>
-              <div>
-                <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)}/>
+      <div className="flex items-center min-h-screen flex-col bg-kaki">
+        <Router>
+          <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
+            <Link className="mr-4 font-open-sans text-gray-700" to={`/presse`}>{t('App.press')}</Link><ShareButtons/>
+          </div>
+          <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
+            <ScrollToTop/>
+            <DesktopMenu isLoggedIn={user} signOut={signOut}/>
+            <div className="md:px-16 overflow-hidden">
+              <div style={{zIndex: 101}}
+                   className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
+                <Link to="/" className="font-main ml-4" style={{fontWeight: '600'}}>
+                  <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10"/>
+                </Link>
+                <div>
+                  <MenuIcon style={{fontSize: '40px'}} className="text-gray-600" onClick={() => setMenuOpen(true)}/>
+                </div>
+              </div>
+              <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut}/>
+              <div className="mt-20 md:mt-0">
+                <Switch>
+                  <Route path="/offer-help/:id">
+                    <OfferHelp/>
+                  </Route>
+                  <Route path="/signup/:returnUrl">
+                    <Signup/>
+                  </Route>
+                  <Route path="/signup">
+                    <Signup/>
+                  </Route>
+                  <Route path="/verify-email">
+                    <VerifyEmail/>
+                  </Route>
+                  <Route path="/ask-for-help">
+                    <AskForHelp/>
+                  </Route>
+                  <Route path="/dashboard">
+                    <Dashboard/>
+                  </Route>
+                  <Route path="/faq">
+                    <FAQ/>
+                  </Route>
+                  <Route path="/impressum">
+                    <Impressum/>
+                  </Route>
+                  <Route path="/overview">
+                    <Overview/>
+                  </Route>
+                  <Route path="/success">
+                    <Success/>
+                  </Route>
+                  <Route path="/success-offer">
+                    <SuccessOffer/>
+                  </Route>
+                  <Route path="/dsgvo">
+                    <DSGVO/>
+                  </Route>
+                  <Route path="/presse">
+                    <Presse/>
+                  </Route>
+                  <Route path="/notify-me">
+                    <NotifyMe/>
+                  </Route>
+                  <Route path="/complete-offer-help">
+                    <CompleteOfferHelp/>
+                  </Route>
+                  <Route path="/">
+                    <Main/>
+                  </Route>
+                </Switch>
               </div>
             </div>
-            <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut}/>
-            <div className="mt-20 md:mt-0">
-              <Switch >
-                <Route path="/offer-help/:id">
-                  <OfferHelp/>
-                </Route>
-                <Route path="/signup/:returnUrl">
-                  <Signup/>
-                </Route>
-                <Route path="/signup">
-                  <Signup/>
-                </Route>
-                <Route path="/verify-email">
-                  <VerifyEmail/>
-                </Route>
-                <Route path="/ask-for-help">
-                  <AskForHelp/>
-                </Route>
-                <Route path="/dashboard">
-                  <Dashboard/>
-                </Route>
-                <Route path="/faq">
-                  <FAQ/>
-                </Route>
-                <Route path="/impressum">
-                  <Impressum/>
-                </Route>
-                <Route path="/overview">
-                  <Overview/>
-                </Route>
-                <Route path="/success">
-                  <Success/>
-                </Route>
-                <Route path="/success-offer">
-                  <SuccessOffer/>
-                </Route>
-                <Route path="/dsgvo">
-                  <DSGVO/>
-                </Route>
-                <Route path="/presse">
-                  <Presse/>
-                </Route>
-                <Route path="/notify-me">
-                  <NotifyMe />
-                </Route>
-                <Route path="/complete-offer-help">
-                  <CompleteOfferHelp />
-                </Route>
-                <Route path="/">
-                  <Main/>
-                </Route>
-              </Switch>
-            </div>
           </div>
+        </Router>
+        <CookieConsent
+          location="bottom"
+          buttonText="Okay"
+          cookieName="cookieConsent"
+          style={{background: '#2B373B'}}
+          buttonStyle={{color: '#4e503b', fontSize: '13px'}}
+          onAccept={addListener}
+          expires={365}>
+          {t('App.usesCookies')}
+        </CookieConsent>
       </div>
-      </Router>
-      <CookieConsent
-        location="bottom"
-        buttonText="Okay"
-        cookieName="cookieConsent"
-        style={{ background: '#2B373B' }}
-        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-        onAccept={addListener}
-        expires={365}>
-        Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
-      </CookieConsent>
-    </div>
   );
 }
 
