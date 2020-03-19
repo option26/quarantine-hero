@@ -7,62 +7,134 @@ import LocationInput from './LocationInput';
 import {isMapsApiEnabled} from '../featureFlags.js';
 import {Link} from 'react-router-dom';
 
-export default function FilteredList() {
+export default function FilteredList(props) {
 
+  const {
+    pageSize = 0
+  } = props;
+
+  const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
-  const [entries, setEntries] = useState([
-    {
-      id: 'placeholder-id',
-    }]);
-  const [filteredEntries, setFilteredEntries] = useState([
-    {
-      id: 'placeholder-id',
-    }]);
+  const [entries, setEntries] = useState([]);
+  const [scheduledSearch, setScheduledSearch] = useState([]);
+
+  const [lastEntry, setLastEntry] = useState(undefined);
 
   const collection = fb.store.collection('ask-for-help');
-  const query = collection.orderBy('d.timestamp', 'desc');
-
-  const getUserData = () => {
-    query.get().then(value => {
-      setEntries(value.docs.map(doc => ({...doc.data().d, id: doc.id})));
-      setFilteredEntries(value.docs.map(doc => ({ ...doc.data().d, id: doc.id })));
-    });
-  };
-
-  useEffect(getUserData, []);
 
   // Create a Firestore reference
   const geofirestore = new GeoFirestore(fb.store);
 
-// Create a GeoCollection reference
+  // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
+
+  const buildQuery = async (location = undefined, lastLoaded = undefined, limit = pageSize) => {
+    var queryResult;
+
+    if (searching) {
+      setEntries([]);
+      if(!location) {
+        setSearching(false);
+      }
+    } else if (!searching && location) {
+      setEntries([]);
+      setSearching(true);
+    }
+
+    //If map api is available,
+    if (isMapsApiEnabled && location && location !== '') {
+      queryResult = geocollection;
+
+      try {
+        var results = await geocodeByAddress(location);
+        var coordinates = await getLatLng(results[0]);
+        queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
+      } catch (error) {
+        queryResult = collection.orderBy('d.timestamp', 'desc');
+        console.error('Error', error);
+      }
+    } else {
+      queryResult = collection;
+
+      if (location && location !== '') {
+        queryResult = queryResult.orderBy('d.plz', 'asc');
+        queryResult = queryResult.startAt(location).endAt(location + "\uf8ff");
+      } else {
+        queryResult = queryResult.orderBy('d.timestamp', 'desc');
+
+        if (lastLoaded !== undefined) {
+          queryResult = queryResult.startAfter(lastLoaded);
+          if (limit > 0) queryResult = queryResult.limit(limit);
+        } else {
+          if (limit > 0) queryResult = queryResult.limit(limit);
+        }
+      }
+    }
+
+    return queryResult;
+  };
+
+
+  const initialize = async () => {
+    var query = await buildQuery();
+    query.get().then(value => {
+      appendDocuments(value.docs)
+    });
+  };
+
+  useEffect(() => {
+    initialize();
+  }, []);
+
+  const loadMore = async () => {
+    var query = await buildQuery(undefined, lastEntry);
+    query.get().then(value => {
+      appendDocuments(value.docs);
+    })
+  }
+
+  const loadFilteredData = async (queryPromise) => {
+    var query = await queryPromise;
+    query.get().then(value => {
+      appendDocuments(value.docs)
+    });
+  }
+
+  const appendDocuments = (documents) => {
+    setLastEntry(documents[documents.length - 1]);
+    var newEntries = documents.map(doc => {
+      var data = doc.data();
+      return { ...(data.d || data), id: doc.id }
+    });
+    setEntries(entries => ([...entries, ...newEntries]));
+  }
 
   const handleChange = address => {
     setLocation(address);
     if (!isMapsApiEnabled) {
-      setFilteredEntries(entries.filter(entry => String(entry.plz).indexOf(address) === 0));
+      if(scheduledSearch) {
+        clearTimeout(scheduledSearch);
+      }
+      setScheduledSearch(setTimeout(() => {
+        loadFilteredData(buildQuery(address));
+      }, 500));
     }
   };
 
   const handleSelect = address => {
     setLocation(address);
     if (isMapsApiEnabled) {
-      geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(coordinates => {
-          const query = geocollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
-          query.get().then((value) => {
-            // All GeoDocument returned by GeoQuery, like the GeoDocument added above
-            setEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-            setFilteredEntries(value.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-          });
-        })
-        .catch(error => console.error('Error', error));
+      if(scheduledSearch) {
+        clearTimeout(scheduledSearch);
+      }
+      setScheduledSearch(setTimeout(() => {
+        loadFilteredData(buildQuery(address));
+      }, 500));
     }
   };
 
   const NoHelpNeeded = (props) => {
-    return <div className="w-full text-center my-10">In {location} wird gerade keine Hilfe gebraucht!</div>
+    return <div className="w-full text-center my-10 font-open-sans">In {location} wird gerade keine Hilfe gebraucht!</div>
   };
 
   return (<div>
@@ -74,9 +146,16 @@ export default function FilteredList() {
           <Link to='/notify-me' className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!</Link>
         </div>
-        {filteredEntries.length === 0 ? <NoHelpNeeded /> : filteredEntries.map(
+        {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
           entry => (
-            <Entry key={entry.id} {...entry}/>))}
+            <Entry key={entry.id} {...entry}/>))
+        }
+        {(pageSize > 0 && !searching) ? <div className="flex justify-center pt-3">
+          <button onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
+            Weitere anzeigen...
+          </button>
+        </div> : null
+        }
       </div>
     </div>
   );

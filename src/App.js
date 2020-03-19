@@ -14,6 +14,7 @@ import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
 import DSGVO from './views/DSGVO';
 import CookieConsent from 'react-cookie-consent';
+import ScrollUpButton from "react-scroll-up-button";
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   HashRouter as Router,
@@ -124,6 +125,7 @@ function App (props) {
                   <Main/>
                 </Route>
               </Switch>
+              <ScrollUpButton/>
             </div>
           </div>
       </div>
