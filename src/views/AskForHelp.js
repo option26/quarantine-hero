@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import fb from '../firebase';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Redirect, useHistory } from 'react-router-dom';
+import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags.js';
 
-export default function AskForHelp () {
+export default function AskForHelp() {
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
   const [coordinates, setCoodinates] = useState({
@@ -17,15 +17,15 @@ export default function AskForHelp () {
   const history = useHistory();
   // Create a Firestore reference
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Create a GeoFirestore reference
     const geofirestore = new GeoFirestore(fb.store);
 
-// Create a GeoCollection reference
+    // Create a GeoCollection reference
     const geocollection = geofirestore.collection('ask-for-help');
 
-// Add a GeoDocument to a GeoCollection
+    // Add a GeoDocument to a GeoCollection
     geocollection.add({
       request,
       uid: fb.auth.currentUser.uid,
@@ -39,40 +39,49 @@ export default function AskForHelp () {
     return history.push('/success');
   };
 
-  const handleChange = address => {
+  const handleChange = (address) => {
     setLocation(address);
     if (!isMapsApiEnabled) {
       setCoodinates({ lat: 0, lng: 0 });
     }
   };
 
-  const handleSelect = address => {
+  const handleSelect = (address) => {
     setLocation(address);
     geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
+      .then((results) => getLatLng(results[0]))
       .then(setCoodinates)
-      .catch(error => console.error('Error', error));
+      .catch((error) => console.error('Error', error));
   };
 
   if (!fb.auth.currentUser || !fb.auth.currentUser.email) {
-    return <Redirect to="/signup"/>;
+    return <Redirect to="/signup" />;
   }
 
-  return (<form onSubmit={handleSubmit} className="p-4">
+  return (
+    <form onSubmit={handleSubmit} className="p-4">
       <h1 className="font-teaser py-4 pt-10">Erstelle eine Anfrage um Helden um Hilfe zu bitten.</h1>
       <div className="font-open-sans">
         Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
         Alles weitere könnt ihr per E-Mail besprechen.
         <div className=" w-full rounded p-4 bg-kaki mt-4">
-          <strong>Bitte stellt hier keine Angebote ein.</strong> Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze <a
-          href="http://quarantaenehelden.org/#/notify-me" className="underline">diese Funktion</a>.
+          <strong>Bitte stellt hier keine Angebote ein.</strong>
+          {' '}
+          Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
+          <a
+            href="http://quarantaenehelden.org/#/notify-me"
+            className="underline"
+          >
+            diese Funktion
+          </a>
+          .
         </div>
       </div>
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <LocationInput value={location} onChange={handleChange} onSelect={handleSelect}/>
+        <LocationInput value={location} onChange={handleChange} onSelect={handleSelect} />
       </div>
 
 
@@ -81,8 +90,12 @@ export default function AskForHelp () {
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
             Wobei kann man dir helfen?
           </label>
-          <textarea className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
-                    required="required" placeholder="Wobei kann man dir helfen?" onChange={e => setRequest(e.target.value)}/>
+          <textarea
+            className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
+            required="required"
+            placeholder="Wobei kann man dir helfen?"
+            onChange={(e) => setRequest(e.target.value)}
+          />
         </div>
         <div className="mt-4 mb-6 w-full text-gray-700">
           Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.
@@ -91,8 +104,7 @@ export default function AskForHelp () {
           <button type="submit" className="btn-green w-full md:w-1/3">Jetzt um Hilfe bitten</button>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </form>
   );
 }
-
