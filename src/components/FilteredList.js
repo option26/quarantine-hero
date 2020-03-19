@@ -41,7 +41,7 @@ export default function FilteredList(props) {
       setSearching(true);
     }
 
-    //If map api is available, 
+    //If map api is available,
     if (isMapsApiEnabled && location && location !== '') {
       queryResult = geocollection;
 
@@ -79,7 +79,7 @@ export default function FilteredList(props) {
     return queryResult;
   };
 
-  
+
   const initialize = async () => {
     var query = await buildQuery();
     query.get().then(value => {
@@ -90,7 +90,7 @@ export default function FilteredList(props) {
   useEffect(() => {
     initialize();
   }, []);
-  
+
   const loadMore = async () => {
     var query = await buildQuery(undefined, lastEntry);
     query.get().then(value => {
@@ -156,7 +156,7 @@ export default function FilteredList(props) {
             <Entry key={entry.id} {...entry}/>))
         }
         {(pageSize > 0 && !searching) ? <div className="flex justify-center pt-3">
-          <button onClick={loadMore} className="items-center rounded py-3 pl-1 px-3 btn-main btn-gray md:flex-1 hover:opacity-75">
+          <button onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
             Weitere anzeigen...
           </button>
         </div> : null
