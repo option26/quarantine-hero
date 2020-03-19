@@ -85,6 +85,9 @@ export default function Presse () {
           </div>
         </div>
         {articles.map(article => <Article {...article} key={article.link} />)}
+        <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
+          <div className="font-bold">Und viele mehr!</div>
+        </div>
         <Footer/>
       </div>
     </div>
