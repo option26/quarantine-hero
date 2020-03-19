@@ -29,6 +29,11 @@
     letter-spacing: 0;
 }
 
+.btn-gray {
+    color: #777777;
+    background-color: #eeeeee;
+}
+
 .font-open-sans {
     font-family: 'Open Sans', sans-serif;
     letter-spacing: 0;
