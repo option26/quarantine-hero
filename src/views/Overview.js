@@ -15,7 +15,7 @@ export default function AskForHelp () {
           Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
       </div>
       <div className="py-3">
-        <FilteredList />
+        <FilteredList pageSize={false}/>
       </div>
       <Footer />
     </div>
