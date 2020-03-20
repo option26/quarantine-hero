@@ -72,3 +72,42 @@
     margin-bottom: 0;
     outline: none;
 }
+
+.arrow-more-content {
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 20px);
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    opacity: 0.95;
+
+    box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+
+    cursor: pointer;
+}
+.scroll-up-btn {
+    position: fixed;
+    right: -100px;
+    bottom: 20px;
+    transition: right 0.5s;
+    cursor: pointer;
+
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    opacity: 0.95;
+
+    background-color: rgba(119, 119, 119, 0.9);
+    box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-up-btn-fade {
+    right: 20px;
+}

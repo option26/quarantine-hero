@@ -1,33 +1,35 @@
 import React, {Suspense, useEffect, useState} from 'react';
 import './styles/App.css';
-import Main from './views/Main.js';
-import OfferHelp from './views/OfferHelp.js';
-import Dashboard from './views/Dashboard.js';
-import FAQ from './views/FAQ.js';
-import Impressum from './views/Impressum.js';
-import Signup from './views/Signup';
-import AskForHelp from './views/AskForHelp';
-import Overview from './views/Overview';
-import Success from './views/Success';
+import './styles/index.css';
 import withFirebaseAuth from 'react-with-firebase-auth';
-import fb from './firebase';
-import SuccessOffer from './views/SuccessOffer';
-import DSGVO from './views/DSGVO';
 import CookieConsent from 'react-cookie-consent';
+import ScrollUpButton from 'react-scroll-up-button';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from 'react-router-dom';
-import Sidebar from "./components/Sidebar";
+import Main from './views/Main';
+import OfferHelp from './views/OfferHelp';
+import Dashboard from './views/Dashboard';
+import FAQ from './views/FAQ';
+import Impressum from './views/Impressum';
+import Signup from './views/Signup';
+import AskForHelp from './views/AskForHelp';
+import Overview from './views/Overview';
+import Success from './views/Success';
+import fb from './firebase';
+import SuccessOffer from './views/SuccessOffer';
+import DSGVO from './views/DSGVO';
+import Sidebar from './components/Sidebar';
 import DesktopMenu from './components/DesktopMenu';
-import VerifyEmail from "./views/VerifyEmail";
-import CompleteOfferHelp from "./views/CompleteOfferHelp";
+import VerifyEmail from './views/VerifyEmail';
+import CompleteOfferHelp from './views/CompleteOfferHelp';
 import NotifyMe from './views/NotifyMe';
-import ScrollToTop from "./components/ScrollToTop";
-import ShareButtons from "./components/ShareButtons";
+import ScrollToTop from './components/ScrollToTop';
+import ShareButtons from './components/ShareButtons';
 import Presse from './views/Presse';
 import {useTranslation} from "react-i18next";
 
@@ -46,7 +48,7 @@ function App(props) {
     };
     handleHashChange();
 
-    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener('hashchange', handleHashChange);
   };
 
   useEffect(() => {
@@ -61,7 +63,7 @@ function App(props) {
       <div className="flex items-center min-h-screen flex-col bg-kaki">
         <Router>
           <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-            <Link className="mr-4 font-open-sans text-gray-700" to={`/presse`}>{t('App.press')}</Link><ShareButtons/>
+            <Link className="mr-4 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link><ShareButtons/>
           </div>
           <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
             <ScrollToTop/>
@@ -128,7 +130,13 @@ function App(props) {
                     <Main/>
                   </Route>
                 </Switch>
-              </div>
+              <ScrollUpButton
+                ContainerClassName="scroll-up-btn"
+                TransitionClassName="scroll-up-btn-fade"
+              >
+                <img alt="arrow-down" className="arrow-down" src={require('./assets/arrows_up.svg')} />
+              </ScrollUpButton>
+            </div>
             </div>
           </div>
         </Router>

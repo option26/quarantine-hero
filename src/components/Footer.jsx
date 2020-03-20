@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import {useTranslation} from "react-i18next";
 
-export default function Footer (props) {
+export default function Footer () {
   const { t, i18n } = useTranslation();
   return (<div>
       <div className="flex justify-center text-sm text-gray-700 mb-4 mt-8 w-full">
