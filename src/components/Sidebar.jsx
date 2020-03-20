@@ -41,19 +41,26 @@ export default function Sidebar(props) {
       <MenuItem to="/presse">Presse</MenuItem>
       <MenuItem to="/impressum">Impressum</MenuItem>
       <MenuItem to="/dsgvo">Datenschutz</MenuItem>
-      {menuProps.isLoggedIn && (
       <li className="pt-6">
-        <Link
-          to="/"
-          onClick={() => {
-            menuProps.signOut();
-            onClose();
-          }}
-        >
-          Abmelden
-        </Link>
+        {menuProps.isLoggedIn ?
+          <Link
+            to="/"
+            onClick={() => {
+              menuProps.signOut();
+              onClose();
+            }}>
+            Abmelden
+          </Link>
+          :
+          <Link
+            to="/signup/dashboard"
+            onClick={() => {
+              onClose();
+            }}>
+            Login
+          </Link>
+        }
       </li>
-      )}
       <div className="mt-4">
         <ShareButtons />
       </div>
