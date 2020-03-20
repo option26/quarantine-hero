@@ -143,7 +143,7 @@ export default function FilteredList(props) {
   return (
     <div>
       <div className="pt-3">
-        <LocationInput onChange={handleChange} value={location} onSelect={handleSelect} />
+        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
       </div>
       <div className="py-3 w-full">
         <div className="my-3 w-full">

@@ -82,7 +82,7 @@ export default function AskForHelp() {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <LocationInput value={location} onChange={handleChange} onSelect={handleSelect} />
+        <LocationInput required value={location} onChange={handleChange} onSelect={handleSelect} />
       </div>
 
 
