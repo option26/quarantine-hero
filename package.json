@@ -30,8 +30,8 @@
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js*",
-    "lint-fix": "eslint --fix src/**/*.js"
+    "lint": "cd src && eslint . --ext .jsx .js --no-error-on-unmatched-pattern && cd ..",
+    "lint-fix": "cd src && eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern && cd .."
   },
   "eslintConfig": {
     "extends": "react-app"
