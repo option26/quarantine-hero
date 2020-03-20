@@ -3,48 +3,47 @@ import { Redirect, Link } from 'react-router-dom';
 import fb from '../firebase';
 import Entry from '../components/Entry';
 
+const NOT_LOGGED_IN = 'NOT_LOGGED_IN';
+
+const askForHelpCollection = fb.store.collection('ask-for-help');
+const offerHelpCollection = fb.store.collection('offer-help');
+
+const getUserData = async (currentUser) => {
+  const query = askForHelpCollection.where('d.uid', '==', currentUser.uid);
+  const value = await query.get();
+  const sortedEntries = value.docs
+    .map((doc) => ({ ...doc.data().d, id: doc.id }))
+    .sort((a, b) => b.timestamp - a.timestamp);
+  return sortedEntries;
+};
+
+const getOffers = async (currentUser) => {
+  const offerHelpQuery = offerHelpCollection.where('d.uid', '==', currentUser.uid);
+  const response = await offerHelpQuery.get();
+  return response.docs.map((val) => ({ ...val.data().d, id: val.id }));
+};
+
 export default function Dashboard() {
   const [entries, setEntries] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
-  fb.auth.onAuthStateChanged((usr) => setUser(usr));
-
-  const askForHelpCollection = fb.store.collection('ask-for-help');
-  const offerHelpCollection = fb.store.collection('offer-help');
-
-  const getUserData = () => {
-    const query = askForHelpCollection.where('d.uid', '==', fb.auth.currentUser ? fb.auth.currentUser.uid : '0');
-    query.get().then((value) => {
-      const sortedEntries = value.docs
-        .map((doc) => ({ ...doc.data().d, id: doc.id }))
-        .sort((a, b) => b.timestamp - a.timestamp);
-      setEntries(sortedEntries);
-    });
-  };
-
-  const getOffers = async () => {
-    const uid = fb.auth.currentUser ? fb.auth.currentUser.uid : '0';
-    const offerHelpQuery = offerHelpCollection.where('d.uid', '==', uid);
-    const response = await offerHelpQuery.get();
-    const offersInternal = response.docs.map((val) => ({ ...val.data().d, id: val.id }));
-    setOffers(offersInternal);
-  };
+  useEffect(() => {
+    fb.auth.onAuthStateChanged((usr) => setUser(usr || NOT_LOGGED_IN));
+  });
 
   const handleDelete = (id) => {
     offerHelpCollection.doc(id).delete();
   };
 
   useEffect(() => {
-    setUser(fb.auth.currentUser);
-    getUserData();
-    getOffers();
+    if (typeof user === 'object') {
+      getUserData(user).then(setEntries);
+      getOffers(user).then(setOffers);
+    }
   }, [user]);
 
-  // TODO: Fix this redirect on page refresh or direct url access!
-  //  this redirects b.c the user migth not immediately be available
-  //  eventhough he is logged in technically
-  if (!fb.auth.currentUser || !fb.auth.currentUser.email) {
+  if (user === NOT_LOGGED_IN || (typeof user === 'object' && !user.email)) {
     return <Redirect to="/signup/dashboard" />;
   }
 
@@ -93,7 +92,7 @@ export default function Dashboard() {
           <div className="font-open-sans">
             Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen
             {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>hier</Link>
             {' '}
             registrieren.
           </div>

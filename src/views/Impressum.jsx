@@ -35,7 +35,9 @@ export default function Impressum() {
             <br />
             Telefon: 089-35627565
             <br />
-            E-Mail: help@quarantaenehelden.org
+            E-Mail:
+            {' '}
+            <a href="mailto:help@quarantaenehelden.org" className="text-secondary hover:underline">help@quarantaenehelden.org</a>
           </p>
           <br />
           <p>
