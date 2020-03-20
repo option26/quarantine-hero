@@ -49,35 +49,17 @@ export default function Entry(props) {
 
     const collectionName = 'reported-posts';
     const reportedPostsCollection = fb.store.collection(collectionName);
-    const existingEntry = await reportedPostsCollection.doc(id).get();
+    const reportedPostRef = await reportedPostsCollection.doc(id);
 
-    if(!existingEntry) {
-      const data = {
-        request,
-        id,
-        user_ids: [fb.auth.currentUser.uid],
-        timestamp: Date.now()
-      }
-      await reportedPostsCollection.add(data);
-      setReported(true)
-      return;
-    }
-
-    const { user_ids }  = existingEntry;
-    // early return if user reported this entry already
-    if (user_ids.includes(id)) {
-      setReported(true);
-      return;
-    }
-
-    user_ids.push(id)
+    // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
+    const user_ids = firebase.firestore.FieldValue.arrayUnion(fb.auth.currentUser.uid);
     const data = {
       request,
       id,
       user_ids,
       timestamp: Date.now()
     }
-    await reportedPostsCollection.add(data);
+    await reportedPostRef.set(data);
     setReported(true)
   };
 
