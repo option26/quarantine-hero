@@ -16,6 +16,7 @@ export default function Entry(props) {
   } = props;
 
   const [deleted, setDeleted] = useState('');
+  const [reported, setReported] = useState(false);
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
 
@@ -38,6 +39,27 @@ export default function Entry(props) {
     setDeleted(true);
   };
 
+  const reportEntry = async (e) => {
+    // prevents redirect to the parent component, as this is clicked on a button within a Link component
+    // https://stackoverflow.com/a/53005834/8547462
+    e.preventDefault();
+
+    const collectionName = 'reported-posts';
+    const reportedPostsCollection = fb.store.collection(collectionName);
+    const reportedPostRef = reportedPostsCollection.doc(id);
+
+    // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
+    const userIds = fb.app.firestore.FieldValue.arrayUnion(fb.auth.currentUser.uid);
+    const data = {
+      request,
+      id,
+      user_ids: userIds,
+      timestamp: Date.now(),
+    };
+    await reportedPostRef.set(data);
+    setReported(true);
+  };
+
   let numberOfResponsesText = '';
 
   if (responses === 0) {
@@ -56,6 +78,14 @@ export default function Entry(props) {
     return null;
   }
 
+  const reportEntryButtonClass = reported === false
+    ? 'btn-report-entry btn-report-entry-enabled my-2'
+    : 'btn-report-entry btn-report-entry-disabled my-2';
+
+  const buttonText = reported === false
+    ? 'Melden'
+    : 'Gemeldet!';
+
   return (
     <Link
       to={`/offer-help/${props.id}`}
@@ -73,6 +103,7 @@ export default function Entry(props) {
         {' '}
         braucht Hilfe!
       </span>
+      <button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
