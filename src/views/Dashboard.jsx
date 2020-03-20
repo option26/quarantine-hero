@@ -61,8 +61,9 @@ export default function Dashboard() {
             {props.location}
             {' '}
             Hilfe benötigt
-            <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }} />
-            &times;
+            <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }}>
+              &times;
+            </div>
           </div>
         ) }
       </div>
