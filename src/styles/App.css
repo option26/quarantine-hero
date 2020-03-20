@@ -59,12 +59,7 @@
     border-width: 30px 100vw 0 0;
     border-color: white transparent transparent transparent;
 }
-.arrow-down {
-    position: relative;
-    width: 5rem;
-    margin-bottom: -3rem;
-    z-index:10;
-}
+
 .max-w-360 {
     max-width: 360px;
 }
