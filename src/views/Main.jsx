@@ -6,9 +6,8 @@ import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
 
-export default function Main () {
-
-  function scrollTo () {
+export default function Main() {
+  function scrollTo() {
     const yOffset = -30;
     const el = document.getElementById('hilfe-buttons');
     if (el) {
@@ -34,12 +33,15 @@ export default function Main () {
     <div className="flex items-center flex-col">
       <div className="phone-width">
         <div className="font-main flex md:hidden text-white ">
-          <img className="logo-margin" src={(require('../assets/logo.svg'))} alt="logo"/>
+          <img className="logo-margin" src={(require('../assets/logo.svg'))} alt="logo" />
         </div>
         <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
-          Wir sind Menschen.<br/>
-          In Zeiten der Not helfen wir uns.<br/>
-          Sei ein Teil davon.<br/>
+          Wir sind Menschen.
+          <br />
+          In Zeiten der Not helfen wir uns.
+          <br />
+          Sei ein Teil davon.
+          <br />
         </div>
         <div className="w-full flex justify-center  mt-4 md:mt-12">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
@@ -48,37 +50,52 @@ export default function Main () {
         </div>
         <div className="m-4 md:m-0 md:mt-4 font-open-sans md:mb-4 pl-0 md:pr-4 flex flex-col justify-center md:flex-row bg-kaki py-4 md:pt-10">
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0 md:text-center">
-            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/lokal.svg')} alt=""/>
+            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/lokal.svg')} alt="" />
             <div className="flex-grow">
               <div className="font-bold">Lokal</div>
               <p>
                 Helft in eurer Nachbarschaft, zum Beispiel euren Haus-Mitbewohner*innen.
-              </p></div>
+              </p>
+            </div>
           </div>
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0  md:text-center">
-            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/konsistent.svg')} alt=""/>
+            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/konsistent.svg')} alt="" />
             <div className="flex-grow">
               <div className="font-bold">Konsistent</div>
               <p>
                 Helft wenigen, aber das konsistent. Sucht euch zum Beispiel eine Familie und helft nur dieser.
-              </p></div>
+              </p>
+            </div>
           </div>
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0 md:text-center">
-            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/distanziert.svg')} alt=""/>
+            <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/distanziert.svg')} alt="" />
             <div className="flex-grow">
               <div className="font-bold">Distanziert</div>
               <p>
-                Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt <span
-                className="font-bold">KEINEN</span> Kontakt mit
+                Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt
+                {' '}
+                <span
+                  className="font-bold"
+                >
+                  KEINEN
+                </span>
+                {' '}
+                Kontakt mit
                 Personen in Quarantäne!
-              </p></div>
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="mt-4 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0 bg-kaki">
-          <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt=""/>
-          <p>Nicht jeder Mensch hat Internet. <br className="sm:hidden"/>
-            Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
+          <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt="" />
+          <p>
+            Nicht jeder Mensch hat Internet.
+            <br className="sm:hidden" />
+            Drucke
+            {' '}
+            <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a>
+          </p>
         </div>
 
         <ArrowDown onClick={scrollTo} />
@@ -98,16 +115,31 @@ export default function Main () {
 
         <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
           <p className="mb-4 md:leading-7 md:text-justify flex-1">
-            Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher
-            Quarantäne</strong>. Wenn ihr diesen Menschen
+            Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in
+            {' '}
+            <strong>
+              häuslicher
+              Quarantäne
+            </strong>
+            . Wenn ihr diesen Menschen
             helfen wollt, könnt
             ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!
           </p>
-          <div className="md:m-4">
-          </div>
+          <div className="md:m-4" />
           <p className="md:leading-7 md:text-justify flex-1">
             Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung
-            bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund
+            bei
+            {' '}
+            <strong>Einkäufen</strong>
+            ,
+            {' '}
+            <strong>Botengängen</strong>
+            {' '}
+            oder
+            {' '}
+            <strong>Gassigehen</strong>
+            {' '}
+            mit dem Hund
             benötigt könnt ihr
             das hier euren Mitmenschen mitteilen!
           </p>
@@ -137,11 +169,10 @@ export default function Main () {
               Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.
             </div>
           </div>
-          <FilteredList pageSize={20}/>
+          <FilteredList pageSize={20} />
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
 }
-

@@ -2,7 +2,7 @@ import * as app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
 import 'firebase/firestore';
-import config from './firebaseConfig.js'
+import config from './firebaseConfig';
 
 class Firebase {
   constructor() {
@@ -10,7 +10,7 @@ class Firebase {
     this.app = app;
     this.auth = app.auth();
     this.analytics = {
-      logEvent: () => {}
+      logEvent: () => {},
     };
     this.store = app.firestore();
   }
