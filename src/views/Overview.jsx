@@ -13,10 +13,11 @@ export default function AskForHelp() {
         <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt="" />
         <p>
           Nicht jeder Mensch hat Internet.
+          {' '}
           <br className="sm:hidden" />
           Drucke
           {' '}
-          <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a>
+          <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang.</a>
         </p>
       </div>
       <div className="py-3">

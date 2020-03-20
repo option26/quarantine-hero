@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './styles/App.css';
+import './styles/index.css';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import CookieConsent from 'react-cookie-consent';
 import ScrollUpButton from 'react-scroll-up-button';
@@ -126,7 +127,12 @@ function App(props) {
                   <Main />
                 </Route>
               </Switch>
-              <ScrollUpButton />
+              <ScrollUpButton
+                ContainerClassName="scroll-up-btn"
+                TransitionClassName="scroll-up-btn-fade"
+              >
+                <img alt="arrow-down" className="arrow-down" src={require('./assets/arrows_up.svg')} />
+              </ScrollUpButton>
             </div>
           </div>
         </div>

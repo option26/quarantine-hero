@@ -61,8 +61,9 @@ export default function Dashboard() {
             {props.location}
             {' '}
             Hilfe benötigt
-            <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }} />
-            &times;
+            <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }}>
+              &times;
+            </div>
           </div>
         ) }
       </div>
@@ -78,7 +79,7 @@ export default function Dashboard() {
           <div className="font-open-sans">
             Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch
             {' '}
-            <Link class="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
             erstellen.
           </div>
@@ -92,7 +93,7 @@ export default function Dashboard() {
           <div className="font-open-sans">
             Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen
             {' '}
-            <Link class="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
             registrieren.
           </div>
