@@ -32,7 +32,6 @@ export default function OfferHelp() {
       if (!doc.exists) {
         setDeleted(true);
       } else {
-        console.log('Document data:', doc.data());
         setEntry({ id: doc.id, ...doc.data() });
       }
     });

@@ -30,7 +30,7 @@
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint src/**/*.js*",
     "lint-fix": "eslint --fix src/**/*.js"
   },
   "eslintConfig": {

@@ -1,6 +1,6 @@
 import PlacesAutocomplete from 'react-places-autocomplete';
 import React from 'react';
-import { isMapsApiEnabled } from '../featureFlags.js';
+import { isMapsApiEnabled } from '../featureFlags';
 
 export default function LocationInput(props) {
   if (isMapsApiEnabled) {

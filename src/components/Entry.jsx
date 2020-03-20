@@ -83,7 +83,7 @@ export default function Entry(props) {
       {fb.auth.currentUser && ((fb.auth.currentUser.uid === props.uid) || fb.auth.currentUser.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')
         ? (
           <div>
-            <button className="btn-green my-2" onClick={handleDelete}>Deine Anfrage löschen.</button>
+            <button type="button" className="btn-green my-2" onClick={handleDelete}>Deine Anfrage löschen.</button>
           </div>
         ) : ''}
     </Link>

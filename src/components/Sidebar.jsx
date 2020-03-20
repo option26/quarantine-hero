@@ -13,17 +13,13 @@ export default function Sidebar(props) {
     return null;
   }
 
-  const _onClose = () => {
-    onClose();
-  };
-
-  const MenuItem = (props) => (
+  const MenuItem = (menuItemProps) => (
     <li className="py-1 hover:opacity-75">
-      <Link className="py-2 block" onClick={_onClose} to={props.to}>{props.children}</Link>
+      <Link className="py-2 block" onClick={onClose} to={menuItemProps.to}>{menuItemProps.children}</Link>
     </li>
   );
 
-  const Menu = (props) => (
+  const Menu = (menuProps) => (
     <ul
       style={{
         height: '100%',
@@ -40,18 +36,18 @@ export default function Sidebar(props) {
       <MenuItem to="/">Home</MenuItem>
       <MenuItem to="/ask-for-help">Ich brauche Hilfe</MenuItem>
       <MenuItem to="/overview">Ich möchte helfen</MenuItem>
-      {props.isLoggedIn && <MenuItem to="/dashboard">Deine Übersicht</MenuItem>}
+      {menuProps.isLoggedIn && <MenuItem to="/dashboard">Deine Übersicht</MenuItem>}
       <MenuItem to="/faq">FAQs</MenuItem>
       <MenuItem to="/presse">Presse</MenuItem>
       <MenuItem to="/impressum">Impressum</MenuItem>
       <MenuItem to="/dsgvo">Datenschutz</MenuItem>
-      {props.isLoggedIn && (
+      {menuProps.isLoggedIn && (
       <li className="pt-6">
         <Link
           to="/"
           onClick={() => {
-            props.signOut();
-            _onClose();
+            menuProps.signOut();
+            onClose();
           }}
         >
           Abmelden
@@ -66,7 +62,7 @@ export default function Sidebar(props) {
 
   return (
 
-    <Drawer open={open} onClose={_onClose} anchor="right">
+    <Drawer open={open} onClose={onClose()} anchor="right">
       <div className="w-full flex justify-end">
         <CloseIcon
           className="mr-4 mt-4"
