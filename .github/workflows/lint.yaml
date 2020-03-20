@@ -9,4 +9,4 @@ jobs:
       - uses: actions/checkout@v1
       - uses: florianschmidt1994/eslint-action@master
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
+          repo-token: ${{secrets.TOKEN}}
