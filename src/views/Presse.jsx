@@ -102,19 +102,19 @@ export default function Presse() {
           </div>
           <div>
             <div className="font-bold">
-              Pressekit Download
+              Presse Informationen
             </div>
-            Logos, Pressetext, Grafiken
-            <div>
-              <a
-                href="https://we.tl/t-FhgDBEFBih"
-                className="text-secondary hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                QuarantaeneHelden.zip
-              </a>
-            </div>
+            Pressekit (Logos, Pressetext, Grafiken):
+            <br className="sm:hidden" />
+            {' '}
+            <a
+              href="https://we.tl/t-FhgDBEFBih"
+              className="text-secondary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              QuarantaeneHelden.zip
+            </a>
             <div>
               Pressekontakt:
               <br className="sm:hidden" />
