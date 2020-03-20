@@ -93,7 +93,7 @@ export default function Dashboard() {
           <div className="font-open-sans">
             Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen
             {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>hier</Link>
             {' '}
             registrieren.
           </div>
