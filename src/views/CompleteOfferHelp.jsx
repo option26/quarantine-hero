@@ -6,9 +6,9 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 import fb from '../firebase';
 import Footer from '../components/Footer';
-import { isMapsApiEnabled } from '../featureFlags.js';
+import { isMapsApiEnabled } from '../featureFlags';
 
-export default function CompleteOfferHelp(props) {
+export default function CompleteOfferHelp() {
   const [location, setLocation] = useState('');
 
   useEffect(() => {
@@ -30,17 +30,16 @@ export default function CompleteOfferHelp(props) {
         window.localStorage.removeItem('emailForSignIn');
 
         const urlParams = new URLSearchParams(window.location.hash);
-        console.log(urlParams.get('#/complete-offer-help?location'));
 
-        const location = urlParams.get('#/complete-offer-help?location');
-        setLocation(location);
+        const loc = urlParams.get('#/complete-offer-help?location');
+        setLocation(loc);
 
         const geofirestore = new GeoFirestore(fb.store);
         const offerHelpCollection = geofirestore.collection('/offer-help');
         let lat = 0;
         let lng = 0;
         if (isMapsApiEnabled) {
-          const result = await geocodeByAddress(location);
+          const result = await geocodeByAddress(loc);
           const coordinates = await getLatLng(result[0]);
           lat = coordinates.lat;
           lng = coordinates.lng;
@@ -48,8 +47,8 @@ export default function CompleteOfferHelp(props) {
 
         await offerHelpCollection.add({
           email,
-          location,
-          plz: location,
+          location: loc,
+          plz: loc,
           uid: firebase.auth().currentUser.uid,
           timestamp: Date.now(),
           coordinates: new fb.app.firestore.GeoPoint(lat, lng),

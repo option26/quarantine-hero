@@ -26,6 +26,7 @@ const Signup = (props) => {
     return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
   }
 
+  // eslint-disable-next-line consistent-return
   const signInOrRegister = async (e) => {
     e.preventDefault();
     const signUpResult = await createUserWithEmailAndPassword(email, password);
@@ -38,6 +39,7 @@ const Signup = (props) => {
     if (signUpResult.code) setError(signUpResult.message);
   };
 
+  // eslint-disable-next-line consistent-return
   const sendPasswordResetMail = async (e) => {
     e.preventDefault();
     if (!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
@@ -99,7 +101,7 @@ const Signup = (props) => {
           </button>
         </div>
       </form>
-      <button onClick={sendPasswordResetMail} className="btn-green-secondary w-full">
+      <button type="button" onClick={sendPasswordResetMail} className="btn-green-secondary w-full">
         Passwort zurücksetzen
       </button>
       {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!</div>}

@@ -8,9 +8,7 @@ export default function Dashboard() {
   const [offers, setOffers] = useState([]);
   const [user, setUser] = useState(null);
 
-  fb.auth.onAuthStateChanged((user) => {
-    setUser(user);
-  });
+  fb.auth.onAuthStateChanged((usr) => setUser(usr));
 
   const askForHelpCollection = fb.store.collection('ask-for-help');
   const offerHelpCollection = fb.store.collection('offer-help');
@@ -29,8 +27,8 @@ export default function Dashboard() {
     const uid = fb.auth.currentUser ? fb.auth.currentUser.uid : '0';
     const offerHelpQuery = offerHelpCollection.where('d.uid', '==', uid);
     const response = await offerHelpQuery.get();
-    const offers = response.docs.map((val) => ({ ...val.data().d, id: val.id }));
-    setOffers(offers);
+    const offersInternal = response.docs.map((val) => ({ ...val.data().d, id: val.id }));
+    setOffers(offersInternal);
   };
 
   const handleDelete = (id) => {

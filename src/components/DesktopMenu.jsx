@@ -3,16 +3,16 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 
 export default function DesktopMenu(props) {
-  const MenuItem = (props) => (
+  const MenuItem = (menuItemProps) => (
     <li className="mr-6 hover:opacity-75">
-      <Link to={props.to} onClick={props.onClick}>{props.children}</Link>
+      <Link to={menuItemProps.to} onClick={menuItemProps.onClick}>{menuItemProps.children}</Link>
     </li>
   );
 
-  const Menu = (props) => (
+  const Menu = (menuProps) => (
     <Box className="flex w-1/2" flexDirection="column">
       <ul className="font-exo2 flex justify-around text-xl font-semibold mt-10">
-        {props.isLoggedIn
+        {menuProps.isLoggedIn
           ? <MenuItem to="/dashboard">DEINE ÜBERSICHT</MenuItem>
           : (
             <>
@@ -21,8 +21,8 @@ export default function DesktopMenu(props) {
             </>
           )}
         <MenuItem to="/faq">FAQs</MenuItem>
-        {props.isLoggedIn
-          ? <MenuItem to="#" onClick={props.signOut}>LOGOUT</MenuItem>
+        {menuProps.isLoggedIn
+          ? <MenuItem to="#" onClick={menuProps.signOut}>LOGOUT</MenuItem>
           : ''}
       </ul>
     </Box>

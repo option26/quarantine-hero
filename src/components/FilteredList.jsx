@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import fb from '../firebase';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
-import { isMapsApiEnabled } from '../featureFlags.js';
+import { isMapsApiEnabled } from '../featureFlags';
 
 export default function FilteredList(props) {
   const {
@@ -27,25 +27,25 @@ export default function FilteredList(props) {
   // Create a GeoCollection reference
   const geocollection = geofirestore.collection('ask-for-help');
 
-  const buildQuery = async (location = undefined, lastLoaded = undefined, limit = pageSize) => {
+  const buildQuery = async (loc = undefined, lastLoaded = undefined, limit = pageSize) => {
     let queryResult;
 
     if (searching) {
       setEntries([]);
-      if (!location) {
+      if (!loc) {
         setSearching(false);
       }
-    } else if (!searching && location) {
+    } else if (!searching && loc) {
       setEntries([]);
       setSearching(true);
     }
 
     // If map api is available,
-    if (isMapsApiEnabled && location && location !== '') {
+    if (isMapsApiEnabled && loc && loc !== '') {
       queryResult = geocollection;
 
       try {
-        const results = await geocodeByAddress(location);
+        const results = await geocodeByAddress(loc);
         const coordinates = await getLatLng(results[0]);
         queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
       } catch (error) {
@@ -55,9 +55,9 @@ export default function FilteredList(props) {
     } else {
       queryResult = collection;
 
-      if (location && location !== '') {
+      if (loc && loc !== '') {
         queryResult = queryResult.orderBy('d.plz', 'asc');
-        queryResult = queryResult.startAt(location).endAt(`${location}\uf8ff`);
+        queryResult = queryResult.startAt(loc).endAt(`${loc}\uf8ff`);
       } else {
         queryResult = queryResult.orderBy('d.timestamp', 'desc');
 
@@ -71,6 +71,15 @@ export default function FilteredList(props) {
     return queryResult;
   };
 
+
+  const appendDocuments = (documents) => {
+    setLastEntry(documents[documents.length - 1]);
+    const newEntries = documents.map((doc) => {
+      const data = doc.data();
+      return { ...(data.d || data), id: doc.id };
+    });
+    setEntries((e) => ([...e, ...newEntries]));
+  };
 
   const initialize = async () => {
     const query = await buildQuery();
@@ -97,15 +106,6 @@ export default function FilteredList(props) {
     });
   };
 
-  const appendDocuments = (documents) => {
-    setLastEntry(documents[documents.length - 1]);
-    const newEntries = documents.map((doc) => {
-      const data = doc.data();
-      return { ...(data.d || data), id: doc.id };
-    });
-    setEntries((entries) => ([...entries, ...newEntries]));
-  };
-
   const handleChange = (address) => {
     setLocation(address);
     if (!isMapsApiEnabled) {
@@ -130,7 +130,7 @@ export default function FilteredList(props) {
     }
   };
 
-  const NoHelpNeeded = (props) => (
+  const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       In
       {location}
@@ -160,7 +160,7 @@ export default function FilteredList(props) {
         )}
         {(pageSize > 0 && !searching) ? (
           <div className="flex justify-center pt-3">
-            <button onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
+            <button type="button" onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
               Weitere anzeigen...
             </button>
           </div>

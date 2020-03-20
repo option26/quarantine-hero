@@ -5,7 +5,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
-import { isMapsApiEnabled } from '../featureFlags.js';
+import { isMapsApiEnabled } from '../featureFlags';
 
 export default function AskForHelp() {
   const [request, setRequest] = useState('');

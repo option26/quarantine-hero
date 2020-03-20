@@ -35,11 +35,11 @@ const VerifyEmail = (props) => {
         wir dir gerade gesendet haben, klickst.
       </div>
 
-      <button onClick={recheckEmail} className="btn-green w-full mt-8">
+      <button type="button" onClick={recheckEmail} className="btn-green w-full mt-8">
         Bestätigung überprüfen
       </button>
 
-      <button onClick={resendEmail} className="btn-green-secondary w-full mt-4">
+      <button type="button" onClick={resendEmail} className="btn-green-secondary w-full mt-4">
         E-Mail erneut senden
       </button>
 
