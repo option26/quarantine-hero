@@ -72,3 +72,15 @@
     margin-bottom: 0;
     outline: none;
 }
+
+.arrow-more-content {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    margin-left: -40px;
+}
+
+.arrow-more-content--hidden {
+    opacity: 0;
+    transition: opacity 1s;
+}

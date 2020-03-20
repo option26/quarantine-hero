@@ -4,13 +4,16 @@ import '../styles/App.css';
 import FilteredList from '../components/FilteredList';
 import Footer from '../components/Footer';
 import fb from '../firebase';
+import ArrowDown from '../components/ArrowDown';
 
 export default function Main () {
 
   function scrollTo () {
-    const el = document.getElementById('anfragen');
+    const yOffset = -30;
+    const el = document.getElementById('hilfe-buttons');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
 
@@ -78,7 +81,9 @@ export default function Main () {
             Drucke <a href='/assets/aushang.pdf' className="text-secondary hover:underline" download="/assets/aushang.pdf">diesen Aushang</a></p>
         </div>
 
-        <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full">
+        <ArrowDown onClick={scrollTo} />
+
+        <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full" id="hilfe-buttons">
           <Link to="/overview"
                 className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
                 onClick={() => fb.analytics.logEvent('button_want_to_help')}>
@@ -107,11 +112,8 @@ export default function Main () {
             das hier euren Mitmenschen mitteilen!
           </p>
         </div>
-        <div className="flex justify-center w-full" onClick={scrollTo}>
-          <img alt="arrow-down" className="arrow-down" src={require('../assets/arrow_down.png')}/>
-        </div>
       </div>
-      <div className="angle-cut-background pt-16 w-full">
+      <div className="angle-cut-background w-full">
         <div className="p-4">
           <div className="flex justify-center items-center flex-col">
             <div className="font-teaser text-center" id="anfragen">
