@@ -84,7 +84,7 @@ export default function Main() {
           </div>
         </div>
 
-        <div className="mt-4 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row justify-start items-center rounded sm:ml-0 sm:mr-0 bg-kaki">
+        <div className="mt-4 md:ml-0 md:mr-0 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki">
           <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt="" />
           <p>
             Nicht jeder Mensch hat Internet.
