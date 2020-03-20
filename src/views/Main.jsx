@@ -101,16 +101,23 @@ export default function Main() {
         <ArrowDown onClick={scrollTo} />
 
         <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full" id="hilfe-buttons">
-          <Link to="/overview"
-                className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
-                onClick={() => fb.analytics.logEvent('button_want_to_help')}>
-            <img className="w-8 mr-1" src={require('../assets/hero.png')} alt=""/>ICH MÖCHTE HELFEN</Link>
-          <div className="m-1 md:m-4">
-          </div>
-          <Link to="/signup"
-                className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
-                onClick={() => fb.analytics.logEvent('button_need_help')}>
-            <img className="w-8" src={require('../assets/need_help.png')} alt=""/>ICH BRAUCHE HILFE</Link>
+          <Link
+            to="/overview"
+            className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
+            onClick={() => fb.analytics.logEvent('button_want_to_help')}
+          >
+            <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
+            ICH MÖCHTE HELFEN
+          </Link>
+          <div className="m-1 md:m-4" />
+          <Link
+            to="/signup"
+            className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
+            onClick={() => fb.analytics.logEvent('button_need_help')}
+          >
+            <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+            ICH BRAUCHE HILFE
+          </Link>
         </div>
 
         <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
