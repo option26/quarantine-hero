@@ -68,9 +68,10 @@ export default function AskForHelp() {
           <strong>Bitte stellt hier keine Angebote ein.</strong>
           {' '}
           Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
+          {' '}
           <a
             href="http://quarantaenehelden.org/#/notify-me"
-            className="underline"
+            className="text-secondary hover:underline"
           >
             diese Funktion
           </a>
@@ -81,7 +82,7 @@ export default function AskForHelp() {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           Wo bist du?
         </label>
-        <LocationInput value={location} onChange={handleChange} onSelect={handleSelect} />
+        <LocationInput required value={location} onChange={handleChange} onSelect={handleSelect} />
       </div>
 
 

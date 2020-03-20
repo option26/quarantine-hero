@@ -57,8 +57,7 @@ const Signup = (props) => {
         <div className="mb-4">
           <div className="font-teaser mb-6">
             Registriere dich mit deiner E-Mail und einem Passwort um eine Hilfe-Anfrage zu posten oder melde
-            dich
-            an, wenn du bereits einen Account besitzt.
+            dich an, wenn du bereits einen Account besitzt.
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
