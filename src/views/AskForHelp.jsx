@@ -64,7 +64,7 @@ export default function AskForHelp() {
       <div className="font-open-sans">
         Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
         Alles weitere könnt ihr per E-Mail besprechen.
-        <div className=" w-full rounded p-4 bg-kaki mt-4">
+        <div className=" w-full p-4 bg-kaki mt-4">
           <strong>Bitte stellt hier keine Angebote ein.</strong>
           {' '}
           Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
