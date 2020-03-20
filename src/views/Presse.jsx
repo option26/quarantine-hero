@@ -60,6 +60,12 @@ export default function Presse() {
             <div>
               <a href="https://we.tl/t-FhgDBEFBih" className="text-secondary hover:underline" target="_blank" rel="noopener noreferrer">QuarantaeneHelden.zip</a>
             </div>
+            <div>
+              Pressekontakt:
+              <br className="sm:hidden" />
+              {' '}
+              <a href="mailto:presse@quarantaenehelden.org" className="text-secondary hover:underline">presse@quarantaenehelden.org</a>
+            </div>
           </div>
         </div>
         <div className="my-8 flex flex-wrap mb-16">
