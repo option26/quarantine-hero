@@ -113,7 +113,7 @@ export default function Main () {
           </p>
         </div>
       </div>
-      <div className="angle-cut-background w-full">
+      <div className="angle-cut-background pt-8 w-full">
         <div className="p-4">
           <div className="flex justify-center items-center flex-col">
             <div className="font-teaser text-center" id="anfragen">
