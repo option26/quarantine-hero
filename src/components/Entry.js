@@ -49,7 +49,7 @@ export default function Entry(props) {
 
     const collectionName = 'reported-posts';
     const reportedPostsCollection = fb.store.collection(collectionName);
-    const reportedPostRef = await reportedPostsCollection.doc(id);
+    const reportedPostRef = reportedPostsCollection.doc(id);
 
     // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
     const user_ids = firebase.firestore.FieldValue.arrayUnion(fb.auth.currentUser.uid);
