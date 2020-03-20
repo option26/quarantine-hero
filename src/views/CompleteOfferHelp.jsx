@@ -63,17 +63,15 @@ export default function CompleteOfferHelp() {
     completeSignup();
   }, []);
 
-  // @TODO Redo translations, was merged...
   return (
     <div className="p-4">
       <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('completeOfferHelp.youAreHero')}</h1>
       <p>
-        Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand
-        in
+        {t('completeOfferHelp.mailVerified')}
         {' '}
         <span className="text-secondary">{location}</span>
         {' '}
-        Hilfe benötigt.
+        {t('completeOfferHelp.needsHelp')}
       </p>
       <div className="flex justify-center flex-col items-center mb-8">
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />

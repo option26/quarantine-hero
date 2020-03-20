@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-export default function Footer () {
-  const { t, i18n } = useTranslation();
-  return (<div>
+export default function Footer() {
+  const { t } = useTranslation();
+  return (
+    <div>
       <div className="flex justify-center text-sm text-gray-700 mb-4 mt-8 w-full">
         <Link to="/faq">{t('footer.FAQs')}</Link>
         <div className="mx-1">|</div>

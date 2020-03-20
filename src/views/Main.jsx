@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import '../styles/App.css';
+import { useTranslation } from 'react-i18next';
 import FilteredList from '../components/FilteredList';
 import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
 
 export default function Main() {
+  const { t } = useTranslation();
+
   function scrollTo() {
     const yOffset = -30;
     const el = document.getElementById('hilfe-buttons');
@@ -36,41 +39,37 @@ export default function Main() {
           <img className="logo-margin" src={(require('../assets/logo.svg'))} alt="logo" />
         </div>
         <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
-          Wir sind Menschen.
+          {t('main.weAreHumans')}
           <br />
-          In Zeiten der Not helfen wir uns.
+          {t('main.inTimesOfNeed')}
           <br />
-          Sei ein Teil davon.
+          {t('main.bePart')}
           <br />
         </div>
         <div className="w-full flex justify-center  mt-4 md:mt-12">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            WICHTIGER HINWEIS
+            {t('main.importantNotes.title')}
           </div>
         </div>
         <div className="m-4 md:m-0 md:mt-4 font-open-sans md:mb-4 pl-0 md:pr-4 flex flex-col justify-center md:flex-row bg-kaki py-4 md:pt-10">
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0 md:text-center">
             <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/lokal.svg')} alt="" />
             <div className="flex-grow">
-              <div className="font-bold">Lokal</div>
-              <p>
-                Helft in eurer Nachbarschaft, zum Beispiel euren Haus-Mitbewohner*innen.
-              </p>
+              <div className="font-bold">{t('main.importantNotes.local.title')}</div>
+              <p>{t('main.importantNotes.local.text')}</p>
             </div>
           </div>
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0  md:text-center">
             <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/konsistent.svg')} alt="" />
             <div className="flex-grow">
-              <div className="font-bold">Konsistent</div>
-              <p>
-                Helft wenigen, aber das konsistent. Sucht euch zum Beispiel eine Familie und helft nur dieser.
-              </p>
+              <div className="font-bold">{t('main.importantNotes.consistent.title')}</div>
+              <p>{t('main.importantNotes.consistent.text')}</p>
             </div>
           </div>
           <div className="flex flex-1 px-3 justify-between items-center flex-row md:flex-col mt-4 md:mt-0 md:text-center">
             <img className="pr-5 pl-2 md:pl-0 md:pr-0 md:mb-4 w-30 h-10 md:h-16" src={require('../assets/distanziert.svg')} alt="" />
             <div className="flex-grow">
-              <div className="font-bold">Distanziert</div>
+              <div className="font-bold">{t('main.importantNotes.distanced.title')}</div>
               <p>
                 Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt
                 {' '}

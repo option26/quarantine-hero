@@ -60,23 +60,21 @@ export default function AskForHelp() {
     return <Redirect to="/signup" />;
   }
 
-  // @TODO Redo translations lost at merge.
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <h1 className="font-teaser py-4 pt-10">{t('askForHelp.createRequest')}</h1>
       <div className="font-open-sans">
-        Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.
-        Alles weitere könnt ihr per E-Mail besprechen.
+        {t('askForHelp.whenSomeoneWantsToHelpExplanation')}
         <div className=" w-full p-4 bg-kaki mt-4">
-          <strong>Bitte stellt hier keine Angebote ein.</strong>
+          <strong>{t('askForHelp.noRequestsHere')}</strong>
           {' '}
-          Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
+          {t('askForHelp.ifYouWantToGetNotified')}
           {' '}
           <a
             href="http://quarantaenehelden.org/#/notify-me"
             className="text-secondary hover:underline"
           >
-            diese Funktion
+            {t('askForHelp.thisFunction')}
           </a>
           .
         </div>

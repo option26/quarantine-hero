@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Entry from '../components/Entry';
 
@@ -27,6 +28,8 @@ export default function Dashboard() {
   const [entries, setEntries] = useState([]);
   const [offers, setOffers] = useState([]);
   const [user, setUser] = useState(undefined);
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     fb.auth.onAuthStateChanged((usr) => setUser(usr || NOT_LOGGED_IN));
@@ -71,30 +74,31 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('dashboard.yourRequests')}</h1>
 
       {entries.length === 0
         ? (
           <div className="font-open-sans">
-            Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch
+            {t('dashboard.noRequests')}
             {' '}
             <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
-            erstellen.
+            {t('dashboard.create')}
           </div>
         )
         : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
 
-      <h1 className="font-teaser py-4 pt-10">Deine Benachrichtigungen </h1>
+      <h1 className="font-teaser py-4 pt-10">{t('dashboard.yourNotifications')}</h1>
 
       {offers.length === 0
         ? (
           <div className="font-open-sans">
-            Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen
+            {t('dashboard.noNotificationsSubscribed')}
             {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('dashboard.here')}</Link>
             {' '}
-            registrieren.
+            {t('dashboard.register')}
+.
           </div>
         )
         : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}

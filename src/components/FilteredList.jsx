@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
 
 export default function FilteredList(props) {
+  const { t } = useTranslation();
+
   const {
     pageSize = 0,
   } = props;
@@ -132,11 +135,11 @@ export default function FilteredList(props) {
 
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
-      In
+      {t('filteredList.in')}
       {' '}
       {location}
       {' '}
-      wird gerade keine Hilfe gebraucht!
+      {t('noHelpCurrentlyNeeded')}
     </div>
   );
 
@@ -148,21 +151,23 @@ export default function FilteredList(props) {
       <div className="py-3 w-full">
         <div className="my-3 w-full">
           <Link to="/notify-me" className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
-            Benachrichtige mich wenn jemand in
+            {t('filteredList.notifyMe')}
             {' '}
-            {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'}
+            {location && location !== '' ? `${t('filteredList.closeTo')} ${location}` : t('filteredList.closeToMe')}
             {' '}
-            Hilfe braucht!
+            {t('filteredList.needsHelp')}
+            {' '}
+            !
           </Link>
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
           (entry) => (
             <Entry key={entry.id} {...entry} />),
         )}
-        {(pageSize > 0 && !searching) ? (
+        {(pageSize > 0 && !searching) ? ( // @TODO show more
           <div className="flex justify-center pt-3">
             <button type="button" onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
-              Weitere anzeigen...
+              {t('showMore')}
             </button>
           </div>
         ) : null}

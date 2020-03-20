@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import { useTranslation } from 'react-i18next';
 
 export default function DesktopMenu(props) {
+  const { t } = useTranslation();
+
   const MenuItem = (menuItemProps) => (
     <li className="mr-6 hover:opacity-75">
       <Link to={menuItemProps.to} onClick={menuItemProps.onClick}>{menuItemProps.children}</Link>
@@ -13,16 +16,17 @@ export default function DesktopMenu(props) {
     <Box className="flex w-1/2" flexDirection="column">
       <ul className="font-exo2 flex justify-around text-xl font-semibold mt-10">
         {menuProps.isLoggedIn
-          ? <MenuItem to="/dashboard">DEINE ÜBERSICHT</MenuItem>
+          ? <MenuItem to="/dashboard">{t('menu.yourOverview')}</MenuItem>
           : (
             <>
-              <MenuItem to="/ask-for-help">HILFE ANFRAGEN</MenuItem>
-              <MenuItem to="/overview">HELFEN</MenuItem>
+              <MenuItem to="/ask-for-help">{t('menu.requestHelp')}</MenuItem>
+              <MenuItem to="/overview">{t('menu.help')}</MenuItem>
+              {props.isLoggedIn && <MenuItem to="/dashboard">{t('menu.yourOverview')}</MenuItem>}
             </>
           )}
         <MenuItem to="/faq">FAQs</MenuItem>
         {menuProps.isLoggedIn
-          ? <MenuItem to="#" onClick={menuProps.signOut}>LOGOUT</MenuItem>
+          ? <MenuItem to="#" onClick={menuProps.signOut}>{t('menu.logout')}</MenuItem>
           : ''}
       </ul>
     </Box>

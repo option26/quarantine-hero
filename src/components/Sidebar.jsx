@@ -3,8 +3,12 @@ import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from '@material-ui/core/Drawer';
 import ShareButtons from './ShareButtons';
+import {useTranslation} from "react-i18next";
 
 export default function Sidebar(props) {
+
+    const { t, i18n } = useTranslation();
+
   const {
     open = true, onClose, signOut, isLoggedIn,
   } = props;
@@ -33,14 +37,14 @@ export default function Sidebar(props) {
       }}
       className="font-main mt-6"
     >
-      <MenuItem to="/">Home</MenuItem>
-      <MenuItem to="/ask-for-help">Ich brauche Hilfe</MenuItem>
-      <MenuItem to="/overview">Ich möchte helfen</MenuItem>
-      {menuProps.isLoggedIn && <MenuItem to="/dashboard">Deine Übersicht</MenuItem>}
-      <MenuItem to="/faq">FAQs</MenuItem>
-      <MenuItem to="/presse">Presse</MenuItem>
-      <MenuItem to="/impressum">Impressum</MenuItem>
-      <MenuItem to="/dsgvo">Datenschutz</MenuItem>
+        <MenuItem to="/">{t('sidebar.home')}</MenuItem>
+        <MenuItem to="/ask-for-help">{t('sidebar.askForHelp')}</MenuItem>
+        <MenuItem to="/overview">{t('sidebar.overview')}</MenuItem>
+        {props.isLoggedIn && <MenuItem to="/dashboard">{t('sidebar.yourOverview')}</MenuItem>}
+        <MenuItem to="/faq">{t('sidebar.FAQs')}</MenuItem>
+        <MenuItem to="/presse">{t('sidebar.press')}</MenuItem>
+        <MenuItem to="/impressum">{t('sidebar.legal')}</MenuItem>
+        <MenuItem to="/dsgvo">{t('sidebar.privacy')}</MenuItem>
       {menuProps.isLoggedIn && (
       <li className="pt-6">
         <Link
@@ -50,7 +54,7 @@ export default function Sidebar(props) {
             onClose();
           }}
         >
-          Abmelden
+            t('sidebar.signOut')
         </Link>
       </li>
       )}
