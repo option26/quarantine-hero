@@ -4,6 +4,7 @@ import FilteredList from '../components/FilteredList';
 import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
+import GeoMigration from '../components/GeoMigration';
 
 export default function Main() {
   function scrollTo() {
@@ -34,6 +35,7 @@ export default function Main() {
         <div className="font-main flex md:hidden text-white ">
           <img className="logo-margin" src={(require('../assets/logo.svg'))} alt="logo" />
         </div>
+        <GeoMigration />
         <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
           Wir sind Menschen.
           <br />
