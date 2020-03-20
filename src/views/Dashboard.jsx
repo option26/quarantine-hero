@@ -56,8 +56,8 @@ export default function Dashboard() {
       <div>
         { hidden ? '' : (
           <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
-            Du wirst benachrichtigt, wenn jemand
-            in der Nähe von
+            Du wirst benachrichtigt, wenn jemand in der Nähe von
+            {' '}
             {props.location}
             {' '}
             Hilfe benötigt

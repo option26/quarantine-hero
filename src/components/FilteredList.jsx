@@ -133,6 +133,7 @@ export default function FilteredList(props) {
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       In
+      {' '}
       {location}
       {' '}
       wird gerade keine Hilfe gebraucht!

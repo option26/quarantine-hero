@@ -68,9 +68,10 @@ export default function AskForHelp() {
           <strong>Bitte stellt hier keine Angebote ein.</strong>
           {' '}
           Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
+          {' '}
           <a
             href="http://quarantaenehelden.org/#/notify-me"
-            className="underline"
+            className="text-secondary hover:underline"
           >
             diese Funktion
           </a>

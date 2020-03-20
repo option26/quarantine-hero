@@ -30,9 +30,8 @@ const VerifyEmail = (props) => {
     <div>
       <h1 className="font-teaser py-4 pt-10">E-Mail Addresse bestätigen</h1>
       <div className="font-open-sans">
-        Damit potentielle Helfer*innen auf dich zukommen können, müssen wir sicherstellen
-        das deine E-Mail Adresse korrekt hinterlegt ist. Bestätige diese bitte indem du auf den Link in der E-Mail, welche
-        wir dir gerade gesendet haben, klickst.
+        Damit potentielle Helfer*innen auf dich zukommen können, müssen wir sicherstellen, dass deine E-Mail Adresse korrekt hinterlegt ist.
+        Bestätige diese bitte indem du auf den Link in der E-Mail, welche wir dir gerade gesendet haben, klickst.
       </div>
 
       <button type="button" onClick={recheckEmail} className="btn-green w-full mt-8">
