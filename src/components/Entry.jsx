@@ -64,6 +64,7 @@ export default function Entry(props) {
     >
       <span className="text-xs font-open-sans text-gray-800 mt-2">
         Jemand in
+        {' '}
         <span
           className="font-bold"
         >
@@ -77,6 +78,7 @@ export default function Entry(props) {
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
         <span className="text-gray-500 inline-block text-right text-xs font-open-sans">
           vor
+          {' '}
           {date}
         </span>
       </div>

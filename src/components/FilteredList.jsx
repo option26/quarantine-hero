@@ -133,6 +133,7 @@ export default function FilteredList(props) {
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       In
+      {' '}
       {location}
       {' '}
       wird gerade keine Hilfe gebraucht!
@@ -142,7 +143,7 @@ export default function FilteredList(props) {
   return (
     <div>
       <div className="pt-3">
-        <LocationInput onChange={handleChange} value={location} onSelect={handleSelect} />
+        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
       </div>
       <div className="py-3 w-full">
         <div className="my-3 w-full">
