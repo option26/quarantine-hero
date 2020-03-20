@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './styles/App.css';
-import './styles/index.css';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import CookieConsent from 'react-cookie-consent';
 import ScrollUpButton from 'react-scroll-up-button';
