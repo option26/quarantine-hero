@@ -62,7 +62,7 @@ export default function Sidebar(props) {
 
   return (
 
-    <Drawer open={open} onClose={onClose()} anchor="right">
+    <Drawer open={open} onClose={onClose} anchor="right">
       <div className="w-full flex justify-end">
         <CloseIcon
           className="mr-4 mt-4"
