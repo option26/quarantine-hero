@@ -6,7 +6,7 @@ export default function ArrowDown(props) {
 
   const hideOffset = 100;
 
-  useEffect(() => {
+  useEffect((props) => {
     window.addEventListener('scroll', () => {
       setVisible(window.pageYOffset < hideOffset);
       setOpacity((hideOffset - window.pageYOffset) / hideOffset);
