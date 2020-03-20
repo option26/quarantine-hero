@@ -108,7 +108,9 @@ export default function Entry(props) {
         {' '}
         braucht Hilfe!
       </span>
-      <button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>
+      { fb.auth.currentUser && fb.auth.currentUser.uid
+        ? (<button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>)
+        : ''}
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
