@@ -48,6 +48,11 @@ export default function Entry(props) {
     const reportedPostsCollection = fb.store.collection(collectionName);
     const reportedPostRef = reportedPostsCollection.doc(id);
 
+    // only report entries of user is logged in, as we cannot determine and store the user id otherwise
+    if (!fb.auth.currentUser || !fb.auth.currentUser.uid) {
+      return;
+    }
+
     // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
     const userIds = fb.app.firestore.FieldValue.arrayUnion(fb.auth.currentUser.uid);
     const data = {
