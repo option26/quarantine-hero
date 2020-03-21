@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
+import orderBy from 'lodash.orderby';
 import fb from '../firebase';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
@@ -99,11 +100,20 @@ export default function FilteredList(props) {
     });
   };
 
-  const loadFilteredData = async (queryPromise) => {
+  const loadFilteredData = async (queryPromise, address) => {
     const query = await queryPromise;
-    query.get().then((value) => {
+    const value = await query.get();
+
+    // no location filter applied
+    if (!address) {
       appendDocuments(value.docs);
-    });
+      return;
+    }
+
+    // we need to perform client-side sorting since the location filter is applied
+    // https://github.com/kenodressel/quarantine-hero/issues/89
+    const sortedDocs = orderBy(value.docs, (document) => document.data().d.timestamp, 'desc');
+    appendDocuments(sortedDocs);
   };
 
   const handleChange = (address) => {
@@ -113,7 +123,7 @@ export default function FilteredList(props) {
         clearTimeout(scheduledSearch);
       }
       setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address));
+        loadFilteredData(buildQuery(address), address);
       }, 500));
     }
   };
@@ -125,7 +135,7 @@ export default function FilteredList(props) {
         clearTimeout(scheduledSearch);
       }
       setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address));
+        loadFilteredData(buildQuery(address), address);
       }, 500));
     }
   };
