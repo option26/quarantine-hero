@@ -5,6 +5,56 @@
     "usesCookies": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern."
   },
   "views": {
+    "home": {
+      "weAreHumans": "Wir sind Menschen.",
+      "inTimesOfNeed": "In Zeiten der Not helfen wir uns.",
+      "bePart": "Sei ein Teil davon.",
+      "importantNotes": {
+        "title": "WICHTIGER HINWEIS",
+        "local": {
+          "title": "Lokal",
+          "text": "Helft in eurer Nachbarschaft, zum Beispiel euren Haus-Mitbewohner*innen."
+        },
+        "consistent": {
+          "title": "Konsistent",
+          "text": "Helft wenigen, aber das konsistent. Sucht euch zum Beispiel eine Familie und helft nur dieser."
+        },
+        "distanced": {
+          "title": "Distanziert",
+          "text": "TODO because of bold span"
+        }
+      }
+    },
+    "askForHelp": {
+      "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
+      "whenSomeoneWantsToHelpExplanation": "Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.\n Alles weitere könnt ihr per E-Mail besprechen.",
+      "noRequestsHere": "Bitte stellt hier keine Angebote ein.",
+      "ifYouWantToGetNotified": "Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze",
+      "thisFunction": "diese Funktion",
+      "whereAreYou": "Wo bist du?",
+      "whatCanWeDo": "Wobei kann man dir helfen?",
+      "requestIsPublic": "Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.",
+      "askNow": "Jetzt um Hilfe bitten"
+    },
+    "completeOfferHelp": {
+      "mailYouRegistered": "Bitte geben sie die Email ein, mit der sie sich registriert haben",
+      "youAreHero": "Du bist eine Held*in!",
+      "mailVerified": "Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand in",
+      "needsHelp": "Hilfe benötigt",
+      "toYourOverview": "ZU DEINER ÜBERSICHT"
+    },
+    "dashboard": {
+      "yourRequests": "Deine Hilfegesuche",
+      "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
+      "create": "erstellen",
+      "yourNotifications": "Deine Benachrichtigungen",
+      "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
+      "here": "hier",
+      "register": "registrieren"
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung"
+    },
     "faq": {
       "title": "Hier werden deine wichtigsten Fragen beantwortet!",
       "questions": {
