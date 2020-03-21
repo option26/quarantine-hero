@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
-import Entry from './Entry';
 import fb from '../firebase';
 
 const loadResponses = async (requestForHelpId) => {
@@ -35,7 +34,7 @@ const Response = ({ response }) => {
   );
 };
 
-export default function EntryWithResponses(props) {
+export default function Responses(props) {
   const [responses, setResponses] = useState(undefined);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ export default function EntryWithResponses(props) {
 
   return (
     <div>
-      <Entry {...props} />
       {responses === undefined
         ? <p className="my-3 ml-6 font-open-sans text-gray-800">Antworten werden geladen &hellip;</p>
         : (

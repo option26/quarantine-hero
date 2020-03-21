@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import fb from '../firebase';
-import EntryWithResponses from '../components/EntryWithResponses';
+import Entry from '../components/Entry';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
@@ -78,7 +78,7 @@ export default function Dashboard() {
             erstellen.
           </div>
         )
-        : entries.map((entry) => (<EntryWithResponses {...entry} key={entry.id} owner />))}
+        : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
 
       <h1 className="font-teaser py-4 pt-10">Deine Benachrichtigungen </h1>
 
