@@ -8,6 +8,7 @@ export default function NotifyMe() {
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
+  const [submitAllowed, setSubmitAllowed] = useState(false);
 
   const handleSubmit = async () => {
     window.localStorage.setItem('emailForSignIn', email);
@@ -28,10 +29,19 @@ export default function NotifyMe() {
 
   const handleChange = address => {
     setLocation(address);
+    console.log(!!(location));
+    setSubmitAllowed(!!(location) && !!(email));
   };
 
   const handleSelect = address => {
     setLocation(address);
+  };
+
+  function checkForDEM(mail) {
+    //TODO: if mail keine dem:
+    setEmail(mail);
+    console.log(!!(email));
+    setSubmitAllowed(!!(location) && !!(email));
   };
 
   if (signInLinkSent) {
@@ -56,8 +66,8 @@ export default function NotifyMe() {
         <form onSubmit={handleSubmit}>
           <LocationInput required={true} onChange={handleChange} value={location} onSelect={handleSelect}/>
           <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
-                onChange={(e) => setEmail(e.target.value)} value={email} required={true}></input>
-          <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
+                onChange={(e) => checkForDEM(e.target.value)} value={email} required={true}></input>
+          <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit" disabled={!submitAllowed}>
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
           </button>
         </form>
