@@ -29,8 +29,7 @@ export default function NotifyMe() {
 
   const handleChange = address => {
     setLocation(address);
-    console.log(!!(location));
-    setSubmitAllowed(!!(location) && !!(email));
+    setSubmitAllowed(!!(address) && !!(email));
   };
 
   const handleSelect = address => {
@@ -40,8 +39,7 @@ export default function NotifyMe() {
   function checkForDEM(mail) {
     //TODO: if mail keine dem:
     setEmail(mail);
-    console.log(!!(email));
-    setSubmitAllowed(!!(location) && !!(email));
+    setSubmitAllowed(!!(location) && !!(mail));
   };
 
   if (signInLinkSent) {
