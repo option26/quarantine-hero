@@ -9,6 +9,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
@@ -29,7 +30,6 @@ import NotifyMe from './views/NotifyMe';
 import ScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
 import Presse from './views/Presse';
-import {useTranslation} from "react-i18next";
 
 function App(props) {
   const { t } = useTranslation();
