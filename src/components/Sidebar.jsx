@@ -15,7 +15,16 @@ export default function Sidebar(props) {
 
   const MenuItem = (menuItemProps) => (
     <li className="py-1 hover:opacity-75">
-      <Link className="py-2 block" onClick={onClose} to={menuItemProps.to}>{menuItemProps.children}</Link>
+      <Link
+        className="py-2 block"
+        onClick={() => {
+          if (menuItemProps.onClick) menuItemProps.onClick();
+          onClose();
+        }}
+        to={menuItemProps.to}
+      >
+        {menuItemProps.children}
+      </Link>
     </li>
   );
 
@@ -41,30 +50,11 @@ export default function Sidebar(props) {
       <MenuItem to="/presse">Presse</MenuItem>
       <MenuItem to="/impressum">Impressum</MenuItem>
       <MenuItem to="/dsgvo">Datenschutz</MenuItem>
-      <li className="pt-6">
-        {menuProps.isLoggedIn
-          ? (
-            <Link
-              to="/"
-              onClick={() => {
-                menuProps.signOut();
-                onClose();
-              }}
-            >
-              Abmelden
-            </Link>
-          )
-          : (
-            <Link
-              to="/signup/dashboard"
-              onClick={() => {
-                onClose();
-              }}
-            >
-              Login
-            </Link>
-          )}
-      </li>
+
+      {menuProps.isLoggedIn
+        ? <MenuItem to="/" onClick={menuProps.signOut}>Abmelden</MenuItem>
+        : <MenuItem to="/signup/dashboard">Login</MenuItem>}
+
       <div className="mt-4">
         <ShareButtons />
       </div>
