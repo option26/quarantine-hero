@@ -50,7 +50,6 @@ export default function FilteredList(props) {
         queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
       } catch (error) {
         queryResult = collection.orderBy('d.timestamp', 'desc');
-        console.error('Error', error);
       }
     } else {
       queryResult = collection;
