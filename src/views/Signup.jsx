@@ -5,6 +5,7 @@ import 'firebase/auth';
 import { Redirect, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import fb from '../firebase';
+import { baseUrl } from '../appConfig';
 
 const firebaseAppAuth = firebaseApp.auth();
 
@@ -44,7 +45,7 @@ const Signup = (props) => {
     e.preventDefault();
     if (!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
     fb.auth.sendPasswordResetEmail(email, {
-      url: 'https://www.quarantaenehelden.org/#/signup',
+      url: `${baseUrl}/#/signup`,
       handleCodeInApp: false,
     })
       .then(() => setPasswordResetSuccess(true))

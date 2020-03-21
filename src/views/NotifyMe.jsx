@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
+import { baseUrl } from '../appConfig';
 
 export default function NotifyMe() {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ export default function NotifyMe() {
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: `https://quarantaenehelden.org/#/complete-offer-help?location=${location}&email=${email}`,
+        url: `${baseUrl}/#/complete-offer-help?location=${location}&email=${email}`,
         handleCodeInApp: true,
       });
       fb.analytics.logEvent('success_subscribe_region');

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import '../styles/App.css';
 import FilteredList from '../components/FilteredList';
 import Footer from '../components/Footer';
 import fb from '../firebase';

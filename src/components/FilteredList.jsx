@@ -50,7 +50,6 @@ export default function FilteredList(props) {
         queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
       } catch (error) {
         queryResult = collection.orderBy('d.timestamp', 'desc');
-        console.error('Error', error);
       }
     } else {
       queryResult = collection;
@@ -101,9 +100,18 @@ export default function FilteredList(props) {
 
   const loadFilteredData = async (queryPromise) => {
     const query = await queryPromise;
-    query.get().then((value) => {
+    const value = await query.get();
+
+    // no location filter applied
+    if (!location) {
       appendDocuments(value.docs);
-    });
+      return;
+    }
+
+    // we need to perform client-side sorting since the location filter is applied
+    // https://github.com/kenodressel/quarantine-hero/issues/89
+    const docsSortedInDescendingOrder = value.docs.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+    appendDocuments(docsSortedInDescendingOrder);
   };
 
   const handleChange = (address) => {
