@@ -99,12 +99,12 @@ export default function FilteredList(props) {
     });
   };
 
-  const loadFilteredData = async (queryPromise, address) => {
+  const loadFilteredData = async (queryPromise) => {
     const query = await queryPromise;
     const value = await query.get();
 
     // no location filter applied
-    if (!address) {
+    if (!location) {
       appendDocuments(value.docs);
       return;
     }
@@ -122,7 +122,7 @@ export default function FilteredList(props) {
         clearTimeout(scheduledSearch);
       }
       setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address), address);
+        loadFilteredData(buildQuery(address));
       }, 500));
     }
   };
@@ -134,7 +134,7 @@ export default function FilteredList(props) {
         clearTimeout(scheduledSearch);
       }
       setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address), address);
+        loadFilteredData(buildQuery(address));
       }, 500));
     }
   };
