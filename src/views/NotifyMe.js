@@ -11,17 +11,21 @@ export default function NotifyMe() {
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
-  const [submitAllowed, setSubmitAllowed] = useState(false);
+
+  //Disable submit functionality: set "true" to "false"
+  const [submitAllowed, setSubmitAllowed] = useState(true);
 
   const handleSubmit = async () => {
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
+      console.log("hallo");
       await fb.auth.sendSignInLinkToEmail(email, {
         url: 'https://quarantaenehelden.org/#/complete-offer-help?location=' + location + '&email=' + email,
         handleCodeInApp: true,
       });
       fb.analytics.logEvent('success_subscribe_region');
+        console.log("hallo");
 
       setSignInLinkSent(true);
 
@@ -32,25 +36,31 @@ export default function NotifyMe() {
 
   const handleChange = address => {
     setLocation(address);
-    setSubmitAllowed(!!(address) && !!(email));
+    //Disable submit functionality: uncomment line below
+    //setSubmitAllowed(!!(address) && !!(email));
   };
 
   const handleSelect = address => {
     setLocation(address);
   };
 
-  function checkForDEM(mail) {
+  function checkForDEM(data) {
+    const mail = data.target.value;
     if(mail.includes('@')) {
-      var domain = mail.substring(email.lastIndexOf("@") +1);
+      var domain = mail.substring(mail.lastIndexOf("@") +1);
       // check if the mail address is included in the DEM-list
       if (dems.includes(domain)) {
         // this is a DEM
-        // todo: show error
-        setSubmitAllowed(false);
+        data.target.setCustomValidity("Wegwerf-Adressen sind nicht erlaubt.");
+
+        //Disable submit functionality: uncomment line below
+        //setSubmitAllowed(false);
       } else {
         // this is not a DEM
-        setSubmitAllowed(!!(location) && !!(mail));
-        setEmail(mail);
+        data.target.setCustomValidity("");
+
+        //Disable submit functionality: uncomment line below
+        //setSubmitAllowed(!!(location) && !!(mail));
       }
     }
   };
@@ -77,7 +87,7 @@ export default function NotifyMe() {
         <form onSubmit={handleSubmit}>
           <LocationInput required={true} onChange={handleChange} value={location} onSelect={handleSelect}/>
           <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
-                onChange={(e) => checkForDEM(e.target.value)} value={email} required={true}></input>
+                onChange={(e) => checkForDEM(e)} defaultValue={email} required={true}></input>
           <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit" disabled={!submitAllowed}>
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
           </button>
