@@ -71,13 +71,27 @@
     margin-left: -30px;
 }
 
-.entry,
-.response {
+.entry {
     transition: 300ms;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 0 5px 0 rgba(0, 0, 0, 0.1);
 }
 
-.entry:hover,
-.response:hover {
+.entry:hover {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.response {
+    background: #efefef;
+}
+
+.response:first-child::before {
+    content: " ";
+    position: absolute;
+    top: -14px;
+    left: 128px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 14px 14px 14px;
+    border-color: transparent transparent #efefef transparent;
 }
