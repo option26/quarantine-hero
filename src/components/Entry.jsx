@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
@@ -17,6 +17,7 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState('');
   const [reported, setReported] = useState(false);
+  const history = useHistory();
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
 
@@ -48,9 +49,9 @@ export default function Entry(props) {
     const reportedPostsCollection = fb.store.collection(collectionName);
     const reportedPostRef = reportedPostsCollection.doc(id);
 
-    // only report entries of user is logged in, as we cannot determine and store the user id otherwise
+    // redirect the user to the login page, as we can only store user ids for logged-in users
     if (!fb.auth.currentUser || !fb.auth.currentUser.uid) {
-      return;
+      return history.push({ pathname: '/signup', state: { reason: 'report_entry_user_not_logged_in', entry_id: id } });
     }
 
     // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
@@ -108,9 +109,7 @@ export default function Entry(props) {
         {' '}
         braucht Hilfe!
       </span>
-      { fb.auth.currentUser && fb.auth.currentUser.uid
-        ? (<button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>)
-        : ''}
+      <button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
