@@ -47,22 +47,20 @@ export default function Entry(props) {
 
     const collectionName = 'reported-posts';
     const reportedPostsCollection = fb.store.collection(collectionName);
-    const reportedPostRef = reportedPostsCollection.doc(id);
 
     // redirect the user to the login page, as we can only store user ids for logged-in users
     if (!fb.auth.currentUser || !fb.auth.currentUser.uid) {
-      return history.push({ pathname: '/signup', state: { reason: 'report_entry_user_not_logged_in', entry_id: id } });
+      const pathToOfferHelp = `offer-help/${id}`;
+      const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
+      return history.push({ pathname, state: { reason_for_registration: 'den Beitrag zu melden' } });
     }
-
-    // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
-    const userIds = fb.app.firestore.FieldValue.arrayUnion(fb.auth.currentUser.uid);
     const data = {
       request,
-      id,
-      user_ids: userIds,
+      post_id: id,
+      u_id: fb.auth.currentUser.uid,
       timestamp: Date.now(),
     };
-    await reportedPostRef.set(data);
+    await reportedPostsCollection.add(data);
     setReported(true);
   };
 
