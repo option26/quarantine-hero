@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from '@material-ui/core/Drawer';
+import { useTranslation } from 'react-i18next';
 import ShareButtons from './ShareButtons';
 
 export default function Sidebar(props) {
+  const { t } = useTranslation();
+
   const {
     open = true, onClose, signOut, isLoggedIn,
   } = props;
@@ -33,33 +36,37 @@ export default function Sidebar(props) {
       }}
       className="font-main mt-6"
     >
-      <MenuItem to="/">Home</MenuItem>
-      <MenuItem to="/ask-for-help">Ich brauche Hilfe</MenuItem>
-      <MenuItem to="/overview">Ich möchte helfen</MenuItem>
-      {menuProps.isLoggedIn && <MenuItem to="/dashboard">Deine Übersicht</MenuItem>}
-      <MenuItem to="/faq">FAQs</MenuItem>
-      <MenuItem to="/presse">Presse</MenuItem>
-      <MenuItem to="/impressum">Impressum</MenuItem>
-      <MenuItem to="/dsgvo">Datenschutz</MenuItem>
+      <MenuItem to="/">{t('components.sidebar.home')}</MenuItem>
+      <MenuItem to="/ask-for-help">{t('components.sidebar.askForHelp')}</MenuItem>
+      <MenuItem to="/overview">{t('components.sidebar.overview')}</MenuItem>
+      {menuProps.isLoggedIn && <MenuItem to="/dashboard">{t('components.sidebar.yourOverview')}</MenuItem>}
+      <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
+      <MenuItem to="/presse">{t('components.sidebar.press')}</MenuItem>
+      <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
+      <MenuItem to="/dsgvo">{t('components.sidebar.privacy')}</MenuItem>
       <li className="pt-6">
-        {menuProps.isLoggedIn ?
-          <Link
-            to="/"
-            onClick={() => {
-              menuProps.signOut();
-              onClose();
-            }}>
-            Abmelden
-          </Link>
-          :
-          <Link
-            to="/signup/dashboard"
-            onClick={() => {
-              onClose();
-            }}>
-            Login
-          </Link>
-        }
+        {menuProps.isLoggedIn
+          ? (
+            <Link
+              to="/"
+              onClick={() => {
+                menuProps.signOut();
+                onClose();
+              }}
+            >
+              t('components.sidebar.signOut')
+            </Link>
+          )
+          : (
+            <Link
+              to="/signup/dashboard"
+              onClick={() => {
+                onClose();
+              }}
+            >
+              Login
+            </Link>
+          )}
       </li>
       <div className="mt-4">
         <ShareButtons />
