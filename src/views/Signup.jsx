@@ -2,7 +2,12 @@ import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import { Redirect, useParams } from 'react-router-dom';
+import {
+  Redirect,
+  useParams,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import Footer from '../components/Footer';
 import fb from '../firebase';
 
@@ -13,6 +18,9 @@ const Signup = (props) => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
+  const history = useHistory();
+  const location = useLocation();
+  const userPreviouslyAttemptedToReportAnEntryButWasNotLoggedIn = location && location.state && location.state.reason === 'report_entry_user_not_logged_in';
 
   const {
     user,
@@ -37,6 +45,11 @@ const Signup = (props) => {
       if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
     }
     if (signUpResult.code) setError(signUpResult.message);
+
+    // redirect to entry the user wanted to report
+    if (userPreviouslyAttemptedToReportAnEntryButWasNotLoggedIn && location.state && location.state.entry_id) {
+      return history.push(`/offer-help/${location.state.entry_id}`);
+    }
   };
 
   // eslint-disable-next-line consistent-return
@@ -51,13 +64,17 @@ const Signup = (props) => {
       .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
   };
 
+  const reasonForRegistration = userPreviouslyAttemptedToReportAnEntryButWasNotLoggedIn
+    ? 'um den Beitrag zu melden'
+    : 'um eine Hilfe-Anfrage zu posten';
+  const textToShow = `Registriere dich mit deiner E-Mail und einem Passwort ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
+
   return (
     <div className="p-4 mt-8">
       <form onSubmit={signInOrRegister}>
         <div className="mb-4">
           <div className="font-teaser mb-6">
-            Registriere dich mit deiner E-Mail und einem Passwort um eine Hilfe-Anfrage zu posten oder melde
-            dich an, wenn du bereits einen Account besitzt.
+            {textToShow}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
