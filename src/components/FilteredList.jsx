@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
-import orderBy from 'lodash.orderby';
 import fb from '../firebase';
 import Entry from './Entry';
 import LocationInput from './LocationInput';
@@ -112,8 +111,8 @@ export default function FilteredList(props) {
 
     // we need to perform client-side sorting since the location filter is applied
     // https://github.com/kenodressel/quarantine-hero/issues/89
-    const sortedDocs = orderBy(value.docs, (document) => document.data().d.timestamp, 'desc');
-    appendDocuments(sortedDocs);
+    const docsSortedInDescendingOrder = value.docs.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+    appendDocuments(docsSortedInDescendingOrder);
   };
 
   const handleChange = (address) => {
