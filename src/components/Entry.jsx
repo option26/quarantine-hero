@@ -20,7 +20,7 @@ export default function Entry(props) {
 
   const { t } = useTranslation();
 
-  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language
+  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
 
   let textToDisplay;
   if (showFullText) {
