@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
+import dems from '../assets/dems.json';
 
 export default function NotifyMe() {
+
+  // TODO: add functionality to all mail places
 
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
@@ -37,9 +40,19 @@ export default function NotifyMe() {
   };
 
   function checkForDEM(mail) {
-    //TODO: if mail keine dem:
-    setEmail(mail);
-    setSubmitAllowed(!!(location) && !!(mail));
+    if(mail.includes('@')) {
+      var domain = mail.substring(email.lastIndexOf("@") +1);
+      // check if the mail address is included in the DEM-list
+      if (dems.includes(domain)) {
+        // this is a DEM
+        // todo: show error
+        setSubmitAllowed(false);
+      } else {
+        // this is not a DEM
+        setSubmitAllowed(!!(location) && !!(mail));
+        setEmail(mail);
+      }
+    }
   };
 
   if (signInLinkSent) {
