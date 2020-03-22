@@ -4,6 +4,11 @@ At quarantaenehelden.org we created a platform for people to support those in th
 
 A project brought to you with :heart: and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Contributions
+
+As a non-profit project run by volunteers we rely on the support of the open source community. We highly encourage contributions and we are trying to make this process as frictionless as possible. Therefore, we set up a test environment with a special instance of Google's Firebase and we elected two people to coordinate contributions, @tgraupne and @florianschmidt1994.
+
+Everyone is very welcome to create issues, give feedback and contribute to the code base. If you'd like to work on an issue, please mention @tgraupne or @florianschmidt1994 in a comment and we will get in touch with you. We are constantly trying to maintain an up-to-date state of the project reflect in labels, reviews and comments.
 
 ## Getting Started
 
@@ -23,7 +28,7 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode and automatically connects to our test instance of Google"s Firebase.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
