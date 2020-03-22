@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import fb from '../firebase';
 
 export default function Entry(props) {
@@ -16,6 +17,8 @@ export default function Entry(props) {
   } = props;
 
   const [deleted, setDeleted] = useState('');
+
+  const [user] = useAuthState(fb.auth);
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
 
@@ -82,7 +85,7 @@ export default function Entry(props) {
           {date}
         </span>
       </div>
-      {fb.auth.currentUser && ((fb.auth.currentUser.uid === props.uid) || fb.auth.currentUser.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')
+      {user && (user.uid === props.uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')
         ? (
           <div>
             <button type="button" className="btn-green my-2" onClick={handleDelete}>Deine Anfrage löschen.</button>
