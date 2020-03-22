@@ -23,6 +23,7 @@ export default function CompleteOfferHelp() {
           // We only end up here if there is no email set in the localStorage of the users browser
           // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
           // link in his mobile phones email client.
+          // eslint-disable-next-line no-alert
           email = window.prompt('Bitte geben sie die Email ein, mit der sie sich registriert haben');
         }
 

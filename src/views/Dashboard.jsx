@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import fb from '../firebase';
 import Entry from '../components/Entry';
-
-const NOT_LOGGED_IN = 'NOT_LOGGED_IN';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
@@ -26,24 +25,20 @@ const getOffers = async (currentUser) => {
 export default function Dashboard() {
   const [entries, setEntries] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [user, setUser] = useState(undefined);
-
-  useEffect(() => {
-    fb.auth.onAuthStateChanged((usr) => setUser(usr || NOT_LOGGED_IN));
-  });
+  const [user, isAuthLoading] = useAuthState(fb.auth);
 
   const handleDelete = (id) => {
     offerHelpCollection.doc(id).delete();
   };
 
   useEffect(() => {
-    if (typeof user === 'object') {
+    if (user) {
       getUserData(user).then(setEntries);
       getOffers(user).then(setOffers);
     }
   }, [user]);
 
-  if (user === NOT_LOGGED_IN || (typeof user === 'object' && !user.email)) {
+  if (!isAuthLoading && (!user || !user.email)) {
     return <Redirect to="/signup/dashboard" />;
   }
 
