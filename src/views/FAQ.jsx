@@ -2,6 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 
+const QA = (props) => (
+  <>
+    <h2 className="text-xl font-teaser mt-8">{props.question}</h2>
+    <p className="font-open-sans">{props.children}</p>
+  </>
+);
+
 export default function FAQ() {
   const { t } = useTranslation();
 
@@ -25,20 +32,10 @@ export default function FAQ() {
     'howIsDataUsed',
   ];
 
-  const buildFAQ = (title, content) => (
-    <>
-      <h2 className="text-xl font-teaser mt-8">{title}</h2>
-      <p className="font-open-sans">{content}</p>
-    </>
-  );
-
   const buildFAQs = (arrayOfKeys) => arrayOfKeys.map((translationString) => (
-    <>
-      {buildFAQ(
-        t(`views.faq.questions.${translationString}`),
-        t(`views.faq.answers.${translationString}`),
-      )}
-    </>
+    <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>
+      {t(`views.faq.answers.${translationString}`)}
+    </QA>
   ));
 
   return (
@@ -48,18 +45,15 @@ export default function FAQ() {
       {buildFAQs(faqTranslationStringHowTo)}
 
       {/* This FAQ needs special treatment because of the link in it. */}
-      {buildFAQ(
-        t('views.faq.howHelpPeopleWithoutInternet.question'),
-        <>
-          {t('views.faq.howHelpPeopleWithoutInternet.answer.preLink')}
-          <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">
-            {' '}
-            {t('views.faq.howHelpPeopleWithoutInternet.answer.link')}
-            {' '}
-          </a>
-          {t('views.faq.howHelpPeopleWithoutInternet.answer.postLink')}
-        </>,
-      )}
+      <QA question={t('views.faq.howHelpPeopleWithoutInternet.question')}>
+        {t('views.faq.howHelpPeopleWithoutInternet.answer.preLink')}
+        <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">
+          {' '}
+          {t('views.faq.howHelpPeopleWithoutInternet.answer.link')}
+          {' '}
+        </a>
+        {t('views.faq.howHelpPeopleWithoutInternet.answer.postLink')}
+      </QA>
 
       {buildFAQs(faqTranslationStringAboutUs)}
 
