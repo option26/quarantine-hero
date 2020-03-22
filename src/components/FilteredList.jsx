@@ -78,7 +78,11 @@ export default function FilteredList(props) {
     // we need to perform client-side sorting since the location filter is applied
     // https://github.com/kenodressel/quarantine-hero/issues/89
     if (searchActive) {
-      documents = documents.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+      if (isMapsApiEnabled) {
+        documents = documents.sort((doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp);
+      } else {
+        documents = documents.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+      }
     }
     appendDocuments(documents);
   };
@@ -162,7 +166,16 @@ export default function FilteredList(props) {
       {sliderVisible
         ? (
           <div className="pt-5 w-full">
-            <Slider min={1} max={30} initialValue={radius} onChange={(v) => setRadius(v)} onAfterChange={() => setSliderVisible(false)} />
+            <Slider
+              min={1}
+              max={30}
+              initialValue={radius}
+              onChange={(v) => setRadius(v)}
+              onAfterChange={() => {
+                setSliderVisible(false);
+                loadDocuments(buildFilteredQuery(location), searching);
+              }}
+            />
           </div>
         ) : null}
       <div className="py-3 w-full">
