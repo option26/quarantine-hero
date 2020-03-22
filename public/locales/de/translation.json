@@ -44,6 +44,8 @@
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
     "dashboard": {
+      "youWillBeNotified": "Du wirst benachrichtigt, wenn jemand in der Nähe von",
+      "needsHelp": "Hilfe benötigt",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
       "create": "erstellen",

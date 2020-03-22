@@ -66,7 +66,7 @@ export default function AskForHelp() {
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
-      <h1 className="font-teaser py-4 pt-10">{t('views.askForHelp.Erstelle eine Anfrage um Helden um Hilfe zu bitten.')}</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views.askForHelp.createRequest')}</h1>
       <div className="font-open-sans">
         {t('views.askForHelp.whenSomeoneWantsToHelpExplanation')}
         <div className=" w-full p-4 bg-kaki mt-4">
