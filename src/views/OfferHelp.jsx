@@ -5,6 +5,7 @@ import fb from '../firebase';
 
 import Entry from '../components/Entry';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 
 export default function OfferHelp() {
   const [answer, setAnswer] = useState('');
@@ -71,13 +72,7 @@ export default function OfferHelp() {
         </div>
         <div className="mt-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
-          <input
-            className="input-focus"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required="required"
-            placeholder="ich@helfer.de"
-          />
+          <MailInput className="input-focus" placeholder="ich@helfer.de" onSetEmail={setEmail} defaultValue={email}/>
         </div>
         <div className="mt-4 m-1 w-full">
           Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.

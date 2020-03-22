@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
 
 export default function NotifyMe() {
@@ -58,14 +59,7 @@ export default function NotifyMe() {
       </div>
       <form onSubmit={handleSubmit}>
         <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
-        <input
-          className="input-focus my-6"
-          type="email"
-          placeholder="Deine Emailadresse"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
+        <MailInput className="input-focus my-6" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email}/>
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           Benachrichtige mich wenn jemand in
           {' '}

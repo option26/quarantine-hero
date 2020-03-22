@@ -4,6 +4,7 @@ import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import { Redirect, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 
@@ -63,15 +64,7 @@ const Signup = (props) => {
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
           </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
-            id="username"
-            type="email"
-            placeholder="Deine E-Mailadresse"
-            value={email}
-            required="required"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email}/>
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
