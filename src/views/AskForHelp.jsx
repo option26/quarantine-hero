@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Redirect, useHistory, Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags';
 
 export default function AskForHelp() {
+  const [user, isAuthLoading] = useAuthState(fb.auth);
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
   const [coordinates, setCoodinates] = useState({
@@ -28,7 +30,7 @@ export default function AskForHelp() {
     // Add a GeoDocument to a GeoCollection
     geocollection.add({
       request,
-      uid: fb.auth.currentUser.uid,
+      uid: user.uid,
       timestamp: Date.now(),
       // The coordinates field must be a GeoPoint!
       coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
@@ -55,7 +57,7 @@ export default function AskForHelp() {
       .catch((error) => console.error('Error', error));
   };
 
-  if (!fb.auth.currentUser || !fb.auth.currentUser.email) {
+  if (!isAuthLoading && (!user || !user.email)) {
     return <Redirect to="/signup" />;
   }
 
