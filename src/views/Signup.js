@@ -5,6 +5,7 @@ import 'firebase/auth';
 import { Redirect, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import fb from '../firebase';
+import dems from '../assets/dems.json';
 
 const firebaseAppAuth = firebaseApp.auth();
 
@@ -50,6 +51,21 @@ const Signup = (props) => {
           .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
     };
 
+    function checkForDEM(data) {
+      const mail = data.target.value;
+      if(mail.includes('@')) {
+        var domain = mail.substring(mail.lastIndexOf("@") +1);
+        // check if the mail address is included in the DEM-list
+        if (dems.includes(domain)) {
+          // this is a DEM
+          data.target.setCustomValidity("Wegwerf-Adressen sind nicht erlaubt.");
+        } else {
+          // this is not a DEM
+          data.target.setCustomValidity("");
+        }
+      }
+    };
+
     return <div className="p-4 mt-8">
         <form onSubmit={signInOrRegister}>
             <div className="mb-4">
@@ -63,8 +79,8 @@ const Signup = (props) => {
                 </label>
                 <input
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
-                    id="username" type="email" placeholder="Deine E-Mailadresse" value={email} required="required"
-                    onChange={e => setEmail(e.target.value)}/>
+                    id="username" type="email" placeholder="Deine E-Mailadresse"  defaultValue={email} required="required"
+                    onChange={(e) => checkForDEM(e)}/>
             </div>
             <div className="mb-8">
                 <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">

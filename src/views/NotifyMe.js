@@ -7,13 +7,11 @@ import dems from '../assets/dems.json';
 export default function NotifyMe() {
 
   // TODO: add functionality to all mail places
+  // TODO: insert correct error message
 
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
-
-  //Disable submit functionality: set "true" to "false"
-  const [submitAllowed, setSubmitAllowed] = useState(true);
 
   const handleSubmit = async () => {
     window.localStorage.setItem('emailForSignIn', email);
@@ -25,8 +23,6 @@ export default function NotifyMe() {
         handleCodeInApp: true,
       });
       fb.analytics.logEvent('success_subscribe_region');
-        console.log("hallo");
-
       setSignInLinkSent(true);
 
     } catch (error) {
@@ -36,8 +32,6 @@ export default function NotifyMe() {
 
   const handleChange = address => {
     setLocation(address);
-    //Disable submit functionality: uncomment line below
-    //setSubmitAllowed(!!(address) && !!(email));
   };
 
   const handleSelect = address => {
@@ -52,15 +46,9 @@ export default function NotifyMe() {
       if (dems.includes(domain)) {
         // this is a DEM
         data.target.setCustomValidity("Wegwerf-Adressen sind nicht erlaubt.");
-
-        //Disable submit functionality: uncomment line below
-        //setSubmitAllowed(false);
       } else {
         // this is not a DEM
         data.target.setCustomValidity("");
-
-        //Disable submit functionality: uncomment line below
-        //setSubmitAllowed(!!(location) && !!(mail));
       }
     }
   };
@@ -88,7 +76,7 @@ export default function NotifyMe() {
           <LocationInput required={true} onChange={handleChange} value={location} onSelect={handleSelect}/>
           <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
                 onChange={(e) => checkForDEM(e)} defaultValue={email} required={true}></input>
-          <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit" disabled={!submitAllowed}>
+          <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
           </button>
         </form>

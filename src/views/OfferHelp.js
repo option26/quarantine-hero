@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { GeoFirestore } from 'geofirestore';
 import Entry from '../components/Entry';
 import Footer from '../components/Footer';
+import dems from '../assets/dems.json';
 
 export default function OfferHelp () {
   const [answer, setAnswer] = useState('');
@@ -38,6 +39,21 @@ export default function OfferHelp () {
     });
   };
 
+  function checkForDEM(data) {
+    const mail = data.target.value;
+    if(mail.includes('@')) {
+      var domain = mail.substring(mail.lastIndexOf("@") +1);
+      // check if the mail address is included in the DEM-list
+      if (dems.includes(domain)) {
+        // this is a DEM
+        data.target.setCustomValidity("Wegwerf-Adressen sind nicht erlaubt.");
+      } else {
+        // this is not a DEM
+        data.target.setCustomValidity("");
+      }
+    }
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -68,8 +84,8 @@ export default function OfferHelp () {
         </div>
         <div className="mt-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
-          <input className="input-focus" type="email" onChange={e => setEmail(e.target.value)} required="required"
-                 placeholder="ich@helfer.de"/>
+          <input className="input-focus" type="email" onChange={(e) => checkForDEM(e)} required="required"
+                 placeholder="ich@helfer.de" defaultValue={email}/>
         </div>
         <div className="mt-4 m-1 w-full">
           Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.
