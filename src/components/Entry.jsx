@@ -18,6 +18,7 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState('');
   const [reported, setReported] = useState(false);
+  const [attemptingToReport, setAttemptingToReport] = useState(false);
   const history = useHistory();
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
@@ -45,6 +46,16 @@ export default function Entry(props) {
     setDeleted(true);
   };
 
+  const initializeReportEntry = async (e) => {
+    e.preventDefault();
+    setAttemptingToReport(true);
+  };
+
+  const cancelReportEntry = async (e) => {
+    e.preventDefault();
+    setAttemptingToReport(false);
+  };
+
   const reportEntry = async (e) => {
     // prevents redirect to the parent component, as this is clicked on a button within a Link component
     // https://stackoverflow.com/a/53005834/8547462
@@ -57,8 +68,10 @@ export default function Entry(props) {
     if (!userIsLoggedIn) {
       const pathToOfferHelp = `offer-help/${id}`;
       const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
+      setAttemptingToReport(false);
       return history.push({ pathname, state: { reason_for_registration: 'den Beitrag zu melden' } });
     }
+
     const data = {
       request,
       askForHelpId: id,
@@ -66,7 +79,8 @@ export default function Entry(props) {
       timestamp: Date.now(),
     };
     await reportedPostsCollection.add(data);
-    setReported(true);
+    setAttemptingToReport(false);
+    return setReported(true);
   };
 
   let numberOfResponsesText = '';
@@ -87,13 +101,13 @@ export default function Entry(props) {
     return null;
   }
 
-  const reportEntryButtonClass = reported === false
-    ? 'btn-report-entry btn-report-entry-enabled my-2'
-    : 'btn-report-entry btn-report-entry-disabled my-2';
+  const initializeReportEntryButtonClass = reported === false
+    ? 'btn-round btn-report-entry-enabled my-2'
+    : 'btn-round btn-report-entry-disabled my-2';
 
-  const buttonText = reported === false
-    ? 'Melden'
-    : 'Gemeldet!';
+  const initializeReportEntryAssetToShow = reported === false
+    ? 'flag_red'
+    : 'flag_orange';
 
   return (
     <Link
@@ -112,7 +126,31 @@ export default function Entry(props) {
         {' '}
         braucht Hilfe!
       </span>
-      <button type="button" className={reportEntryButtonClass} onClick={reportEntry}>{buttonText}</button>
+
+      {(attemptingToReport === false)
+        ? (
+          <button type="button" className={initializeReportEntryButtonClass} onClick={initializeReportEntry}>
+            <img className="centered-flag" src={require(`../assets/${initializeReportEntryAssetToShow}.svg`)} alt="" />
+          </button>
+        ) : ''
+      }
+
+      {attemptingToReport
+        ? (
+          <>
+            <button type="button" className="btn-round btn-x-report-entry my-2" onClick={cancelReportEntry}>
+              <img className="centered-flag x-btn-flag" src={require('../assets/x.svg')} alt="" />
+            </button>
+            <button type="button" className="btn-report-entry my-2" onClick={reportEntry}>
+              <span className="btn-report-entry-span">
+                Post melden?
+                <img className="report-entry-flag" src={require('../assets/flag_white.svg')} alt="" />
+              </span>
+            </button>
+          </>
+        ) : ''
+      }
+
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
