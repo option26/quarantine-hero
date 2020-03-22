@@ -51,6 +51,7 @@ export default function AskForHelp() {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then(setCoodinates)
+      // eslint-disable-next-line no-console
       .catch((error) => console.error('Error', error));
   };
 
