@@ -80,8 +80,8 @@ export default function GeoMigration() {
 
   async function doGeoMigration() {
     const geofirestore = new GeoFirestore(fb.store);
-    const helpQuery = geofirestore.collection('ask-for-help').get();
-    const notifyQuery = geofirestore.collection('offer-help').get();
+    const helpQuery = geofirestore.collection('ask-for-help').near({ center: new fb.app.firestore.GeoPoint(0,0), radius: 1 }).get();
+    const notifyQuery = geofirestore.collection('offer-help').near({ center: new fb.app.firestore.GeoPoint(0,0), radius: 1 }).get();
 
     const helpDocs = (await helpQuery).docs.map((d) => ({ ref: d, data: d.data() }));
     const notifyDocs = (await notifyQuery).docs.map((d) => ({ ref: d, data: d.data() }));
