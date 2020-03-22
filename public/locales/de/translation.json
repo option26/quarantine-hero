@@ -5,7 +5,7 @@
     "usesCookies": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern."
   },
   "views": {
-    "home": {
+    "main": {
       "weAreHumans": "Wir sind Menschen.",
       "inTimesOfNeed": "In Zeiten der Not helfen wir uns.",
       "bePart": "Sei ein Teil davon.",
@@ -21,9 +21,32 @@
         },
         "distanced": {
           "title": "Distanziert",
-          "text": "TODO because of bold span"
+          "textPreBold": "Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt",
+          "textBold": "KEINEN",
+          "textPostBold": "Kontakt mit Personen in Quarantäne!"
         }
-      }
+      },
+      "noInternet": {
+        "preOptionalBreak": "Nicht jeder Mensch hat Internet.",
+        "preLink": "Drucke",
+        "link": "diesen Aushang",
+        "postLink": "."
+      },
+      "buttons": {
+        "wantToHelp": "ICH MÖCHTE HELFEN",
+        "needHelp": "ICH BRAUCHE HILFE"
+      },
+      "explanations": {
+        "wantToHelp": "Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher Quarantäne</strong>. Wenn ihr diesen Menschen helfen wollt, könnt ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!",
+        "needHelp": "Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund benötigt könnt ihr das hier euren Mitmenschen mitteilen!"
+      },
+      "recentRequests": {
+        "title": "Aktuelle Anfragen",
+        "requests": "ANFRAGEN",
+        "heros": "HELDEN",
+        "messages": "NACHRICHTEN"
+      },
+      "enterYourPostalCode": "Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden."
     },
     "askForHelp": {
       "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
