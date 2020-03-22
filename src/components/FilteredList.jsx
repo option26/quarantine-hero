@@ -4,6 +4,7 @@ import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 import fb from '../firebase';
 import Entry from './Entry';
+import Slider from './Slider';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
 
@@ -14,6 +15,8 @@ export default function FilteredList(props) {
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
+  const [radius, setRadius] = useState(10);
+  const [sliderVisible, setSliderVisible] = useState(false);
   const [entries, setEntries] = useState([]);
   const [scheduledSearch, setScheduledSearch] = useState([]);
 
@@ -150,9 +153,27 @@ export default function FilteredList(props) {
 
   return (
     <div>
-      <div className="pt-3">
-        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
+      <div className="flex -mx-1">
+        <div className="px-1 w-full">
+          <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
+        </div>
+        <div className="px-1 flex">
+          <button
+            type="button"
+            className="px-2 outline-none btn-light btn-main rounded items-center hover:opacity-75"
+            onClick={() => setSliderVisible((current) => !current)}
+          >
+            {radius}
+            km
+          </button>
+        </div>
       </div>
+      {sliderVisible
+        ? (
+          <div className="pt-5 w-full">
+            <Slider min={1} max={30} initialValue={radius} onChange={(v) => setRadius(v)} onAfterChange={() => setSliderVisible(false)} />
+          </div>
+        ) : null}
       <div className="py-3 w-full">
         <div className="my-3 w-full">
           <Link to="/notify-me" className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
