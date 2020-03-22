@@ -7,7 +7,7 @@ A project brought to you with :heart: and bootstrapped with [Create React App](h
 
 ## Getting Started
 
-This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project. Our firebase functions are hosted here: https://github.com/florianschmidt1994/quarantaenehelden-firebase-functions
+This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project. Our Firebase functions are hosted here: https://github.com/florianschmidt1994/quarantaenehelden-firebase-functions
 
 You need the following libraries to get started: `node`, `yarn`, `firebase cli`. So please install them in an appropriate way on your host system. On macOS, you'd also need the `Xcode command line tools`.
 
@@ -41,11 +41,11 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Backend development
 
-The following steps will explain how to set up your own google firebase project to develop and test cloud functions. Those cloud functions, together with the firebase document store `firestore`, provide the backend of our project.
+The following steps will explain how to set up your own Google Firebase project to develop and test cloud functions. Those cloud functions, together with the Firebase document store `firestore`, provide the backend of our project.
 
-DISCLAIMER: The free Spark plan of google's firebase is sufficient for development purposes.
+DISCLAIMER: The free Spark plan of Google's Firebase is sufficient for development purposes.
 
-First, go to https://firebase.google.com/, take a look at the *Getting Started Guide* there and create your own firebase project. At this point, we hope you already have a google account, because you'll need one.
+First, go to https://firebase.google.com/, take a look at the *Getting Started Guide* there and create your own Firebase project. At this point, we hope you already have a Google account, because you'll need one.
 
 ### Firebase Console
 
@@ -57,13 +57,13 @@ Once your project is created, you need to configure the following things:
 
 Setup Authentication, the method is `Email and Password`.
 
-Now you can add a firebase App to your project, more precisely a `Web App`. Once created, you can edit and download the specific configuration of your app. This configuration contains API keys, backend URLs, and so on.
+Now you can add a Firebase App to your project, more precisely a `Web App`. Once created, you can edit and download the specific configuration of your app. This configuration contains API keys, backend URLs, and so on.
 
 Please update the `firebaseConfig.jsx` file in the `src` folder of this project, to connect your local instance with your specific backend.
 
 ### Local Backend Setup
 
-Even though the free firebase plan is ok for development, it has its downsides. The following feature does not work with this plan: `scheduled firebase function`. 
+Even though the free Firebase plan is ok for development, it has its downsides. The following feature does not work with this plan: `scheduled firebase function`. 
 
 However, since we use it in production we need to comment out the following line of code:
 
@@ -103,7 +103,7 @@ Or even better, replace all email-related source code with proper logging.
 
 ### Deployment
 
-After those changes, you should be able to initialize and deploy your own firebase function to your specific backend. Within the project folder, run:
+After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
 ```
 firebase init
