@@ -67,7 +67,7 @@ Even though the free firebase plan is ok for development, it has its downsides. 
 
 However, since we use it in production we need to comment out the following line of code:
 
-```
+```JSX
 // exports.sendNotificationEmails = functions.pubsub
       .schedule('every 3 minutes')
       .onRun(async (context) => {}
@@ -75,11 +75,13 @@ However, since we use it in production we need to comment out the following line
 
 In general, local development should not use the email system, and if you'd want to use it, you'd have to create your own `sendGrid` account and API key. Hence, please also comment out:
 
-```// sgMail.setApiKey(functions.config().sendgrid.key);```
+```JSX
+// sgMail.setApiKey(functions.config().sendgrid.key);
+```
 
 and 
 
-```
+```JSX
 await sgMail.send({
   to: receiver,
   from: 'help@quarantaenehelden.org',
