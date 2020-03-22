@@ -3,6 +3,11 @@ import React from 'react';
 import { isMapsApiEnabled } from '../featureFlags';
 
 export default function LocationInput(props) {
+  const validateNumber = (event) => {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    return charCode <= 47 || ((charCode >= 48 && charCode <= 57) && event.target.value.length < 5);
+  };
+
   if (isMapsApiEnabled) {
     return (
       <PlacesAutocomplete
@@ -19,7 +24,10 @@ export default function LocationInput(props) {
             <input
               required={props.required}
               {...getInputProps({
-                placeholder: 'Deine Postleitzahl oder Nachbarschaft...',
+                onKeyDown: (e) => {
+                  if (!props.fullText && !validateNumber(e)) e.preventDefault();
+                },
+                placeholder: `Deine Postleitzahl${props.fullText ? ' oder Nachbarschaft' : ''}...`,
                 className: 'location-search-input appearance-none input-focus',
               })}
             />
@@ -51,7 +59,7 @@ export default function LocationInput(props) {
   }
   return (
     <div className="w-full">
-      <input required={props.required} type="number" className="input-focus" maxLength={5} max={99999} placeholder="Deine Postleitzahl" onChange={(e) => props.onChange(e.target.value)} />
+      <input required={props.required} type="number" className="input-focus" maxLength={5} min={0} max={99999} placeholder="Deine Postleitzahl..." onChange={(e) => props.onChange(e.target.value)} />
     </div>
   );
 }
