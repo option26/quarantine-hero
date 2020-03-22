@@ -25,7 +25,7 @@ export default function DesktopMenu(props) {
           )}
         <MenuItem to="/faq">FAQs</MenuItem>
         {menuProps.isLoggedIn
-          ? <MenuItem to="#" onClick={menuProps.signOut}>{t('components.desktopMenu.logout')}</MenuItem>
+          ? <MenuItem to="#" onClick={menuProps.signOut}>{t('components.desktopMenu.signOut')}</MenuItem>
           : ''}
       </ul>
     </Box>
