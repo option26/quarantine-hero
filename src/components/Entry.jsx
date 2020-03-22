@@ -61,7 +61,7 @@ export default function Entry(props) {
     }
     const data = {
       request,
-      postId: id,
+      askForHelpId: id,
       uid: fb.auth.currentUser.uid,
       timestamp: Date.now(),
     };
