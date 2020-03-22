@@ -124,7 +124,7 @@
     margin-left: 0.25rem;
  }
 
- #btn-report-entry-span {
+ .btn-report-entry-span {
      /* align text with svg https://stackoverflow.com/a/37742207/8547462 */
     vertical-align: middle;
     display: inline-block;
