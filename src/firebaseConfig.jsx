@@ -1,10 +1,10 @@
 export default {
-  apiKey: 'AIzaSyD_56raelEZfC-QpWyqeREePInKPM4u88I',
-  authDomain: 'quarantine-hero.firebaseapp.com',
-  databaseURL: 'https://quarantine-hero.firebaseio.com',
-  projectId: 'quarantine-hero',
-  storageBucket: 'quarantine-hero.appspot.com',
-  messagingSenderId: '634343616076',
-  appId: '1:634343616076:web:2aa2153615cd5123b38ee9',
-  measurementId: 'G-2PBE89H418',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
