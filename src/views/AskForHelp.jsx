@@ -10,6 +10,7 @@ import { isMapsApiEnabled } from '../featureFlags';
 export default function AskForHelp() {
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
+  const [plz, setPlz] = useState('');
   const [coordinates, setCoodinates] = useState({
     lat: null,
     lng: null,
@@ -33,7 +34,7 @@ export default function AskForHelp() {
       // The coordinates field must be a GeoPoint!
       coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
       location,
-      plz: location,
+      plz,
     });
 
     return history.push('/success');
@@ -41,6 +42,7 @@ export default function AskForHelp() {
 
   const handleChange = (address) => {
     setLocation(address);
+    setPlz(address);
     if (!isMapsApiEnabled) {
       setCoodinates({ lat: 0, lng: 0 });
     }
@@ -49,7 +51,11 @@ export default function AskForHelp() {
   const handleSelect = (address) => {
     setLocation(address);
     geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
+      .then((results) => {
+        const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
+        setPlz((plzComponent && plzComponent.short_name) || 'unknown');
+        return getLatLng(results[0]);
+      })
       .then(setCoodinates)
       .catch((error) => console.error('Error', error));
   };
