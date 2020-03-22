@@ -13,6 +13,7 @@ export default function Entry(props) {
     timestamp = Date.now(),
     responses = 0,
     highlightLeft = false,
+    reportedBy = [],
   } = props;
 
   const [deleted, setDeleted] = useState('');
@@ -20,6 +21,10 @@ export default function Entry(props) {
   const history = useHistory();
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
+  const userIsLoggedIn = fb.auth.currentUser && fb.auth.currentUser.uid;
+  if (userIsLoggedIn && reportedBy.includes(fb.auth.currentUser.uid)) {
+    setReported(true);
+  }
 
   let textToDisplay;
   if (showFullText) {
@@ -49,15 +54,15 @@ export default function Entry(props) {
     const reportedPostsCollection = fb.store.collection(collectionName);
 
     // redirect the user to the login page, as we can only store user ids for logged-in users
-    if (!fb.auth.currentUser || !fb.auth.currentUser.uid) {
+    if (!userIsLoggedIn) {
       const pathToOfferHelp = `offer-help/${id}`;
       const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
       return history.push({ pathname, state: { reason_for_registration: 'den Beitrag zu melden' } });
     }
     const data = {
       request,
-      post_id: id,
-      u_id: fb.auth.currentUser.uid,
+      postId: id,
+      uid: fb.auth.currentUser.uid,
       timestamp: Date.now(),
     };
     await reportedPostsCollection.add(data);
