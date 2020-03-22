@@ -1,4 +1,4 @@
-name: eslint
+name: Lint
 
 on: pull_request
 
@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: florianschmidt1994/eslint-action@master
+      - name: Install dependencies
+        run: npm install @octokit/rest
+      - uses: florianschmidt1994/eslint-action@v1.1
         with:
           repo-token: ${{secrets.GITHUB_TOKEN}}
     env:

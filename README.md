@@ -1,6 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# QuarantaeneHelden
+<img src="qhero_icon.png" align="right" width="60"/>
+At quarantaenehelden.org we created a platform for people to support those in their community who might need a little extra help during this time of quarantine. The platform connects people who need help or cannot leave their homes, with those in their neighborhood who are able to run errands, deliver groceries, take pets on walks, and other tasks. On our website, you can register to ask for help or to provide help for others. Let's support those in our community!
 
-## Available Scripts
+A project brought to you with :heart: and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+## Getting Started
+
+This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project. Our Firebase functions are hosted here: https://github.com/florianschmidt1994/quarantaenehelden-firebase-functions
+
+You need the following libraries to get started: `node`, `yarn`, `firebase cli`. So please install them in an appropriate way on your host system. On macOS, you'd also need the `Xcode command line tools`.
+
+Once you've installed those dependencies, run the following inside the project folder
+
+```yarn install```
+
+This will install all JavaScript dependencies.
+
+## Local web development
 
 In the project directory, you can run:
 
@@ -12,57 +29,90 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
+The build is minified, and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Backend development
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The following steps will explain how to set up your own Google Firebase project to develop and test cloud functions. Those cloud functions, together with the Firebase document store `firestore`, provide the backend of our project.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**DISCLAIMER:** The free Spark plan of Google's Firebase is sufficient for development purposes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+First, go to https://firebase.google.com/, take a look at the *Getting Started Guide* there and create your own Firebase project. At this point, we hope you already have a Google account, because you'll need one.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Firebase Console
 
-## Learn More
+Once your project is created, you need to configure the following things:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- create a firestore database
+- configure the access rules of your database for proper access
+- create a collection called `stats` with the `document id: "external"`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Setup Authentication, the method is `Email and Password`.
 
-### Code Splitting
+Now you can add a Firebase App to your project, more precisely a `Web App`. Once created, you can edit and download the specific configuration of your app. This configuration contains API keys, backend URLs, and so on.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Please update the `firebaseConfig.jsx` file in the `src` folder of this project, to connect your local instance with your specific backend.
 
-### Analyzing the Bundle Size
+### Local Backend Setup
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Even though the free Firebase plan is ok for development, it has its downsides. The following feature does not work with this plan: `scheduled firebase function`. 
 
-### Making a Progressive Web App
+However, since we use it in production we need to comment out the following line of code:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```JSX
+// exports.sendNotificationEmails = functions.pubsub
+      .schedule('every 3 minutes')
+      .onRun(async (context) => {}
+```
 
-### Advanced Configuration
+In general, local development should not use the email system, and if you'd want to use it, you'd have to create your own `sendGrid` account and API key. Hence, please also comment out:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```JSX
+// sgMail.setApiKey(functions.config().sendgrid.key);
+```
+
+and 
+
+```JSX
+await sgMail.send({
+  to: receiver,
+  from: 'help@quarantaenehelden.org',
+  replyTo: {
+    email: email,
+  },
+  templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+  dynamic_template_data: {
+    subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+    answer,
+    email,
+    request,
+  },
+  hideWarnings: true, // removes triple bracket warning
+});
+```
+
+Or even better, replace all email-related source code with proper logging.
 
 ### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
-### `yarn build` fails to minify
+```
+firebase init
+...
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+firebase deploy
+...
+`
+
+and follow the instructions.
+
+With all that, you should be good to go. In case you missed something or some step was unclear, please create an issue in this repository.
