@@ -9,6 +9,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
@@ -31,6 +32,8 @@ import ShareButtons from './components/ShareButtons';
 import Presse from './views/Presse';
 
 function App(props) {
+  const { t } = useTranslation();
+
   const {
     user,
     signOut,
@@ -58,7 +61,9 @@ function App(props) {
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <Router>
         <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-          <Link className="mr-4 font-open-sans text-gray-700" to="/presse">Presse</Link>
+          {!user
+          && <Link className="mr-4 font-open-sans text-gray-700" to="/signup/dashboard">Login</Link>}
+          <Link className="mr-4 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link>
           <ShareButtons />
         </div>
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
@@ -144,7 +149,7 @@ function App(props) {
         onAccept={addListener}
         expires={365}
       >
-        Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.
+        {t('App.usesCookies')}
       </CookieConsent>
     </div>
   );

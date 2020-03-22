@@ -22,7 +22,7 @@ export default function DesktopMenu(props) {
           )}
         <MenuItem to="/faq">FAQs</MenuItem>
         {menuProps.isLoggedIn
-          ? <MenuItem to="#" onClick={menuProps.signOut}>LOGOUT</MenuItem>
+          ? <MenuItem to="#" onClick={menuProps.signOut}>ABMELDEN</MenuItem>
           : ''}
       </ul>
     </Box>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, Link } from 'react-router-dom';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
@@ -69,12 +69,9 @@ export default function AskForHelp() {
           {' '}
           Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze
           {' '}
-          <a
-            href="http://quarantaenehelden.org/#/notify-me"
-            className="text-secondary hover:underline"
-          >
+          <Link to="/notify-me" className="text-secondary hover:underline">
             diese Funktion
-          </a>
+          </Link>
           .
         </div>
       </div>

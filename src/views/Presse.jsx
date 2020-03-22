@@ -6,11 +6,58 @@ export default function Presse() {
     <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
       <div className="text-xs text-gray-700">{props.date}</div>
       <div className="font-bold">{props.title}</div>
-      <a className="text-secondary w-full block truncate" href={props.link} target="_blank" rel="nofollow noopener noreferrer">{props.link}</a>
+      {props.link
+        ? <a className="text-secondary w-full block truncate" href={props.link} target="_blank" rel="nofollow noopener noreferrer">{props.link}</a>
+        : <span className="w-full block truncate">{props.text}</span>}
     </div>
   );
 
   const articles = [
+    {
+      date: '20.03.2020',
+      title: 'ZDF - drehscheibe vom 20. März 2020',
+      link: 'https://www.zdf.de/nachrichten/drehscheibe/drehscheibe-vom-20-maerz-2020-100.html',
+    },
+    {
+      date: '19.03.2020',
+      title: 'Cosmo',
+      text: 'Radiobeitrag',
+    },
+    {
+      date: '19.03.2020',
+      title: 'ZDF - Mittagsmagazin vom 19. März 2020 (11:30 min)',
+      link: 'https://www.zdf.de/nachrichten/zdf-mittagsmagazin/zdf-mittagsmagazin-vom-19-maerz-2020-100.html',
+    },
+    {
+      date: '19.03.2020',
+      title: 'emoition - 37 sinnvolle Ideen gegen Einsamkeit und Langeweile #flattenthecurve',
+      link: 'https://www.emotion.de/psychologie-partnerschaft/persoenlichkeit/37-sinnvolle-ideen-gegen-einsamkeit-und-langeweile',
+    },
+    {
+      date: '19.03.2020',
+      title: 'ZDF - heute+ vom 19.03.2020 (9:20 min)',
+      link: 'https://www.zdf.de/nachrichten/heute-plus/200319-hplus-gesamt-100.html',
+    },
+    {
+      date: '19.03.2020',
+      title: 'bigFM -  Nachbarschaftshilfe: So könnt Ihr helfen',
+      link: 'https://www.bigfm.de/buzzhaltestelle/30998/nachbarschaftshilfe-hier-koennt-ihr-helfen',
+    },
+    {
+      date: '18.03.2020',
+      title: 'BR - Auf diesen Plattformen vernetzt sich ganz Bayern zu praktischer Nachbarschaftshilfe ',
+      link: 'https://www.br.de/radio/bayern2/sendungen/zuendfunk/auf-diesen-plattformen-vernetzt-sich-ganz-bayern-zu-praktischer-nachbarschaftshilfe100.html',
+    },
+    {
+      date: '18.03.2020',
+      title: 'Hessenschau - Wie sich in der Corona-Zeit Nachbarn gegenseitig unterstützen',
+      link: 'https://www.hessenschau.de/gesellschaft/wie-sich-in-der-corona-zeit-nachbarn-gegenseitig-unterstuetzen,nachbarschaftshilfe-corona-100.html',
+    },
+    {
+      date: '17.03.2020',
+      title: 'Radio Köln',
+      text: 'Interview',
+    },
     {
       date: '16.03.2020',
       title: 'rpr1 - RPR1.Corona-Hilfenetzwerk',
@@ -45,7 +92,8 @@ export default function Presse() {
           Aktuelle Pressemeldungen und ein Pressekit
         </div>
         <div className="font-open-sans mt-4">
-          Neben vielen lokalen Helden haben unter anderem diese Medien geholfen die QuarantäneHelden bekannt zu machen um noch mehr Hilfesuchende zu unterstützen.
+          Neben vielen lokalen Helden haben unter anderem diese Medien geholfen die QuarantäneHelden bekannt zu machen um noch mehr Hilfesuchende zu
+          unterstützen.
           Hier findet ihr aktuelle Artikel und Nachrichten.
         </div>
         <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex">
@@ -54,12 +102,19 @@ export default function Presse() {
           </div>
           <div>
             <div className="font-bold">
-              Pressekit Download
+              Presse Informationen
             </div>
-            Logos, Pressetext, Grafiken
-            <div>
-              <a href="https://we.tl/t-FhgDBEFBih" className="text-secondary hover:underline" target="_blank" rel="noopener noreferrer">QuarantaeneHelden.zip</a>
-            </div>
+            Pressekit (Logos, Pressetext, Grafiken):
+            <br className="sm:hidden" />
+            {' '}
+            <a
+              href="https://we.tl/t-FhgDBEFBih"
+              className="text-secondary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              QuarantaeneHelden.zip
+            </a>
             <div>
               Pressekontakt:
               <br className="sm:hidden" />
@@ -79,13 +134,22 @@ export default function Presse() {
             <img alt="rpr1" src={require('../assets/rpr1.jpg')} />
           </div>
           <div className="w-1/3 h-auto">
-            <img alt="sat1 regional" src={require('../assets/sat1_regional.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
             <img alt="utopia" src={require('../assets/utopia.jpg')} />
           </div>
           <div className="w-1/3 h-auto">
-            <img alt="youfm" src={require('../assets/youfm.jpg')} />
+            <img alt="bigfm" src={require('../assets/bigfm.jpg')} />
+          </div>
+          <div className="w-1/3 h-auto">
+            <img alt="br" src={require('../assets/br.jpg')} />
+          </div>
+          <div className="w-1/3 h-auto">
+            <img alt="cosmo" src={require('../assets/cosmo.jpg')} />
+          </div>
+          <div className="w-1/3 h-auto">
+            <img alt="sat1" src={require('../assets/sat1.jpg')} />
+          </div>
+          <div className="w-1/3 h-auto">
+            <img alt="zdf" src={require('../assets/zdf.jpg')} />
           </div>
         </div>
         {articles.map((article) => <Article {...article} key={article.link} />)}
