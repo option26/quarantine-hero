@@ -38,6 +38,8 @@ export default function GeoMigration() {
   }
 
   async function handleBatches(batches) {
+    const userWithDuplicates = [];
+
     console.log("Batches", batches);
 
     for (const batch of batches) {
@@ -73,12 +75,15 @@ export default function GeoMigration() {
       let i = 0;
       for (const geoResult of geoResults) {
         for (const doc of batch.batch) {
-          if (i > 0 && doc.coll === 'offer-help') {
-            geofirestore.collection('offer-help').add({
-              ...doc.data,
-              location: geoResult.formatted_address,
-              coordinates: new fb.app.firestore.GeoPoint(geoResult.geometry.location.lat(), geoResult.geometry.location.lng()),
-            });
+          if (i > 0) {
+            if(doc.coll === 'offer-help') {
+              geofirestore.collection('offer-help').add({
+                ...doc.data,
+                location: geoResult.formatted_address,
+                coordinates: new fb.app.firestore.GeoPoint(geoResult.geometry.location.lat(), geoResult.geometry.location.lng()),
+              });
+              userWithDuplicates.push(doc.data.uid);
+            }
           } else {
             geofirestore.collection(doc.coll).doc(doc.id).update({
               location: geoResult.formatted_address,
@@ -91,6 +96,7 @@ export default function GeoMigration() {
 
       await sleep(1000);
     }
+    console.log(userWithDuplicates);
   }
 
   async function doGeoMigration() {
