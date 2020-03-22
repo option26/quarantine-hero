@@ -1,6 +1,56 @@
 {
   "App": {
+    "login": "Login",
     "press": "Presse",
     "usesCookies": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern."
+  },
+  "components": {
+    "desktopMenu": {
+      "yourOverview": "DEINE ÜBERSICHT",
+      "requestHelp": "HILFE ANFRAGEN",
+      "help": "HELFEN",
+      "FAQs": "FAQs",
+      "signOut": "ABMELDEN"
+    },
+    "sidebar": {
+      "home": "Home",
+      "askForHelp": "Ich brauche Hilfe",
+      "overview": "Ich möchte helfen",
+      "yourOverview": "Deine Übersicht",
+      "FAQs": "FAQs",
+      "press": "Presse",
+      "legal": "Impressum",
+      "privacy": "Datenschutz",
+      "login": "Login",
+      "signOut": "Abmelden"
+    },
+    "footer": {
+      "FAQs": "FAQs",
+      "legal": "Impressum",
+      "privacy": "Datenschutz",
+      "forEveryone": "Natürlich ist unser Angebot an alle QuarantäneHeld*Innen da draußen gerichtet."
+    },
+    "entry": {
+      "noRepliesYet": "Noch keine Antworten erhalten",
+      "oneReplyReceived": "1 Antwort erhalten",
+      "repliesReceived": "Antworten erhalten",
+      "somebodyAt": "Jemand in",
+      "needsHelp": "braucht Hilfe",
+      "before": "vor",
+      "deleteYourRequest": "Deine Anfrage löschen."
+    },
+    "filteredList": {
+      "in": "In",
+      "noHelpCurrentlyNeeded": "wird gerade keine Hilfe gebraucht!",
+      "notifyMe": "Benachrichtige mich wenn jemand in",
+      "closeTo": "in der Nähe von",
+      "closeToMe": "in meiner Nähe",
+      "needsHelp": "Hilfe braucht!",
+      "showMore": "Weitere anzeigen..."
+    },
+    "locationInput": {
+      "yourPostalCodeOrNeighbourhood": "Deine Postleitzahl oder Nachbarschaft...",
+      "yourPostalCode": "Deine Postleitzahl oder Nachbarschaft..."
+    }
   }
 }

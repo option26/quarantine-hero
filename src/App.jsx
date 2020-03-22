@@ -66,7 +66,7 @@ function App(props) {
       <Router>
         <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
           {!user
-          && <Link className="mr-4 font-open-sans text-gray-700" to="/signup/dashboard">Login</Link>}
+          && <Link className="mr-4 font-open-sans text-gray-700" to="/signup/dashboard">{t('App.login')}</Link>}
           <Link className="mr-4 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link>
           <ShareButtons />
         </div>
