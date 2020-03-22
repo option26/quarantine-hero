@@ -5,10 +5,6 @@ import Footer from '../components/Footer';
 import dems from '../assets/dems.json';
 
 export default function NotifyMe() {
-
-  // TODO: add functionality to all mail places
-  // TODO: insert correct error message
-
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
@@ -17,7 +13,6 @@ export default function NotifyMe() {
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
-      console.log("hallo");
       await fb.auth.sendSignInLinkToEmail(email, {
         url: 'https://quarantaenehelden.org/#/complete-offer-help?location=' + location + '&email=' + email,
         handleCodeInApp: true,
