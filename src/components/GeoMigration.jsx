@@ -6,6 +6,10 @@ import fb from '../firebase';
 export default function GeoMigration() {
   const Geocoder = new google.maps.Geocoder();
 
+  const geofirestore = new GeoFirestore(fb.store);
+  const helpColl = geofirestore.collection('ask-for-help');
+  const notifyColl = geofirestore.collection('offer-help');
+
   function sleep(millis) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(), millis);
@@ -34,6 +38,8 @@ export default function GeoMigration() {
   }
 
   async function handleBatches(batches) {
+    console.log("Batches", batches);
+
     for (const batch of batches) {
       if (batch.plz === undefined) return;
 
@@ -64,14 +70,23 @@ export default function GeoMigration() {
       const geoResults = rawGeoResults.reduce((agg, elem) => agg.concat(elem), []);
       console.log(batch.plz, geoResults);
 
+      let i = 0;
       for (const geoResult of geoResults) {
-        console.log(geoResult.formatted_address, batch.batch.length);
         for (const doc of batch.batch) {
-          // doc.ref.update({
-          //   location: geoResult.formatted_address,
-          //   coordinates: new fb.app.firestore.GeoPoint(geoResult.geometry.location.lat, geoResult.geometry.location.lng),
-          // });
+          if (i > 0 && doc.coll === 'offer-help') {
+            geofirestore.collection('offer-help').add({
+              ...doc.data,
+              location: geoResult.formatted_address,
+              coordinates: new fb.app.firestore.GeoPoint(geoResult.geometry.location.lat(), geoResult.geometry.location.lng()),
+            });
+          } else {
+            geofirestore.collection(doc.coll).doc(doc.id).update({
+              location: geoResult.formatted_address,
+              coordinates: new fb.app.firestore.GeoPoint(geoResult.geometry.location.lat(), geoResult.geometry.location.lng()),
+            });
+          }
         }
+        i += 1;
       }
 
       await sleep(1000);
@@ -79,13 +94,13 @@ export default function GeoMigration() {
   }
 
   async function doGeoMigration() {
-    const geofirestore = new GeoFirestore(fb.store);
-    const helpQuery = geofirestore.collection('ask-for-help').near({ center: new fb.app.firestore.GeoPoint(0,0), radius: 1 }).get();
-    const notifyQuery = geofirestore.collection('offer-help').near({ center: new fb.app.firestore.GeoPoint(0,0), radius: 1 }).get();
+    const helpQuery = helpColl.near({ center: new fb.app.firestore.GeoPoint(0, 0), radius: 1 }).get();
+    const notifyQuery = notifyColl.near({ center: new fb.app.firestore.GeoPoint(0, 0), radius: 1 }).get();
 
-    const helpDocs = (await helpQuery).docs.map((d) => ({ ref: d, data: d.data() }));
-    const notifyDocs = (await notifyQuery).docs.map((d) => ({ ref: d, data: d.data() }));
-
+    const helpDocs = (await helpQuery).docs.map((d) => ({ coll: 'ask-for-help', id: d.id, data: d.data() }));
+    const notifyDocs = (await notifyQuery).docs.map((d) => ({ coll: 'offer-help', id: d.id, data: d.data() }));
+    console.log(helpDocs);
+    
     const combinedSorted = helpDocs.concat(notifyDocs).sort((a, b) => {
       if (a.data.plz < b.data.plz) return -1;
       if (a.data.plz > b.data.plz) return 1;
@@ -94,7 +109,7 @@ export default function GeoMigration() {
 
     const batches = [];
 
-    combinedSorted.reduce((coll, doc) => {
+    const lastBatch = combinedSorted.reduce((coll, doc) => {
       if (doc.data.plz === coll.currPlz) {
         coll.currBatch.push(doc);
         return coll;
@@ -104,6 +119,7 @@ export default function GeoMigration() {
 
       return ({ currPlz: doc.data.plz, currBatch: [doc] });
     }, { currPlz: combinedSorted[0].data.plz, currBatch: [] });
+    batches.push({ plz: lastBatch.currPlz, batch: lastBatch.currBatch });
 
     handleBatches(batches);
   }
