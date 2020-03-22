@@ -30,6 +30,7 @@ import NotifyMe from './views/NotifyMe';
 import ScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
 import Presse from './views/Presse';
+import createEventListener from './util/createEventListener';
 
 function App(props) {
   const { t } = useTranslation();
@@ -48,11 +49,14 @@ function App(props) {
     };
     handleHashChange();
 
-    window.addEventListener('hashchange', handleHashChange);
+    return createEventListener(window, 'hashchange', handleHashChange);
   };
 
   useEffect(() => {
-    if (document.cookie.indexOf('cookieConsent') > -1) addListener();
+    if (document.cookie.indexOf('cookieConsent') > -1) {
+      return addListener();
+    }
+    return undefined;
   }, []);
 
   const [menuOpen, setMenuOpen] = useState(false);
