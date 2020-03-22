@@ -59,13 +59,27 @@
     opacity: 0.75;
 }
 
+.btn-round {
+    float: right;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+}
+
 .btn-report-entry {
     float: right;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 0.75em;
-    font-weight: bold;
-    font-stretch: condensed;
-    letter-spacing: 0;
+    width: 115px;
+    height: 25px;
+    border-radius: 15px;
+    background-color: #b6223e;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
 }
 
  .btn-report-entry:hover {
@@ -73,17 +87,48 @@
 }
 
  .btn-report-entry-enabled {
-    color: #B6223E;
+    background-color: #f3e8ea;
 }
 
  .btn-report-entry-disabled {
-    color: #87A544;
+    background-color: #f9f7f0;
     pointer-events: none;  /* make button non-clickable */
 }
 
  .btn-report-entry-disabled:hover {
     opacity: 0.75;
 }
+
+ .centered-flag {
+     /* center the svg inside the button https://stackoverflow.com/a/8640044/8547462 */
+     display: block;
+     margin: auto;
+     height: 1.1rem;
+     margin-left: 0.4rem;
+ }
+
+ .x-btn-flag {
+    height: 0.8rem;
+ }
+
+ .report-entry-flag {
+    height: 0.9rem;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 0.75rem;
+    margin-bottom: 0.1rem;
+ }
+
+ .btn-x-report-entry {
+    background-color: #dddddd;
+    margin-left: 0.25rem;
+ }
+
+ #btn-report-entry-span {
+     /* align text with svg https://stackoverflow.com/a/37742207/8547462 */
+    vertical-align: middle;
+    display: inline-block;
+ }
 
 .input-focus {
     border-width: 1px;
