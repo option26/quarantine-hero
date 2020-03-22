@@ -43,7 +43,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 The following steps will explain how to set up your own Google Firebase project to develop and test cloud functions. Those cloud functions, together with the Firebase document store `firestore`, provide the backend of our project.
 
-DISCLAIMER: The free Spark plan of Google's Firebase is sufficient for development purposes.
+**DISCLAIMER:** The free Spark plan of Google's Firebase is sufficient for development purposes.
 
 First, go to https://firebase.google.com/, take a look at the *Getting Started Guide* there and create your own Firebase project. At this point, we hope you already have a Google account, because you'll need one.
 
