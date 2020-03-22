@@ -18,61 +18,43 @@ export default function FilteredList(props) {
   const [radius, setRadius] = useState(10);
   const [sliderVisible, setSliderVisible] = useState(false);
   const [entries, setEntries] = useState([]);
-  const [scheduledSearch, setScheduledSearch] = useState([]);
-
-  const [lastEntry, setLastEntry] = useState(undefined);
 
   const collection = fb.store.collection('ask-for-help');
+  const geoCollection = new GeoFirestore(fb.store).collection('ask-for-help');
 
-  // Create a Firestore reference
-  const geofirestore = new GeoFirestore(fb.store);
+  const [lastEntry, setLastEntry] = useState(undefined);
+  const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
-  // Create a GeoCollection reference
-  const geocollection = geofirestore.collection('ask-for-help');
+  const buildQuery = async (lastLoaded = undefined) => {
+    let query = collection.orderBy('d.timestamp', 'desc');
 
-  const buildQuery = async (loc = undefined, lastLoaded = undefined, limit = pageSize) => {
-    let queryResult;
-
-    if (searching) {
-      setEntries([]);
-      if (!loc) {
-        setSearching(false);
-      }
-    } else if (!searching && loc) {
-      setEntries([]);
-      setSearching(true);
+    if (lastLoaded !== undefined) {
+      query = query.startAfter(lastLoaded);
+    }
+    if (pageSize > 0) {
+      query = query.limit(pageSize);
     }
 
-    // If map api is available,
-    if (isMapsApiEnabled && loc && loc !== '') {
-      queryResult = geocollection;
-
-      try {
-        const results = await geocodeByAddress(loc);
-        const coordinates = await getLatLng(results[0]);
-        queryResult = queryResult.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius: 30 });
-      } catch (error) {
-        queryResult = collection.orderBy('d.timestamp', 'desc');
-      }
-    } else {
-      queryResult = collection;
-
-      if (loc && loc !== '') {
-        queryResult = queryResult.orderBy('d.plz', 'asc');
-        queryResult = queryResult.startAt(loc).endAt(`${loc}\uf8ff`);
-      } else {
-        queryResult = queryResult.orderBy('d.timestamp', 'desc');
-
-        if (lastLoaded !== undefined) {
-          queryResult = queryResult.startAfter(lastLoaded);
-          if (limit > 0) queryResult = queryResult.limit(limit);
-        } else if (limit > 0) queryResult = queryResult.limit(limit);
-      }
-    }
-
-    return queryResult;
+    return query;
   };
 
+  const buildFilteredQuery = async (searchAttr) => {
+    // Fallback
+    if (!searchAttr) return buildQuery();
+
+    if (isMapsApiEnabled) {
+      try {
+        const results = await geocodeByAddress(searchAttr);
+        const coordinates = await getLatLng(results[0]);
+        return geoCollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius });
+      } catch (error) {
+        // Fallback
+        return buildQuery();
+      }
+    } else {
+      return collection.orderBy('d.plz', 'asc').startAt(searchAttr).endAt(`${searchAttr}\uf8ff`);
+    }
+  };
 
   const appendDocuments = (documents) => {
     setLastEntry(documents[documents.length - 1]);
@@ -83,61 +65,67 @@ export default function FilteredList(props) {
     setEntries((e) => ([...e, ...newEntries]));
   };
 
-  const initialize = async () => {
-    const query = await buildQuery();
-    query.get().then((value) => {
-      appendDocuments(value.docs);
-    });
-  };
-
-  useEffect(() => {
-    initialize();
-  }, []);
-
-  const loadMore = async () => {
-    const query = await buildQuery(undefined, lastEntry);
-    query.get().then((value) => {
-      appendDocuments(value.docs);
-    });
-  };
-
-  const loadFilteredData = async (queryPromise) => {
+  const loadDocuments = async (queryPromise, searchActive) => {
     const query = await queryPromise;
-    const value = await query.get();
+    const results = await query.get();
+    setEntries([]);
 
-    // no location filter applied
-    if (!location) {
-      appendDocuments(value.docs);
-      return;
-    }
+    let documents = results.docs;
 
     // we need to perform client-side sorting since the location filter is applied
     // https://github.com/kenodressel/quarantine-hero/issues/89
-    const docsSortedInDescendingOrder = value.docs.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
-    appendDocuments(docsSortedInDescendingOrder);
+    if (searchActive) {
+      documents = documents.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+    }
+    appendDocuments(documents);
   };
+
+  const loadMoreDocuments = async () => {
+    const query = await buildQuery(lastEntry);
+    const results = await query.get();
+    appendDocuments(results.docs);
+  };
+
+  useEffect(() => {
+    loadDocuments(buildQuery());
+  }, []);
 
   const handleChange = (address) => {
     setLocation(address);
+    if (!address) {
+      setSearching(false);
+      loadDocuments(buildQuery());
+    }
+
+    // Prevent searching on input change if maps api enabled
     if (!isMapsApiEnabled) {
+      // Stop any scheduled search task
       if (scheduledSearch) {
         clearTimeout(scheduledSearch);
       }
-      setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address));
-      }, 500));
+
+      // If address is non-empty, schedule new search task to only start searching after user stopped typing
+      if (address) {
+        setSearching(true);
+        setScheduledSearch(setTimeout(() => {
+          loadDocuments(buildFilteredQuery(address), true);
+        }, 500));
+      }
     }
   };
 
   const handleSelect = (address) => {
     setLocation(address);
+    // Prevent action on select if maps api disabled
     if (isMapsApiEnabled) {
-      if (scheduledSearch) {
-        clearTimeout(scheduledSearch);
+      // If address is non-empty search for it
+      if (address) {
+        setSearching(true);
+        loadDocuments(buildFilteredQuery(address), true);
+      } else {
+        setSearching(false);
+        loadDocuments(buildQuery());
       }
-      setScheduledSearch(setTimeout(() => {
-        loadFilteredData(buildQuery(address));
-      }, 500));
     }
   };
 
@@ -155,12 +143,12 @@ export default function FilteredList(props) {
     <div>
       <div className="flex -mx-1">
         <div className="px-1 w-full">
-          <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
+          <LocationInput required fullText onChange={handleChange} value={location} onSelect={handleSelect} />
         </div>
         <div className="px-1 flex">
           <button
             type="button"
-            className="px-2 outline-none btn-light btn-main rounded items-center hover:opacity-75"
+            className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
             onClick={() => setSliderVisible((current) => !current)}
           >
             {radius}
@@ -190,7 +178,7 @@ export default function FilteredList(props) {
         )}
         {(pageSize > 0 && !searching) ? (
           <div className="flex justify-center pt-3">
-            <button type="button" onClick={loadMore} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
+            <button type="button" onClick={loadMoreDocuments} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
               Weitere anzeigen...
             </button>
           </div>
