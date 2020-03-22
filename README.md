@@ -45,7 +45,7 @@ The following steps will explain how to set up your own google firebase project 
 
 DISCLAIMER: The free Spark plan of google's firebase is sufficient for development purposes.
 
-First, go to https://firebase.google.com/, take a look at the *Geeting Started Guide* there and create your own firebase project. At this point, we hope you already have a google account, because you'll need one.
+First, go to https://firebase.google.com/, take a look at the *Getting Started Guide* there and create your own firebase project. At this point, we hope you already have a google account, because you'll need one.
 
 ### Firebase Console
 
