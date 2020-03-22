@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
-import dems from '../assets/dems.json';
+import MailInput from '../components/MailInput'
 
 export default function NotifyMe() {
   const [email, setEmail] = useState('');
@@ -33,21 +33,6 @@ export default function NotifyMe() {
     setLocation(address);
   };
 
-  function checkForDEM(data) {
-    const mail = data.target.value;
-    if(mail.includes('@')) {
-      var domain = mail.substring(mail.lastIndexOf("@") +1);
-      // check if the mail address is included in the DEM-list
-      if (dems.includes(domain)) {
-        // this is a DEM
-        data.target.setCustomValidity("Bitte keine Wegwerf-Emailadresse verwenden.");
-      } else {
-        // this is not a DEM
-        data.target.setCustomValidity("");
-      }
-    }
-  };
-
   if (signInLinkSent) {
     return (
       <div  className="p-4">
@@ -69,8 +54,7 @@ export default function NotifyMe() {
         </div>
         <form onSubmit={handleSubmit}>
           <LocationInput required={true} onChange={handleChange} value={location} onSelect={handleSelect}/>
-          <input className="input-focus my-6" type="email" placeholder="Deine Emailadresse"
-                onChange={(e) => checkForDEM(e)} defaultValue={email} required={true}></input>
+          <MailInput className="input-focus my-6" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email}/>
           <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
             Benachrichtige mich wenn jemand in {location && location !== '' ? `der Nähe von ${location}` : 'meiner Nähe'} Hilfe braucht!
           </button>
