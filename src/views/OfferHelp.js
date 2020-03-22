@@ -46,7 +46,7 @@ export default function OfferHelp () {
       // check if the mail address is included in the DEM-list
       if (dems.includes(domain)) {
         // this is a DEM
-        data.target.setCustomValidity("Wegwerf-Adressen sind nicht erlaubt.");
+        data.target.setCustomValidity("Bitte keine Wegwerf-Emailadresse verwenden.");
       } else {
         // this is not a DEM
         data.target.setCustomValidity("");
