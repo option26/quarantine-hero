@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import createEventListener from '../util/createEventListener';
 
 export default function ArrowDown(props) {
   const [visible, setVisible] = useState(false);
@@ -7,11 +8,11 @@ export default function ArrowDown(props) {
   const hideOffset = 100;
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    setVisible(window.pageYOffset < hideOffset);
+    return createEventListener(window, 'scroll', () => {
       setVisible(window.pageYOffset < hideOffset);
       setOpacity((hideOffset - window.pageYOffset) / hideOffset);
     });
-    setVisible(window.pageYOffset < hideOffset);
   }, []);
 
   if (visible) {
