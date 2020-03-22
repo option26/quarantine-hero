@@ -4,7 +4,7 @@ _Briefly describe your changes here_
 
 **Checklist**
 - [ ] `yarn build` passes
-- [ ] `yarn lint` does not introduce any new errors (We know there are currently 12 errors and 9 warnings and working hard on removing them!)
+- [ ] `yarn lint` does not show any errors
 
 **Others details**
 - [ ] This PR introduces a new dependency. Reason: _Mention your reason for introducing this dependency here_

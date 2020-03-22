@@ -2,6 +2,9 @@ import { Link, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
+import { useTranslation } from 'react-i18next';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 import fb from '../firebase';
 
 export default function Entry(props) {
@@ -20,13 +23,15 @@ export default function Entry(props) {
   const [reported, setReported] = useState(false);
   const [attemptingToReport, setAttemptingToReport] = useState(false);
   const history = useHistory();
-
-  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
+  const { t } = useTranslation();
+  const [user] = useAuthState(fb.auth);
+  
+  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
   const userIsLoggedIn = fb.auth.currentUser && fb.auth.currentUser.uid;
   if (userIsLoggedIn && reportedBy.includes(fb.auth.currentUser.uid)) {
     setReported(true);
   }
-
+  
   let textToDisplay;
   if (showFullText) {
     textToDisplay = request;
@@ -86,11 +91,11 @@ export default function Entry(props) {
   let numberOfResponsesText = '';
 
   if (responses === 0) {
-    numberOfResponsesText = 'Noch keine Antworten erhalten';
+    numberOfResponsesText = t('components.entry.noRepliesYet');
   } else if (responses === 1) {
-    numberOfResponsesText = '1 Antwort erhalten';
+    numberOfResponsesText = t('components.entry.oneReplyReceived');
   } else {
-    numberOfResponsesText = `${responses} Antworten erhalten`;
+    numberOfResponsesText = `${responses} ${t('components.entry.repliesReceived')}`;
   }
 
   const style = (highlightLeft)
@@ -116,7 +121,7 @@ export default function Entry(props) {
       key={id}
     >
       <span className="text-xs font-open-sans text-gray-800 mt-2">
-        Jemand in
+        {t('components.entry.somebodyAt')}
         {' '}
         <span
           className="font-bold"
@@ -124,7 +129,7 @@ export default function Entry(props) {
           {location}
         </span>
         {' '}
-        braucht Hilfe!
+        {t('components.entry.needsHelp')}!
       </span>
 
       {(attemptingToReport === false)
@@ -155,15 +160,15 @@ export default function Entry(props) {
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{numberOfResponsesText}</div>
         <span className="text-gray-500 inline-block text-right text-xs font-open-sans">
-          vor
+          {t('components.entry.before')}
           {' '}
           {date}
         </span>
       </div>
-      {fb.auth.currentUser && ((fb.auth.currentUser.uid === props.uid) || fb.auth.currentUser.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')
+      {user && (user.uid === props.uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2')
         ? (
           <div>
-            <button type="button" className="btn-green my-2" onClick={handleDelete}>Deine Anfrage löschen.</button>
+            <button type="button" className="btn-green my-2" onClick={handleDelete}>{t('components.entry.deleteYourRequest')}</button>
           </div>
         ) : ''}
     </Link>

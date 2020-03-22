@@ -1,8 +1,11 @@
 import PlacesAutocomplete from 'react-places-autocomplete';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { isMapsApiEnabled } from '../featureFlags';
 
 export default function LocationInput(props) {
+  const { t } = useTranslation();
+
   if (isMapsApiEnabled) {
     return (
       <PlacesAutocomplete
@@ -19,7 +22,7 @@ export default function LocationInput(props) {
             <input
               required={props.required}
               {...getInputProps({
-                placeholder: 'Deine Postleitzahl oder Nachbarschaft...',
+                placeholder: t('components.locationInput.yourPostalCodeOrNeighbourhood'),
                 className: 'location-search-input appearance-none input-focus',
               })}
             />
@@ -51,7 +54,7 @@ export default function LocationInput(props) {
   }
   return (
     <div className="w-full">
-      <input required={props.required} type="number" className="input-focus" maxLength={5} max={99999} placeholder="Deine Postleitzahl" onChange={(e) => props.onChange(e.target.value)} />
+      <input required={props.required} type="number" className="input-focus" maxLength={5} max={99999} placeholder={t('components.locationInput.yourPostalCode')} onChange={(e) => props.onChange(e.target.value)} />
     </div>
   );
 }
