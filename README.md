@@ -111,7 +111,7 @@ firebase init
 
 firebase deploy
 ...
-`
+```
 
 and follow the instructions.
 
