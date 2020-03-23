@@ -55,7 +55,7 @@ export default function Sidebar(props) {
       <MenuItem to="/dsgvo">{t('components.sidebar.privacy')}</MenuItem>
 
       {menuProps.isLoggedIn
-        ? <MenuItem to="/" onClick={menuProps.signOut}>t('components.sidebar.signOut')</MenuItem>
+        ? <MenuItem to="/" onClick={menuProps.signOut}>{t('components.sidebar.signOut')}</MenuItem>
         : <MenuItem to="/signup/dashboard">t('components.sidebar.login')</MenuItem>}
 
       <div className="mt-4">
