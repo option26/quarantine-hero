@@ -52,16 +52,6 @@ export default function Entry(props) {
     setDeleted(true);
   };
 
-  const initializeReportEntry = async (e) => {
-    e.preventDefault();
-    setAttemptingToReport(true);
-  };
-
-  const cancelReportEntry = async (e) => {
-    e.preventDefault();
-    setAttemptingToReport(false);
-  };
-
   const reportEntry = async (e) => {
     // prevents redirect to the parent component, as this is clicked on a button within a Link component
     // https://stackoverflow.com/a/53005834/8547462
@@ -99,26 +89,17 @@ export default function Entry(props) {
     numberOfResponsesText = `${responses} ${t('components.entry.repliesReceived')}`;
   }
 
-  const style = (highlightLeft)
-    ? 'bg-white px-4 py-2 rounded w-full my-3 text-xl block entry border-l-4 border-secondary'
-    : 'bg-white px-4 py-2 rounded w-full my-3 text-xl block entry';
-
   if (deleted) {
     return null;
   }
 
-  const initializeReportEntryButtonClass = reported === false
-    ? 'btn-round btn-report-entry-enabled my-2'
-    : 'btn-round btn-report-entry-disabled my-2';
-
-  const initializeReportEntryAssetToShow = reported === false
-    ? 'flag_red'
-    : 'flag_orange';
+  // eslint-disable-next-line no-nested-ternary
+  const buttonClass = reported ? 'btn-report-flagged' : (attemptingToReport ? 'btn-report-abort' : 'btn-report-unflagged');
 
   return (
     <Link
       to={`/offer-help/${props.id}`}
-      className={style}
+      className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry ${highlightLeft && 'border-l-4 border-secondary'}`}
       key={id}
     >
       <span className="text-xs font-open-sans text-gray-800 mt-2">
@@ -133,27 +114,30 @@ export default function Entry(props) {
         {t('components.entry.needsHelp')}
       </span>
 
-      {(attemptingToReport === false)
-        ? (
-          <button type="button" className={initializeReportEntryButtonClass} onClick={initializeReportEntry}>
-            {/* eslint-disable-next-line import/no-dynamic-require */}
-            <img className="centered-flag" src={require(`../assets/${initializeReportEntryAssetToShow}.svg`)} alt="" />
-          </button>
-        ) : ''}
+      <button
+        type="button"
+        className={`btn-round ${!reported && 'hover:opacity-75'} my-2 flex items-center justify-center ${buttonClass}`}
+        disabled={reported}
+        onClick={(e) => {
+          e.preventDefault();
+          setAttemptingToReport((curr) => !curr);
+        }}
+      >
+        {reported ? <img className="flag" src={require('../assets/flag_orange.svg')} alt="" /> : null}
+        {!reported && !attemptingToReport ? <img className="flag" src={require('../assets/flag_red.svg')} alt="" /> : null}
+        {!reported && attemptingToReport ? <img className="cross" src={require('../assets/x.svg')} alt="" /> : null}
+      </button>
       {attemptingToReport
         ? (
-          <>
-            <button type="button" className="btn-round btn-x-report-entry my-2" onClick={cancelReportEntry}>
-              <img className="centered-flag x-btn-flag" src={require('../assets/x.svg')} alt="" />
-            </button>
-            <button type="button" className="btn-report-entry my-2" onClick={reportEntry}>
-              <span className="btn-report-entry-span">
-                Post melden?
-                <img className="report-entry-flag" src={require('../assets/flag_white.svg')} alt="" />
-              </span>
-            </button>
-          </>
-        ) : ''}
+          <button
+            type="button"
+            className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry my-2 px-2 mr-1"
+            onClick={reportEntry}
+          >
+            Post melden?
+            <img className="ml-2 inline-block" src={require('../assets/flag_white.svg')} alt="" />
+          </button>
+        ) : null}
 
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
