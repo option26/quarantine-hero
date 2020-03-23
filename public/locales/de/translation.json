@@ -28,9 +28,7 @@
       },
       "noInternet": {
         "preOptionalBreak": "Nicht jeder Mensch hat Internet.",
-        "preLink": "Drucke",
-        "link": "diesen Aushang",
-        "postLink": "."
+        "postOptionalBreak": "Drucke diesen Aushang in deiner Sprache aus."
       },
       "buttons": {
         "wantToHelp": "ICH MÖCHTE HELFEN",
@@ -125,8 +123,8 @@
       "howHelpPeopleWithoutInternet": {
         "question": "Wie kann ich Leuten helfen, die kein Internet haben?",
         "answer": {
-          "preLink": "Du kannst auch einen Aushang im Treppenhaus deiner Wohnung aufhängen. Eine Vorlage haben wir dir",
-          "link": "hier zum Download",
+          "preLink": "Du kannst auch einen Aushang im Treppenhaus deiner Wohnung aufhängen. Vorlagen in mehreren Sprachen haben wir dir",
+          "link": "auf der Startseite",
           "postLink": "bereitgestellt."
         }
       }
