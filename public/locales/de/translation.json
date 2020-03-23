@@ -122,6 +122,12 @@
           "postLink": "bereitgestellt."
         }
       }
+    },
+    "notifyMe": {
+     "beNotified": "Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.",
+      "emailSent": "Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir werden dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
+      "yourMail": "Deine Emailadresse",
+      "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!"
     }
   },
   "components": {
