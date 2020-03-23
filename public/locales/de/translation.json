@@ -75,6 +75,7 @@
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
     "dashboard": {
+      "isLoading": "Daten werden geladen …",
       "youWillBeNotified": "Du wirst benachrichtigt, wenn jemand in der Nähe von",
       "needsHelp": "Hilfe benötigt",
       "yourRequests": "Deine Hilfegesuche",
