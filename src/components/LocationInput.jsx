@@ -1,5 +1,5 @@
 import PlacesAutocomplete from 'react-places-autocomplete';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isMapsApiEnabled } from '../featureFlags';
 
@@ -8,15 +8,40 @@ export default function LocationInput(props) {
 
   const validateNumber = (event) => {
     const charCode = (event.which) ? event.which : event.keyCode;
-    return charCode <= 47 || ((charCode >= 48 && charCode <= 57) && event.target.value.length < 5);
+    return charCode <= 47 || (charCode >= 48 && charCode <= 57);
   };
+
+  const inputRef = useRef();
+  const setValidity = (valid, msg = undefined) => {
+    if (valid) {
+      inputRef.current.setCustomValidity('');
+    } else {
+      inputRef.current.setCustomValidity(msg);
+    }
+  };
+
+  const setInvalidNoSelect = () => {
+    if (isMapsApiEnabled) {
+      setValidity(false, t('components.locationInput.invalidNoSelect'));
+    }
+  };
+
+  useEffect(setInvalidNoSelect, []);
 
   if (isMapsApiEnabled) {
     return (
       <PlacesAutocomplete
-        onChange={props.onChange}
+        onChange={(value) => {
+          setInvalidNoSelect();
+          props.onChange(value);
+        }}
         value={props.value}
-        onSelect={props.onSelect}
+        onSelect={(value) => {
+          if (value) {
+            setValidity(true);
+            props.onSelect(value);
+          }
+        }}
         searchOptions={{
           types: ['(regions)'],
           componentRestrictions: { country: ['de', 'at', 'ch', 'it'] },
@@ -25,6 +50,7 @@ export default function LocationInput(props) {
         {({ getInputProps, suggestions, getSuggestionItemProps }) => (
           <div className="relative">
             <input
+              ref={inputRef}
               required={props.required}
               {...getInputProps({
                 onKeyDown: (e) => {
@@ -62,7 +88,24 @@ export default function LocationInput(props) {
   }
   return (
     <div className="w-full">
-      <input required={props.required} type="number" className="input-focus" maxLength={5} min={0} max={99999} placeholder={t('components.locationInput.yourPostalCode')} onChange={(e) => props.onChange(e.target.value)} />
+      <input
+        ref={inputRef}
+        required={props.required}
+        type="number"
+        className="input-focus"
+        maxLength={5}
+        min={0}
+        max={99999}
+        placeholder={t('components.locationInput.yourPostalCode')}
+        onChange={(e) => {
+          if (e.target.value.length >= 4 && e.target.value.length <= 5) {
+            setValidity(true);
+          } else {
+            setValidity(false, t('components.locationInput.invalidPlz'));
+          }
+          props.onChange(e.target.value);
+        }}
+      />
     </div>
   );
 }

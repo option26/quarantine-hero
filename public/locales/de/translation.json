@@ -206,6 +206,8 @@
       "showMore": "Weitere anzeigen..."
     },
     "locationInput": {
+      "invalidNoSelect": "Bitte triff eine Auswahl aus den Vorschlägen.",
+      "invalidPlz": "Bitte gib eine vier- oder fünfstellige Postleitzahl an.",
       "yourPostalCodeOrNeighbourhood": "Deine Postleitzahl oder Nachbarschaft...",
       "yourPostalCode": "Deine Postleitzahl..."
     }
