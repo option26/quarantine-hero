@@ -77,7 +77,7 @@ export default function Entry(props) {
     const data = {
       request,
       askForHelpId: id,
-      uid: fb.auth.currentUser.uid,
+      uid: user.uid,
       timestamp: Date.now(),
     };
     await reportedPostsCollection.add(data);
