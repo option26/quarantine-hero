@@ -90,7 +90,9 @@ export default function FilteredList(props) {
   const loadMoreDocuments = async () => {
     const query = await buildQuery(lastEntry);
     const results = await query.get();
-    appendDocuments(results.docs);
+    if (results.docs.length > 0) {
+      appendDocuments(results.docs);
+    }
   };
 
   useEffect(() => {
