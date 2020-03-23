@@ -55,7 +55,7 @@ const Signup = (props) => {
       handleCodeInApp: false,
     })
       .then(() => setPasswordResetSuccess(true))
-      .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
+      .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es deine E-Mail ist?'));
   };
 
   const reasonForRegistration = location && location.state && location.state.reason_for_registration
