@@ -290,6 +290,7 @@ module.exports = {
       normal: '1.5',
       relaxed: '1.625',
       loose: '2',
+      '0': '0',
       '3': '.75rem',
       '4': '1rem',
       '5': '1.25rem',
