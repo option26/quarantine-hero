@@ -22,6 +22,7 @@ export default function Entry(props) {
   const history = useHistory();
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
+
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
 
   const [deleted, setDeleted] = useState('');
@@ -129,7 +130,7 @@ export default function Entry(props) {
           {location}
         </span>
         {' '}
-        {t('components.entry.needsHelp')}!
+        {t('components.entry.needsHelp')}
       </span>
 
       {(attemptingToReport === false)
