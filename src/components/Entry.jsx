@@ -19,17 +19,18 @@ export default function Entry(props) {
     reportedBy = [],
   } = props;
 
-  const [deleted, setDeleted] = useState('');
-  const [attemptingToReport, setAttemptingToReport] = useState(false);
-
-  const userIsLoggedIn = !!fb.auth.currentUser && !!fb.auth.currentUser.uid;
-  const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(fb.auth.currentUser.uid);
-  const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
-
   const history = useHistory();
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
+
+  const [deleted, setDeleted] = useState('');
+  const [attemptingToReport, setAttemptingToReport] = useState(false);
+
+  const userIsLoggedIn = !!user && !!user.uid;
+  const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
+  const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
+
 
   let textToDisplay;
   if (showFullText) {
