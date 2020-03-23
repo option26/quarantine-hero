@@ -78,7 +78,6 @@ export default function Entry(props) {
         </span>
         {' '}
         {t('components.entry.needsHelp')}
-        !
       </span>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
