@@ -57,7 +57,7 @@ export default function Sidebar(props) {
 
       {menuProps.isLoggedIn
         ? <MenuItem to="/" onClick={menuProps.signOut}>{t('components.sidebar.signOut')}</MenuItem>
-        : <MenuItem to="/signup/dashboard">{t('components.sidebar.login')}</MenuItem>}
+        : <MenuItem to="/signin/dashboard">{t('components.sidebar.login')}</MenuItem>}
 
       <div className="mt-4">
         <ShareButtons />
