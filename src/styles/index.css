@@ -55,9 +55,52 @@
     bottom: 2px;
     margin-left: 10px;
 }
+
 .btn-green-secondary:hover {
     opacity: 0.75;
 }
+
+.btn-round {
+    float: right;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+}
+
+.btn-report-entry {
+    float: right;
+    width: 115px;
+    height: 25px;
+    border-radius: 15px;
+    background-color: #b6223e;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+.btn-report-unflagged {
+    background-color: #f3e8ea;
+}
+
+.btn-report-flagged {
+    background-color: #f9f7f0;
+}
+
+.btn-report-abort {
+    background-color: #dddddd;
+}
+
+.flag {
+    height: 1.1rem;
+ }
+
+.cross {
+    height: 0.8rem;
+ }
 
 .input-focus {
     border-width: 1px;

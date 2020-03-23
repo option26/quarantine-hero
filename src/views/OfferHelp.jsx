@@ -63,7 +63,7 @@ export default function OfferHelp() {
         <div className="mt-4 p-1 font-teaser">
           {t('views.offerHelp.replyToRequest')}
         </div>
-        <Entry {...entry} showFullText highlightLeft />
+        <Entry {...entry} showFullText highlightLeft key={entry.id} />
         <div className="mt-4 p-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
           <textarea
