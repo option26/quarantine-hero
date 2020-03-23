@@ -16,16 +16,15 @@ export default function Entry(props) {
     reportedBy = [],
   } = props;
 
-  const [deleted, setDeleted] = useState('');
-  const [reported, setReported] = useState(false);
-  const [attemptingToReport, setAttemptingToReport] = useState(false);
   const history = useHistory();
+  const [deleted, setDeleted] = useState('');
+  const [attemptingToReport, setAttemptingToReport] = useState(false);
+
+  const userIsLoggedIn = !!fb.auth.currentUser && !!fb.auth.currentUser.uid;
+  const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(fb.auth.currentUser.uid);
+  const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de });
-  const userIsLoggedIn = fb.auth.currentUser && fb.auth.currentUser.uid;
-  if (userIsLoggedIn && reportedBy.includes(fb.auth.currentUser.uid)) {
-    setReported(true);
-  }
 
   let textToDisplay;
   if (showFullText) {
