@@ -13,7 +13,7 @@ You need the following libraries to get started: `node`, `yarn`, `firebase cli`.
 
 Once you've installed those dependencies, run the following inside the project folder
 
-```yarn install```
+`yarn install`
 
 This will install all JavaScript dependencies.
 
@@ -105,13 +105,13 @@ Or even better, replace all email-related source code with proper logging.
 
 After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
-```
+```console
 firebase init
 ...
 
 firebase deploy
 ...
-`
+```
 
 and follow the instructions.
 
