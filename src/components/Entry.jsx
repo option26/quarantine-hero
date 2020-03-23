@@ -22,7 +22,7 @@ export default function Entry(props) {
 
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
-  
+
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
 
   let textToDisplay;
@@ -77,7 +77,8 @@ export default function Entry(props) {
           {location}
         </span>
         {' '}
-        {t('components.entry.needsHelp')}!
+        {t('components.entry.needsHelp')}
+        !
       </span>
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">

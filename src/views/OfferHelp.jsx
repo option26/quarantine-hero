@@ -72,7 +72,7 @@ export default function OfferHelp() {
         </div>
         <div className="mt-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
-          <MailInput className="input-focus" placeholder="ich@helfer.de" onSetEmail={setEmail} defaultValue={email}/>
+          <MailInput className="input-focus" placeholder="ich@helfer.de" onSetEmail={setEmail} defaultValue={email} />
         </div>
         <div className="mt-4 m-1 w-full">
           Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.

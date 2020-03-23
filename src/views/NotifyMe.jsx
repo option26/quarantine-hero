@@ -59,7 +59,7 @@ export default function NotifyMe() {
       </div>
       <form onSubmit={handleSubmit}>
         <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
-        <MailInput className="input-focus my-6" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email}/>
+        <MailInput className="input-focus my-6" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email} />
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           Benachrichtige mich wenn jemand in
           {' '}
