@@ -36,8 +36,10 @@ export default function LocationInput(props) {
           props.onChange(value);
         }}
         value={props.value}
-        onSelect={(value) => {
-          if (value) {
+        onSelect={(value, placeId) => {
+          // We want to prevent hitting enter without selecting entry, hence we check
+          // placeId as it is null if enter is pressed wthout an entry being selected
+          if (value && placeId) {
             setValidity(true);
             props.onSelect(value);
           }
