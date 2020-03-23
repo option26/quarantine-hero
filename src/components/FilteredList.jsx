@@ -154,18 +154,21 @@ export default function FilteredList(props) {
     <div>
       <div className="flex -mx-1">
         <div className="px-1 w-full">
-          <LocationInput required fullText onChange={handleChange} value={location} onSelect={handleSelect} />
+          <LocationInput fullText onChange={handleChange} value={location} onSelect={handleSelect} />
         </div>
-        <div className="px-1 flex">
-          <button
-            type="button"
-            className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-            onClick={() => setSliderVisible((current) => !current)}
-          >
-            {radius}
-            km
-          </button>
-        </div>
+        {isMapsApiEnabled
+          ? (
+            <div className="px-1 flex">
+              <button
+                type="button"
+                className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
+                onClick={() => setSliderVisible((current) => !current)}
+              >
+                {radius}
+                km
+              </button>
+            </div>
+          ) : null}
       </div>
       {sliderVisible
         ? (
