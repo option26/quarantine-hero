@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Entry from '../components/Entry';
 
@@ -27,6 +28,8 @@ export default function Dashboard() {
   const [offers, setOffers] = useState([]);
   const [user, isAuthLoading] = useAuthState(fb.auth);
 
+  const { t } = useTranslation();
+
   const handleDelete = (id) => {
     offerHelpCollection.doc(id).delete();
   };
@@ -49,11 +52,11 @@ export default function Dashboard() {
       <div>
         { hidden ? '' : (
           <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
-            Du wirst benachrichtigt, wenn jemand in der Nähe von
+            {t('views.dashboard.youWillBeNotified')}
             {' '}
             {props.location}
             {' '}
-            Hilfe benötigt
+            {t('views.dashboard.needsHelp')}
             <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }}>
               &times;
             </div>
@@ -65,30 +68,31 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <h1 className="font-teaser py-4 pt-10">Deine Hilfegesuche</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
 
       {entries.length === 0
         ? (
           <div className="font-open-sans">
-            Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch
+            {t('views.dashboard.noRequests')}
             {' '}
             <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
-            erstellen.
+            {t('views.dashboard.create')}
           </div>
         )
         : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
 
-      <h1 className="font-teaser py-4 pt-10">Deine Benachrichtigungen </h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
 
       {offers.length === 0
         ? (
           <div className="font-open-sans">
-            Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen
+            {t('views.dashboard.noNotificationsSubscribed')}
             {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
             {' '}
-            registrieren.
+            {t('views.dashboard.register')}
+            .
           </div>
         )
         : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
