@@ -190,7 +190,11 @@
       "somebodyAt": "Jemand in",
       "needsHelp": "braucht Hilfe!",
       "before": "vor",
-      "deleteYourRequest": "Deine Anfrage löschen."
+      "showResponses": "Antwort ansehen",
+      "showResponses_plural": "{{count}} Antworten ansehen",
+      "hideResponses": "Antwort verbergen",
+      "hideResponses_plural": "{{count}} Antworten verbergen",
+      "deleteRequestForHelp": "Löschen"
     },
     "filteredList": {
       "in": "In",
