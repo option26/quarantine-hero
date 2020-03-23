@@ -151,6 +151,10 @@
     "success": {
       "thankYou": "Vielen Dank, wir haben deine Anfrage eingestellt.",
       "toDashboard": "ZU DEINER ÜBERSICHT"
+    },
+    "successOffer": {
+      "thankYou": "Vielen Dank, wir haben Deine Nachricht weitergeleitet.",
+      "toHome": "ZUR STARTSEITE"
     }
   },
   "components": {
