@@ -6,6 +6,7 @@ import fb from '../firebase';
 
 import Entry from '../components/Entry';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 
 export default function OfferHelp() {
   const { t } = useTranslation();
@@ -74,13 +75,7 @@ export default function OfferHelp() {
         </div>
         <div className="mt-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourEmail')}</label>
-          <input
-            className="input-focus"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required="required"
-            placeholder={t('views.offerHelp.placeholderEmail')}
-          />
+          <MailInput className="input-focus" placeholder={t('views.offerHelp.placeholderEmail')} onSetEmail={setEmail} defaultValue={email} />
         </div>
         <div className="mt-4 m-1 w-full">
           {t('views.offerHelp.privacy')}

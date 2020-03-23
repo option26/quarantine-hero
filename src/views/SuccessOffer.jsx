@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 import fb from '../firebase';
-import { useTranslation } from 'react-i18next';
-
 
 export default function SuccessOffer() {
   useEffect(() => {

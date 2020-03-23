@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
 
 export default function NotifyMe() {
@@ -56,15 +57,8 @@ export default function NotifyMe() {
         {t('views.notifyMe.beNotified')}
       </div>
       <form onSubmit={handleSubmit}>
-        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect}/>
-        <input
-          className="input-focus my-6"
-          type="email"
-          placeholder={t('views.notifyMe.yourMail')}
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
+        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
+        <MailInput className="input-focus my-6" placeholder={t('views.notifyMe.yourMail')} onSetEmail={setEmail} defaultValue={email} />
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           {t(
             'views.notifyMe.notifyMe',
@@ -72,7 +66,7 @@ export default function NotifyMe() {
           )}
         </button>
       </form>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
