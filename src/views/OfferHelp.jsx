@@ -59,7 +59,7 @@ export default function OfferHelp() {
         <div className="mt-4 p-1 font-teaser">
           Antworte auf die Anfrage und beschreibe wie und wann du helfen kannst.
         </div>
-        <Entry {...entry} showFullText highlightLeft />
+        <Entry {...entry} showFullText highlightLeft key={entry.id} />
         <div className="mt-4 p-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">Deine Antwort</label>
           <textarea
