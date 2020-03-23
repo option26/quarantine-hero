@@ -1,12 +1,15 @@
 import { Link, useHistory, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
+import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 
 import Entry from '../components/Entry';
 import Footer from '../components/Footer';
 
 export default function OfferHelp() {
+  const { t } = useTranslation();
+
   const [answer, setAnswer] = useState('');
   const [email, setEmail] = useState('');
   const [deleted, setDeleted] = useState(false);
@@ -57,33 +60,33 @@ export default function OfferHelp() {
     return (
       <form onSubmit={handleSubmit} className="p-4">
         <div className="mt-4 p-1 font-teaser">
-          Antworte auf die Anfrage und beschreibe wie und wann du helfen kannst.
+          {t('views.offerHelp.replyToRequest')}
         </div>
         <Entry {...entry} showFullText highlightLeft />
         <div className="mt-4 p-1 w-full">
-          <label className="text-gray-700 text-sm font-open-sans">Deine Antwort</label>
+          <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
           <textarea
             className="input-focus"
             onChange={(e) => setAnswer(e.target.value)}
             required="required"
-            placeholder="Ich kann helfen!"
+            placeholder={t('views.offerHelp.placeholderReply')}
           />
         </div>
         <div className="mt-1 w-full">
-          <label className="text-gray-700 text-sm font-open-sans">Deine E-Mail</label>
+          <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourEmail')}</label>
           <input
             className="input-focus"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             required="required"
-            placeholder="ich@helfer.de"
+            placeholder={t('views.offerHelp.placeholderEmail')}
           />
         </div>
         <div className="mt-4 m-1 w-full">
-          Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.
+          {t('views.offerHelp.privacy')}
         </div>
         <div className="mt-4 m-1 w-full">
-          <button type="submit" className="btn-green w-full">NACHRICHT ABSCHICKEN</button>
+          <button type="submit" className="btn-green w-full">{t('views.offerHelp.submit')}</button>
         </div>
         <Footer />
       </form>
@@ -91,9 +94,9 @@ export default function OfferHelp() {
   }
   return (
     <div className="mt-4 p-4 font-teaser">
-      Der Anfragesteller hat die Anfrage bereits wieder offline genommen. Vielen Dank für Deine Unterstützung!
+      {t('views.offerHelp.alreadyOffline')}
       <div className="mt-4">
-        <Link to="/" className="btn-green-secondary block w-full">ANDEREN LEUTEN HELFEN</Link>
+        <Link to="/" className="btn-green-secondary block w-full">{t('views.offerHelp.helpSomeoneElse')}</Link>
       </div>
     </div>
   );
