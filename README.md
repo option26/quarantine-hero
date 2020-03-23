@@ -111,6 +111,9 @@ Or even better, replace all email-related source code with proper logging.
 After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
 ```console
+firebase login
+...
+
 firebase init
 ...
 
