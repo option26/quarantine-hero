@@ -16,6 +16,7 @@ import Dashboard from './views/Dashboard';
 import FAQ from './views/FAQ';
 import Impressum from './views/Impressum';
 import Signup from './views/Signup';
+import Signin from './views/Signin';
 import AskForHelp from './views/AskForHelp';
 import Overview from './views/Overview';
 import Success from './views/Success';
@@ -100,6 +101,12 @@ function App(props) {
                 </Route>
                 <Route path="/signup">
                   <Signup />
+                </Route>
+                <Route path="/signin/:returnUrl">
+                  <Signin />
+                </Route>
+                <Route path="/signin">
+                  <Signin />
                 </Route>
                 <Route path="/verify-email">
                   <VerifyEmail />
