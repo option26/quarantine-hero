@@ -61,7 +61,7 @@ const Signup = (props) => {
   const reasonForRegistration = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
     : 'eine Hilfe-Anfrage zu posten';
-  const textToShow = `Registriere dich mit deiner E-Mail und einem Passwort  um ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
+  const textToShow = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
 
   return (
     <div className="p-4 mt-8">
