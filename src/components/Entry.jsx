@@ -135,11 +135,10 @@ export default function Entry(props) {
       {(attemptingToReport === false)
         ? (
           <button type="button" className={initializeReportEntryButtonClass} onClick={initializeReportEntry}>
+            {/* eslint-disable-next-line import/no-dynamic-require */}
             <img className="centered-flag" src={require(`../assets/${initializeReportEntryAssetToShow}.svg`)} alt="" />
           </button>
-        ) : ''
-      }
-
+        ) : ''}
       {attemptingToReport
         ? (
           <>
@@ -153,8 +152,7 @@ export default function Entry(props) {
               </span>
             </button>
           </>
-        ) : ''
-      }
+        ) : ''}
 
       <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
