@@ -15,16 +15,22 @@ export default function AskForHelp() {
   const [user, isAuthLoading] = useAuthState(fb.auth);
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
-  const [plz, setPlz] = useState('');
-  const [coordinates, setCoodinates] = useState({
-    lat: null,
-    lng: null,
-  });
   const history = useHistory();
-  // Create a Firestore reference
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    let lat = 0;
+    let lng = 0;
+    let plz = location;
+
+    if (isMapsApiEnabled) {
+      const results = await geocodeByAddress(location);
+      const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
+      if (plzComponent) plz = plzComponent.short_name;
+      const coordinates = await getLatLng(results[0]);
+      lat = coordinates.lat;
+      lng = coordinates.lng;
+    }
+
     // Create a GeoFirestore reference
     const geofirestore = new GeoFirestore(fb.store);
 
@@ -32,12 +38,12 @@ export default function AskForHelp() {
     const geocollection = geofirestore.collection('ask-for-help');
 
     // Add a GeoDocument to a GeoCollection
-    geocollection.add({
+    await geocollection.add({
       request,
       uid: user.uid,
       timestamp: Date.now(),
       // The coordinates field must be a GeoPoint!
-      coordinates: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng),
+      coordinates: new fb.app.firestore.GeoPoint(lat, lng),
       location,
       plz,
     });
@@ -47,23 +53,10 @@ export default function AskForHelp() {
 
   const handleChange = (address) => {
     setLocation(address);
-    setPlz(address);
-    if (!isMapsApiEnabled) {
-      setCoodinates({ lat: 0, lng: 0 });
-    }
   };
 
   const handleSelect = (address) => {
     setLocation(address);
-    geocodeByAddress(address)
-      .then((results) => {
-        const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
-        setPlz((plzComponent && plzComponent.short_name) || 'unknown');
-        return getLatLng(results[0]);
-      })
-      .then(setCoodinates)
-      // eslint-disable-next-line no-console
-      .catch((error) => console.error('Error', error));
   };
 
   if (!isAuthLoading && (!user || !user.email)) {
