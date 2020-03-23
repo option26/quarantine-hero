@@ -31,6 +31,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
 import Presse from './views/Presse';
 import createEventListener from './util/createEventListener';
+import Security from './views/Security';
 
 function App(props) {
   const { t } = useTranslation();
@@ -105,6 +106,9 @@ function App(props) {
                 </Route>
                 <Route path="/faq">
                   <FAQ />
+                </Route>
+                <Route path="/security-tips">
+                  <Security />
                 </Route>
                 <Route path="/impressum">
                   <Impressum />
