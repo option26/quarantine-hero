@@ -41,7 +41,7 @@ export default function CompleteOfferHelp() {
         const offerHelpCollection = geofirestore.collection('/offer-help');
         let lat = 0;
         let lng = 0;
-        let plz = 'unknown';
+        let plz = loc;
         if (isMapsApiEnabled) {
           const results = await geocodeByAddress(loc);
           const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
