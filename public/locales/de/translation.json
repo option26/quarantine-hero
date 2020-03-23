@@ -59,6 +59,14 @@
       "requestIsPublic": "Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.",
       "askNow": "Jetzt um Hilfe bitten"
     },
+    "overview": {
+      "title": "Aktuelle Anfragen",
+      "enterYourPostalCode": "Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.",
+      "noInternet": {
+        "preBreak": "Nicht jeder Mensch hat Internet.",
+        "postBreak": "Drucke <1>diesen Aushang</1>."
+      }
+    },
     "completeOfferHelp": {
       "mailYouRegistered": "Bitte geben sie die Email ein, mit der sie sich registriert haben",
       "youAreHero": "Du bist eine Held*in!",
