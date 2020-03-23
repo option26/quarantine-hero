@@ -16,6 +16,7 @@ export default function OfferHelp() {
   const [deleted, setDeleted] = useState(false);
   const [entry, setEntry] = useState({
     id: null,
+    uid: null,
     location: null,
     request: null,
     timestamp: null,

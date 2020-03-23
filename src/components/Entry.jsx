@@ -21,6 +21,7 @@ export default function Entry(props) {
     responses = 0,
     highlightLeft = false,
     reportedBy = [],
+    uid = '',
   } = props;
 
   const history = useHistory();
@@ -36,7 +37,7 @@ export default function Entry(props) {
   const userIsLoggedIn = !!user && !!user.uid;
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
   const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
-
+  const entryBelongsToCurrentUser = userIsLoggedIn && user.uid === uid;
 
   let textToDisplay;
   if (showFullText) {
@@ -166,19 +167,21 @@ export default function Entry(props) {
         {t('components.entry.needsHelp')}
       </span>
 
-      <button
-        type="button"
-        className={`btn-round ${!reported && 'hover:opacity-75'} my-2 flex items-center justify-center ${buttonClass}`}
-        disabled={reported}
-        onClick={(e) => {
-          e.preventDefault();
-          setAttemptingToReport((curr) => !curr);
-        }}
-      >
-        {reported ? <img className="flag" src={require('../assets/flag_orange.svg')} alt="" /> : null}
-        {!reported && !attemptingToReport ? <img className="flag" src={require('../assets/flag_red.svg')} alt="" /> : null}
-        {!reported && attemptingToReport ? <img className="cross" src={require('../assets/x.svg')} alt="" /> : null}
-      </button>
+      {!entryBelongsToCurrentUser ? (
+        <button
+          type="button"
+          className={`btn-round ${!reported && 'hover:opacity-75'} my-2 flex items-center justify-center ${buttonClass}`}
+          disabled={reported}
+          onClick={(e) => {
+            e.preventDefault();
+            setAttemptingToReport((curr) => !curr);
+          }}
+        >
+          {reported ? <img className="flag" src={require('../assets/flag_orange.svg')} alt="" /> : null}
+          {!reported && !attemptingToReport ? <img className="flag" src={require('../assets/flag_red.svg')} alt="" /> : null}
+          {!reported && attemptingToReport ? <img className="cross" src={require('../assets/x.svg')} alt="" /> : null}
+        </button>
+      ) : null}
       {attemptingToReport
         ? (
           <button
