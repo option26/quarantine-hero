@@ -18,7 +18,7 @@ export default function FilteredList(props) {
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
-  const [radius, setRadius] = useState(10);
+  const [radius, setRadius] = useState(10); // In KM
   const [sliderVisible, setSliderVisible] = useState(false);
   const [entries, setEntries] = useState([]);
 
@@ -52,6 +52,8 @@ export default function FilteredList(props) {
         return geoCollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius });
       } catch (error) {
         // Fallback
+        // eslint-disable-next-line no-console
+        console.error(error);
         return buildQuery();
       }
     } else {
