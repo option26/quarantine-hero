@@ -41,9 +41,12 @@ export default function CompleteOfferHelp() {
         const offerHelpCollection = geofirestore.collection('/offer-help');
         let lat = 0;
         let lng = 0;
+        let plz = 'unknown';
         if (isMapsApiEnabled) {
-          const result = await geocodeByAddress(loc);
-          const coordinates = await getLatLng(result[0]);
+          const results = await geocodeByAddress(loc);
+          const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
+          if (plzComponent) plz = plzComponent.short_name;
+          const coordinates = await getLatLng(results[0]);
           lat = coordinates.lat;
           lng = coordinates.lng;
         }
@@ -51,7 +54,7 @@ export default function CompleteOfferHelp() {
         await offerHelpCollection.add({
           email,
           location: loc,
-          plz: loc,
+          plz,
           uid: firebase.auth().currentUser.uid,
           timestamp: Date.now(),
           coordinates: new fb.app.firestore.GeoPoint(lat, lng),

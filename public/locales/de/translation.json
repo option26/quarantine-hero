@@ -207,7 +207,7 @@
     },
     "locationInput": {
       "yourPostalCodeOrNeighbourhood": "Deine Postleitzahl oder Nachbarschaft...",
-      "yourPostalCode": "Deine Postleitzahl oder Nachbarschaft..."
+      "yourPostalCode": "Deine Postleitzahl..."
     }
   }
 }

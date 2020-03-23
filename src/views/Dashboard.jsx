@@ -46,7 +46,6 @@ export default function Dashboard() {
   }
 
   const Notification = (props) => {
-    // TODO: Add option to delete this!
     const [hidden, setHidden] = useState(false);
 
     return (
