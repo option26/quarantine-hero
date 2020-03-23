@@ -128,6 +128,17 @@
       "emailSent": "Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir werden dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
       "yourMail": "Deine Emailadresse",
       "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!"
+    },
+    "offerHelp": {
+      "replyToRequest": "Antworte auf die Anfrage und beschreibe wie und wann du helfen kannst.",
+      "yourReply": "Deine Antwort",
+      "placeholderReply": "Ich kann helfen!",
+      "yourEmail": "Deine E-Mail",
+      "placeholderEmail": "ich@helfer.de",
+      "privacy": "Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.",
+      "submit": "NACHRICHT ABSCHICKEN",
+      "alreadyOffline": "Der Anfragesteller hat die Anfrage bereits wieder offline genommen. Vielen Dank für Deine Unterstützung!",
+      "helpSomeoneElse": "ANDEREN LEUTEN HELFEN"
     }
   },
   "components": {
