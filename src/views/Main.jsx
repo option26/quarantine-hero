@@ -161,15 +161,15 @@ export default function Main() {
             <div className="flex my-6">
               <div className="mx-4 md:mx-8 w-24 text-center">
                 <div className="font-bold text-xs font-open-sans">ANFRAGEN</div>
-                <div className="font-open-sans text-3xl font-light">{stats.askForHelp}</div>
+                <div className="font-open-sans text-3xl font-light">{stats.askForHelp || '0'}</div>
               </div>
               <div className="mx-4 md:mx-8 w-24 text-center">
                 <div className="font-bold text-xs font-open-sans">HELDEN</div>
-                <div className="font-open-sans text-3xl font-light">{stats.regionSubscribed}</div>
+                <div className="font-open-sans text-3xl font-light">{stats.regionSubscribed || '0'}</div>
               </div>
               <div className="mx-4 md:mx-8 w-24 text-center">
                 <div className="font-bold text-xs font-open-sans">NACHRICHTEN</div>
-                <div className="font-open-sans text-3xl font-light">{stats.offerHelp}</div>
+                <div className="font-open-sans text-3xl font-light">{stats.offerHelp || '0'}</div>
               </div>
             </div>
             <div className="font-open-sans leading-6 text-center mb-8 max-w-360">
