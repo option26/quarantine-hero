@@ -158,10 +158,12 @@
   "components": {
     "desktopMenu": {
       "yourOverview": "DEINE ÜBERSICHT",
+      "myOverview": "Meine Übersicht",
       "requestHelp": "HILFE ANFRAGEN",
       "help": "HELFEN",
       "FAQs": "FAQs",
-      "signOut": "ABMELDEN"
+      "signOut": "Logout",
+      "safety": "SICHERHEIT"
     },
     "sidebar": {
       "home": "Home",
