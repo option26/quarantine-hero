@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="13px" viewBox="0 0 10 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Web &amp; App</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="356" height="145" rx="3"></rect>
+        <filter x="-8.4%" y="-20.7%" width="116.9%" height="141.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Web-&amp;-App" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-List" transform="translate(-358.000000, -3244.000000)">
+            <g id="Group-4-Copy-2" transform="translate(30.000000, 3231.000000)">
+                <g id="Flag" transform="translate(322.000000, 9.000000)">
+                    <line x1="7" y1="6" x2="7" y2="16" id="Line-3" stroke="#E8C103" stroke-linecap="round"></line>
+                    <path d="M7,6 C7.55517163,5.29708804 8.3660608,5.02052118 9.43266749,5.1702994 C11.0325775,5.39496674 11.3593615,6.6020286 12.5370982,6.77754692 C13.322256,6.89455914 14.1432233,6.63537683 15,6 L15,11 C14.4929844,11.6254721 13.7046478,11.863469 12.6349903,11.7139906 C11.030504,11.4897731 10.723126,10.3865269 9.51084401,10.2329228 C8.70265601,10.13052 7.86570801,10.3862124 7,11 L7,6 Z" id="Rectangle" stroke="#E8C103" fill="#E8C103" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
