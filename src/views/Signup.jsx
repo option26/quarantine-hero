@@ -2,8 +2,13 @@ import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import { Redirect, useParams } from 'react-router-dom';
+import {
+  Redirect,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import Footer from '../components/Footer';
+import MailInput from '../components/MailInput';
 import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 
@@ -14,6 +19,7 @@ const Signup = (props) => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
+  const location = useLocation();
 
   const {
     user,
@@ -23,7 +29,7 @@ const Signup = (props) => {
   const { returnUrl } = useParams();
 
   if (user) {
-    if (returnUrl) return <Redirect to={`/${returnUrl}`} />;
+    if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
     return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
   }
 
@@ -49,29 +55,25 @@ const Signup = (props) => {
       handleCodeInApp: false,
     })
       .then(() => setPasswordResetSuccess(true))
-      .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
+      .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es deine E-Mail ist?'));
   };
+
+  const reasonForRegistration = location && location.state && location.state.reason_for_registration
+    ? location.state.reason_for_registration
+    : 'eine Hilfe-Anfrage zu posten';
+  const headerText = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
 
   return (
     <div className="p-4 mt-8">
       <form onSubmit={signInOrRegister}>
         <div className="mb-4">
           <div className="font-teaser mb-6">
-            Registriere dich mit deiner E-Mail und einem Passwort um eine Hilfe-Anfrage zu posten oder melde
-            dich an, wenn du bereits einen Account besitzt.
+            {headerText}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
           </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
-            id="username"
-            type="email"
-            placeholder="Deine E-Mailadresse"
-            value={email}
-            required="required"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email} />
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
