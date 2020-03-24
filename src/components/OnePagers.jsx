@@ -162,7 +162,7 @@ export default function OnePagers() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="md:mb-16">
+    <div className="mb-8 md:mb-16">
       <div
         className="mt-4 md:ml-0 md:mr-0 mx-4 mb-1 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki"
       >
@@ -171,7 +171,7 @@ export default function OnePagers() {
         </div>
 
         <div className="px-4 w-full">
-          <div className="font-semibold"> Poster / ورقة المعلومات / bilgi afişi / плакат</div>
+          <div className="font-semibold">Poster / ورقة المعلومات / bilgi afişi / плакат</div>
           {t('views.main.noInternet.preOptionalBreak')}
           {' '}
           <br className="hidden sm:block" />
@@ -180,6 +180,7 @@ export default function OnePagers() {
         {isOpen
           ? (
             <ExpandLessIcon
+              className="cursor-pointer hover:opacity-50"
               style={{ fontSize: '40px' }}
               onClick={() => {
                 setIsOpen((current) => !current);
@@ -187,6 +188,7 @@ export default function OnePagers() {
             />
           ) : (
             <ExpandMoreIcon
+              className="cursor-pointer hover:opacity-50"
               style={{ fontSize: '40px' }}
               onClick={() => {
                 setIsOpen((current) => !current);
@@ -217,11 +219,19 @@ const OnePager = (props) => (
       {props.original}
     </span>
     {' | '}
-    <a className="text-secondary hover:underline" href={`../assets/${props.signUpFileName}`} download>
+    <a
+      className="text-secondary hover:underline"
+      href={`../assets/${props.signUpFileName}`}
+      download={`../assets/${props.signUpFileName}`}
+    >
       {props.signUp}
     </a>
     {' | '}
-    <a className="text-secondary hover:underline" href={`../assets/${props.posterFileName}`} download>
+    <a
+      className="text-secondary hover:underline"
+      href={`../assets/${props.posterFileName}`}
+      download={`../assets/${props.posterFileName}`}
+    >
       {props.poster}
     </a>
   </div>
