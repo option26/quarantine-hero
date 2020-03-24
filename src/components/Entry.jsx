@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +26,7 @@ export default function Entry(props) {
   const history = useHistory();
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
+  const link = useRef(null);
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
   const [responsesVisible, setResponsesVisible] = useState(false);
@@ -152,11 +153,17 @@ export default function Entry(props) {
     );
   })();
 
+  const clearReportAttempt = (e) => {
+    if (!link.current.contains(e.target)) setAttemptingToReport(false);
+    document.body.removeEventListener('click', clearReportAttempt);
+  };
+
   const requestCard = (
     <Link
       to={`/offer-help/${props.id}`}
       className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
       key={id}
+      ref={link}
     >
       <div className="flex justify-between">
         <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block">
@@ -178,7 +185,9 @@ export default function Entry(props) {
             disabled={reported}
             onClick={(e) => {
               e.preventDefault();
+              const prevValue = attemptingToReport;
               setAttemptingToReport((curr) => !curr);
+              if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
             }}
           >
             {reported ? <img className="flag" src={require('../assets/flag_orange.svg')} alt="" /> : null}
