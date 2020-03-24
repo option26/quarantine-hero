@@ -16,6 +16,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: 'de', // @TODO Change to English as soon as we have English translations.
+    lng: 'de',
     debug: true,
 
     interpolation: {
