@@ -71,7 +71,7 @@ export default function Entry(props) {
       const pathToOfferHelp = `offer-help/${id}`;
       const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
       setAttemptingToReport(false);
-      return history.push({ pathname, state: { reason_for_registration: 'den Beitrag zu melden' } });
+      return history.push({ pathname, state: { reason_for_registration: t('components.entry.registrationReason') } });
     }
 
     const data = {

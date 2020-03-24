@@ -61,14 +61,14 @@ const Signup = (props) => {
   const reasonForRegistration = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
     : 'eine Hilfe-Anfrage zu posten';
-  const textToShow = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
+  const headerText = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForRegistration} oder melde dich an, wenn du bereits einen Account besitzt.`;
 
   return (
     <div className="p-4 mt-8">
       <form onSubmit={signInOrRegister}>
         <div className="mb-4">
           <div className="font-teaser mb-6">
-            {textToShow}
+            {headerText}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email

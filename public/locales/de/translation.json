@@ -194,7 +194,8 @@
       "showResponses_plural": "{{count}} Antworten ansehen",
       "hideResponses": "Antwort verbergen",
       "hideResponses_plural": "{{count}} Antworten verbergen",
-      "deleteRequestForHelp": "Löschen"
+      "deleteRequestForHelp": "Löschen",
+      "registrationReason": "den Beitrag zu melden"
     },
     "filteredList": {
       "in": "In",
