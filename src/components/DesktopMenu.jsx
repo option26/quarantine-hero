@@ -16,11 +16,13 @@ export default function DesktopMenu(props) {
     <Box className="flex w-1/2" flexDirection="column">
       <ul className="font-exo2 flex justify-around text-lg font-semibold mt-5 mr-5 -ml-10">
         {menuProps.isLoggedIn
-          ? <>
+          ? (
+            <>
               <MenuItem to="/dashboard">{t('components.desktopMenu.requestHelp')}</MenuItem>
               <MenuItem to="/overview">{t('components.desktopMenu.help')}</MenuItem>
               <MenuItem to="/dashboard">{t('components.desktopMenu.safety')}</MenuItem>
             </>
+          )
           : (
             <>
               <MenuItem to="/ask-for-help">{t('components.desktopMenu.requestHelp')}</MenuItem>
