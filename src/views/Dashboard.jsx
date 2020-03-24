@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Entry from '../components/Entry';
@@ -9,32 +9,28 @@ import Entry from '../components/Entry';
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
 
-const Notification = (props) => {
+function Notification(props) {
   const { t } = useTranslation();
-  const [hidden, setHidden] = useState(false);
 
   const onDeleteClick = () => {
-    setHidden(true);
     offerHelpCollection.doc(props.id).delete();
   };
 
   return (
     <div>
-      { hidden ? '' : (
-        <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
-          {t('views.dashboard.youWillBeNotified')}
-          {' '}
-          {props.location}
-          {' '}
-          {t('views.dashboard.needsHelp')}
-          <div className="cursor-pointer font-bold" onClick={onDeleteClick}>
-            &times;
-          </div>
+      <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
+        {t('views.dashboard.youWillBeNotified')}
+        {' '}
+        {props.location}
+        {' '}
+        {t('views.dashboard.needsHelp')}
+        <div className="cursor-pointer font-bold" onClick={onDeleteClick}>
+          &times;
         </div>
-      ) }
+      </div>
     </div>
   );
-};
+}
 
 function DashboardLoading() {
   const { t } = useTranslation();
@@ -46,7 +42,7 @@ function Dashboard(props) {
 
   const { t } = useTranslation();
 
-  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
+  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
     askForHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
@@ -54,7 +50,7 @@ function Dashboard(props) {
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
-  const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
+  const [offersDocs, isLoadingOffers] = useCollectionData(
     offerHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
