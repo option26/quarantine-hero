@@ -35,6 +35,8 @@ export default function LocationInput(props) {
           setInvalidNoSelect();
           props.onChange(value);
         }}
+        debounce={500}
+        highlightFirstSuggestion
         value={props.value}
         onSelect={(value, placeId) => {
           // We want to prevent hitting enter without selecting entry, hence we check
