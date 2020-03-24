@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
 import Rules from '../components/Rules';
+import OnePagers from '../components/OnePagers';
 
 export default function Main() {
   const { t } = useTranslation();
@@ -55,18 +56,7 @@ export default function Main() {
           <Rules />
         </div>
 
-        <div className="mt-4 md:ml-0 md:mr-0 ml-4 mr-4 mb-8 md:mb-16 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki">
-          <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt="" />
-          <p>
-            {t('views.main.noInternet.preOptionalBreak')}
-            {' '}
-            <br className="sm:hidden" />
-            {t('views.main.noInternet.preLink')}
-            {' '}
-            <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">{t('views.main.noInternet.link')}</a>
-            {t('views.main.noInternet.postLink')}
-          </p>
-        </div>
+        <OnePagers />
 
         <ArrowDown onClick={scrollTo} />
 
