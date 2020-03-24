@@ -65,10 +65,10 @@
     width: 25px;
     height: 25px;
     border-radius: 100%;
+    min-width: 25px;
 }
 
 .btn-report-entry {
-    float: right;
     width: 115px;
     height: 25px;
     border-radius: 15px;
@@ -80,6 +80,8 @@
     line-height: normal;
     letter-spacing: normal;
     color: #ffffff;
+    top: 1rem;
+    right: 50px;
 }
 
 .btn-report-unflagged {
