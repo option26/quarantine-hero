@@ -35,8 +35,9 @@ export default function LocationInput(props) {
           setInvalidNoSelect();
           props.onChange(value);
         }}
-        debounce={500}
+        debounce={1000}
         highlightFirstSuggestion
+        shouldFetchSuggestions={inputRef.current && inputRef.current.value.length > 2}
         value={props.value}
         onSelect={(value, placeId) => {
           // We want to prevent hitting enter without selecting entry, hence we check
@@ -64,6 +65,17 @@ export default function LocationInput(props) {
                 className: 'location-search-input appearance-none input-focus',
               })}
             />
+            {suggestions.length === 0
+              ? (
+                <div
+                  className={`absolute top-0 right-0 mt-2 mr-2 loader
+                ${inputRef.current && inputRef.current.value.length === 1 && ' loader-0'}
+                ${inputRef.current && inputRef.current.value.length === 2 && ' loader-0 loader-1'}
+                ${inputRef.current && inputRef.current.value.length === 3 && ' loader-0 loader-1 loader-2'}
+                ${inputRef.current && inputRef.current.value.length > 3 && ' loader-0 loader-loading'}
+              `}
+                />
+              ) : null}
             <div className="absolute w-full shadow-xl z-10">
               {suggestions.map((suggestion) => {
                 const className = suggestion.active
