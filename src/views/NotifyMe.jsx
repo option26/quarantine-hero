@@ -43,10 +43,10 @@ export default function NotifyMe() {
     return (
       <div className="p-4">
         <div className="font-teaser my-6">
-          {t('views.notifyMe.beNotified')}
+          {t('views:notifyMe.beNotified')}
         </div>
         <div className="border bg-secondary px-4 py-2 rounded text-white flex flex-row items-center border">
-          {t('views.notifyMe.emailSent', { location })}
+          {t('views:notifyMe.emailSent', { location })}
         </div>
       </div>
 
@@ -56,11 +56,11 @@ export default function NotifyMe() {
   return (
     <div className="p-4">
       <div className="font-teaser my-6">
-        {t('views.notifyMe.beNotified')}
+        {t('views:notifyMe.beNotified')}
       </div>
       <form onSubmit={handleSubmit}>
         <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
-        <MailInput className="input-focus my-6" placeholder={t('views.notifyMe.yourMail')} onSetEmail={setEmail} defaultValue={email} />
+        <MailInput className="input-focus my-6" placeholder={t('views:notifyMe.yourMail')} onSetEmail={setEmail} defaultValue={email} />
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           {t(
             'views.notifyMe.notifyMe',

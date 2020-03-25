@@ -147,11 +147,11 @@ export default function FilteredList(props) {
 
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
-      {t('components.filteredList.in')}
+      {t('components:filteredList.in')}
       {' '}
       {location}
       {' '}
-      {t('components.filteredList.noHelpCurrentlyNeeded')}
+      {t('components:filteredList.noHelpCurrentlyNeeded')}
     </div>
   );
 
@@ -193,11 +193,11 @@ export default function FilteredList(props) {
       <div className="py-3 w-full">
         <div className="my-3 w-full">
           <Link to="/notify-me" className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
-            {t('components.filteredList.notifyMe')}
+            {t('components:filteredList.notifyMe')}
             {' '}
-            {location && location !== '' ? `${t('components.filteredList.closeTo')} ${location}` : t('components.filteredList.closeToMe')}
+            {location && location !== '' ? `${t('components:filteredList.closeTo')} ${location}` : t('components:filteredList.closeToMe')}
             {' '}
-            {t('components.filteredList.needsHelp')}
+            {t('components:filteredList.needsHelp')}
           </Link>
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
@@ -207,7 +207,7 @@ export default function FilteredList(props) {
         {(pageSize > 0 && !searching) ? (
           <div className="flex justify-center pt-3">
             <button type="button" onClick={loadMoreDocuments} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
-              {t('components.filteredList.showMore')}
+              {t('components:filteredList.showMore')}
             </button>
           </div>
         ) : null}

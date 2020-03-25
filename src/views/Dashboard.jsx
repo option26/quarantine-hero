@@ -52,11 +52,11 @@ export default function Dashboard() {
       <div>
         { hidden ? '' : (
           <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
-            {t('views.dashboard.youWillBeNotified')}
+            {t('views:dashboard.youWillBeNotified')}
             {' '}
             {props.location}
             {' '}
-            {t('views.dashboard.needsHelp')}
+            {t('views:dashboard.needsHelp')}
             <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }}>
               &times;
             </div>
@@ -68,31 +68,31 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views:dashboard.yourRequests')}</h1>
 
       {entries.length === 0
         ? (
           <div className="font-open-sans">
-            {t('views.dashboard.noRequests')}
+            {t('views:dashboard.noRequests')}
             {' '}
             <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
-            {t('views.dashboard.create')}
+            {t('views:dashboard.create')}
             .
           </div>
         )
         : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
 
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views:dashboard.yourNotifications')}</h1>
 
       {offers.length === 0
         ? (
           <div className="font-open-sans">
-            {t('views.dashboard.noNotificationsSubscribed')}
+            {t('views:dashboard.noNotificationsSubscribed')}
             {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
+            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views:dashboard.here')}</Link>
             {' '}
-            {t('views.dashboard.register')}
+            {t('views:dashboard.register')}
             .
           </div>
         )

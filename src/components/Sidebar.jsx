@@ -45,19 +45,19 @@ export default function Sidebar(props) {
       }}
       className="font-main mt-6"
     >
-      <MenuItem to="/">{t('components.sidebar.home')}</MenuItem>
-      <MenuItem to="/ask-for-help">{t('components.sidebar.askForHelp')}</MenuItem>
-      <MenuItem to="/overview">{t('components.sidebar.overview')}</MenuItem>
-      {menuProps.isLoggedIn && <MenuItem to="/dashboard">{t('components.sidebar.yourOverview')}</MenuItem>}
-      <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
-      <MenuItem to="/security-tips">{t('components.sidebar.safety')}</MenuItem>
-      <MenuItem to="/presse">{t('components.sidebar.press')}</MenuItem>
-      <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
-      <MenuItem to="/dsgvo">{t('components.sidebar.privacy')}</MenuItem>
+      <MenuItem to="/">{t('components:sidebar.home')}</MenuItem>
+      <MenuItem to="/ask-for-help">{t('components:sidebar.askForHelp')}</MenuItem>
+      <MenuItem to="/overview">{t('components:sidebar.overview')}</MenuItem>
+      {menuProps.isLoggedIn && <MenuItem to="/dashboard">{t('components:sidebar.yourOverview')}</MenuItem>}
+      <MenuItem to="/faq">{t('components:sidebar.FAQs')}</MenuItem>
+      <MenuItem to="/security-tips">{t('components:sidebar.safety')}</MenuItem>
+      <MenuItem to="/presse">{t('components:sidebar.press')}</MenuItem>
+      <MenuItem to="/impressum">{t('components:sidebar.legal')}</MenuItem>
+      <MenuItem to="/dsgvo">{t('components:sidebar.privacy')}</MenuItem>
 
       {menuProps.isLoggedIn
-        ? <MenuItem to="/" onClick={menuProps.signOut}>{t('components.sidebar.signOut')}</MenuItem>
-        : <MenuItem to="/signup/dashboard">{t('components.sidebar.login')}</MenuItem>}
+        ? <MenuItem to="/" onClick={menuProps.signOut}>{t('components:sidebar.signOut')}</MenuItem>
+        : <MenuItem to="/signup/dashboard">{t('components:sidebar.login')}</MenuItem>}
 
       <div className="mt-4">
         <ShareButtons />

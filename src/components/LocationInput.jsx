@@ -32,7 +32,7 @@ function ZipCodeInput(props) {
     if (value.length >= 4 && value.length <= 5) {
       e.target.setCustomValidity('');
     } else {
-      e.target.setCustomValidity(t('components.locationInput.invalidPlz'));
+      e.target.setCustomValidity(t('components:locationInput.invalidPlz'));
     }
 
     setScheduledChange(setTimeout(() => {
@@ -52,7 +52,7 @@ function ZipCodeInput(props) {
         max={99999}
         minLength={4}
         maxLength={5}
-        placeholder={t('components.locationInput.yourPostalCode')}
+        placeholder={t('components:locationInput.yourPostalCode')}
         onChange={handleChange}
       />
     </div>
@@ -108,7 +108,7 @@ function Autocomplete(props) {
 
   const setInvalidNoSelect = () => {
     if (isMapsApiEnabled) {
-      setValidity(false, t('components.locationInput.invalidNoSelect'));
+      setValidity(false, t('components:locationInput.invalidNoSelect'));
     }
   };
 
@@ -165,7 +165,7 @@ function Autocomplete(props) {
         required={required}
         type="text"
         inputMode={fullText ? '' : 'numeric'}
-        placeholder={fullText ? t('components.locationInput.yourPostalCodeOrNeighbourhood') : t('components.locationInput.yourPostalCode')}
+        placeholder={fullText ? t('components:locationInput.yourPostalCodeOrNeighbourhood') : t('components:locationInput.yourPostalCode')}
       />
       {loadingVisible && (
         <LoadingIndicator

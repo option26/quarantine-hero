@@ -70,8 +70,8 @@ function App(props) {
           && <Link className="mr-6 font-open-sans text-gray-700" to="/signup/dashboard">{t('App.login')}</Link>}
           {user && (
             <>
-              <Link className="mr-6 font-open-sans text-gray-700" to="/dashboard">{t('components.desktopMenu.myOverview')}</Link>
-              <button type="button" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components.desktopMenu.signOut')}</button>
+              <Link className="mr-6 font-open-sans text-gray-700" to="/dashboard">{t('components:desktopMenu.myOverview')}</Link>
+              <button type="button" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components:desktopMenu.signOut')}</button>
             </>
           )}
           <Link className="mr-6 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link>

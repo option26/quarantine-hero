@@ -40,16 +40,16 @@ export default function Main() {
           <img className="logo-margin" src={(require('../assets/logo.svg'))} alt="logo" />
         </div>
         <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
-          {t('views.main.weAreHumans')}
+          {t('views:main.weAreHumans')}
           <br />
-          {t('views.main.inTimesOfNeed')}
+          {t('views:main.inTimesOfNeed')}
           <br />
-          {t('views.main.bePart')}
+          {t('views:main.bePart')}
           <br />
         </div>
         <div className="w-full flex justify-center  mt-4 md:mt-12">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            {t('views.main.importantNotes.title')}
+            {t('views:main.importantNotes.title')}
           </div>
         </div>
         <div className="bg-kaki p-4 mt-3 mx-4 md:mx-0">
@@ -67,7 +67,7 @@ export default function Main() {
             onClick={() => fb.analytics.logEvent('button_want_to_help')}
           >
             <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
-            {t('views.main.buttons.wantToHelp')}
+            {t('views:main.buttons.wantToHelp')}
           </Link>
           <div className="m-1 md:m-4" />
           <Link
@@ -76,7 +76,7 @@ export default function Main() {
             onClick={() => fb.analytics.logEvent('button_need_help')}
           >
             <img className="w-8" src={require('../assets/need_help.png')} alt="" />
-            {t('views.main.buttons.needHelp')}
+            {t('views:main.buttons.needHelp')}
           </Link>
         </div>
 
@@ -109,24 +109,24 @@ export default function Main() {
         <div className="p-4">
           <div className="flex justify-center items-center flex-col">
             <div className="font-teaser text-center" id="anfragen">
-              {t('views.main.recentRequests.title')}
+              {t('views:main.recentRequests.title')}
             </div>
             <div className="flex my-6">
               <div className="mx-4 md:mx-8 w-24 text-center">
-                <div className="font-bold text-xs font-open-sans">{t('views.main.recentRequests.requests')}</div>
+                <div className="font-bold text-xs font-open-sans">{t('views:main.recentRequests.requests')}</div>
                 <div className="font-open-sans text-3xl font-light">{stats.askForHelp || '0'}</div>
               </div>
               <div className="mx-4 md:mx-8 w-24 text-center">
-                <div className="font-bold text-xs font-open-sans">{t('views.main.recentRequests.heros')}</div>
+                <div className="font-bold text-xs font-open-sans">{t('views:main.recentRequests.heros')}</div>
                 <div className="font-open-sans text-3xl font-light">{stats.regionSubscribed || '0'}</div>
               </div>
               <div className="mx-4 md:mx-8 w-24 text-center">
-                <div className="font-bold text-xs font-open-sans">{t('views.main.recentRequests.messages')}</div>
+                <div className="font-bold text-xs font-open-sans">{t('views:main.recentRequests.messages')}</div>
                 <div className="font-open-sans text-3xl font-light">{stats.offerHelp || '0'}</div>
               </div>
             </div>
             <div className="font-open-sans leading-6 text-center mb-8 max-w-360">
-              {t('views.main.enterYourPostalCode')}
+              {t('views:main.enterYourPostalCode')}
             </div>
           </div>
           <FilteredList pageSize={20} />

@@ -72,23 +72,23 @@ export default function AskForHelp() {
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
-      <h1 className="font-teaser py-4 pt-10">{t('views.askForHelp.createRequest')}</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views:askForHelp.createRequest')}</h1>
       <div className="font-open-sans">
-        {t('views.askForHelp.whenSomeoneWantsToHelpExplanation')}
+        {t('views:askForHelp.whenSomeoneWantsToHelpExplanation')}
         <div className=" w-full p-4 bg-kaki mt-4">
-          <strong>{t('views.askForHelp.noRequestsHere')}</strong>
+          <strong>{t('views:askForHelp.noRequestsHere')}</strong>
           {' '}
-          {t('views.askForHelp.ifYouWantToGetNotified')}
+          {t('views:askForHelp.ifYouWantToGetNotified')}
           {' '}
           <Link to="/notify-me" className="text-secondary hover:underline">
-            {t('views.askForHelp.thisFunction')}
+            {t('views:askForHelp.thisFunction')}
           </Link>
           .
         </div>
       </div>
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-          {t('views.askForHelp.whereAreYou')}
+          {t('views:askForHelp.whereAreYou')}
         </label>
         <LocationInput required value={location} onChange={handleChange} onSelect={handleSelect} />
       </div>
@@ -97,20 +97,20 @@ export default function AskForHelp() {
       <div className="py-3">
         <div className="w-full">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-            {t('views.askForHelp.whatCanWeDo')}
+            {t('views:askForHelp.whatCanWeDo')}
           </label>
           <textarea
             className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
             required="required"
-            placeholder={t('views.askForHelp.whatCanWeDo')}
+            placeholder={t('views:askForHelp.whatCanWeDo')}
             onChange={(e) => setRequest(e.target.value)}
           />
         </div>
         <div className="mt-4 mb-6 w-full text-gray-700">
-          {t('views.askForHelp.requestIsPublic')}
+          {t('views:askForHelp.requestIsPublic')}
         </div>
         <div className="mt-4 w-full flex justify-end">
-          <button type="submit" className="btn-green w-full md:w-1/3">{t('views.askForHelp.askNow')}</button>
+          <button type="submit" className="btn-green w-full md:w-1/3">{t('views:askForHelp.askNow')}</button>
         </div>
       </div>
       <Footer />

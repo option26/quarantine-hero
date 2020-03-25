@@ -18,7 +18,7 @@ i18n
     fallbackLng: 'de', // @TODO Change to English as soon as we have English translations.
     lng: 'de',
     debug: true,
-
+    ns: ['App', 'components', 'views'],
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

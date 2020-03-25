@@ -26,7 +26,7 @@ export default function CompleteOfferHelp() {
           // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
           // link in his mobile phones email client.
           // eslint-disable-next-line no-alert
-          email = window.prompt(t('views.completeOfferHelp.mailYouRegistered'));
+          email = window.prompt(t('views:completeOfferHelp.mailYouRegistered'));
         }
 
         await fb.auth.signInWithEmailLink(email, window.location.href);
@@ -75,17 +75,17 @@ export default function CompleteOfferHelp() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.youAreHero')}</h1>
+      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views:completeOfferHelp.youAreHero')}</h1>
       <p>
-        {t('views.completeOfferHelp.mailVerified')}
+        {t('views:completeOfferHelp.mailVerified')}
         {' '}
         <span className="text-secondary">{location}</span>
         {' '}
-        {t('views.completeOfferHelp.needsHelp')}
+        {t('views:completeOfferHelp.needsHelp')}
       </p>
       <div className="flex justify-center flex-col items-center mb-8">
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
-        <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
+        <Link className="btn-green mt-10" to="/dashboard">{t('views:completeOfferHelp.toYourOverview')}</Link>
       </div>
       <Footer />
     </div>

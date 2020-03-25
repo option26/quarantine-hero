@@ -14,10 +14,10 @@ export default function Success() {
   return (
     <div>
       <div className="mt-8 p-1">
-        <p className="text-2xl font-teaser mb-8 text-center">{t('views.success.thankYou')}</p>
+        <p className="text-2xl font-teaser mb-8 text-center">{t('views:success.thankYou')}</p>
         <div className="flex justify-center flex-col items-center mb-8">
           <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
-          <Link className="btn-green mt-10" to="/dashboard">{t('views.success.toDashboard')}</Link>
+          <Link className="btn-green mt-10" to="/dashboard">{t('views:success.toDashboard')}</Link>
         </div>
       </div>
       <Footer />

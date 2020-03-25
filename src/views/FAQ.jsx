@@ -41,19 +41,19 @@ export default function FAQ() {
 
   return (
     <div className="mb-10 p-4">
-      <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
+      <h1 className="text-2xl font-main mt-8">{t('views:faq.title')}</h1>
 
       {buildFAQs(faqTranslationStringHowTo)}
 
       {/* This FAQ needs special treatment because of the link in it. */}
-      <QA question={t('views.faq.howHelpPeopleWithoutInternet.question')}>
-        {t('views.faq.howHelpPeopleWithoutInternet.answer.preLink')}
+      <QA question={t('views:faq.howHelpPeopleWithoutInternet.question')}>
+        {t('views:faq.howHelpPeopleWithoutInternet.answer.preLink')}
         <Link to="/" className="text-secondary hover:underline">
           {' '}
-          {t('views.faq.howHelpPeopleWithoutInternet.answer.link')}
+          {t('views:faq.howHelpPeopleWithoutInternet.answer.link')}
           {' '}
         </Link>
-        {t('views.faq.howHelpPeopleWithoutInternet.answer.postLink')}
+        {t('views:faq.howHelpPeopleWithoutInternet.answer.postLink')}
       </QA>
 
       {buildFAQs(faqTranslationStringAboutUs)}

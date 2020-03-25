@@ -172,10 +172,10 @@ export default function OnePagers() {
 
         <div className="px-4 w-full">
           <div className="font-semibold">Poster / ورقة المعلومات / bilgi afişi / плакат</div>
-          {t('views.main.noInternet.preOptionalBreak')}
+          {t('views:main.noInternet.preOptionalBreak')}
           {' '}
           <br className="hidden sm:block" />
-          {t('views.main.noInternet.postOptionalBreak')}
+          {t('views:main.noInternet.postOptionalBreak')}
         </div>
         {isOpen
           ? (

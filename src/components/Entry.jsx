@@ -71,7 +71,7 @@ export default function Entry(props) {
       const pathToOfferHelp = `offer-help/${id}`;
       const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
       setAttemptingToReport(false);
-      return history.push({ pathname, state: { reason_for_registration: t('components.entry.registrationReason') } });
+      return history.push({ pathname, state: { reason_for_registration: t('components:entry.registrationReason') } });
     }
 
     const data = {
@@ -88,11 +88,11 @@ export default function Entry(props) {
   let numberOfResponsesText = '';
 
   if (responses === 0) {
-    numberOfResponsesText = t('components.entry.noRepliesYet');
+    numberOfResponsesText = t('components:entry.noRepliesYet');
   } else if (responses === 1) {
-    numberOfResponsesText = t('components.entry.oneReplyReceived');
+    numberOfResponsesText = t('components:entry.oneReplyReceived');
   } else {
-    numberOfResponsesText = `${responses} ${t('components.entry.repliesReceived')}`;
+    numberOfResponsesText = `${responses} ${t('components:entry.repliesReceived')}`;
   }
 
   if (deleted) {
@@ -134,19 +134,19 @@ export default function Entry(props) {
             >
               {responsesVisible ? (
                 <>
-                  {t('components.entry.hideResponses', { count: responses })}
+                  {t('components:entry.hideResponses', { count: responses })}
                   <ExpandLessIcon {...expandIconProps} />
                 </>
               ) : (
                 <>
-                  {t('components.entry.showResponses', { count: responses })}
+                  {t('components:entry.showResponses', { count: responses })}
                   <ExpandMoreIcon {...expandIconProps} />
                 </>
               )}
             </button>
           )}
         <button type="button" className={`bg-red-200 text-primary hover:bg-primary hover:text-white ${commonButtonClasses}`} onClick={handleDelete}>
-          {t('components.entry.deleteRequestForHelp')}
+          {t('components:entry.deleteRequestForHelp')}
           <DeleteOutlineIcon style={{ fontSize: '20px' }} className="ml-2" />
         </button>
       </div>
@@ -167,7 +167,7 @@ export default function Entry(props) {
     >
       <div className="flex justify-between">
         <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block">
-          {t('components.entry.somebodyAt')}
+          {t('components:entry.somebodyAt')}
           {' '}
           <span
             className="font-bold"
@@ -175,7 +175,7 @@ export default function Entry(props) {
             {location}
           </span>
           {' '}
-          {t('components.entry.needsHelp')}
+          {t('components:entry.needsHelp')}
         </span>
 
         {!entryBelongsToCurrentUser ? (
@@ -220,7 +220,7 @@ export default function Entry(props) {
       <div className="flex flex-row justify-between items-center mt-4 mb-2">
         <div className="text-xs text-secondary mr-1 font-bold">{mayDeleteEntryAndSeeResponses ? '' : numberOfResponsesText}</div>
         <span className="text-gray-500 inline-block text-right text-xs font-open-sans">
-          {t('components.entry.before')}
+          {t('components:entry.before')}
           {' '}
           {date}
         </span>
