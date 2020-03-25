@@ -5,12 +5,10 @@ import { de } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import fb from '../firebase';
 import Responses from './Responses';
-import loadResponses from '../util/loadResponses';
 
 export default function Entry(props) {
   const {
@@ -54,10 +52,9 @@ export default function Entry(props) {
   const handleDelete = async (e) => {
     e.preventDefault();
     const doc = await fb.store.collection(collectionName).doc(props.id).get();
-    await fb.store.collection('/deleted').add({
-      askForHelpId: doc.id, ...doc.data(),
+    await fb.store.collection('/deleted').doc(props.id).set({
+      collectionName, ...doc.data(),
     });
-    fb.store.collection(collectionName).doc(props.id).delete();
     setDeleted(true);
   };
 
@@ -67,17 +64,8 @@ export default function Entry(props) {
     // migrate post
     const askForHelpDoc = await fb.store.collection('ask-for-help').doc(props.id).get();
     const data = askForHelpDoc.data();
-    const solvedPostsCollection = fb.store.collection('solved-posts');
-    await solvedPostsCollection.doc(props.id).set(data);
-
-    // migrate responses
-    const currentResponses = await loadResponses(props.id, 'ask-for-help');
-    const subCollection = solvedPostsCollection.doc(props.id).collection('offer-help');
-    const batch = fb.store.batch();
-    currentResponses.map((response) => batch.set(subCollection.doc(response.id), response));
-    await batch.commit();
-    // reload the page with delay to retrieve the updated collection items
-    await setTimeout(window.location.reload(false), 1000);
+    await fb.store.collection('solved-posts').doc(props.id).set(data);
+    setDeleted(true);
   };
 
   const reportEntry = async (e) => {
@@ -136,15 +124,9 @@ export default function Entry(props) {
     }
 
     const commonButtonClasses = 'px-6 py-3 uppercase font-open-sans font-bold text-center';
-    const expandIconProps = {
-      className: 'ml-2',
-      style: {
-        fontSize: '32px', marginTop: '-4px', marginBottom: '-4px', verticalAlign: 'bottom',
-      },
-    };
-    const heroFoundButtonClasses = !showAsSolved
-      ? `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`
-      : `bg-secondary text-white hover:opacity-75 ${commonButtonClasses}`;
+    const heroFoundButtonClasses = showAsSolved
+      ? `bg-secondary text-white hover:opacity-75 ${commonButtonClasses}`
+      : `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`;
 
     return (
       <div className="flex flex-row mt-4 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
@@ -152,28 +134,19 @@ export default function Entry(props) {
           ? <div className={`bg-gray-200 text-gray-700 flex-grow ${commonButtonClasses}`}>{numberOfResponsesText}</div>
           : (
             <>
-              <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-grow ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
-                {responsesVisible ? (
-                  <>
-                    {t('components.entry.hideResponses', { count: responses })}
-                    <ExpandLessIcon {...expandIconProps} />
-                  </>
-                ) : (
-                  <>
-                    {t('components.entry.showResponses', { count: responses })}
-                    <ExpandMoreIcon {...expandIconProps} />
-                  </>
-                )}
+              <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-1 ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
+                {t('components.entry.message', { count: responses })}
+                <MailOutlineIcon className="ml-2 mb-1" />
               </button>
-              <button type="button" className={heroFoundButtonClasses} onClick={handleSolved} disabled={showAsSolved}>
+              <button type="button" className={`flex-1 mx-px ${heroFoundButtonClasses}`} onClick={handleSolved} disabled={showAsSolved}>
                 {t('components.entry.heroFound')}
-                <DoneIcon style={{ fontSize: '20px' }} className="ml-2" />
+                <DoneIcon className="ml-2 mb-1" />
               </button>
             </>
           )}
         <button type="button" className={`bg-red-200 text-primary hover:bg-primary hover:text-white ${commonButtonClasses}`} onClick={handleDelete}>
           {responses === 0 ? t('components.entry.deleteRequestForHelp') : null}
-          <DeleteOutlineIcon style={{ fontSize: '20px' }} className="ml-2" />
+          <DeleteOutlineIcon className="mb-1" />
         </button>
       </div>
     );
