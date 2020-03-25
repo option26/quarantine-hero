@@ -96,7 +96,7 @@ export default () => (
     <h3 className="text-xl mt-10 font-exo2 mb-2">Distanziert</h3>
     <div className="font-open-sans">
       <div className="underline">Trefft klare Absprachen und vermeidet einen persönlichen Kontakt!</div>
-      Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als 2 m
+      Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als zwei Metern
       oder durch den Kontakt mit Tröpfchen beim Niesen oder Husten. Besprecht daher am Telefon, in sozialen Medien
       o.ä.
       was genau benötigt wird und wie Übergaben (Geld, Arzneimittelrezepte, Einkäufe etc.) kontaktlos erfolgen
@@ -116,7 +116,7 @@ export default () => (
       </div>
 
       <div className="underline mt-5">Haltet Abstand zu anderen Leuten!</div>
-      Versucht einen Abstand von mindestens 2 m zu anderen Personen einzuhalten und vermeidet direkten Körperkontakt
+      Versucht einen Abstand von mindestens zwei Metern zu anderen Personen einzuhalten und vermeidet direkten Körperkontakt
       wie
       Umarmungen oder Händeschütteln.
 
