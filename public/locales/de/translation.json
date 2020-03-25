@@ -195,10 +195,8 @@
       "somebodyAt": "Jemand in",
       "needsHelp": "braucht Hilfe!",
       "before": "vor",
-      "showResponses": "Antwort ansehen",
-      "showResponses_plural": "{{count}} Antworten ansehen",
-      "hideResponses": "Antwort verbergen",
-      "hideResponses_plural": "{{count}} Antworten verbergen",
+      "message": "{{count}} Nachricht",
+      "message_plural": "{{count}} Nachrichten",
       "deleteRequestForHelp": "Löschen",
       "registrationReason": "den Beitrag zu melden",
       "heroFound": "Held*in gefunden"
