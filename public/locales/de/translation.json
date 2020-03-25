@@ -77,11 +77,16 @@
       "needsHelp": "Hilfe benötigt",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
+      "noResolvedRequests": "Du hast noch keine Held*innen für deine Gesuche gefunden. Du kannst ein neues Gesuch",
       "create": "erstellen",
       "yourNotifications": "Deine Benachrichtigungen",
       "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
       "here": "hier",
-      "register": "registrieren"
+      "register": "registrieren",
+      "tabs": {
+        "open": "OFFEN",
+        "solved": "ABGESCHLOSSEN"
+      }
     },
     "privacy": {
       "title": "Datenschutzerklärung"
@@ -195,7 +200,8 @@
       "hideResponses": "Antwort verbergen",
       "hideResponses_plural": "{{count}} Antworten verbergen",
       "deleteRequestForHelp": "Löschen",
-      "registrationReason": "den Beitrag zu melden"
+      "registrationReason": "den Beitrag zu melden",
+      "heroFound": "Held*in gefunden"
     },
     "filteredList": {
       "in": "In",
