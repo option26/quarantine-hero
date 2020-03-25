@@ -210,22 +210,34 @@
 
 .loader-loading {
     transition: rotate 1s;
+    border: 6px solid #eaefde !important;
+    border-top: 6px solid #87a544 !important;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
 }
 
-.loader-0 {
+.loader-1 {
     border-top: 6px solid #87a544;
 }
 
-.loader-1 {
+.loader-2 {
+    border-top: 6px solid #87a544;
     border-right: 6px solid #87a544;
 }
 
-.loader-2 {
+.loader-3 {
+    border-top: 6px solid #87a544;
+    border-right: 6px solid #87a544;
     border-bottom: 6px solid #87a544;
 }
 
-.loader-3 {
+.loader-4 {
+    border-top: 6px solid #87a544;
+    border-right: 6px solid #87a544;
+    border-bottom: 6px solid #87a544;
     border-left: 6px solid #87a544;
+}
+
+.suggestion-item {
+
 }

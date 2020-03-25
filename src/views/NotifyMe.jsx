@@ -12,13 +12,14 @@ export default function NotifyMe() {
   const [email, setEmail] = useState('');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
+  const [placeId, setPlaceId] = useState('');
 
   const handleSubmit = async () => {
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: `${baseUrl}/#/complete-offer-help?location=${location}&email=${email}`,
+        url: `${baseUrl}/#/complete-offer-help?location=${location}&placeId=${placeId}&email=${email}`,
         handleCodeInApp: true,
       });
       fb.analytics.logEvent('success_subscribe_region');
@@ -33,8 +34,9 @@ export default function NotifyMe() {
     setLocation(address);
   };
 
-  const handleSelect = (address) => {
+  const handleSelect = (address, pId) => {
     setLocation(address);
+    setPlaceId(pId);
   };
 
   if (signInLinkSent) {
