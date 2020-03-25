@@ -7,13 +7,15 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DoneIcon from '@material-ui/icons/Done';
 import fb from '../firebase';
 import Responses from './Responses';
-
+import loadResponses from '../util/loadResponses';
 
 export default function Entry(props) {
   const {
     showFullText = false,
+    showAsSolved = false,
     location = '',
     id = '',
     request = '',
@@ -38,6 +40,7 @@ export default function Entry(props) {
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
   const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
   const entryBelongsToCurrentUser = userIsLoggedIn && user.uid === uid;
+  const collectionName = !showAsSolved ? 'ask-for-help' : 'solved-posts';
 
   let textToDisplay;
   if (showFullText) {
@@ -50,12 +53,31 @@ export default function Entry(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const doc = await fb.store.collection('/ask-for-help').doc(props.id).get();
+    const doc = await fb.store.collection(collectionName).doc(props.id).get();
     await fb.store.collection('/deleted').add({
       askForHelpId: doc.id, ...doc.data(),
     });
-    fb.store.collection('/ask-for-help').doc(props.id).delete();
+    fb.store.collection(collectionName).doc(props.id).delete();
     setDeleted(true);
+  };
+
+  const handleSolved = async (e) => {
+    e.preventDefault();
+
+    // migrate post
+    const askForHelpDoc = await fb.store.collection('ask-for-help').doc(props.id).get();
+    const data = askForHelpDoc.data();
+    const solvedPostsCollection = fb.store.collection('solved-posts');
+    await solvedPostsCollection.doc(props.id).set(data);
+
+    // migrate responses
+    const currentResponses = await loadResponses(props.id, 'ask-for-help');
+    const subCollection = solvedPostsCollection.doc(props.id).collection('offer-help');
+    const batch = fb.store.batch();
+    currentResponses.map((response) => batch.set(subCollection.doc(response.id), response));
+    await batch.commit();
+    // reload the page with delay to retrieve the updated collection items
+    await setTimeout(window.location.reload(false), 1000);
   };
 
   const reportEntry = async (e) => {
@@ -63,8 +85,7 @@ export default function Entry(props) {
     // https://stackoverflow.com/a/53005834/8547462
     e.preventDefault();
 
-    const collectionName = 'reported-posts';
-    const reportedPostsCollection = fb.store.collection(collectionName);
+    const reportedPostsCollection = fb.store.collection('reported-posts');
 
     // redirect the user to the login page, as we can only store user ids for logged-in users
     if (!userIsLoggedIn) {
@@ -121,28 +142,37 @@ export default function Entry(props) {
         fontSize: '32px', marginTop: '-4px', marginBottom: '-4px', verticalAlign: 'bottom',
       },
     };
+    const heroFoundButtonClasses = !showAsSolved
+      ? `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`
+      : `bg-secondary text-white hover:opacity-75 ${commonButtonClasses}`;
 
     return (
       <div className="flex flex-row mt-4 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
           ? <div className={`bg-gray-200 text-gray-700 flex-grow ${commonButtonClasses}`}>{numberOfResponsesText}</div>
           : (
-            <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-grow ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
-              {responsesVisible ? (
-                <>
-                  {t('components.entry.hideResponses', { count: responses })}
-                  <ExpandLessIcon {...expandIconProps} />
-                </>
-              ) : (
-                <>
-                  {t('components.entry.showResponses', { count: responses })}
-                  <ExpandMoreIcon {...expandIconProps} />
-                </>
-              )}
-            </button>
+            <>
+              <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-grow ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
+                {responsesVisible ? (
+                  <>
+                    {t('components.entry.hideResponses', { count: responses })}
+                    <ExpandLessIcon {...expandIconProps} />
+                  </>
+                ) : (
+                  <>
+                    {t('components.entry.showResponses', { count: responses })}
+                    <ExpandMoreIcon {...expandIconProps} />
+                  </>
+                )}
+              </button>
+              <button type="button" className={heroFoundButtonClasses} onClick={handleSolved} disabled={showAsSolved}>
+                {t('components.entry.heroFound')}
+                <DoneIcon style={{ fontSize: '20px' }} className="ml-2" />
+              </button>
+            </>
           )}
         <button type="button" className={`bg-red-200 text-primary hover:bg-primary hover:text-white ${commonButtonClasses}`} onClick={handleDelete}>
-          {t('components.entry.deleteRequestForHelp')}
+          {responses === 0 ? t('components.entry.deleteRequestForHelp') : null}
           <DeleteOutlineIcon style={{ fontSize: '20px' }} className="ml-2" />
         </button>
       </div>
@@ -211,7 +241,7 @@ export default function Entry(props) {
     <>
       {requestCard}
       {mayDeleteEntryAndSeeResponses
-        ? <div className={responsesVisible ? '' : 'hidden'}><Responses id={id} /></div>
+        ? <div className={responsesVisible ? '' : 'hidden'}><Responses id={id} collectionName={collectionName} /></div>
         : <></>}
     </>
   );
