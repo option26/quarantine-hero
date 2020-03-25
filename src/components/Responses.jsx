@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
-import fb from '../firebase';
-
-const loadResponses = async (requestForHelpId) => {
-  const request = fb.store.collection('ask-for-help').doc(requestForHelpId).collection('offer-help').orderBy('timestamp', 'asc');
-  const querySnapshot = await request.get();
-  return querySnapshot.docs.map((docSnapshot) => ({ ...docSnapshot.data(), id: docSnapshot.id }));
-};
+import loadResponses from '../util/loadResponses';
 
 const Response = ({ response }) => {
   const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: de });
@@ -38,7 +32,7 @@ export default function Responses(props) {
   const [responses, setResponses] = useState(undefined);
 
   useEffect(() => {
-    loadResponses(props.id).then(setResponses);
+    loadResponses(props.id, props.collectionName).then(setResponses);
   }, [props.id]);
 
   return (
