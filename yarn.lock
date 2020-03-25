@@ -8178,7 +8178,7 @@ node-notifier@^5.4.2:
     shellwords "^0.1.1"
     which "^1.3.0"
 
-node-pre-gyp@*, node-pre-gyp@^0.14.0:
+node-pre-gyp@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.14.0.tgz#9a0596533b877289bcad4e143982ca3d904ddc83"
   integrity sha512-+CvDC7ZttU/sSt9rFjix/P05iS43qHCOOGzcr3Ry99bXG7VX953+vFyEuph/tfqoYu8dttBkE86JSKBO2OzcxA==
@@ -10133,6 +10133,11 @@ react-share@^4.1.0:
   dependencies:
     classnames "^2.2.5"
     jsonp "^0.2.1"
+
+react-slider@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-1.0.3.tgz#89bd9cf0bb87f07ce27d8724efa584d9c6e6dca8"
+  integrity sha512-6HSkzHeyPthoCuQseZ16KQePdj0VloHllXXXmtO1733wGhFa2v1kKjIuGpfHAgWshqB3F7Xn2s5FxTu3xvFXbg==
 
 react-transition-group@^4.3.0:
   version "4.3.0"

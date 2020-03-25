@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { GeoFirestore } from 'geofirestore';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags';
+import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 
 export default function CompleteOfferHelp() {
   const { t } = useTranslation();
@@ -35,6 +35,7 @@ export default function CompleteOfferHelp() {
         const urlParams = new URLSearchParams(window.location.hash);
 
         const loc = urlParams.get('#/complete-offer-help?location');
+        const placeId = urlParams.get('#/complete-offer-help?placeId');
         setLocation(loc);
 
         const geofirestore = new GeoFirestore(fb.store);
@@ -43,10 +44,15 @@ export default function CompleteOfferHelp() {
         let lng = 0;
         let plz = loc;
         if (isMapsApiEnabled) {
-          const results = await geocodeByAddress(loc);
+          let results;
+          if (placeId) {
+            results = await getGeodataForPlace(placeId);
+          } else {
+            results = await getGeodataForString(loc);
+          }
           const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
           if (plzComponent) plz = plzComponent.short_name;
-          const coordinates = await getLatLng(results[0]);
+          const coordinates = getLatLng(results[0]);
           lat = coordinates.lat;
           lng = coordinates.lng;
         }

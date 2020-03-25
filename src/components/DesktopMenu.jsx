@@ -7,26 +7,18 @@ export default function DesktopMenu(props) {
   const { t } = useTranslation();
 
   const MenuItem = (menuItemProps) => (
-    <li className="mr-6 hover:opacity-75">
+    <li className="mr-3 hover:opacity-75">
       <Link to={menuItemProps.to} onClick={menuItemProps.onClick}>{menuItemProps.children}</Link>
     </li>
   );
 
-  const Menu = (menuProps) => (
+  const Menu = () => (
     <Box className="flex w-1/2" flexDirection="column">
-      <ul className="font-exo2 flex justify-around text-xl font-semibold mt-10">
-        {menuProps.isLoggedIn
-          ? <MenuItem to="/dashboard">{t('components.desktopMenu.yourOverview')}</MenuItem>
-          : (
-            <>
-              <MenuItem to="/ask-for-help">{t('components.desktopMenu.requestHelp')}</MenuItem>
-              <MenuItem to="/overview">{t('components.desktopMenu.help')}</MenuItem>
-            </>
-          )}
+      <ul className="font-exo2 flex justify-around text-lg font-semibold mt-5 mr-5 -ml-10">
+        <MenuItem to="/ask-for-help">{t('components.desktopMenu.requestHelp')}</MenuItem>
+        <MenuItem to="/overview">{t('components.desktopMenu.help')}</MenuItem>
+        <MenuItem to="/security-tips">{t('components.desktopMenu.safety')}</MenuItem>
         <MenuItem to="/faq">FAQs</MenuItem>
-        {menuProps.isLoggedIn
-          ? <MenuItem to="#" onClick={menuProps.signOut}>{t('components.desktopMenu.signOut')}</MenuItem>
-          : ''}
       </ul>
     </Box>
   );

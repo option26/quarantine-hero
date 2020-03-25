@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
-import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags';
+import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 
 export default function AskForHelp() {
   const { t } = useTranslation();
@@ -15,6 +15,7 @@ export default function AskForHelp() {
   const [user, isAuthLoading] = useAuthState(fb.auth);
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
+  const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
   const handleSubmit = async () => {
@@ -23,10 +24,15 @@ export default function AskForHelp() {
     let plz = location;
 
     if (isMapsApiEnabled) {
-      const results = await geocodeByAddress(location);
+      let results;
+      if (placeId) {
+        results = await getGeodataForPlace(placeId);
+      } else {
+        results = await getGeodataForString(location);
+      }
       const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
       if (plzComponent) plz = plzComponent.short_name;
-      const coordinates = await getLatLng(results[0]);
+      const coordinates = getLatLng(results[0]);
       lat = coordinates.lat;
       lng = coordinates.lng;
     }
@@ -55,8 +61,9 @@ export default function AskForHelp() {
     setLocation(address);
   };
 
-  const handleSelect = (address) => {
+  const handleSelect = (address, pId) => {
     setLocation(address);
+    setPlaceId(pId);
   };
 
   if (!isAuthLoading && (!user || !user.email)) {
