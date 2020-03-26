@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 
@@ -47,11 +48,11 @@ export default function FAQ() {
       {/* This FAQ needs special treatment because of the link in it. */}
       <QA question={t('views.faq.howHelpPeopleWithoutInternet.question')}>
         {t('views.faq.howHelpPeopleWithoutInternet.answer.preLink')}
-        <a href="/assets/aushang.pdf" className="text-secondary hover:underline" download="/assets/aushang.pdf">
+        <Link to="/" className="text-secondary hover:underline">
           {' '}
           {t('views.faq.howHelpPeopleWithoutInternet.answer.link')}
           {' '}
-        </a>
+        </Link>
         {t('views.faq.howHelpPeopleWithoutInternet.answer.postLink')}
       </QA>
 

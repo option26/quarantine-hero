@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
-import { getLatLng, geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
@@ -8,6 +7,7 @@ import Entry from './Entry';
 import Slider from './Slider';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
+import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 
 export default function FilteredList(props) {
   const { t } = useTranslation();
@@ -41,14 +41,19 @@ export default function FilteredList(props) {
     return query;
   };
 
-  const buildFilteredQuery = async (searchAttr) => {
+  const buildFilteredQuery = async (searchAttr, placeId = undefined) => {
     // Fallback
     if (!searchAttr) return buildQuery();
 
     if (isMapsApiEnabled) {
       try {
-        const results = await geocodeByAddress(searchAttr);
-        const coordinates = await getLatLng(results[0]);
+        let results;
+        if (placeId) {
+          results = await getGeodataForPlace(placeId);
+        } else {
+          results = await getGeodataForString(searchAttr);
+        }
+        const coordinates = getLatLng(results[0]);
         return geoCollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius });
       } catch (error) {
         // Fallback
@@ -125,14 +130,14 @@ export default function FilteredList(props) {
     }
   };
 
-  const handleSelect = (address) => {
+  const handleSelect = (address, placeId) => {
     setLocation(address);
     // Prevent action on select if maps api disabled
     if (isMapsApiEnabled) {
       // If address is non-empty search for it
       if (address) {
         setSearching(true);
-        loadDocuments(buildFilteredQuery(address), true);
+        loadDocuments(buildFilteredQuery(address, placeId), true);
       } else {
         setSearching(false);
         loadDocuments(buildQuery());
@@ -154,18 +159,21 @@ export default function FilteredList(props) {
     <div>
       <div className="flex -mx-1">
         <div className="px-1 w-full">
-          <LocationInput required fullText onChange={handleChange} value={location} onSelect={handleSelect} />
+          <LocationInput fullText onChange={handleChange} value={location} onSelect={handleSelect} />
         </div>
-        <div className="px-1 flex">
-          <button
-            type="button"
-            className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-            onClick={() => setSliderVisible((current) => !current)}
-          >
-            {radius}
-            km
-          </button>
-        </div>
+        {isMapsApiEnabled
+          ? (
+            <div className="px-1 flex">
+              <button
+                type="button"
+                className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
+                onClick={() => setSliderVisible((current) => !current)}
+              >
+                {radius}
+                km
+              </button>
+            </div>
+          ) : null}
       </div>
       {sliderVisible
         ? (

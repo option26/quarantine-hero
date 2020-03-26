@@ -77,7 +77,8 @@ export default function Dashboard() {
             {' '}
             <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
             {' '}
-            {t('views.dashboard.create')}.
+            {t('views.dashboard.create')}
+            .
           </div>
         )
         : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
