@@ -14,7 +14,10 @@ export default function NotifyMe() {
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // Prevent page reload
+    e.preventDefault();
+
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
