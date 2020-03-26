@@ -2,7 +2,12 @@ import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import { Redirect, Link, useParams } from 'react-router-dom';
+import {
+  Redirect,
+  Link,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 import fb from '../firebase';
@@ -15,6 +20,7 @@ const Signin = (props) => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
+  const location = useLocation();
 
   const {
     user,
@@ -23,9 +29,14 @@ const Signin = (props) => {
   const { returnUrl } = useParams();
 
   if (user) {
-    if (returnUrl) return <Redirect to={`/${returnUrl}`} />;
+    if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
     return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
   }
+
+  const reasonForSignin = location && location.state && location.state.reason_for_registration
+    ? location.state.reason_for_registration
+    : 'eine Hilfe-Anfrage zu posten';
+  const headerText = `Melde dich mit deiner E-Mail und deinem Passwort an um ${reasonForSignin}.`;
 
   // eslint-disable-next-line consistent-return
   const signIn = async (e) => {
@@ -58,7 +69,7 @@ const Signin = (props) => {
       <form onSubmit={signIn}>
         <div className="mb-4">
           <div className="font-teaser mb-6">
-            Bitte melde dich an um eine Hilfe-Anfrage zu posten.
+            {headerText}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
@@ -96,7 +107,13 @@ const Signin = (props) => {
           </button>
         </div>
       </form>
-      <Link to={`/signup/${returnUrl || ''}`} className="mt-2 btn-green-secondary block w-full">
+      <Link
+        to={{
+          pathname: `/signup/${returnUrl || ''}`,
+          state: location !== undefined && location.state,
+        }}
+        className="mt-2 btn-green-secondary block w-full"
+      >
         Neu registrieren
       </Link>
       {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!</div>}
