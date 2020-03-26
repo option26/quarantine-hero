@@ -100,6 +100,8 @@ export default function GeoMigration() {
   }
 
   async function doGeoMigration() {
+    const plzStartsWith = "1"; // TODO Set your range here
+
     const helpQuery = helpColl.near({ center: new fb.app.firestore.GeoPoint(0, 0), radius: 1 }).get();
     const notifyQuery = notifyColl.near({ center: new fb.app.firestore.GeoPoint(0, 0), radius: 1 }).get();
 
@@ -111,7 +113,7 @@ export default function GeoMigration() {
       if (a.data.plz < b.data.plz) return -1;
       if (a.data.plz > b.data.plz) return 1;
       return 0;
-    });
+    }).filter(doc => doc.data.plz.startsWith(plzStartsWith));
 
     const batches = [];
 
