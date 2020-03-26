@@ -9,7 +9,12 @@
     ],
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "context": true,
+        "describe": true,
+        "it": true,
+        "cy": true,
+        "beforeEach": true
     },
     "parserOptions": {
         "ecmaFeatures": {
