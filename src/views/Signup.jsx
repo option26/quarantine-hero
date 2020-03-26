@@ -16,6 +16,7 @@ const Signup = (props) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
+  const location = useLocation();
 
   const {
     user,
@@ -28,17 +29,25 @@ const Signup = (props) => {
     return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
   }
 
+  const reasonForSignup = location && location.state && location.state.reason_for_registration
+    ? location.state.reason_for_registration
+    : 'eine Hilfe-Anfrage zu posten';
+  const headerText = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForSignup}.`;
+
   // eslint-disable-next-line consistent-return
   const registerUser = async (e) => {
     // Prevent page reload
     e.preventDefault();
 
     const signUpResult = await createUserWithEmailAndPassword(email, password);
-    if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
-    if (signUpResult.code === 'auth/email-already-in-use') {
-      setError('Es existiert bereits ein account mit dieser Email-Adresse');
+    if (signUpResult.code) {
+      switch (signUpResult.code) {
+        case 'auth/email-already-in-use': return setError('Es existiert bereits ein account mit dieser Email-Adresse.');
+        case 'auth/weak-password': return setError('Das Passwort muss mindestens sechs Zeichen lang sein.');
+        default: return setError(signUpResult.message);
+      }
     }
-    if (signUpResult.code) setError(signUpResult.message);
+    if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
   };
 
   return (
