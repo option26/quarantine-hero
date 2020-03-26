@@ -113,7 +113,7 @@ export default function GeoMigration() {
       if (a.data.plz < b.data.plz) return -1;
       if (a.data.plz > b.data.plz) return 1;
       return 0;
-    }).filter(doc => doc.data.plz.startsWith(plzStartsWith));
+    }).filter(doc => doc.data.plz && doc.data.plz.startsWith(plzStartsWith));
 
     const batches = [];
 
