@@ -18,7 +18,10 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // Prevent page reload
+    e.preventDefault();
+
     let lat = 0;
     let lng = 0;
     let plz = location;

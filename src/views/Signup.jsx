@@ -35,7 +35,9 @@ const Signup = (props) => {
 
   // eslint-disable-next-line consistent-return
   const signInOrRegister = async (e) => {
+    // Prevent page reload
     e.preventDefault();
+
     const signUpResult = await createUserWithEmailAndPassword(email, password);
     if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
     if (signUpResult.code === 'auth/email-already-in-use') {
