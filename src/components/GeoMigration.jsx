@@ -43,7 +43,7 @@ export default function GeoMigration() {
     console.log("Batches", batches);
 
     for (const batch of batches) {
-      if (batch.plz === undefined) return;
+      if (batch.plz === undefined || batch.plz === null) continue;
 
       const geoQueries = [];
       if (batch.plz.length === 5) {
@@ -53,7 +53,7 @@ export default function GeoMigration() {
             postalCode: batch.plz,
           },
         });
-      } else {
+      } else if (batch.plz.length === 4) {
         geoQueries.push({
           componentRestrictions: {
             country: 'at',
@@ -66,6 +66,8 @@ export default function GeoMigration() {
             postalCode: batch.plz,
           },
         });
+      } else {
+        continue;
       }
 
       const rawGeoResults = await Promise.all(geoQueries.map((q) => doMapsRequest(q)));
@@ -94,7 +96,7 @@ export default function GeoMigration() {
         i += 1;
       }
 
-      await sleep(1000);
+      await sleep(500);
     }
     console.log(userWithDuplicates);
   }
