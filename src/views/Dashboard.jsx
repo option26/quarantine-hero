@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import Entry from '../components/Entry';
@@ -8,69 +9,64 @@ import Entry from '../components/Entry';
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
 
-const getUserData = async (currentUser) => {
-  const query = askForHelpCollection.where('d.uid', '==', currentUser.uid);
-  const value = await query.get();
-  const sortedEntries = value.docs
-    .map((doc) => ({ ...doc.data().d, id: doc.id }))
-    .sort((a, b) => b.timestamp - a.timestamp);
-  return sortedEntries;
-};
+function Notification(props) {
+  const { t } = useTranslation();
 
-const getOffers = async (currentUser) => {
-  const offerHelpQuery = offerHelpCollection.where('d.uid', '==', currentUser.uid);
-  const response = await offerHelpQuery.get();
-  return response.docs.map((val) => ({ ...val.data().d, id: val.id }));
-};
+  const onDeleteClick = () => {
+    offerHelpCollection.doc(props.id).delete();
+  };
 
-export default function Dashboard() {
-  const [entries, setEntries] = useState([]);
-  const [offers, setOffers] = useState([]);
-  const [user, isAuthLoading] = useAuthState(fb.auth);
+  return (
+    <div>
+      <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
+        {t('views.dashboard.youWillBeNotified')}
+        {' '}
+        {props.location}
+        {' '}
+        {t('views.dashboard.needsHelp')}
+        <div className="cursor-pointer font-bold" onClick={onDeleteClick}>
+          &times;
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Commented out until there is a consistent way of showing placeholders on the site
+// function DashboardLoading() {
+//   const { t } = useTranslation();
+//   return <div className="font-open-sans my-8 text-lg text-center">{t('views.dashboard.isLoading')}</div>;
+// }
+
+function Dashboard(props) {
+  const { user } = props;
 
   const { t } = useTranslation();
 
-  const handleDelete = (id) => {
-    offerHelpCollection.doc(id).delete();
-  };
+  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
+    askForHelpCollection.where('d.uid', '==', user.uid),
+    { idField: 'id' },
+  );
+  const requestsForHelp = (requestsForHelpUnsorted || [])
+    .map((doc) => ({ ...doc.d, id: doc.id }))
+    .sort((a, b) => b.timestamp - a.timestamp);
 
-  useEffect(() => {
-    if (user) {
-      getUserData(user).then(setEntries);
-      getOffers(user).then(setOffers);
-    }
-  }, [user]);
+  const [offersDocs, isLoadingOffers] = useCollectionData(
+    offerHelpCollection.where('d.uid', '==', user.uid),
+    { idField: 'id' },
+  );
+  const offers = (offersDocs || []).map((val) => ({ ...val.d, id: val.id }));
 
-  if (!isAuthLoading && (!user || !user.email)) {
-    return <Redirect to="/signup/dashboard" />;
+  if (isLoadingRequestsForHelp || isLoadingOffers) {
+    // Commented out until there is a consistent way of showing placeholders on the site
+    // return <DashboardLoading />;
   }
-
-  const Notification = (props) => {
-    const [hidden, setHidden] = useState(false);
-
-    return (
-      <div>
-        { hidden ? '' : (
-          <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
-            {t('views.dashboard.youWillBeNotified')}
-            {' '}
-            {props.location}
-            {' '}
-            {t('views.dashboard.needsHelp')}
-            <div className="cursor-pointer font-bold" onClick={() => { setHidden(true); handleDelete(props.id); }}>
-              &times;
-            </div>
-          </div>
-        ) }
-      </div>
-    );
-  };
 
   return (
     <div className="p-4">
       <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
 
-      {entries.length === 0
+      {requestsForHelp.length === 0
         ? (
           <div className="font-open-sans">
             {t('views.dashboard.noRequests')}
@@ -81,7 +77,7 @@ export default function Dashboard() {
             .
           </div>
         )
-        : entries.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
+        : requestsForHelp.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
 
       <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
 
@@ -100,4 +96,20 @@ export default function Dashboard() {
 
     </div>
   );
+}
+
+export default function DashboardWithAuth() {
+  const [user, isAuthLoading] = useAuthState(fb.auth);
+
+  if (isAuthLoading) {
+    // Commented out until there is a consistent way of showing placeholders on the site
+    // return <DashboardLoading />;
+    return null;
+  }
+
+  if (!user || !user.email) {
+    return <Redirect to="/signup/dashboard" />;
+  }
+
+  return <Dashboard user={user} />;
 }
