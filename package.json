@@ -29,6 +29,7 @@
     "react-slider": "^1.0.3",
     "react-web-tabs": "^1.0.1",
     "react-with-firebase-auth": "^1.3.0",
+    "reactjs-popup": "^1.5.0",
     "tailwindcss": "^1.2.0"
   },
   "scripts": {
