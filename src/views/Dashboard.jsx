@@ -32,10 +32,11 @@ function Notification(props) {
   );
 }
 
-function DashboardLoading() {
-  const { t } = useTranslation();
-  return <div className="font-open-sans my-8 text-lg text-center">{t('views.dashboard.isLoading')}</div>;
-}
+// Commented out until there is a consistent way of showing placeholders on the site
+// function DashboardLoading() {
+//   const { t } = useTranslation();
+//   return <div className="font-open-sans my-8 text-lg text-center">{t('views.dashboard.isLoading')}</div>;
+// }
 
 function Dashboard(props) {
   const { user } = props;
@@ -57,7 +58,8 @@ function Dashboard(props) {
   const offers = (offersDocs || []).map((val) => ({ ...val.d, id: val.id }));
 
   if (isLoadingRequestsForHelp || isLoadingOffers) {
-    return <DashboardLoading />;
+    // Commented out until there is a consistent way of showing placeholders on the site
+    // return <DashboardLoading />;
   }
 
   return (
@@ -100,7 +102,9 @@ export default function DashboardWithAuth() {
   const [user, isAuthLoading] = useAuthState(fb.auth);
 
   if (isAuthLoading) {
-    return <DashboardLoading />;
+    // Commented out until there is a consistent way of showing placeholders on the site
+    // return <DashboardLoading />;
+    return null;
   }
 
   if (!user || !user.email) {
