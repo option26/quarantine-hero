@@ -42,8 +42,9 @@ export default function OfferHelp() {
     });
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = (e) => {
+    // Prevent page reload
+    e.preventDefault();
 
     const collection = fb.store.collection(`/ask-for-help/${id}/offer-help`);
 
