@@ -148,6 +148,14 @@ export default function FilteredList(props) {
     }
   };
 
+  const List = () => (
+    entries.length === 0 ? (
+      <NoHelpNeeded />
+    ) : (
+      entries.map((entry) => <Entry key={entry.id} {...entry} />)
+    )
+  );
+
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       {t('components.filteredList.in')}
@@ -162,24 +170,26 @@ export default function FilteredList(props) {
     <div>
       <div className="flex flex-row justify-center">
         <button
+          type="button"
           onClick={() => {
             setIsMapView(false);
           }}
           className={`text-white items-center rounded-l py-3 px-6 btn-main ${
-            isMapView ? "btn-light-green" : "btn-dark-green"
+            isMapView ? 'btn-light-green' : 'btn-dark-green'
           } hover:opacity-75`}
         >
-          {t("components.filteredList.list")}
+          {t('components.filteredList.list')}
         </button>
         <button
+          type="button"
           onClick={() => {
             setIsMapView(true);
           }}
           className={`text-white items-center rounded-r py-3 px-6 btn-main ${
-            isMapView ? "btn-dark-green" : "btn-light-green"
+            isMapView ? 'btn-dark-green' : 'btn-light-green'
           } hover:opacity-75`}
         >
-          {t("components.filteredList.map")}
+          {t('components.filteredList.map')}
         </button>
       </div>
       {!isMapView && (
@@ -197,7 +207,7 @@ export default function FilteredList(props) {
               <button
                 type="button"
                 className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-                onClick={() => setSliderVisible(current => !current)}
+                onClick={() => setSliderVisible((current) => !current)}
               >
                 {radius}
                 km
@@ -212,7 +222,7 @@ export default function FilteredList(props) {
             min={1}
             max={30}
             initialValue={radius}
-            onChange={v => setRadius(v)}
+            onChange={(v) => setRadius(v)}
             onAfterChange={() => {
               setSliderVisible(false);
               loadDocuments(buildFilteredQuery(location), searching);
@@ -225,22 +235,18 @@ export default function FilteredList(props) {
           <Link
             to="/notify-me"
             className="btn-green-secondary my-3 mb-6 w-full block"
-            onClick={() => fb.analytics.logEvent("button_subscribe_region")}
+            onClick={() => fb.analytics.logEvent('button_subscribe_region')}
           >
-            {t("components.filteredList.notifyMe")}{" "}
-            {location && location !== ""
-              ? `${t("components.filteredList.closeTo")} ${location}`
-              : t("components.filteredList.closeToMe")}{" "}
-            {t("components.filteredList.needsHelp")}
+            {t('components.filteredList.notifyMe')}
+            {' '}
+            {location && location !== ''
+              ? `${t('components.filteredList.closeTo')} ${location}`
+              : t('components.filteredList.closeToMe')}
+            {' '}
+            {t('components.filteredList.needsHelp')}
           </Link>
         </div>
-        {isMapView ? (
-          <Map />
-        ) : entries.length === 0 ? (
-          <NoHelpNeeded />
-        ) : (
-          entries.map(entry => <Entry key={entry.id} {...entry} />)
-        )}
+        {isMapView ? <Map /> : <List /> }
         {!isMapView && pageSize > 0 && !searching ? (
           <div className="flex justify-center pt-3">
             <button
@@ -248,7 +254,7 @@ export default function FilteredList(props) {
               onClick={loadMoreDocuments}
               className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75"
             >
-              {t("components.filteredList.showMore")}
+              {t('components.filteredList.showMore')}
             </button>
           </div>
         ) : null}
