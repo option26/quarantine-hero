@@ -69,6 +69,8 @@ export default () => (
           <a
             className="text-secondary hover:underline"
             href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete.html"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {' '}
             Homepage des Robert
@@ -96,7 +98,7 @@ export default () => (
     <h3 className="text-xl mt-10 font-exo2 mb-2">Distanziert</h3>
     <div className="font-open-sans">
       <div className="underline">Trefft klare Absprachen und vermeidet einen persönlichen Kontakt!</div>
-      Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als 2 m
+      Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als zwei Metern
       oder durch den Kontakt mit Tröpfchen beim Niesen oder Husten. Besprecht daher am Telefon, in sozialen Medien
       o.ä.
       was genau benötigt wird und wie Übergaben (Geld, Arzneimittelrezepte, Einkäufe etc.) kontaktlos erfolgen
@@ -116,7 +118,7 @@ export default () => (
       </div>
 
       <div className="underline mt-5">Haltet Abstand zu anderen Leuten!</div>
-      Versucht einen Abstand von mindestens 2 m zu anderen Personen einzuhalten und vermeidet direkten Körperkontakt
+      Versucht einen Abstand von mindestens zwei Metern zu anderen Personen einzuhalten und vermeidet direkten Körperkontakt
       wie
       Umarmungen oder Händeschütteln.
 
@@ -129,10 +131,20 @@ export default () => (
     <div className="mt-4">
       <div className="font-bold font-open-sans">Quellen</div>
       <span className="font-open-sans mt-2">
-        <a className="text-secondary hover:underline block" href="https://www.arbsi.uni-wuppertal.de/index.php?id=4908">
+        <a
+          className="text-secondary hover:underline block"
+          href="https://www.arbsi.uni-wuppertal.de/index.php?id=4908"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Handlungshilfen für den Einsatz von Spontanhelfenden im Rahmen des Coronavirus (SARS-CoV-2); Bergische Universität Wuppertal
         </a>
-        <a className="text-secondary hover:underline block mt-2" href="https://bit.ly/3a405f7">
+        <a
+          className="text-secondary hover:underline block mt-2"
+          href="https://bit.ly/3a405f7"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Solidarität in Zeiten des COVID-19: Wie man richtig hilft; Ben F. Meier
         </a>
       </span>
@@ -141,13 +153,20 @@ export default () => (
     <h2 id="current-news" className="text-2xl font-exo2 mt-10">Wo informiere ich mich am besten?</h2>
     <div className="font-open-sans">
       <h3 className="text-xl font-exo2 mt-3">Deutschland</h3>
-      <a className="block mt-1 hover:underline text-secondary" href="https://www.infektionsschutz.de/">
+      <a
+        className="block mt-1 hover:underline text-secondary"
+        href="https://www.infektionsschutz.de/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Aktuelle
         Informationen der Bundeszentrale für gesundheitliche Aufklärung
       </a>
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.bundesregierung.de/breg-de/themen/coronavirus"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Informationen der Bundesregierung zum
         Coronavirus
@@ -155,6 +174,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.bundesregierung.de/resource/blob/975226/1733246/e6d6ae0e89a7ffea1ebf6f32cf472736/2020-03-22-mpk-data.pdf?download=1"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Kontaktverbot Bundesregierung
       </a>
@@ -163,6 +184,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.sozialministerium.at/Informationen-zum-Coronavirus/Coronavirus---Aktuelle-Ma%C3%9Fnahmen.html"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Aktuelle Informationen der Bundesregierung zum Coronavirus
       </a>
@@ -170,6 +193,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.sozialministerium.at/dam/jcr:aca0d8db-a2c6-46bd-bf07-b04cd187fd84/Verordnung_V20200319_Ansicht.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Ausgangssperre Österreich
       </a>
@@ -178,6 +203,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.bag.admin.ch/bag/de/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov.html"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Aktuelle Informationen des Bundesamt für Gesundheit:
       </a>
@@ -185,6 +212,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.admin.ch/opc/de/classified-compilation/20200744/index.html"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Verordnung des Schweizerischen Bundesrats über Maßnahmen des Coronavirus
       </a>
