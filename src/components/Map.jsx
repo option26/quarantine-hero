@@ -74,7 +74,12 @@ export default function Map() {
       </p>
       <div className="my-3" style={{ height: "750px", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "/* YOUR KEY HERE */" }}
+          bootstrapURLKeys={{
+            language: "de",
+            region: "de",
+            key: "API_KEY_HERE"
+          }}
+          yesIWantToUseGoogleMapApiInternals={true}
           onGoogleApiLoaded={({ map }) => {
             mapRef.current = map;
           }}
