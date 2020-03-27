@@ -76,6 +76,7 @@ export default function Entry(props) {
     await fb.store.collection('solved-posts').doc(props.id).set(data);
     setDeleted(true);
     setAttemptingToDelete(false);
+    setPopupVisible(false);
   };
 
   const handleNewAskForHelp = async (e) => {
