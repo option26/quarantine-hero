@@ -199,6 +199,8 @@
       "registrationReason": "den Beitrag zu melden"
     },
     "filteredList": {
+      "list": "LISTE",
+      "map": "KARTE",
       "in": "In",
       "noHelpCurrentlyNeeded": "wird gerade keine Hilfe gebraucht!",
       "notifyMe": "Benachrichtige mich wenn jemand in",

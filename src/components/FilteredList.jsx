@@ -169,7 +169,7 @@ export default function FilteredList(props) {
             isMapView ? "btn-light-green" : "btn-dark-green"
           } hover:opacity-75`}
         >
-          LISTE
+          {t("components.filteredList.list")}
         </button>
         <button
           onClick={() => {
@@ -179,7 +179,7 @@ export default function FilteredList(props) {
             isMapView ? "btn-dark-green" : "btn-light-green"
           } hover:opacity-75`}
         >
-          KARTE
+          {t("components.filteredList.map")}
         </button>
       </div>
       {!isMapView && (
