@@ -8,6 +8,7 @@ import Slider from './Slider';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
+import Map from './Map';
 
 export default function FilteredList(props) {
   const { t } = useTranslation();
@@ -27,6 +28,8 @@ export default function FilteredList(props) {
 
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
+
+  const [isMapView, setIsMapView] = useState(false);
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -157,57 +160,95 @@ export default function FilteredList(props) {
 
   return (
     <div>
-      <div className="flex -mx-1">
-        <div className="px-1 w-full">
-          <LocationInput fullText onChange={handleChange} value={location} onSelect={handleSelect} />
-        </div>
-        {isMapsApiEnabled
-          ? (
+      <div className="flex flex-row justify-center">
+        <button
+          onClick={() => {
+            setIsMapView(false);
+          }}
+          className={`text-white items-center rounded-l py-3 px-6 btn-main ${
+            isMapView ? "btn-light-green" : "btn-dark-green"
+          } hover:opacity-75`}
+        >
+          LISTE
+        </button>
+        <button
+          onClick={() => {
+            setIsMapView(true);
+          }}
+          className={`text-white items-center rounded-r py-3 px-6 btn-main ${
+            isMapView ? "btn-dark-green" : "btn-light-green"
+          } hover:opacity-75`}
+        >
+          KARTE
+        </button>
+      </div>
+      {!isMapView && (
+        <div className="flex -mx-1 pt-5">
+          <div className="px-1 w-full">
+            <LocationInput
+              fullText
+              onChange={handleChange}
+              value={location}
+              onSelect={handleSelect}
+            />
+          </div>
+          {isMapsApiEnabled ? (
             <div className="px-1 flex">
               <button
                 type="button"
                 className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-                onClick={() => setSliderVisible((current) => !current)}
+                onClick={() => setSliderVisible(current => !current)}
               >
                 {radius}
                 km
               </button>
             </div>
           ) : null}
-      </div>
-      {sliderVisible
-        ? (
-          <div className="pt-5 w-full">
-            <Slider
-              min={1}
-              max={30}
-              initialValue={radius}
-              onChange={(v) => setRadius(v)}
-              onAfterChange={() => {
-                setSliderVisible(false);
-                loadDocuments(buildFilteredQuery(location), searching);
-              }}
-            />
-          </div>
-        ) : null}
+        </div>
+      )}
+      {!isMapView && sliderVisible ? (
+        <div className="pt-5 w-full">
+          <Slider
+            min={1}
+            max={30}
+            initialValue={radius}
+            onChange={v => setRadius(v)}
+            onAfterChange={() => {
+              setSliderVisible(false);
+              loadDocuments(buildFilteredQuery(location), searching);
+            }}
+          />
+        </div>
+      ) : null}
       <div className="py-3 w-full">
         <div className="my-3 w-full">
-          <Link to="/notify-me" className="btn-green-secondary my-3 mb-6 w-full block" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>
-            {t('components.filteredList.notifyMe')}
-            {' '}
-            {location && location !== '' ? `${t('components.filteredList.closeTo')} ${location}` : t('components.filteredList.closeToMe')}
-            {' '}
-            {t('components.filteredList.needsHelp')}
+          <Link
+            to="/notify-me"
+            className="btn-green-secondary my-3 mb-6 w-full block"
+            onClick={() => fb.analytics.logEvent("button_subscribe_region")}
+          >
+            {t("components.filteredList.notifyMe")}{" "}
+            {location && location !== ""
+              ? `${t("components.filteredList.closeTo")} ${location}`
+              : t("components.filteredList.closeToMe")}{" "}
+            {t("components.filteredList.needsHelp")}
           </Link>
         </div>
-        {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
-          (entry) => (
-            <Entry key={entry.id} {...entry} />),
+        {isMapView ? (
+          <Map />
+        ) : entries.length === 0 ? (
+          <NoHelpNeeded />
+        ) : (
+          entries.map(entry => <Entry key={entry.id} {...entry} />)
         )}
-        {(pageSize > 0 && !searching) ? (
+        {!isMapView && pageSize > 0 && !searching ? (
           <div className="flex justify-center pt-3">
-            <button type="button" onClick={loadMoreDocuments} className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75">
-              {t('components.filteredList.showMore')}
+            <button
+              type="button"
+              onClick={loadMoreDocuments}
+              className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75"
+            >
+              {t("components.filteredList.showMore")}
             </button>
           </div>
         ) : null}

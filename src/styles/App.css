@@ -34,6 +34,16 @@
     background-color: #eeeeee;
 }
 
+.btn-light-green {
+    color: #87a544;
+    background-color: #e9efdd;
+}
+
+.btn-dark-green {
+    color: white;
+    background-color: #87a544;
+}
+
 .font-open-sans {
     font-family: 'Open Sans', sans-serif;
     letter-spacing: 0;
