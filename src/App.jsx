@@ -10,6 +10,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
@@ -42,7 +43,11 @@ function App(props) {
   } = props;
 
 
-  const addListener = () => {
+  const enableAnalytics = () => {
+    // Crash reporting
+    Sentry.init({ dsn: 'https://5018c931f62b4a0885ee348ccaf753ce@sentry.io/5177575' });
+
+    // Firebase analytics
     fb.analytics = fb.app.analytics();
     const handleHashChange = () => {
       const hash = document.location.hash;
@@ -55,7 +60,7 @@ function App(props) {
 
   useEffect(() => {
     if (document.cookie.indexOf('cookieConsent') > -1) {
-      return addListener();
+      return enableAnalytics();
     }
     return undefined;
   }, []);
@@ -160,7 +165,7 @@ function App(props) {
         cookieName="cookieConsent"
         style={{ background: '#2B373B' }}
         buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-        onAccept={addListener}
+        onAccept={enableAnalytics}
         expires={365}
       >
         {t('App.usesCookies')}
