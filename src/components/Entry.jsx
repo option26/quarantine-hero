@@ -160,7 +160,7 @@ export default function Entry(props) {
 
   const requestCard = (
     <Link
-      to={`/offer-help/${props.id}`}
+      to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${props.id}`}
       className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
       key={id}
       ref={link}
