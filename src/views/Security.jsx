@@ -69,6 +69,8 @@ export default () => (
           <a
             className="text-secondary hover:underline"
             href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete.html"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {' '}
             Homepage des Robert
@@ -154,6 +156,8 @@ export default () => (
       <a
         className="block mt-1 hover:underline text-secondary"
         href="https://www.infektionsschutz.de/"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Aktuelle
         Informationen der Bundeszentrale für gesundheitliche Aufklärung
