@@ -130,7 +130,7 @@
       }
     },
     "notifyMe": {
-     "beNotified": "Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.",
+      "beNotified": "Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.",
       "emailSent": "Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir werden dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
       "yourMail": "Deine Emailadresse",
       "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!"
@@ -153,6 +153,12 @@
     "successOffer": {
       "thankYou": "Vielen Dank, wir haben Deine Nachricht weitergeleitet.",
       "toHome": "ZUR STARTSEITE"
+    },
+
+    "notFound": {
+      "oopsTitle": "Uups, da ist wohl etwas schiefgelaufen.",
+      "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",
+      "toHome": "Bring mich zur Startseite"
     }
   },
   "components": {

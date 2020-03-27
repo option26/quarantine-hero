@@ -46,6 +46,7 @@ sketch
 
 ### VisualStudioCode ###
 .vscode/*
+.jshintrc
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files

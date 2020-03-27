@@ -19,6 +19,7 @@ import Signup from './views/Signup';
 import AskForHelp from './views/AskForHelp';
 import Overview from './views/Overview';
 import Success from './views/Success';
+import NotFound from './views/NotFound';
 import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
 import DSGVO from './views/DSGVO';
@@ -140,9 +141,10 @@ function App(props) {
                 <Route path="/complete-offer-help">
                   <CompleteOfferHelp />
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                   <Main />
                 </Route>
+                <Route component={NotFound} path="*" />
               </Switch>
               <ScrollUpButton
                 ContainerClassName="scroll-up-btn"
