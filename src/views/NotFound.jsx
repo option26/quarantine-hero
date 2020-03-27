@@ -11,9 +11,7 @@ export default function NotFound() {
 
 
   useEffect(() => {
-    if (!randomNum) {
-      setRandomNum(Math.ceil(Math.random() * 7));
-    }
+    setRandomNum(Math.ceil(Math.random() * 7));
   }, []);
 
   const getRandomSvg = () => {
