@@ -199,7 +199,18 @@
       "message_plural": "{{count}} Nachrichten",
       "deleteRequestForHelp": "Löschen",
       "registrationReason": "den Beitrag zu melden",
-      "heroFound": "Held*in gefunden"
+      "heroFound": "Held*in gefunden",
+      "popup": {
+        "heroFound": "Ich habe eine*n Held*in gefunden",
+        "deleteAnyway": "Trotzdem löschen",
+        "wasYourRequestSuccessful": "War dein Hilfegesuch erfolgreich?",
+        "yourRequestWasDeleted": "Dein Hilfegesuch wurde gelöscht!",
+        "backToOverview": "Zurück zur Übersicht",
+        "reassureDeletion": "Diese Anfrage wirklich löschen?",
+        "cancel": "Abbrechen",
+        "deleteTerminally": "Endgültig löschen",
+        "createNewRequest": "Neue Anfrage Erstellen"
+      }
     },
     "filteredList": {
       "in": "In",
