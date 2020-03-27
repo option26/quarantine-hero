@@ -6,6 +6,7 @@ import useSupercluster from "use-supercluster";
 
 import Entry from "./Entry";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_ZOOM_LEVEL = 6
 
@@ -13,6 +14,8 @@ const Marker = ({ children }) => children;
 
 export default function Map() {
   const mapRef = useRef();
+
+  const { t } = useTranslation();
 
   const [zoom, setZoom] = useState(DEFAULT_ZOOM_LEVEL);
   const [bounds, setBounds] = useState(null);
@@ -66,6 +69,9 @@ export default function Map() {
 
   return (
     <div>
+      <p className="font-open-sans font-hairline text-s italic mb-3">
+        {t("components.map.hint")}
+      </p>
       <div className="my-3" style={{ height: "750px", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "/* YOUR KEY HERE */" }}
@@ -93,8 +99,6 @@ export default function Map() {
               cluster: isCluster,
               point_count: pointCount
             } = cluster.properties;
-
-            
 
             if (isCluster) {
               return (
@@ -128,43 +132,47 @@ export default function Map() {
               );
             }
 
-              return (
-                <Marker
-                  key={`helpRequest-${cluster.properties.id}`}
-                  lat={latitude}
-                  lng={longitude}
+            return (
+              <Marker
+                key={`helpRequest-${cluster.properties.id}`}
+                lat={latitude}
+                lng={longitude}
+              >
+                <div
+                  className={`help-request-marker ${
+                    lastSelectedMarkerId === cluster.properties.id
+                      ? "hrm-selected"
+                      : ""
+                  }`}
+                  style={{
+                    width: `${10 + (pointCount / entries.length) * 20}px`,
+                    height: `${10 + (pointCount / entries.length) * 20}px`
+                  }}
+                  onClick={() => {
+                    setLastSelectedMarkerId(cluster.properties.id);
+                    setSelectedHelpRequests([cluster.properties]);
+                  }}
                 >
-                  <div
-                    className={`help-request-marker ${
-                      lastSelectedMarkerId === cluster.properties.id
-                        ? "hrm-selected"
-                        : ""
-                    }`}
-                    style={{
-                      width: `${10 + (pointCount / entries.length) * 20}px`,
-                      height: `${10 + (pointCount / entries.length) * 20}px`
-                    }}
-                    onClick={() => {
-                      setLastSelectedMarkerId(cluster.properties.id);
-                      setSelectedHelpRequests([cluster.properties]);
-                    }}
-                  >
-                    <img
-                      className="help-request-image"
-                      alt="help-marker"
-                      src={require("../assets/need_help.png")}
-                    />
-                  </div>
-                </Marker>
-              );
+                  <img
+                    className="help-request-image"
+                    alt="help-marker"
+                    src={require("../assets/need_help.png")}
+                  />
+                </div>
+              </Marker>
+            );
           })}
         </GoogleMapReact>
       </div>
       <strong className="font-open-sans">
-        {selectedHelpRequests.length} Anfragen im ausgewählten Gebiet:
+        {t("components.map.requestsInSelectedRegion", {
+          count: selectedHelpRequests.length
+        })}
       </strong>
       {selectedHelpRequests.length === 0 ? (
-        <p className="font-open-sans">Nimm erst eine Auswahl vor!</p>
+        <p className="font-open-sans">
+          {t("components.map.selectARegionFirst")}
+        </p>
       ) : (
         selectedHelpRequests.map(entry => {
           return <Entry key={entry.id} {...entry} />;
