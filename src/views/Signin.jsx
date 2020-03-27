@@ -74,7 +74,7 @@ const Signin = (props) => {
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             Email
           </label>
-          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onSetEmail={setEmail} defaultValue={email} />
+          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onChange={setEmail} defaultValue={email} />
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">

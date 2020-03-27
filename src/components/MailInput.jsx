@@ -1,7 +1,7 @@
 import React from 'react';
 import dems from '../assets/dems.json';
 
-function checkForDEM(data, setEmailCallback) {
+function validate(data) {
   const mail = data.target.value;
   if (mail.includes('@')) {
     const domain = mail.substring(mail.lastIndexOf('@') + 1);
@@ -12,7 +12,6 @@ function checkForDEM(data, setEmailCallback) {
     } else {
       // this is not a DEM
       data.target.setCustomValidity('');
-      setEmailCallback(mail);
     }
   } else {
     data.target.setCustomValidity('');
@@ -20,12 +19,19 @@ function checkForDEM(data, setEmailCallback) {
 }
 
 export default function MailInput(props) {
+  const {
+    onChange = () => {},
+  } = props;
+
   return (
     <input
       className={props.className}
       type="email"
       placeholder={props.placeholder}
-      onChange={(e) => checkForDEM(e, props.onSetEmail)}
+      onChange={(e) => {
+        validate(e);
+        onChange(e.target.value);
+      }}
       defaultValue={props.defaultValue}
       required
     />
