@@ -1,17 +1,103 @@
-import PlacesAutocomplete from 'react-places-autocomplete';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isMapsApiEnabled } from '../featureFlags';
+import { getSuggestions } from '../services/GeoService';
 
 export default function LocationInput(props) {
+  if (isMapsApiEnabled) {
+    return <Autocomplete {...props} />;
+  }
+  return <ZipCodeInput {...props} />;
+}
+
+function ZipCodeInput(props) {
+  const {
+    required = true,
+    defaultValue = '',
+    onChange = () => {},
+    onChangeDebounced = () => {},
+    debounce = 200,
+  } = props;
+
   const { t } = useTranslation();
 
-  const validateNumber = (event) => {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    return charCode <= 47 || (charCode >= 48 && charCode <= 57);
+  const [scheduledChange, setScheduledChange] = useState(undefined);
+
+  const handleChange = (e) => {
+    if (scheduledChange) {
+      clearTimeout(scheduledChange);
+    }
+
+    const value = e.target.value;
+    if (value.length >= 4 && value.length <= 5) {
+      e.target.setCustomValidity('');
+    } else {
+      e.target.setCustomValidity(t('components.locationInput.invalidPlz'));
+    }
+
+    setScheduledChange(setTimeout(() => {
+      onChangeDebounced(value);
+    }, debounce));
+    onChange(value);
   };
 
+  return (
+    <div className="w-full">
+      <input
+        required={required}
+        defaultValue={defaultValue}
+        type="number"
+        className="input-focus"
+        min={0}
+        max={99999}
+        minLength={4}
+        maxLength={5}
+        placeholder={t('components.locationInput.yourPostalCode')}
+        onChange={handleChange}
+      />
+    </div>
+  );
+}
+
+function Autocomplete(props) {
+  const {
+    required = true,
+    defaultValue = '',
+    onChange = () => {},
+    fullText = false,
+    onChangeDebounced = () => { },
+    debounce = 200,
+    minSearchInput = 4,
+    onSelect = () => { },
+  } = props;
+
+  const { t } = useTranslation();
   const inputRef = useRef();
+
+  const [scheduledChange, setScheduledChange] = useState(undefined);
+  const [suggestions, setSuggestions] = useState([]);
+  const [waitingForResults, setWaitingForResults] = useState(false);
+
+  const loadSuggestions = async (searchValue) => {
+    if (searchValue && searchValue.length >= minSearchInput) {
+      try {
+        const results = await getSuggestions(searchValue, {
+          types: ['(regions)'],
+          componentRestrictions: {
+            country: ['de', 'at', 'ch', 'it'],
+          },
+        });
+
+        setSuggestions(results);
+      } catch (err) {
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+    setWaitingForResults(false);
+  };
+
   const setValidity = (valid, msg = undefined) => {
     if (valid) {
       inputRef.current.setCustomValidity('');
@@ -26,102 +112,110 @@ export default function LocationInput(props) {
     }
   };
 
+  const handleDebouncedChange = (value) => {
+    loadSuggestions(value);
+    onChangeDebounced(value);
+  };
+
+  const handleChange = (value) => {
+    setWaitingForResults(true);
+    setInvalidNoSelect();
+    if (scheduledChange) {
+      clearTimeout(scheduledChange);
+    }
+
+    setScheduledChange(setTimeout(() => {
+      handleDebouncedChange(value);
+    }, debounce));
+    onChange(value);
+  };
+
+  const handleSelect = (suggestion) => {
+    if (suggestion) {
+      setValidity(true);
+      inputRef.current.value = suggestion.description;
+      setSuggestions([]);
+      onSelect(suggestion.description, suggestion.place_id);
+    }
+  };
+
+  const validateKeypress = (event) => {
+    const key = event.key;
+    const keyInvalid = !fullText && key.length === 1 && !(/\d/.test(key));
+    if (keyInvalid) {
+      event.preventDefault();
+    }
+  };
+
   useEffect(setInvalidNoSelect, []);
 
-  if (isMapsApiEnabled) {
-    return (
-      <PlacesAutocomplete
-        onChange={(value) => {
-          setInvalidNoSelect();
-          props.onChange(value);
-        }}
-        debounce={1000}
-        highlightFirstSuggestion
-        shouldFetchSuggestions={inputRef.current && inputRef.current.value.length > 2}
-        value={props.value}
-        onSelect={(value, placeId) => {
-          // We want to prevent hitting enter without selecting entry, hence we check
-          // placeId as it is null if enter is pressed wthout an entry being selected
-          if (value && placeId) {
-            setValidity(true);
-            props.onSelect(value);
-          }
-        }}
-        searchOptions={{
-          types: ['(regions)'],
-          componentRestrictions: { country: ['de', 'at', 'ch', 'it'] },
-        }}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-          <div className="relative">
-            <input
-              ref={inputRef}
-              required={props.required}
-              {...getInputProps({
-                onKeyDown: (e) => {
-                  if (!props.fullText && !validateNumber(e)) e.preventDefault();
-                },
-                placeholder: props.fullText ? t('components.locationInput.yourPostalCodeOrNeighbourhood') : t('components.locationInput.yourPostalCode'),
-                className: 'location-search-input appearance-none input-focus',
-              })}
-            />
-            {suggestions.length === 0
-              ? (
-                <div
-                  className={`absolute top-0 right-0 mt-2 mr-2 loader
-                ${inputRef.current && inputRef.current.value.length === 1 && ' loader-0'}
-                ${inputRef.current && inputRef.current.value.length === 2 && ' loader-0 loader-1'}
-                ${inputRef.current && inputRef.current.value.length === 3 && ' loader-0 loader-1 loader-2'}
-                ${inputRef.current && inputRef.current.value.length > 3 && ' loader-0 loader-loading'}
-              `}
-                />
-              ) : null}
-            <div className="absolute w-full shadow-xl z-10">
-              {suggestions.map((suggestion) => {
-                const className = suggestion.active
-                  ? 'p-2 suggestion-item--active'
-                  : 'p-2 suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-    );
-  }
+  const loadingVisible = (inputRef.current && inputRef.current.value.length < minSearchInput) || waitingForResults;
+
   return (
-    <div className="w-full">
+    <div className="relative">
       <input
         ref={inputRef}
-        required={props.required}
-        type="number"
-        className="input-focus"
-        maxLength={5}
-        min={0}
-        max={99999}
-        placeholder={t('components.locationInput.yourPostalCode')}
+        className="location-search-input appearance-none input-focus truncate"
+        style={{ paddingRight: '45px' }}
+        defaultValue={defaultValue}
         onChange={(e) => {
-          if (e.target.value.length >= 4 && e.target.value.length <= 5) {
-            setValidity(true);
-          } else {
-            setValidity(false, t('components.locationInput.invalidPlz'));
-          }
-          props.onChange(e.target.value);
+          handleChange(e.target.value);
         }}
+        onKeyDown={validateKeypress}
+        required={required}
+        type="text"
+        inputMode={fullText ? '' : 'numeric'}
+        placeholder={fullText ? t('components.locationInput.yourPostalCodeOrNeighbourhood') : t('components.locationInput.yourPostalCode')}
       />
+      {loadingVisible && (
+        <LoadingIndicator
+          className="absolute top-0 right-0 mr-2 mt-2"
+          isLoading={inputRef.current && inputRef.current.value.length >= minSearchInput}
+          fillLevel={inputRef.current && inputRef.current.value.length}
+        />
+      )}
+      <div className="absolute w-full bg-white shadow-xl z-10">
+        {suggestions.map((s) => (
+          <AutocompleteSuggestion
+            key={s.description}
+            suggestion={s}
+            onClick={() => handleSelect(s)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LoadingIndicator(props) {
+  const {
+    isLoading = false,
+    fillLevel = 0,
+    className,
+  } = props;
+
+  const classNames = `${className} loader loader-${fillLevel} ${isLoading && 'loader-loading'}`;
+
+  return (
+    <div
+      className={classNames}
+    />
+  );
+}
+
+function AutocompleteSuggestion(props) {
+  const {
+    suggestion,
+    onClick,
+  } = props;
+
+  return (
+    <div
+      className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+      onClick={onClick}
+      {...props}
+    >
+      <span>{suggestion.description}</span>
     </div>
   );
 }

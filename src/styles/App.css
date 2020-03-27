@@ -95,3 +95,7 @@
     border-width: 0 14px 14px 14px;
     border-color: transparent transparent #efefef transparent;
 }
+
+.bg-white-75 {
+    background-color: rgba(255, 255, 255, 0.75)
+}
