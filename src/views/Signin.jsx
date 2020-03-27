@@ -55,6 +55,7 @@ const Signin = (props) => {
   // eslint-disable-next-line consistent-return
   const sendPasswordResetMail = async (e) => {
     e.preventDefault();
+    setError('');
     if (!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
     fb.auth.sendPasswordResetEmail(email, {
       url: `${baseUrl}/#/signin`,
