@@ -103,7 +103,7 @@ function Dashboard(props) {
             .
           </div>
         )
-        : solvedPosts.map((entry) => (<Entry {...entry} key={entry.id} owner showAsSolved />))}
+        : solvedPosts.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
     </div>
   );
 
