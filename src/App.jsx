@@ -44,7 +44,7 @@ function App(props) {
 
 
   const enableAnalytics = () => {
-    // Crash reportin
+    // Crash reporting
     Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
 
     // Firebase analytics
