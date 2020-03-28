@@ -1,6 +1,7 @@
 import React from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebaseApp from 'firebase/app';
+import { useTranslation } from 'react-i18next';
 import 'firebase/auth';
 import {
   Redirect,
@@ -21,6 +22,7 @@ const Signin = (props) => {
   const [error, setError] = React.useState('');
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
   const location = useLocation();
+  const { t } = useTranslation();
 
   const {
     user,
@@ -35,8 +37,8 @@ const Signin = (props) => {
 
   const reasonForSignin = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
-    : 'eine Hilfe-Anfrage zu posten';
-  const headerText = `Melde dich mit deiner E-Mail und deinem Passwort an um ${reasonForSignin}.`;
+    : t('views.signIn.reasonForSigninDefault');
+  const headerText = t('views.signIn.headerText', { reasonForSignin });
 
   // eslint-disable-next-line consistent-return
   const signIn = async (e) => {
@@ -44,8 +46,8 @@ const Signin = (props) => {
     const signInResult = await signInWithEmailAndPassword(email, password);
     if (signInResult.code) {
       switch (signInResult.code) {
-        case 'auth/user-not-found': return setError('Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.');
-        case 'auth/wrong-password': return setError('Falsche Email Adresse oder falsches Passwort angegeben.');
+        case 'auth/user-not-found': return setError(t('views.signIn.noUser'));
+        case 'auth/wrong-password': return setError(t('views.signIn.wrongUserOrPw'));
         default: return setError(signInResult.message);
       }
     }
@@ -56,13 +58,13 @@ const Signin = (props) => {
   const sendPasswordResetMail = async (e) => {
     e.preventDefault();
     setError('');
-    if (!email) return setError('Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.');
+    if (!email) return setError(t('views.signIn.enterEmailForReset'));
     fb.auth.sendPasswordResetEmail(email, {
       url: `${baseUrl}/#/signin`,
       handleCodeInApp: false,
     })
       .then(() => setPasswordResetSuccess(true))
-      .catch(() => setError('Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?'));
+      .catch(() => setError(t('views.signIn.pwResetError')));
   };
 
   return (
@@ -73,25 +75,25 @@ const Signin = (props) => {
             {headerText}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
-            Email
+            {t('views.signIn.email')}
           </label>
-          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onChange={setEmail} defaultValue={email} />
+          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder={t('views.signIn.yourEmail')} onChange={setEmail} defaultValue={email} />
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
-            Passwort
+            {t('views.signIn.password')}
           </label>
           <input
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password"
             type="password"
-            placeholder="Dein Passwort"
+            placeholder={t('views.signIn.yourPw')}
             value={password}
             required="required"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="button" className="float-right text-secondary hover:underline" onClick={sendPasswordResetMail}>
-            <small>Passwort zurücksetzen</small>
+            <small>{t('views.signIn.resetPw')}</small>
           </button>
         </div>
         {error ? (
@@ -104,7 +106,7 @@ const Signin = (props) => {
             className="btn-green w-full"
             type="submit"
           >
-            Jetzt anmelden
+            {t('views.signIn.loginNow')}
           </button>
         </div>
       </form>
@@ -115,9 +117,9 @@ const Signin = (props) => {
         }}
         className="mt-2 btn-green-secondary block w-full"
       >
-        Neu registrieren
+        {t('views.signIn.registerNow')}
       </Link>
-      {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!</div>}
+      {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.signIn.pwResetConfirmation')}</div>}
       <Footer />
     </div>
   );

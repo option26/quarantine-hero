@@ -154,6 +154,36 @@
     "successOffer": {
       "thankYou": "Vielen Dank, wir haben Deine Nachricht weitergeleitet.",
       "toHome": "ZUR STARTSEITE"
+    },
+    "signIn": {
+      "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.",
+      "wrongUserOrPw": "Falsche Email Adresse oder falsches Passwort angegeben.",
+      "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.",
+      "pwResetError": "Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?",
+      "yourEmail": "Deine Emailadresse",
+      "yourPw": "Dein Passwort",
+      "email": "Email",
+      "password": "Passwort",
+      "resetPw": "Passwort zurücksetzen",
+      "loginNow": "Jetzt anmelden",
+      "registerNow": "Neu registrieren",
+      "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
+      "headerText": "Melde dich mit deiner E-Mail und deinem Passwort an um {{reasonForSignin}}.",
+      "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten"
+    },
+    "signUp": {
+      "headerText": "Registriere dich mit deiner E-Mail und einem Passwort um {{reasonForSignup}}.",
+      "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
+      "pwMismatch": "Die Passwörter stimmen nicht überein",
+      "yourEmail": "Deine Emailadresse",
+      "yourPw": "Dein Passwort",
+      "email": "Email",
+      "password": "Passwort",
+      "passwordRepeat": "Passwort wiederholen",
+      "confirmPassword": "Passwort erneut eingeben",
+      "registerNow": "Jetzt registrieren",
+      "emailInUse": "Es existiert bereits ein Account mit dieser Email-Adresse.",
+      "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein."
     }
   },
   "components": {

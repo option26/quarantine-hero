@@ -7,6 +7,7 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
@@ -19,6 +20,7 @@ const Signup = (props) => {
   const location = useLocation();
   const passwordInput = useRef();
   const passwordRepeatInput = useRef();
+  const { t } = useTranslation();
 
   const {
     user,
@@ -33,8 +35,8 @@ const Signup = (props) => {
 
   const reasonForSignup = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
-    : 'eine Hilfe-Anfrage zu posten';
-  const headerText = `Registriere dich mit deiner E-Mail und einem Passwort um ${reasonForSignup}.`;
+    : t('views.signUp.reasonForSignupDefault');
+  const headerText = t('views.signUp.headerText', { reasonForSignup });
 
   // eslint-disable-next-line consistent-return
   const registerUser = async (e) => {
@@ -44,8 +46,8 @@ const Signup = (props) => {
     const signUpResult = await createUserWithEmailAndPassword(email, password);
     if (signUpResult.code) {
       switch (signUpResult.code) {
-        case 'auth/email-already-in-use': return setError('Es existiert bereits ein account mit dieser Email-Adresse.');
-        case 'auth/weak-password': return setError('Das Passwort muss mindestens sechs Zeichen lang sein.');
+        case 'auth/email-already-in-use': return setError(t('views.signUp.emailInUse'));
+        case 'auth/weak-password': return setError(t('views.signUp.pwTooShort'));
         default: return setError(signUpResult.message);
       }
     }
@@ -54,7 +56,7 @@ const Signup = (props) => {
 
   const comparePasswords = () => {
     if (passwordInput.current.value !== passwordRepeatInput.current.value) {
-      passwordRepeatInput.current.setCustomValidity('Die Passwörter stimmen nicht überein');
+      passwordRepeatInput.current.setCustomValidity(t('views.signUp.pwMismatch'));
     } else {
       passwordRepeatInput.current.setCustomValidity('');
     }
@@ -68,20 +70,20 @@ const Signup = (props) => {
             {headerText}
           </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
-            Email
+            {t('views.signUp.email')}
           </label>
-          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder="Deine Emailadresse" onChange={setEmail} defaultValue={email} />
+          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder={t('views.signUp.yourEmail')} onChange={setEmail} defaultValue={email} />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
-            Passwort
+            {t('views.signUp.password')}
           </label>
           <input
             ref={passwordInput}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password"
             type="password"
-            placeholder="Dein Passwort"
+            placeholder={t('views.signUp.yourPw')}
             value={password}
             required="required"
             onChange={(e) => {
@@ -92,14 +94,14 @@ const Signup = (props) => {
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
-            Passwort wiederholen
+            {t('views.signUp.passwordRepeat')}
           </label>
           <input
             ref={passwordRepeatInput}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password_repeat"
             type="password"
-            placeholder="Password wiederholen"
+            placeholder={t('views.signUp.confirmPassword')}
             required="required"
             onChange={comparePasswords}
           />
@@ -114,7 +116,7 @@ const Signup = (props) => {
             className="btn-green w-full"
             type="submit"
           >
-            Jetzt Registrieren
+            {t('views.signUp.registerNow')}
           </button>
         </div>
       </form>
