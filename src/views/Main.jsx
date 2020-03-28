@@ -56,7 +56,9 @@ export default function Main() {
           <Rules />
         </div>
 
-        <OnePagers />
+        <div className="mx-4 md:mx-0">
+          <OnePagers />
+        </div>
 
         <ArrowDown onClick={scrollTo} />
 
