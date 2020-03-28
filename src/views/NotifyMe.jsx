@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
@@ -14,7 +15,10 @@ export default function NotifyMe() {
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // Prevent page reload
+    e.preventDefault();
+
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
@@ -26,6 +30,7 @@ export default function NotifyMe() {
 
       setSignInLinkSent(true);
     } catch (error) {
+      Sentry.captureException(error);
       // TODO: handle error
     }
   };

@@ -238,6 +238,7 @@
     border-left: 6px solid #87a544;
 }
 
-.suggestion-item {
-
+.text-fine-print {
+    font-size: 4pt;
+    color: #aaaaaa;
 }

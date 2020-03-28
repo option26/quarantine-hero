@@ -107,3 +107,18 @@
 #icon-close:hover {
     fill: #b6223e;
 }
+
+.one-third-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.one-third-underline::after {
+    content: '';
+    width: 30%;
+    bottom: -6px;
+    left: 0;
+    height: 3px;
+    background: #b6223e;
+    position: absolute;
+}
