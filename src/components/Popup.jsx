@@ -3,32 +3,31 @@ import i18n from 'i18next';
 
 export function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent) {
   const popupContentClasses = 'p-4 bg-kaki font-open-sans flex flex-col justify-center items-center';
-
+  const strongerTogetherHashtag = <i>#strongertogether</i>;
   const textBodyWasYourRequestSuccessful = (
     <>
       <p className="mt-2">
-        Lass die Community wissen ob deine Suche erfolgreich war.
-        <i>#strongertogether</i>
+        {i18n.t('components.entry.popup.wasYourRequestSuccessful.firstSentence')}
+        {strongerTogetherHashtag}
       </p>
-      <p>Anstatt dein Hilfegesuch zu löschen markieren wir es als abgeschlossen.</p>
-      <p>Du kannst es natürlich jederzeit trotzdem löschen.</p>
+      <p>{i18n.t('components.entry.popup.wasYourRequestSuccessful.secondSentence')}</p>
+      <p>{i18n.t('components.entry.popup.wasYourRequestSuccessful.thirdSentence')}</p>
     </>
   );
 
   const textBodyYourRequestWasDeleted = (
     <>
-      <p>Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.</p>
+      <p>{i18n.t('components.entry.popup.yourRequestWasDeleted.firstSentence')}</p>
       <p>
-        Du kannst natürlich jederzeit eine neue Anfrage erstellen und eine*n Held*in um Hilfe bitten.
-        <i>#strongertogether</i>
+        {i18n.t('components.entry.popup.yourRequestWasDeleted.secondSentence')}
+        {strongerTogetherHashtag}
       </p>
     </>
   );
 
-  /* eslint-disable-next-line no-nested-ternary */
-  const textBody = heading === i18n.t('components.entry.popup.wasYourRequestSuccessful')
-    ? textBodyWasYourRequestSuccessful
-    : (heading === i18n.t('components.entry.popup.yourRequestWasDeleted') ? textBodyYourRequestWasDeleted : null);
+  let textBody = null;
+  if (heading === i18n.t('components.entry.popup.wasYourRequestSuccessful.heading')) textBody = textBodyWasYourRequestSuccessful;
+  if (heading === i18n.t('components.entry.popup.yourRequestWasDeleted.heading')) textBody = textBodyYourRequestWasDeleted;
 
   return () => (
     <div className={popupContentClasses}>

@@ -205,13 +205,22 @@
       "popup": {
         "heroFound": "Ich habe eine*n Held*in gefunden",
         "deleteAnyway": "Trotzdem löschen",
-        "wasYourRequestSuccessful": "War dein Hilfegesuch erfolgreich?",
-        "yourRequestWasDeleted": "Dein Hilfegesuch wurde gelöscht!",
         "backToOverview": "Zurück zur Übersicht",
         "reassureDeletion": "Diese Anfrage wirklich löschen?",
         "cancel": "Abbrechen",
         "deleteTerminally": "Endgültig löschen",
-        "createNewRequest": "Neue Anfrage Erstellen"
+        "createNewRequest": "Neue Anfrage Erstellen",
+        "wasYourRequestSuccessful": {
+          "heading": "War dein Hilfegesuch erfolgreich?",
+          "firstSentence": "Lass die Community wissen ob deine Suche erfolgreich war.",
+          "secondSentence": "Anstatt dein Hilfegesuch zu löschen markieren wir es als abgeschlossen.",
+          "thirdSentence": "Du kannst es natürlich jederzeit trotzdem löschen."
+        },
+        "yourRequestWasDeleted": {
+          "heading": "Dein Hilfegesuch wurde gelöscht!",
+          "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
+          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen und eine*n Held*in um Hilfe bitten."
+        }
       }
     },
     "filteredList": {
