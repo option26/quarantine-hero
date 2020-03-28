@@ -43,8 +43,8 @@ function Notification(props) {
 // }
 
 function Dashboard(props) {
-  const { t } = useTranslation();
   const { user } = props;
+  const { t } = useTranslation();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
     askForHelpCollection.where('d.uid', '==', user.uid),
@@ -64,7 +64,9 @@ function Dashboard(props) {
     solvedPostsCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
-  const solvedPosts = (solvedPostsDocs || []).map((val) => ({ ...val.d, id: val.id }));
+  const solvedPosts = (solvedPostsDocs || [])
+    .map((val) => ({ ...val.d, id: val.id, showAsSolved: true }))
+    .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
@@ -101,7 +103,7 @@ function Dashboard(props) {
             .
           </div>
         )
-        : solvedPosts.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
+        : solvedPosts.map((entry) => (<Entry {...entry} key={entry.id} owner showAsSolved />))}
     </div>
   );
 
