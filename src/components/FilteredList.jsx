@@ -145,6 +145,14 @@ export default function FilteredList(props) {
     }
   };
 
+  const handleAddressClick = (address) => {
+    if (address) {
+      setLocation(address);
+      setSearching(true);
+      loadDocuments(buildFilteredQuery(address), true);
+    }
+  };
+
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       {t('components.filteredList.in')}
@@ -202,7 +210,7 @@ export default function FilteredList(props) {
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
           (entry) => (
-            <Entry key={entry.id} {...entry} entries={entries} setEntries={setEntries} />),
+            <Entry key={entry.id} {...entry} handleAddressClick={handleAddressClick} />),
         )}
         {(pageSize > 0 && !searching) ? (
           <div className="flex justify-center pt-3">
