@@ -1,12 +1,12 @@
-import { Link, useHistory } from 'react-router-dom';
-import React, { useRef, useState } from 'react';
-import formatDistance from 'date-fns/formatDistance';
-import { de } from 'date-fns/locale';
-import { useTranslation } from 'react-i18next';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import formatDistance from 'date-fns/formatDistance';
+import { de } from 'date-fns/locale';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useHistory } from 'react-router-dom';
 import fb from '../firebase';
 import Responses from './Responses';
 
@@ -15,6 +15,8 @@ export default function Entry(props) {
     showFullText = false,
     location = '',
     id = '',
+    entries = [],
+    setEntries,
     request = '',
     timestamp = Date.now(),
     responses = 0,
@@ -27,6 +29,7 @@ export default function Entry(props) {
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
+  const spanLocationRef = useRef(null);
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
   const [responsesVisible, setResponsesVisible] = useState(false);
@@ -83,6 +86,18 @@ export default function Entry(props) {
     await reportedPostsCollection.add(data);
     setAttemptingToReport(false);
     return setReported(true);
+  };
+
+  const onLocationClick = (event, ref) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const refId = ref.current.id;
+    const parentElementId = event.target.parentElement.id;
+
+    if (refId === parentElementId) {
+      const filteredEntries = entries.filter((entry) => entry.location === location);
+      setEntries(filteredEntries);
+    }
   };
 
   let numberOfResponsesText = '';
@@ -166,10 +181,12 @@ export default function Entry(props) {
       ref={link}
     >
       <div className="flex justify-between">
-        <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block">
+        <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block" onClick={(event) => onLocationClick(event, spanLocationRef)}>
           {t('components.entry.somebodyAt')}
           {' '}
           <span
+            id="span-location"
+            ref={spanLocationRef}
             className="font-bold"
           >
             {location}

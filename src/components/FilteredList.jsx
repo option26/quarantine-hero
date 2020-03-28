@@ -202,7 +202,7 @@ export default function FilteredList(props) {
         </div>
         {entries.length === 0 ? <NoHelpNeeded /> : entries.map(
           (entry) => (
-            <Entry key={entry.id} {...entry} />),
+            <Entry key={entry.id} {...entry} entries={entries} setEntries={setEntries} />),
         )}
         {(pageSize > 0 && !searching) ? (
           <div className="flex justify-center pt-3">
