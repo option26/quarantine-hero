@@ -12,7 +12,7 @@ export default function Main() {
   const { t } = useTranslation();
 
   function scrollTo() {
-    const yOffset = -30;
+    const yOffset = window.matchMedia('(min-width: 835px)').matches ? -30 : -80;
     const el = document.getElementById('hilfe-buttons');
     if (el) {
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
