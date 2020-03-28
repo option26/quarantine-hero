@@ -95,7 +95,7 @@ const Signup = (props) => {
           />
         </div>
         <div className="mb-8">
-          <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
+          <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
             {t('views.signUp.passwordRepeat')}
           </label>
           <input
@@ -103,16 +103,13 @@ const Signup = (props) => {
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password_repeat"
             type="password"
+            autoComplete="off"
             placeholder={t('views.signUp.confirmPassword')}
             required="required"
             onChange={comparePasswords}
           />
         </div>
-        {error ? (
-          <div className="text-red-500">
-            {error}
-          </div>
-        ) : ''}
+        {error && <div className="text-red-500">{error}</div>}
         <div className="flex justify-end mt-6">
           <button
             className="btn-green w-full"

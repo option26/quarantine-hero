@@ -99,11 +99,8 @@ const Signin = (props) => {
             <small>{t('views.signIn.resetPw')}</small>
           </button>
         </div>
-        {error ? (
-          <div className="text-red-500">
-            {error}
-          </div>
-        ) : ''}
+        {error && <div className="text-red-500">{error}</div>}
+        {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.signIn.pwResetConfirmation')}</div>}
         <div className="flex justify-end mt-6">
           <button
             className="btn-green w-full"
@@ -122,7 +119,6 @@ const Signin = (props) => {
       >
         {t('views.signIn.registerNow')}
       </Link>
-      {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.signIn.pwResetConfirmation')}</div>}
       <Footer />
     </div>
   );
