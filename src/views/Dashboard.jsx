@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import {
   Tabs, Tab, TabPanel, TabList,
@@ -46,7 +46,7 @@ function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
 
-  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
+  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
@@ -54,13 +54,13 @@ function Dashboard(props) {
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
-  const [offersDocs, isLoadingOffers] = useCollectionData(
+  const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
     offerHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
   const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));
 
-  const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionData(
+  const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionDataOnce(
     solvedPostsCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
