@@ -47,7 +47,7 @@ export default function Entry(props) {
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
   const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
   const entryBelongsToCurrentUser = userIsLoggedIn && user.uid === uid;
-  const collectionName = !showAsSolved ? 'ask-for-help' : 'solved-posts';
+  const collectionName = showAsSolved ? 'solved-posts' : 'ask-for-help';
 
   let textToDisplay;
   if (showFullText) {
