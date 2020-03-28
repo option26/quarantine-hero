@@ -183,7 +183,8 @@
       "confirmPassword": "Passwort erneut eingeben",
       "registerNow": "Jetzt registrieren",
       "emailInUse": "Es existiert bereits ein Account mit dieser Email-Adresse.",
-      "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein."
+      "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
+      "haveAnAccount": "Ich habe bereits einen Account"
     }
   },
   "components": {
