@@ -4,8 +4,7 @@ import FilteredList from '../components/FilteredList';
 import Footer from '../components/Footer';
 import OnePagers from '../components/OnePagers';
 
-// @TODO Should not this be named "Overview" since AskForHelp is already name of an other view?
-export default function AskForHelp() {
+export default function Overview() {
   const { t } = useTranslation();
   return (
     <div className="p-4">
