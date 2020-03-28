@@ -50,14 +50,14 @@ export default function NotFound() {
       <div className="p-4 pt-12">
         <UnderlinedHeader title="Error 404" />
 
-        <div className="sm:mx-auto sm:w-4/5 xs:w-full">
+        <div className="mx-auto md:w-4/5">
           <div className="mt-8">
             <p className="text-3xl mt-6 font-thin mb-8">
               {t('views.notFound.ooopsTitle')}
             </p>
           </div>
           <div className="flex mb-4">
-            <div className="w-auto ">{getRandomSvg()}</div>
+            <div className="w-auto">{getRandomSvg()}</div>
             <div className="max-w-sm ">
               <p className="text-base mb-8">{t('views.notFound.ItBusy')}</p>
             </div>
