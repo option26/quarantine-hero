@@ -39,7 +39,6 @@ const Signup = (props) => {
     : t('views.signUp.reasonForSignupDefault');
   const headerText = t('views.signUp.headerText', { reasonForSignup });
 
-  // eslint-disable-next-line consistent-return
   const registerUser = async (e) => {
     // Prevent page reload
     e.preventDefault();
@@ -47,12 +46,13 @@ const Signup = (props) => {
     const signUpResult = await createUserWithEmailAndPassword(email, password);
     if (signUpResult.code) {
       switch (signUpResult.code) {
-        case 'auth/email-already-in-use': return setError(t('views.signUp.emailInUse'));
-        case 'auth/weak-password': return setError(t('views.signUp.pwTooShort'));
-        default: return setError(signUpResult.message);
+        case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
+        case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
+        default: setError(signUpResult.message);
       }
+    } else {
+      await signUpResult.user.sendEmailVerification();
     }
-    if (!signUpResult.code) await signUpResult.user.sendEmailVerification();
   };
 
   const comparePasswords = () => {

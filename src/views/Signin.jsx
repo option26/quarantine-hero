@@ -54,17 +54,19 @@ const Signin = (props) => {
     if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
   };
 
-  // eslint-disable-next-line consistent-return
-  const sendPasswordResetMail = async (e) => {
+  const sendPasswordResetMail = (e) => {
     e.preventDefault();
     setError('');
-    if (!email) return setError(t('views.signIn.enterEmailForReset'));
-    fb.auth.sendPasswordResetEmail(email, {
-      url: `${baseUrl}/#/signin`,
-      handleCodeInApp: false,
-    })
-      .then(() => setPasswordResetSuccess(true))
-      .catch(() => setError(t('views.signIn.pwResetError')));
+    if (!email) {
+      setError(t('views.signIn.enterEmailForReset'));
+    } else {
+      fb.auth.sendPasswordResetEmail(email, {
+        url: `${baseUrl}/#/signin`,
+        handleCodeInApp: false,
+      })
+        .then(() => setPasswordResetSuccess(true))
+        .catch(() => setError(t('views.signIn.pwResetError')));
+    }
   };
 
   return (
