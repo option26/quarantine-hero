@@ -56,7 +56,7 @@ export default function Main() {
           <Rules />
         </div>
 
-        <div className="mx-4 md:mx-0">
+        <div className="mx-4 md:mx-0 mb-8 md:mb-16">
           <OnePagers />
         </div>
 

@@ -162,7 +162,7 @@ export default function OnePagers() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="mb-8 md:mb-16">
+    <>
       <div
         className="mt-4 md:ml-0 md:mr-0 mb-1 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki"
       >
@@ -209,7 +209,7 @@ export default function OnePagers() {
             />
           ))
         ) : null}
-    </div>
+    </>
   );
 }
 
