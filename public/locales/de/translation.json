@@ -159,7 +159,7 @@
       "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.",
       "wrongUserOrPw": "Falsche Email Adresse oder falsches Passwort angegeben.",
       "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.",
-      "pwResetError": "Fehler beim Passwort zurücksetzen. Bist du sicher, dass es seine E-Mail ist?",
+      "pwResetError": "Fehler beim Zurücksetzen des Passworts. Bist du sicher, dass du deine E-Mail korrekt angegeben hast?",
       "yourEmail": "Deine Emailadresse",
       "yourPw": "Dein Passwort",
       "email": "Email",
