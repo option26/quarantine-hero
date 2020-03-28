@@ -57,8 +57,11 @@ export default function NotFound() {
             </p>
           </div>
           <div className="flex mb-4">
-            <div className="w-auto">{getRandomSvg()}</div>
-            <div className="max-w-sm ">
+            <div className="w-auto">
+              <div className="">{getRandomSvg()}</div>
+              <div className="text-fine-print">Icon created by Adrien Coquet from the Noun Project</div>
+            </div>
+            <div className="max-w-sm">
               <p className="text-base mb-8">{t('views.notFound.ItBusy')}</p>
             </div>
           </div>
