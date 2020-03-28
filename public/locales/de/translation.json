@@ -156,7 +156,7 @@
     },
 
     "notFound": {
-      "oopsTitle": "Uups, da ist wohl etwas schiefgelaufen.",
+      "ooopsTitle": "Uuups, da ist wohl etwas schiefgelaufen.",
       "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",
       "toHome": "Bring mich zur Startseite"
     }

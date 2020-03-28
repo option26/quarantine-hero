@@ -53,7 +53,7 @@ export default function NotFound() {
         <div className="sm:mx-auto sm:w-4/5 xs:w-full">
           <div className="mt-8">
             <p className="text-3xl mt-6 font-thin mb-8">
-              {t('views.notFound.oopsTitle')}
+              {t('views.notFound.ooopsTitle')}
             </p>
           </div>
           <div className="flex mb-4">
