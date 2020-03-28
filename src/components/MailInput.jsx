@@ -20,19 +20,24 @@ function validate(data) {
 
 export default function MailInput(props) {
   const {
-    onChange = () => {},
+    onChange = () => { },
+    autoComplete = 'email',
+    defaultValue,
+    placeholder,
+    className,
   } = props;
 
   return (
     <input
-      className={props.className}
+      className={className}
       type="email"
-      placeholder={props.placeholder}
+      placeholder={placeholder}
       onChange={(e) => {
         validate(e);
         onChange(e.target.value);
       }}
-      defaultValue={props.defaultValue}
+      defaultValue={defaultValue}
+      autoComplete={autoComplete}
       required
     />
   );
