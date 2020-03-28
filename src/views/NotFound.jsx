@@ -9,7 +9,6 @@ export default function NotFound() {
 
   const { t } = useTranslation();
 
-
   useEffect(() => {
     setRandomNum(Math.ceil(Math.random() * 7));
   }, []);
@@ -43,26 +42,28 @@ export default function NotFound() {
         srcPath = require('../assets/icon_taste.svg');
     }
 
-
     return <img className="w-10/12 h-auto" src={srcPath} alt="svg" />;
   };
 
   return (
     <>
-      <div className="p-6 sm:w-4/5 xs:w-full sm:mx-auto">
-        <div className="mt-8 ">
-          <UnderlinedHeader title="Error 404" />
-          <p className="text-3xl mt-6 font-thin mb-8">
-            {t('views.notFound.oopsTitle')}
-          </p>
-        </div>
+      <div className="p-4">
+        <UnderlinedHeader title="Error 404" />
 
-        <div className="flex mb-4">
-          <div className="w-auto ">{getRandomSvg()}</div>
-          <div className="max-w-sm ">
-            <p className="text-base mb-8">{t('views.notFound.ItBusy')}</p>
+        <div className="sm:mx-auto sm:w-4/5 xs:w-full">
+          <div className="mt-8">
+            <p className="text-3xl mt-6 font-thin mb-8">
+              {t('views.notFound.oopsTitle')}
+            </p>
+          </div>
+          <div className="flex mb-4">
+            <div className="w-auto ">{getRandomSvg()}</div>
+            <div className="max-w-sm ">
+              <p className="text-base mb-8">{t('views.notFound.ItBusy')}</p>
+            </div>
           </div>
         </div>
+
         <Link to="/" className="btn-green block w-full md:mt-10 sm:mt-6">
           {t('views.notFound.toHome')}
         </Link>
