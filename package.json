@@ -33,10 +33,11 @@
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "start": "npm run build:style && react-scripts start",
     "build": "npm run build:style && react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress run",
     "eject": "react-scripts eject",
     "lint": "cd src && eslint . --ext .jsx .js --no-error-on-unmatched-pattern && cd ..",
-    "lint-fix": "cd src && eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern && cd .."
+    "lint-fix": "cd src && eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern && cd ..",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^4.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.1",
