@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
-import loadResponses from '../util/loadResponses';
+import loadResponses from '../services/loadResponses';
 
 const Response = ({ response }) => {
   const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: de });
