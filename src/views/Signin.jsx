@@ -59,14 +59,15 @@ const Signin = (props) => {
     setError('');
     if (!email) {
       setError(t('views.signIn.enterEmailForReset'));
-    } else {
-      fb.auth.sendPasswordResetEmail(email, {
-        url: `${baseUrl}/#/signin`,
-        handleCodeInApp: false,
-      })
-        .then(() => setPasswordResetSuccess(true))
-        .catch(() => setError(t('views.signIn.pwResetError')));
+      return;
     }
+
+    fb.auth.sendPasswordResetEmail(email, {
+      url: `${baseUrl}/#/signin`,
+      handleCodeInApp: false,
+    })
+      .then(() => setPasswordResetSuccess(true))
+      .catch(() => setError(t('views.signIn.pwResetError')));
   };
 
   return (

@@ -50,9 +50,10 @@ const Signup = (props) => {
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         default: setError(signUpResult.message);
       }
-    } else {
-      await signUpResult.user.sendEmailVerification();
+      return;
     }
+
+    await signUpResult.user.sendEmailVerification();
   };
 
   const comparePasswords = () => {
