@@ -75,7 +75,12 @@ const Signup = (props) => {
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             {t('views.signUp.email')}
           </label>
-          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder={t('views.signUp.yourEmail')} onChange={setEmail} defaultValue={email} />
+          <MailInput
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
+            placeholder={t('views.signUp.yourEmail')}
+            onChange={setEmail}
+            defaultValue={email}
+          />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
@@ -111,7 +116,7 @@ const Signup = (props) => {
             onChange={comparePasswords}
           />
         </div>
-        {error && <div className="text-red-500">{error}</div>}
+        {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
         <div className="flex justify-end mt-6">
           <button
             className="btn-green w-full"
@@ -123,9 +128,10 @@ const Signup = (props) => {
       </form>
       <Link
         to={{
-          pathname: `/signin/${returnUrl || ''}`,
+          pathname: `/signin${returnUrl ? `/${returnUrl}` : ''}`,
           state: location !== undefined && location.state,
         }}
+        data-cy="btn-account-exists"
         className="mt-2 btn-green-secondary block w-full"
       >
         {t('views.signUp.haveAnAccount')}

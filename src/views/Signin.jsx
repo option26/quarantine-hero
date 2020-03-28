@@ -102,12 +102,12 @@ const Signin = (props) => {
             required="required"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="button" className="float-right text-secondary hover:underline" onClick={sendPasswordResetMail}>
+          <button type="button" className="float-right text-secondary hover:underline" data-cy="btn-pw-reset" onClick={sendPasswordResetMail}>
             <small>{t('views.signIn.resetPw')}</small>
           </button>
         </div>
-        {error && <div className="text-red-500">{error}</div>}
-        {passwordResetSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.signIn.pwResetConfirmation')}</div>}
+        {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
+        {passwordResetSuccess && <div data-cy="pw-reset-success-label" className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.signIn.pwResetConfirmation')}</div>}
         <div className="flex justify-end mt-6">
           <button
             className="btn-green w-full"
@@ -119,10 +119,11 @@ const Signin = (props) => {
       </form>
       <Link
         to={{
-          pathname: `/signup/${returnUrl || ''}`,
+          pathname: `/signup${returnUrl ? `/${returnUrl}` : ''}`,
           state: location !== undefined && location.state,
         }}
         className="mt-2 btn-green-secondary block w-full"
+        data-cy="btn-register"
       >
         {t('views.signIn.registerNow')}
       </Link>
