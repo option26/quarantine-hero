@@ -194,7 +194,7 @@ export default function Entry(props) {
   );
 
   const PopupContentSolvedHint = getPopupContentComponent(
-    t('components.entry.popup.wasYourRequestSuccessful'),
+    t('components.entry.popup.wasYourRequestSuccessful.heading'),
     <HeroFoundButtonInPopup />,
     <DeleteAnywayButtonInPopup />,
   );
@@ -206,7 +206,7 @@ export default function Entry(props) {
   );
 
   const PopupContentDeleteSuccess = getPopupContentComponent(
-    t('components.entry.popup.yourRequestWasDeleted'),
+    t('components.entry.popup.yourRequestWasDeleted.heading'),
     <NewAskForHelpButtonInPopup />,
     <BackToOverviewButtonInPopup />,
   );
@@ -221,10 +221,9 @@ export default function Entry(props) {
       }}
       contentStyle={{ width: '30%', padding: '0' }}
     >
-      {/* eslint-disable-next-line no-nested-ternary */}
-      {attemptingToDelete
-        ? ((responses === 0 || showAsSolved) ? <PopupContentDeleteReassure /> : <PopupContentSolvedHint />)
-        : (deleted ? <PopupContentDeleteSuccess /> : <></>)}
+      {attemptingToDelete && (responses === 0 || showAsSolved) ? <PopupContentDeleteReassure /> : <></> }
+      {!attemptingToDelete && !deleted ? <PopupContentSolvedHint /> : <></> }
+      {deleted ? <PopupContentDeleteSuccess /> : <></> }
     </Popup>
   );
 
