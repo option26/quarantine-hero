@@ -352,7 +352,7 @@ export default function Entry(props) {
   return (
     <>
       {requestCard}
-      {mayDeleteEntryAndSeeResponses
+      {mayDeleteEntryAndSeeResponses && !deleted && responsesVisible
         ? <div className={responsesVisible ? '' : 'hidden'}><Responses id={id} collectionName={collectionName} /></div>
         : <></>}
     </>
