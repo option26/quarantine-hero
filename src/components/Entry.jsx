@@ -15,8 +15,7 @@ export default function Entry(props) {
     showFullText = false,
     location = '',
     id = '',
-    entries = [],
-    setEntries,
+    handleAddressClick = () => {},
     request = '',
     timestamp = Date.now(),
     responses = 0,
@@ -88,15 +87,13 @@ export default function Entry(props) {
     return setReported(true);
   };
 
-  const onLocationClick = (event, ref) => {
+  const onAddressClick = (event, ref) => {
     event.stopPropagation();
     event.preventDefault();
     const refId = ref.current.id;
-    const parentElementId = event.target.parentElement.id;
-
+    const parentElementId = event.target.id;
     if (refId === parentElementId) {
-      const filteredEntries = entries.filter((entry) => entry.location === location);
-      setEntries(filteredEntries);
+      handleAddressClick(location, id);
     }
   };
 
@@ -181,7 +178,7 @@ export default function Entry(props) {
       ref={link}
     >
       <div className="flex justify-between">
-        <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block" onClick={(event) => onLocationClick(event, spanLocationRef)}>
+        <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block" onClick={(event) => onAddressClick(event, spanLocationRef)}>
           {t('components.entry.somebodyAt')}
           {' '}
           <span
