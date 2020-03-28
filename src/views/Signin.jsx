@@ -81,7 +81,12 @@ const Signin = (props) => {
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             {t('views.signIn.email')}
           </label>
-          <MailInput className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus" placeholder={t('views.signIn.yourEmail')} onChange={setEmail} defaultValue={email} />
+          <MailInput
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none input-focus"
+            placeholder={t('views.signIn.yourEmail')}
+            onChange={setEmail}
+            defaultValue={email}
+          />
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
@@ -93,6 +98,7 @@ const Signin = (props) => {
             type="password"
             placeholder={t('views.signIn.yourPw')}
             value={password}
+            autoComplete="current-password"
             required="required"
             onChange={(e) => setPassword(e.target.value)}
           />

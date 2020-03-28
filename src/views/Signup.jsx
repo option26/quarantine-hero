@@ -89,6 +89,7 @@ const Signup = (props) => {
             placeholder={t('views.signUp.yourPw')}
             value={password}
             required="required"
+            autoComplete="new-password"
             onChange={(e) => {
               comparePasswords();
               setPassword(e.target.value);
@@ -104,7 +105,7 @@ const Signup = (props) => {
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password_repeat"
             type="password"
-            autoComplete="off"
+            autoComplete="new-password"
             placeholder={t('views.signUp.confirmPassword')}
             required="required"
             onChange={comparePasswords}
