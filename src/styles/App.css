@@ -103,3 +103,7 @@
 #span-location:hover {
     color: #87a544;
 }
+
+#icon-close:hover {
+    fill: #b6223e;
+}

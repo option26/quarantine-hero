@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import CloseIcon from '@material-ui/icons/Close';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getSuggestions } from '../services/GeoService';
 
@@ -66,6 +67,7 @@ function Autocomplete(props) {
     onChange = () => {},
     fullText = false,
     onChangeDebounced = () => { },
+    handleCloseIconClick = () => {},
     debounce = 200,
     minSearchInput = 4,
     onSelect = () => { },
@@ -167,13 +169,14 @@ function Autocomplete(props) {
         inputMode={fullText ? '' : 'numeric'}
         placeholder={fullText ? t('components.locationInput.yourPostalCodeOrNeighbourhood') : t('components.locationInput.yourPostalCode')}
       />
-      {loadingVisible && (
+      {loadingVisible ? (
         <LoadingIndicator
           className="absolute top-0 right-0 mr-2 mt-2"
           isLoading={inputRef.current && inputRef.current.value.length >= minSearchInput}
           fillLevel={inputRef.current && inputRef.current.value.length}
         />
-      )}
+      ) : <CloseIcon id="icon-close" className="absolute right-0 mr-3 top-0 bottom-0 mt-auto mb-auto cursor-pointer" onClick={() => handleCloseIconClick()} /> }
+
       <div className="absolute w-full bg-white shadow-xl z-10">
         {suggestions.map((s) => (
           <AutocompleteSuggestion

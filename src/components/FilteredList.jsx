@@ -153,6 +153,12 @@ export default function FilteredList(props) {
     }
   };
 
+  const handleCloseIconClick = () => {
+    setLocation('');
+    setSearching(false);
+    loadDocuments(buildQuery());
+  };
+
   const NoHelpNeeded = () => (
     <div className="w-full text-center my-10 font-open-sans">
       {t('components.filteredList.in')}
@@ -167,7 +173,7 @@ export default function FilteredList(props) {
     <div>
       <div className="flex -mx-1">
         <div className="px-1 w-full">
-          <LocationInput fullText onChange={handleChange} value={location} onSelect={handleSelect} />
+          <LocationInput fullText onChange={handleChange} value={location} onSelect={handleSelect} handleCloseIconClick={handleCloseIconClick} />
         </div>
         {isMapsApiEnabled
           ? (
