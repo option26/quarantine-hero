@@ -48,6 +48,7 @@ const Signup = (props) => {
       switch (signUpResult.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
+        case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
         default: setError(signUpResult.message);
       }
       return;

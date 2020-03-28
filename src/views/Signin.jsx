@@ -40,16 +40,17 @@ const Signin = (props) => {
     : t('views.signIn.reasonForSigninDefault');
   const headerText = t('views.signIn.headerText', { reasonForSignin });
 
-  // eslint-disable-next-line consistent-return
   const signIn = async (e) => {
     e.preventDefault();
     const signInResult = await signInWithEmailAndPassword(email, password);
     if (signInResult.code) {
       switch (signInResult.code) {
-        case 'auth/user-not-found': return setError(t('views.signIn.noUser'));
-        case 'auth/wrong-password': return setError(t('views.signIn.wrongUserOrPw'));
-        default: return setError(signInResult.message);
+        case 'auth/user-not-found': setError(t('views.signIn.noUser')); break;
+        case 'auth/wrong-password': setError(t('views.signIn.wrongUserOrPw')); break;
+        case 'auth/invalid-email': setError(t('views.signIn.emailInvalid')); break;
+        default: setError(signInResult.message);
       }
+      return;
     }
     if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
   };

@@ -169,7 +169,8 @@
       "registerNow": "Neu registrieren",
       "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
       "headerText": "Melde dich mit deiner E-Mail und deinem Passwort an um {{reasonForSignin}}.",
-      "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten"
+      "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten",
+      "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
     },
     "signUp": {
       "headerText": "Registriere dich mit deiner E-Mail und einem Passwort um {{reasonForSignup}}.",
@@ -184,7 +185,8 @@
       "registerNow": "Jetzt registrieren",
       "emailInUse": "Es existiert bereits ein Account mit dieser Email-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
-      "haveAnAccount": "Ich habe bereits einen Account"
+      "haveAnAccount": "Ich habe bereits einen Account",
+      "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
     }
   },
   "components": {
