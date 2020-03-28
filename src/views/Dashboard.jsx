@@ -58,14 +58,14 @@ function Dashboard(props) {
     offerHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
-  const offers = (offersDocs || []).map((val) => ({ ...val.d, id: val.id }));
+  const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));
 
   const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionData(
     solvedPostsCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((val) => ({ ...val.d, id: val.id, showAsSolved: true }))
+    .map((doc) => ({ ...doc.d, id: doc.id, showAsSolved: true }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
