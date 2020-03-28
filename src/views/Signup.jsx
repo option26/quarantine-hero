@@ -3,6 +3,7 @@ import withFirebaseAuth from 'react-with-firebase-auth';
 import * as firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import {
+  Link,
   Redirect,
   useParams,
   useLocation,
@@ -111,7 +112,7 @@ const Signup = (props) => {
             {error}
           </div>
         ) : ''}
-        <div className="flex justify-end my-6">
+        <div className="flex justify-end mt-6">
           <button
             className="btn-green w-full"
             type="submit"
@@ -120,6 +121,15 @@ const Signup = (props) => {
           </button>
         </div>
       </form>
+      <Link
+        to={{
+          pathname: `/signin/${returnUrl || ''}`,
+          state: location !== undefined && location.state,
+        }}
+        className="mt-2 btn-green-secondary block w-full"
+      >
+        {t('views.signUp.haveAnAccount')}
+      </Link>
       <Footer />
     </div>
   );
