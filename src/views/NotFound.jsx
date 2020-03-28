@@ -47,7 +47,7 @@ export default function NotFound() {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-4 pt-12">
         <UnderlinedHeader title="Error 404" />
 
         <div className="sm:mx-auto sm:w-4/5 xs:w-full">
