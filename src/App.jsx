@@ -45,7 +45,10 @@ function App(props) {
 
   const enableAnalytics = () => {
     // Crash reporting
-    Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
+    Sentry.init({
+      dsn: process.env.REACT_APP_SENTRY_DSN,
+      environment: process.env.REACT_APP_ENV,
+    });
 
     // Firebase analytics
     fb.analytics = fb.app.analytics();
@@ -69,6 +72,7 @@ function App(props) {
 
   return (
     <div className="flex items-center min-h-screen flex-col bg-kaki">
+      <button onClick={() => {throw new Error(process.env.REACT_APP_ENV)}}>Foobar</button>
       <Router>
         <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
           {!user
