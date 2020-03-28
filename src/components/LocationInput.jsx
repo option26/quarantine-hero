@@ -62,7 +62,7 @@ function ZipCodeInput(props) {
 function Autocomplete(props) {
   const {
     required = true,
-    defaultValue = '',
+    value = '',
     onChange = () => {},
     fullText = false,
     onChangeDebounced = () => { },
@@ -112,12 +112,12 @@ function Autocomplete(props) {
     }
   };
 
-  const handleDebouncedChange = (value) => {
-    loadSuggestions(value);
-    onChangeDebounced(value);
+  const handleDebouncedChange = (val) => {
+    loadSuggestions(val);
+    onChangeDebounced(val);
   };
 
-  const handleChange = (value) => {
+  const handleChange = (val) => {
     setWaitingForResults(true);
     setInvalidNoSelect();
     if (scheduledChange) {
@@ -125,9 +125,9 @@ function Autocomplete(props) {
     }
 
     setScheduledChange(setTimeout(() => {
-      handleDebouncedChange(value);
+      handleDebouncedChange(val);
     }, debounce));
-    onChange(value);
+    onChange(val);
   };
 
   const handleSelect = (suggestion) => {
@@ -157,7 +157,7 @@ function Autocomplete(props) {
         ref={inputRef}
         className="location-search-input appearance-none input-focus truncate"
         style={{ paddingRight: '45px' }}
-        defaultValue={defaultValue}
+        value={value}
         onChange={(e) => {
           handleChange(e.target.value);
         }}
