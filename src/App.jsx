@@ -44,8 +44,8 @@ function App(props) {
 
 
   const enableAnalytics = () => {
-    // Crash reporting
-    Sentry.init({ dsn: 'https://5018c931f62b4a0885ee348ccaf753ce@sentry.io/5177575' });
+    // Crash reportin
+    Sentry.init({ dsn: 'https://d00e781dba684e6e93070bcb8f2da4c6@sentry.io/5178489' });
 
     // Firebase analytics
     fb.analytics = fb.app.analytics();
