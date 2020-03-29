@@ -70,7 +70,7 @@ export default function AskForHelp() {
   };
 
   if (!isAuthLoading && (!user || !user.email)) {
-    return <Redirect to="/signup" />;
+    return <Redirect to="/signin/ask-for-help" />;
   }
 
   return (

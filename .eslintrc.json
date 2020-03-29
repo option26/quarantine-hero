@@ -14,7 +14,8 @@
         "describe": true,
         "it": true,
         "cy": true,
-        "beforeEach": true
+        "beforeEach": true,
+        "before": true
     },
     "parserOptions": {
         "ecmaFeatures": {

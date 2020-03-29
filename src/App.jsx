@@ -17,6 +17,7 @@ import Dashboard from './views/Dashboard';
 import FAQ from './views/FAQ';
 import Impressum from './views/Impressum';
 import Signup from './views/Signup';
+import Signin from './views/Signin';
 import AskForHelp from './views/AskForHelp';
 import Overview from './views/Overview';
 import Success from './views/Success';
@@ -76,7 +77,7 @@ function App(props) {
       <Router>
         <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
           {!user
-          && <Link className="mr-6 font-open-sans text-gray-700" to="/signup/dashboard">{t('App.login')}</Link>}
+          && <Link className="mr-6 font-open-sans text-gray-700" to="/signin/dashboard">{t('App.login')}</Link>}
           {user && (
             <>
               <Link className="mr-6 font-open-sans text-gray-700" to="/dashboard">{t('components.desktopMenu.myOverview')}</Link>
@@ -109,6 +110,12 @@ function App(props) {
                 </Route>
                 <Route path="/signup">
                   <Signup />
+                </Route>
+                <Route path="/signin/:returnUrl">
+                  <Signin />
+                </Route>
+                <Route path="/signin">
+                  <Signin />
                 </Route>
                 <Route path="/verify-email">
                   <VerifyEmail />

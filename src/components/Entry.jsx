@@ -69,7 +69,7 @@ export default function Entry(props) {
     // redirect the user to the login page, as we can only store user ids for logged-in users
     if (!userIsLoggedIn) {
       const pathToOfferHelp = `offer-help/${id}`;
-      const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
+      const pathname = `/signin/${encodeURIComponent(pathToOfferHelp)}`;
       setAttemptingToReport(false);
       return history.push({ pathname, state: { reason_for_registration: t('components.entry.registrationReason') } });
     }
