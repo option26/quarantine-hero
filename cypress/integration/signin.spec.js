@@ -1,5 +1,9 @@
-context('SignIn', () => {
+const verifiedEmailAdress = 'verified@example.com';
+const notVerifiedEmailAddress = 'not.verified@example.com';
+const notExistingEmailAddress = 'not.existing@example.com';
+const password = 'test1234';
 
+context('SignIn', () => {
   describe('User is not logged in and no returnUrl', () => {
     beforeEach(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
@@ -16,8 +20,8 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('not.exist');
@@ -28,8 +32,8 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${notExistingEmailAddress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('exist');
@@ -40,14 +44,13 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test5678{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="password"]').type('wrong-password{enter}');
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('exist');
       cy.hash().should('equal', '#/signin');
     });
-
   });
 
   describe('User is not logged in and returnUrl is /overview', () => {
@@ -66,20 +69,20 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('not.exist');
       cy.hash().should('equal', '#/overview');
     });
 
-    it('signin with invalid email', () => {
+    it('signin with email address that has no account', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${notExistingEmailAddress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('exist');
@@ -90,22 +93,21 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test5678{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="password"]').type('wrong-password{enter}');
 
       cy.wait('@signInUser');
       cy.get('[data-cy=error-label]').should('exist');
       cy.hash().should('equal', '#/signin/overview');
     });
-
   });
 
   describe('User is logged in and email is verified', () => {
     before(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
       cy.hash().should('equal', '#/signin');
     });
 
@@ -124,8 +126,8 @@ context('SignIn', () => {
     before(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('unconfirmed@email.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${notVerifiedEmailAddress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
       cy.hash().should('equal', '#/signin');
     });
 
@@ -153,17 +155,16 @@ context('SignIn', () => {
     });
 
     it('clicking without specifying an existing email should fail', () => {
-      cy.get('form input[type="email"]').type('someemailprobablynoonewillregisterwith@qh.com{enter}');
+      cy.get('form input[type="email"]').type(`${notExistingEmailAddress}{enter}`);
       cy.get('[data-cy=btn-pw-reset]').click();
       cy.get('[data-cy=error-label]').should('exist');
     });
 
     it('clicking with an existing email should succeed', () => {
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
       cy.get('[data-cy=btn-pw-reset]').click();
       cy.get('[data-cy=error-label]').should('not.exist');
       cy.get('[data-cy=pw-reset-success-label]').should('exist');
     });
   });
-
 });

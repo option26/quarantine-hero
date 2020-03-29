@@ -1,5 +1,20 @@
-context('SignUp', () => {
+const blacklistedEmail = 'example@byom.de';
+const verifiedEmailAddress = 'verified@example.com';
+const notVerifiedEmailAddress = 'not.verified@example.com';
+const password = 'test1234';
 
+function randomString() {
+  const first = Math.random()
+    .toString(36) // base36 = ASCII
+    .substring(2, 15);
+
+  const second = Math.random()
+    .toString(36) // base36 = ASCII
+    .substring(2, 15);
+
+  return first + second;
+}
+context('SignUp', () => {
   describe('User is not logged in and no returnUrl', () => {
     beforeEach(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
@@ -13,26 +28,26 @@ context('SignUp', () => {
     });
 
     it('signup with blacklisted email', () => {
-      cy.get('form input[type="email"]').type('florian.schmidt@byom.de{enter}');
-      cy.get('#password').type('test1234{enter}');
-      cy.get('#password_repeat').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${blacklistedEmail}{enter}`);
+      cy.get('#password').type(`${password}{enter}`);
+      cy.get('#password_repeat').type(`${password}{enter}`);
 
       cy.get('input[type="email"]:invalid').should('have.length', 1);
       cy.hash().should('equal', '#/signup');
     });
 
     it('signup with existing email', () => {
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('#password').type('test1234{enter}');
-      cy.get('#password_repeat').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
+      cy.get('#password').type(`${password}{enter}`);
+      cy.get('#password_repeat').type(`${password}{enter}`);
 
       cy.hash().should('equal', '#/signup');
       cy.get('[data-cy=error-label]').should('exist');
     });
 
     it('signup with password mismatch', () => {
-      cy.get('form input[type="email"]').type('newuser@qh.de{enter}');
-      cy.get('#password').type('test1234{enter}');
+      cy.get('form input[type="email"]').type('doesnt-matter@example.com{enter}');
+      cy.get('#password').type(`${password}{enter}`);
       cy.get('#password_repeat').type('test5678{enter}');
 
       cy.get('#password_repeat:invalid').should('have.length', 1);
@@ -43,24 +58,23 @@ context('SignUp', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('registerUser');
 
-      cy.get('form input[type="email"]').type('newuser@qh.de{enter}');
-      cy.get('#password').type('test1234{enter}');
-      cy.get('#password_repeat').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${randomString()}@qh.de{enter}`);
+      cy.get('#password').type(`${password}{enter}`);
+      cy.get('#password_repeat').type(`${password}{enter}`);
 
       cy.wait('@registerUser');
       cy.get('input:invalid').should('have.length', 0);
       cy.get('[data-cy=error-label]').should('not.exist');
       cy.hash().should('equal', '#/verify-email');
     });
-
   });
 
   describe('User is logged in and email is verified', () => {
     before(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
       cy.hash().should('equal', '#/signin');
     });
 
@@ -79,8 +93,8 @@ context('SignUp', () => {
     before(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('unconfirmed@email.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+      cy.get('form input[type="email"]').type(`${notVerifiedEmailAddress}{enter}`);
+      cy.get('form input[type="password"]').type(`${password}{enter}`);
       cy.hash().should('equal', '#/signin');
     });
 
