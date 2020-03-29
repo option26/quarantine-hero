@@ -48,6 +48,7 @@ const Signin = (props) => {
         case 'auth/user-not-found': setError(t('views.signIn.noUser')); break;
         case 'auth/wrong-password': setError(t('views.signIn.wrongUserOrPw')); break;
         case 'auth/invalid-email': setError(t('views.signIn.emailInvalid')); break;
+        case 'auth/too-many-requests': setError(t('views.signIn.tooManyRequests')); break;
         default: setError(signInResult.message);
       }
       return;
