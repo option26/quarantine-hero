@@ -4,17 +4,14 @@ import formatDistance from 'date-fns/formatDistance';
 import { de } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Popup from 'reactjs-popup';
 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import fb from '../firebase';
 import Responses from './Responses';
-
-import { getPopupContentComponent, getButtonForPopup } from './Popup';
+import PopupOnEntryAction from './Popup';
 
 export default function Entry(props) {
   const {
@@ -139,100 +136,29 @@ export default function Entry(props) {
   }
 
   const commonButtonClasses = 'px-6 py-3 uppercase font-open-sans font-bold text-center';
-  const positiveActionButtonClasses = `bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 ${commonButtonClasses}`;
-  const deleteButtonClasses = `bg-red-200 text-primary ${commonButtonClasses}`;
-  const invertedDeleteButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
 
-  const InitializeDeletionButton = getButtonForPopup(
-    deleteButtonClasses,
-    responses === 0 ? t('components.entry.deleteRequestForHelp') : null,
-    initializeDelete,
-    <DeleteOutlineIcon className="mb-1" />,
-  );
-
-  const HeroFoundButtonInPopup = getButtonForPopup(
-    positiveActionButtonClasses,
-    t('components.entry.popup.heroFound'),
-    handleSolved,
-    <DoneIcon className="ml-2 mb-1" />,
-    showAsSolved,
-  );
-
-  const NewAskForHelpButtonInPopup = getButtonForPopup(
-    positiveActionButtonClasses,
-    t('components.entry.popup.createNewRequest'),
-    handleNewAskForHelp,
-    <ArrowForwardIosIcon className="ml-2 mb-1" />,
-  );
-
-  const CancelButton = getButtonForPopup(
-    positiveActionButtonClasses,
-    t('components.entry.popup.cancel'),
-    cancelDelete,
-    null,
-  );
-
-  const DeleteAnywayButtonInPopup = getButtonForPopup(
-    invertedDeleteButtonClasses,
-    t('components.entry.popup.deleteAnyway'),
-    handleDelete,
-    <ArrowForwardIosIcon className="ml-2 mb-1" />,
-  );
-
-  const DeleteTerminallyButton = getButtonForPopup(
-    invertedDeleteButtonClasses,
-    t('components.entry.popup.deleteTerminally'),
-    handleDelete,
-    <ArrowForwardIosIcon className="ml-2 mb-1" />,
-  );
-
-  const BackToOverviewButtonInPopup = getButtonForPopup(
-    invertedDeleteButtonClasses,
-    t('components.entry.popup.backToOverview'),
-    backToOverview,
-    <ArrowForwardIosIcon className="ml-2 mb-1" />,
-  );
-
-  const PopupContentSolvedHint = getPopupContentComponent(
-    t('components.entry.popup.wasYourRequestSuccessful.heading'),
-    <HeroFoundButtonInPopup />,
-    <DeleteAnywayButtonInPopup />,
-  );
-
-  const PopupContentDeleteReassure = getPopupContentComponent(
-    t('components.entry.popup.reassureDeletion'),
-    <CancelButton />,
-    <DeleteTerminallyButton />,
-  );
-
-  const PopupContentDeleteSuccess = getPopupContentComponent(
-    t('components.entry.popup.yourRequestWasDeleted.heading'),
-    <NewAskForHelpButtonInPopup />,
-    <BackToOverviewButtonInPopup />,
-  );
-
-  let popupContent = <></>;
-  if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
-  if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
-  if (deleted) popupContent = <PopupContentDeleteSuccess />;
-
-  const HintsPopup = () => (
-    <Popup
-      modal
-      open={popupVisible}
-      onClose={(e) => {
-        e.preventDefault();
-        setPopupVisible(false);
-      }}
-      contentStyle={{ width: '30%', padding: '0' }}
-    >
-      {popupContent}
-    </Popup>
+  const popupOnEntryAction = (
+    <PopupOnEntryAction
+      commonButtonClasses={commonButtonClasses}
+      responses={responses}
+      attemptingToDelete={attemptingToDelete}
+      deleted={deleted}
+      popupVisible={popupVisible}
+      setPopupVisible={setPopupVisible}
+      handleSolved={handleSolved}
+      showAsSolved={showAsSolved}
+      handleNewAskForHelp={handleNewAskForHelp}
+      cancelDelete={cancelDelete}
+      handleDelete={handleDelete}
+      backToOverview={backToOverview}
+    />
   );
 
   if (deleted) {
-    return null;
+    // make popup component available to show the success hint, if the entry was previously deleted
+    return <>{popupOnEntryAction}</>;
   }
+
   // eslint-disable-next-line no-nested-ternary
   const buttonClass = reported ? 'btn-report-flagged' : (attemptingToReport ? 'btn-report-abort' : 'btn-report-unflagged');
 
@@ -268,7 +194,10 @@ export default function Entry(props) {
               </button>
             </>
           )}
-        <InitializeDeletionButton />
+        <button type="button" className={`bg-red-200 text-primary ${commonButtonClasses}`} onClick={initializeDelete}>
+          {responses === 0 ? t('components.entry.deleteRequestForHelp') : null}
+          <DeleteOutlineIcon className="mb-1" />
+        </button>
       </div>
     );
   })();
@@ -348,7 +277,7 @@ export default function Entry(props) {
         </div>
         {buttonBar}
       </Link>
-      <HintsPopup />
+      {popupOnEntryAction}
     </>
   );
 

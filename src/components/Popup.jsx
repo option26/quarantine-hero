@@ -1,7 +1,12 @@
 import React from 'react';
 import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
+import Popup from 'reactjs-popup';
 
-export function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent) {
+import DoneIcon from '@material-ui/icons/Done';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
+function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent) {
   const popupContentClasses = 'p-4 bg-kaki font-open-sans flex flex-col justify-center items-center';
   const strongerTogetherHashtag = <i>#strongertogether</i>;
   const textBodyWasYourRequestSuccessful = (
@@ -41,11 +46,112 @@ export function getPopupContentComponent(heading, firstButtonComponent, secondBu
   );
 }
 
-export function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, disabled = false) {
+function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, disabled = false) {
   return () => (
     <button type="button" className={commonButtonClasses} onClick={onClickFunction} disabled={disabled}>
       {text}
       {icon}
     </button>
+  );
+}
+
+export default function PopupOnEntryAction(props) {
+  const {
+    commonButtonClasses,
+    responses,
+    attemptingToDelete,
+    deleted,
+    popupVisible,
+    setPopupVisible,
+    handleSolved,
+    showAsSolved,
+    handleNewAskForHelp,
+    cancelDelete,
+    handleDelete,
+    backToOverview,
+  } = props;
+
+  const { t } = useTranslation();
+
+  const positiveActionButtonClasses = `bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 ${commonButtonClasses}`;
+  const invertedDeleteButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
+
+  const HeroFoundButton = getButtonForPopup(
+    positiveActionButtonClasses,
+    t('components.entry.popup.heroFound'),
+    handleSolved,
+    <DoneIcon className="ml-2 mb-1" />,
+    showAsSolved,
+  );
+
+  const NewAskForHelpButton = getButtonForPopup(
+    positiveActionButtonClasses,
+    t('components.entry.popup.createNewRequest'),
+    handleNewAskForHelp,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+  );
+
+  const CancelButton = getButtonForPopup(
+    positiveActionButtonClasses,
+    t('components.entry.popup.cancel'),
+    cancelDelete,
+    null,
+  );
+
+  const DeleteAnywayButton = getButtonForPopup(
+    invertedDeleteButtonClasses,
+    t('components.entry.popup.deleteAnyway'),
+    handleDelete,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+  );
+
+  const DeleteTerminallyButton = getButtonForPopup(
+    invertedDeleteButtonClasses,
+    t('components.entry.popup.deleteTerminally'),
+    handleDelete,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+  );
+
+  const BackToOverviewButton = getButtonForPopup(
+    invertedDeleteButtonClasses,
+    t('components.entry.popup.backToOverview'),
+    backToOverview,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+  );
+
+  const PopupContentDeleteReassure = getPopupContentComponent(
+    t('components.entry.popup.reassureDeletion'),
+    <CancelButton />,
+    <DeleteTerminallyButton />,
+  );
+
+  const PopupContentSolvedHint = getPopupContentComponent(
+    t('components.entry.popup.wasYourRequestSuccessful.heading'),
+    <HeroFoundButton />,
+    <DeleteAnywayButton />,
+  );
+
+  const PopupContentDeleteSuccess = getPopupContentComponent(
+    t('components.entry.popup.yourRequestWasDeleted.heading'),
+    <NewAskForHelpButton />,
+    <BackToOverviewButton />,
+  );
+
+  let popupContent = <></>;
+  if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
+  if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
+  if (deleted) popupContent = <PopupContentDeleteSuccess />;
+
+  return (
+    <Popup
+      modal
+      open={popupVisible}
+      onClose={() => {
+        setPopupVisible(false);
+      }}
+      contentStyle={{ width: '30%', padding: '0' }}
+    >
+      {popupContent}
+    </Popup>
   );
 }
