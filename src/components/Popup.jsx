@@ -149,7 +149,15 @@ export default function PopupOnEntryAction(props) {
       onClose={() => {
         setPopupVisible(false);
       }}
-      contentStyle={{ width: '30%', padding: '0' }}
+      // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
+      contentStyle={
+        {
+          padding: '0',
+          width: 'auto',
+          maxWidth: '70%',
+          minWidth: '30%',
+        }
+      }
     >
       {popupContent}
     </Popup>
