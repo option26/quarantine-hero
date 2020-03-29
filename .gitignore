@@ -46,6 +46,7 @@ sketch
 
 ### VisualStudioCode ###
 .vscode/*
+.jshintrc
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -74,3 +75,8 @@ crashlytics-build.properties
 fabric.properties
 
 # End of https://www.gitignore.io/api/react,webstorm,visualstudiocode
+
+# Cypress
+cypress/videos/*
+cypress/screenshots/*
+
