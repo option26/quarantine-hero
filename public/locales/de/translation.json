@@ -170,7 +170,8 @@
       "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
       "headerText": "Melde dich mit deiner E-Mail und deinem Passwort an um {{reasonForSignin}}.",
       "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten",
-      "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
+      "emailInvalid": "Bitte gib deine korrekte Emailadresse an.",
+      "tooManyRequests": "Das waren zu viele Fehlversuche, bitte versuche es später noch einmal."
     },
     "signUp": {
       "headerText": "Registriere dich mit deiner E-Mail und einem Passwort um {{reasonForSignup}}.",
