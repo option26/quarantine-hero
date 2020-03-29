@@ -238,6 +238,11 @@
     border-left: 6px solid #87a544;
 }
 
+.text-fine-print {
+    font-size: 4pt;
+    color: #aaaaaa;
+}
+
 /* the following classes are necessary to overwrite the default border of the tab bar */
 .btn-bottom-border-black::after {
     border-bottom: 3px solid #222222;

@@ -10,6 +10,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
@@ -19,6 +20,7 @@ import Signup from './views/Signup';
 import AskForHelp from './views/AskForHelp';
 import Overview from './views/Overview';
 import Success from './views/Success';
+import NotFound from './views/NotFound';
 import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
 import DSGVO from './views/DSGVO';
@@ -42,7 +44,14 @@ function App(props) {
   } = props;
 
 
-  const addListener = () => {
+  const enableAnalytics = () => {
+    // Crash reporting
+    Sentry.init({
+      dsn: process.env.REACT_APP_SENTRY_DSN,
+      environment: process.env.REACT_APP_ENV,
+    });
+
+    // Firebase analytics
     fb.analytics = fb.app.analytics();
     const handleHashChange = () => {
       const hash = document.location.hash;
@@ -55,7 +64,7 @@ function App(props) {
 
   useEffect(() => {
     if (document.cookie.indexOf('cookieConsent') > -1) {
-      return addListener();
+      return enableAnalytics();
     }
     return undefined;
   }, []);
@@ -71,7 +80,7 @@ function App(props) {
           {user && (
             <>
               <Link className="mr-6 font-open-sans text-gray-700" to="/dashboard">{t('components.desktopMenu.myOverview')}</Link>
-              <button type="button" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components.desktopMenu.signOut')}</button>
+              <button type="button" data-cy="btn-sign-out" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components.desktopMenu.signOut')}</button>
             </>
           )}
           <Link className="mr-6 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link>
@@ -140,9 +149,10 @@ function App(props) {
                 <Route path="/complete-offer-help">
                   <CompleteOfferHelp />
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                   <Main />
                 </Route>
+                <Route component={NotFound} path="*" />
               </Switch>
               <ScrollUpButton
                 ContainerClassName="scroll-up-btn"
@@ -160,7 +170,7 @@ function App(props) {
         cookieName="cookieConsent"
         style={{ background: '#2B373B' }}
         buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-        onAccept={addListener}
+        onAccept={enableAnalytics}
         expires={365}
       >
         {t('App.usesCookies')}

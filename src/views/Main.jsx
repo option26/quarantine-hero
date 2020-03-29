@@ -56,12 +56,15 @@ export default function Main() {
           <Rules />
         </div>
 
-        <OnePagers />
+        <div className="mx-4 md:mx-0 mb-8 md:mb-16">
+          <OnePagers />
+        </div>
 
         <ArrowDown onClick={scrollTo} />
 
         <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full" id="hilfe-buttons">
           <Link
+            data-cy="cta-want-to-help"
             to="/overview"
             className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_want_to_help')}
@@ -71,6 +74,7 @@ export default function Main() {
           </Link>
           <div className="m-1 md:m-4" />
           <Link
+            data-cy="cta-need-help"
             to="/signup"
             className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_need_help')}

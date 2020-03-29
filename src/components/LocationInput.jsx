@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getSuggestions } from '../services/GeoService';
 
@@ -90,6 +91,7 @@ function Autocomplete(props) {
 
         setSuggestions(results);
       } catch (err) {
+        Sentry.captureException(err);
         setSuggestions([]);
       }
     } else {
