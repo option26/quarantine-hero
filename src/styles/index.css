@@ -261,3 +261,14 @@
     height: 100%;
     border-bottom: 3px solid #222222;
 }
+
+@media only screen and (max-width: 834px) {
+    .rwt__tab {
+        background: transparent;
+        border: 0;
+        font-family: inherit;
+        font-size: inherit;
+        transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+        padding-left: 1rem;
+    }
+}
