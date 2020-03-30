@@ -8,10 +8,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import fb from '../firebase';
 import Responses from './Responses';
 import PopupOnEntryAction from './Popup';
+import userIsOnMobile from '../util/userIsOnMobile';
 
 export default function Entry(props) {
   const {
@@ -31,14 +33,16 @@ export default function Entry(props) {
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
+  const isOnMobile = userIsOnMobile();
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
   const [responsesVisible, setResponsesVisible] = useState(false);
 
   const [deleted, setDeleted] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(false);
-  const [popupVisible, setPopupVisible] = useState(false);
+  const [attemptingToSolve, setAttemptingToSolve] = useState(false);
   const [attemptingToReport, setAttemptingToReport] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   const userIsLoggedIn = !!user && !!user.uid;
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
@@ -85,6 +89,12 @@ export default function Entry(props) {
   const initializeDelete = async (e) => {
     e.preventDefault();
     setAttemptingToDelete(true);
+    setPopupVisible(true);
+  };
+
+  const initializeSolve = async (e) => {
+    e.preventDefault();
+    setAttemptingToSolve(true);
     setPopupVisible(true);
   };
 
@@ -135,13 +145,14 @@ export default function Entry(props) {
     numberOfResponsesText = `${responses} ${t('components.entry.repliesReceived')}`;
   }
 
-  const commonButtonClasses = 'px-6 py-3 uppercase font-open-sans font-bold text-center';
+  const commonButtonClasses = 'md:px-6 py-2 md:py-3 uppercase font-open-sans font-bold text-center text-xs md:text-sm';
 
   const popupOnEntryAction = (
     <PopupOnEntryAction
       commonButtonClasses={commonButtonClasses}
       responses={responses}
       attemptingToDelete={attemptingToDelete}
+      attemptingToSolve={attemptingToSolve}
       deleted={deleted}
       popupVisible={popupVisible}
       setPopupVisible={setPopupVisible}
@@ -175,27 +186,29 @@ export default function Entry(props) {
     }
 
     const heroFoundButtonClasses = showAsSolved
-      ? `bg-secondary text-white hover:opacity-75 ${commonButtonClasses}`
+      ? `bg-secondary text-white ${commonButtonClasses}`
       : `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`;
 
     return (
       <div className="flex flex-row mt-4 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
-          ? <div className={`bg-gray-200 text-gray-700 flex-grow ${commonButtonClasses}`}>{numberOfResponsesText}</div>
+          ? <div className={`bg-gray-200 text-gray-700 pt-3 flex-grow mr-px ${commonButtonClasses}`}>{numberOfResponsesText}</div>
           : (
             <>
               <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-1 ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
                 {t('components.entry.message', { count: responses })}
-                <MailOutlineIcon className="ml-2 mb-1" />
+                <MailOutlineIcon className="ml-2 mb-1 inline-block" />
               </button>
-              <button type="button" className={`flex-1 mx-px ${heroFoundButtonClasses}`} onClick={handleSolved} disabled={showAsSolved}>
+              <button type="button" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 {t('components.entry.heroFound')}
-                <DoneIcon className="ml-2 mb-1" />
+                {showAsSolved
+                  ? <DoneIcon className="mb-1 inline-block" />
+                  : <HelpOutlineIcon className="mb-1 inline-block" /> }
               </button>
             </>
           )}
-        <button type="button" className={`bg-red-200 text-primary ${commonButtonClasses}`} onClick={initializeDelete}>
-          {responses === 0 ? t('components.entry.deleteRequestForHelp') : null}
+        <button type="button" className={`bg-red-200 text-primary hover:text-white hover:bg-primary ${isOnMobile && 'max-w-5'} ${commonButtonClasses} pl-2 pr-8 md:px-6`} onClick={initializeDelete}>
+          {responses === 0 && !isOnMobile ? t('components.entry.deleteRequestForHelp') : null}
           <DeleteOutlineIcon className="mb-1" />
         </button>
       </div>
