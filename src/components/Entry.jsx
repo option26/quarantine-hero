@@ -8,12 +8,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import fb from '../firebase';
 import Responses from './Responses';
 import PopupOnEntryAction from './Popup';
 import userIsOnMobile from '../util/userIsOnMobile';
+
+import { ReactComponent as QuestionMarkSvg } from '../assets/questionmark.svg';
 
 export default function Entry(props) {
   const {
@@ -203,7 +204,7 @@ export default function Entry(props) {
                 {t('components.entry.heroFound')}
                 {showAsSolved
                   ? <DoneIcon className="ml-1 mb-1 inline-block" />
-                  : <HelpOutlineIcon className="ml-1 mb-1 inline-block" /> }
+                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block" /> }
               </button>
             </>
           )}
