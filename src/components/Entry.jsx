@@ -190,7 +190,7 @@ export default function Entry(props) {
       : `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`;
 
     return (
-      <div className="flex flex-row mt-4 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
+      <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
           ? <div className={`bg-gray-200 text-gray-700 pt-3 flex-grow mr-px ${commonButtonClasses}`}>{numberOfResponsesText}</div>
           : (
