@@ -1,42 +1,16 @@
 import React from 'react';
-import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import Popup from 'reactjs-popup';
 
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent) {
+function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent, textBody = null) {
   const popupContentClasses = 'p-4 bg-kaki font-open-sans flex flex-col justify-center items-center';
-  const strongerTogetherHashtag = <i>#strongertogether</i>;
-  const textBodyWasYourRequestSuccessful = (
-    <>
-      <p className="mt-2">
-        {i18n.t('components.entry.popup.wasYourRequestSuccessful.firstSentence')}
-        {strongerTogetherHashtag}
-      </p>
-      <p>{i18n.t('components.entry.popup.wasYourRequestSuccessful.secondSentence')}</p>
-      <p>{i18n.t('components.entry.popup.wasYourRequestSuccessful.thirdSentence')}</p>
-    </>
-  );
-
-  const textBodyYourRequestWasDeleted = (
-    <>
-      <p>{i18n.t('components.entry.popup.yourRequestWasDeleted.firstSentence')}</p>
-      <p>
-        {i18n.t('components.entry.popup.yourRequestWasDeleted.secondSentence')}
-        {strongerTogetherHashtag}
-      </p>
-    </>
-  );
-
-  let textBody = null;
-  if (heading === i18n.t('components.entry.popup.wasYourRequestSuccessful.heading')) textBody = textBodyWasYourRequestSuccessful;
-  if (heading === i18n.t('components.entry.popup.yourRequestWasDeleted.heading')) textBody = textBodyYourRequestWasDeleted;
-
+  const popupTextClasses = 'mb-3 pt-2 pb-5 min-w-full pl-4 md:pl-8';
   return () => (
     <div className={popupContentClasses}>
-      <div className="mb-3 pl-8 pt-2 pb-5 min-w-full">
+      <div className={popupTextClasses}>
         <div className="font-bold">{heading}</div>
         {textBody}
       </div>
@@ -60,6 +34,7 @@ export default function PopupOnEntryAction(props) {
     commonButtonClasses,
     responses,
     attemptingToDelete,
+    attemptingToSolve,
     deleted,
     popupVisible,
     setPopupVisible,
@@ -74,7 +49,38 @@ export default function PopupOnEntryAction(props) {
   const { t } = useTranslation();
 
   const positiveActionButtonClasses = `bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 ${commonButtonClasses}`;
-  const invertedDeleteButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
+  const negativeActionButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
+
+  const strongerTogetherHashtag = <i>#strongertogether</i>;
+  const textBodyWasYourRequestSuccessful = (
+    <>
+      <p className="mt-2">
+        {t('components.entry.popup.wasYourRequestSuccessful.firstSentence')}
+        {strongerTogetherHashtag}
+      </p>
+      <p>{t('components.entry.popup.wasYourRequestSuccessful.secondSentence')}</p>
+      <p>{t('components.entry.popup.wasYourRequestSuccessful.thirdSentence')}</p>
+    </>
+  );
+
+  const textBodySolveReassure = (
+    <>
+      <p className="mt-2">
+        {t('components.entry.popup.solveReassure.firstSentence')}
+      </p>
+      <p>{t('components.entry.popup.solveReassure.secondSentence')}</p>
+    </>
+  );
+
+  const textBodyYourRequestWasDeleted = (
+    <>
+      <p>{t('components.entry.popup.yourRequestWasDeleted.firstSentence')}</p>
+      <p>
+        {t('components.entry.popup.yourRequestWasDeleted.secondSentence')}
+        {strongerTogetherHashtag}
+      </p>
+    </>
+  );
 
   const HeroFoundButton = getButtonForPopup(
     positiveActionButtonClasses,
@@ -91,29 +97,36 @@ export default function PopupOnEntryAction(props) {
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
   );
 
-  const CancelButton = getButtonForPopup(
+  const CancelButtonPositiveClass = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.cancel'),
     cancelDelete,
     null,
   );
 
+  const CancelButtonNegativeClass = getButtonForPopup(
+    negativeActionButtonClasses,
+    t('components.entry.popup.cancel'),
+    cancelDelete,
+    null,
+  );
+
   const DeleteAnywayButton = getButtonForPopup(
-    invertedDeleteButtonClasses,
+    negativeActionButtonClasses,
     t('components.entry.popup.deleteAnyway'),
     handleDelete,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
   );
 
   const DeleteTerminallyButton = getButtonForPopup(
-    invertedDeleteButtonClasses,
+    negativeActionButtonClasses,
     t('components.entry.popup.deleteTerminally'),
     handleDelete,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
   );
 
   const BackToOverviewButton = getButtonForPopup(
-    invertedDeleteButtonClasses,
+    negativeActionButtonClasses,
     t('components.entry.popup.backToOverview'),
     backToOverview,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
@@ -121,23 +134,33 @@ export default function PopupOnEntryAction(props) {
 
   const PopupContentDeleteReassure = getPopupContentComponent(
     t('components.entry.popup.reassureDeletion'),
-    <CancelButton />,
+    <CancelButtonPositiveClass />,
     <DeleteTerminallyButton />,
+  );
+
+  const PopupContentSolveReassure = getPopupContentComponent(
+    t('components.entry.popup.solveReassure.heading'),
+    <HeroFoundButton />,
+    <CancelButtonNegativeClass />,
+    textBodySolveReassure,
   );
 
   const PopupContentSolvedHint = getPopupContentComponent(
     t('components.entry.popup.wasYourRequestSuccessful.heading'),
     <HeroFoundButton />,
     <DeleteAnywayButton />,
+    textBodyWasYourRequestSuccessful,
   );
 
   const PopupContentDeleteSuccess = getPopupContentComponent(
     t('components.entry.popup.yourRequestWasDeleted.heading'),
     <NewAskForHelpButton />,
     <BackToOverviewButton />,
+    textBodyYourRequestWasDeleted,
   );
 
   let popupContent = <></>;
+  if (attemptingToSolve && !showAsSolved) popupContent = <PopupContentSolveReassure />;
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
@@ -154,7 +177,7 @@ export default function PopupOnEntryAction(props) {
         {
           padding: '0',
           width: 'auto',
-          maxWidth: '70%',
+          maxWidth: '90%',
           minWidth: '30%',
         }
       }
