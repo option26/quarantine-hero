@@ -17,6 +17,7 @@ QuarantäneHelden is maintained by the following group of people:
 
 **Tom**
 - GitHub [@tgraupne](https://github.com/tgraupne)
+- Mail [super-quarantaeneheld@tomgraupner.de](mailto:super-quarantaeneheld@tomgraupner.de)
 
 
 **Feel free to contact any of them if you have questions or need help with something!**
