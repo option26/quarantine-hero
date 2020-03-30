@@ -11,7 +11,7 @@ are submitted with pull requests against master.
 
 ## If you want to contribute, please:
  - Create an issue, if it doesn't exist yet
- - Ask one of the maintainers (see [MAINTAINERS.md]('MAINTAINERS.md')) to be assigned to that issue
+ - Ask one of the maintainers (see [MAINTAINERS.md](MAINTAINERS.md)) to be assigned to that issue
  - Discuss your proposed changes in the issue
  - Submit your changes as a pull request against master
 
