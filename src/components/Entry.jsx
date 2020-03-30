@@ -202,8 +202,8 @@ export default function Entry(props) {
               <button type="button" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 {t('components.entry.heroFound')}
                 {showAsSolved
-                  ? <DoneIcon className="mb-1 inline-block" />
-                  : <HelpOutlineIcon className="mb-1 inline-block" /> }
+                  ? <DoneIcon className="ml-1 mb-1 inline-block" />
+                  : <HelpOutlineIcon className="ml-1 mb-1 inline-block" /> }
               </button>
             </>
           )}
