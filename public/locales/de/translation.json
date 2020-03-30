@@ -216,6 +216,11 @@
         "cancel": "Abbrechen",
         "deleteTerminally": "Endgültig löschen",
         "createNewRequest": "Neue Anfrage Erstellen",
+        "solveReassure": {
+          "heading": "War dein Hilfegesuch erfolgreich?",
+          "firstSentence": "Lass die Community wissen dass deine Suche erfolgreich war.",
+          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt und du bekommst keine weiteren Nachrichten von Helfern mehr."
+        },
         "wasYourRequestSuccessful": {
           "heading": "War dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen ob deine Suche erfolgreich war.",
