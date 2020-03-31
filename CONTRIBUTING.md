@@ -6,8 +6,7 @@ We really appreciate your help! We want to make contributing to this project as 
  - Implementing features
  
 ## We develop with GitHub
-We use GitHub issues to discuss bugs, features, improvements and meta-questions (such as this document). All contributions
-are submitted with pull requests against master.
+We use GitHub issues to discuss bugs, features, improvements and meta-questions (such as this document). All contributions are submitted with pull requests against **master**.
 
 ## If you want to contribute, please:
  - Create an issue, if it doesn't exist yet
