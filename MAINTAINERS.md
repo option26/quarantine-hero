@@ -15,6 +15,7 @@ QuarantäneHelden is maintained by the following group of people:
 **Maurice**
 - GitHub [@Maurice22](https://github.com/Maurice22)
 - Mail [m.ackel@icloud.com](mailto:m.ackel@icloud.com)
+
 **Tom**
 - GitHub [@tgraupne](https://github.com/tgraupne)
 - Mail [super-quarantaeneheld@tomgraupner.de](mailto:super-quarantaeneheld@tomgraupner.de)
