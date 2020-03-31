@@ -6,27 +6,6 @@ import Footer from '../components/Footer';
 
 export default function FAQ() {
   const { t, i18n } = useTranslation();
-  const faqTranslationStrings = [
-    'howDoesItWork',
-    'whereDoesItWork',
-    'whichKindOfRequests',
-    'canICreateRequestsForOthers',
-    'canICreateRequestsForMultipleAreas',
-    'howToPay',
-    'howToBeSafe',
-    'whoCanSeeRequests',
-    'howToContact',
-    'whatToKeepInMind',
-    'whatToConsider',
-    'doIGetPaid',
-    'whatAboutSafety',
-    'howCanISupportQhero',
-    'howHelpPeopleWithoutInternet',
-    'whoAreYou',
-    'howIsDataUsed',
-    'howToDeleteMyRequest',
-    'iGetNoAnswers',
-  ];
 
   const QAwithLink = (props) => (
     <QA key={props.tranlationKey} question={t(`views.faq.questions.${props.tranlationKey}`)}>
@@ -48,17 +27,9 @@ export default function FAQ() {
   )
 
   function buildFAQ(translationString) {
-    if (i18n.exists(`views.faq.answers.${translationString}.preLink`)) {
-      return (
-        <QAwithLink key={translationString} tranlationKey={translationString} />
-      );
-    } else {
-      return (
-        <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>
-          {t(`views.faq.answers.${translationString}`)}
-        </QA>
-      );
-    }
+    return (i18n.exists(`views.faq.answers.${translationString}.preLink`))
+      ? <QAwithLink key={translationString} tranlationKey={translationString} />
+      : <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>{t(`views.faq.answers.${translationString}`)}</QA>
   }
 
   function buildFAQs(arrayOfKeys) {
@@ -68,7 +39,7 @@ export default function FAQ() {
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
-      {buildFAQs(faqTranslationStrings)}
+      {buildFAQs(Object.keys(t('views.faq.questions', { returnObjects: true })))}
       <Footer />
     </div>
   );
