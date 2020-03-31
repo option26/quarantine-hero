@@ -22,7 +22,7 @@ the maintainers
 environment to verify this
 4. Only open a pull request if you consider it to be finished. Do not open "work-in-progress" pull requests, but 
 discuss your changes in an issue instead.
-5. Make sure that your pull request is based against master.
+5. Make sure that your pull request is based against master
 
 ## Pull request review
 1. Request a review from one or multiple maintainers
