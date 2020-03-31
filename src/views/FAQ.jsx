@@ -1,4 +1,3 @@
-/* eslint-disable no-else-return */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,28 +7,28 @@ export default function FAQ() {
   const { t, i18n } = useTranslation();
 
   const QAwithLink = (props) => (
-    <QA key={props.tranlationKey} question={t(`views.faq.questions.${props.tranlationKey}`)}>
-      {t(`views.faq.answers.${props.tranlationKey}.preLink`)}
-      <Link to={t(`views.faq.answers.${props.tranlationKey}.url`)} className="text-secondary hover:underline">
+    <QA key={props.translationKey} question={t(`views.faq.questions.${props.translationKey}`)}>
+      {t(`views.faq.answers.${props.translationKey}.preLink`)}
+      <Link to={t(`views.faq.answers.${props.translationKey}.url`)} className="text-secondary hover:underline">
         {' '}
-        {t(`views.faq.answers.${props.tranlationKey}.link`)}
+        {t(`views.faq.answers.${props.translationKey}.link`)}
         {' '}
       </Link>
-      {t(`views.faq.answers.${props.tranlationKey}.postLink`)}
+      {t(`views.faq.answers.${props.translationKey}.postLink`)}
     </QA>
-  )
+  );
 
   const QA = (props) => (
     <>
       <h2 className="text-xl font-teaser mt-8">{props.question}</h2>
       <p className="font-open-sans">{props.children}</p>
     </>
-  )
+  );
 
   function buildFAQ(translationString) {
     return (i18n.exists(`views.faq.answers.${translationString}.preLink`))
-      ? <QAwithLink key={translationString} tranlationKey={translationString} />
-      : <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>{t(`views.faq.answers.${translationString}`)}</QA>
+      ? <QAwithLink key={translationString} translationKey={translationString} />
+      : <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>{t(`views.faq.answers.${translationString}`)}</QA>;
   }
 
   function buildFAQs(arrayOfKeys) {
