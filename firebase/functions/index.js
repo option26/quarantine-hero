@@ -13,87 +13,87 @@ const sgMailApiKey = envVariables && envVariables.sendgrid && envVariables.sendg
   : null;
 sgMail.setApiKey(sgMailApiKey);
 
+const REGION_EUROPE_WEST_1 = 'europe-west1';
 const MAX_RESULTS = 30;
 const MAPS_ENABLED = false;
 const MINIMUM_NOTIFICATION_DELAY = 20;
 const SEND_EMAILS = sgMailApiKey !== null;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
 
-exports.offerHelpCreate = functions.region('europe-west1').firestore.document('/ask-for-help/{requestId}/offer-help/{offerId}')
-  .onCreate(async (snap) => {
-    try {
-      const parentPath = snap.ref.parent.path; // get the id
-      const offerId = snap.id; // get the id
-      const db = admin.firestore();
-      const askForHelp = snap.ref.parent.parent;
+async function onOfferHelpCreate(snap) {
+  try {
+    const parentPath = snap.ref.parent.path; // get the id
+    const offerId = snap.id; // get the id
+    const db = admin.firestore();
+    const askForHelp = snap.ref.parent.parent;
 
-      const offer = await db.collection(parentPath).doc(offerId).get();
-      const askRecord = await askForHelp.get();
-      if (!askRecord.exists) {
-        // eslint-disable-next-line no-console
-        console.error('ask-for-help at ', snap.ref.parent.parent.path, 'does not exist');
-        return;
-      }
-      const { request, uid } = askRecord.data().d;
-      const data = await admin.auth().getUser(uid);
-      const { email: receiver } = data.toJSON();
-      const { answer, email } = offer.data();
-
+    const offer = await db.collection(parentPath).doc(offerId).get();
+    const askRecord = await askForHelp.get();
+    if (!askRecord.exists) {
       // eslint-disable-next-line no-console
-      console.log({
-        to: receiver,
-        from: email,
-        templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-        dynamic_template_data: {
-          subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
-          answer,
-          email,
-          request,
-        },
-      });
-      try {
-        if (SEND_EMAILS) {
-          await sgMail.send({
-            to: receiver,
-            from: 'help@quarantaenehelden.org',
-            replyTo: {
-              email,
-            },
-            templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-            dynamic_template_data: {
-              subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
-              answer,
-              email,
-              request,
-            },
-            hideWarnings: true, // removes triple bracket warning
-          });
-        } else {
-          // eslint-disable-next-line no-console
-          console.log(sendingMailsDisabledLogMessage);
-        }
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn(err);
-        if (err.response && err.response.body && err.response.body.errors) {
-          // eslint-disable-next-line no-console
-          console.warn(err.response.body.errors);
-        }
-      }
-
-      await db.collection('/ask-for-help').doc(askRecord.id).update({
-        'd.responses': admin.firestore.FieldValue.increment(1),
-      });
-      await db.collection('/stats').doc('external').update({
-        offerHelp: admin.firestore.FieldValue.increment(1),
-      });
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
+      console.error('ask-for-help at ', snap.ref.parent.parent.path, 'does not exist');
+      return;
     }
-  });
+    const {request, uid} = askRecord.data().d;
+    const data = await admin.auth().getUser(uid);
+    const {email: receiver} = data.toJSON();
+    const {answer, email} = offer.data();
+
+    // eslint-disable-next-line no-console
+    console.log({
+      to: receiver,
+      from: email,
+      templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+      dynamic_template_data: {
+        subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+        answer,
+        email,
+        request,
+      },
+    });
+    try {
+      if (SEND_EMAILS) {
+        await sgMail.send({
+          to: receiver,
+          from: 'help@quarantaenehelden.org',
+          replyTo: {
+            email,
+          },
+          templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+          dynamic_template_data: {
+            subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+            answer,
+            email,
+            request,
+          },
+          hideWarnings: true, // removes triple bracket warning
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(sendingMailsDisabledLogMessage);
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(err);
+      if (err.response && err.response.body && err.response.body.errors) {
+        // eslint-disable-next-line no-console
+        console.warn(err.response.body.errors);
+      }
+    }
+
+    await db.collection('/ask-for-help').doc(askRecord.id).update({
+      'd.responses': admin.firestore.FieldValue.increment(1),
+    });
+    await db.collection('/stats').doc('external').update({
+      offerHelp: admin.firestore.FieldValue.increment(1),
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
 
 async function searchAndSendNotificationEmails() {
   const dist = (search, doc) => Math.abs(Number(search) - Number(doc.plz));
@@ -215,110 +215,141 @@ async function searchAndSendNotificationEmails() {
   }
 }
 
+async function onReportedPostsCreate(snap) {
+  try {
+    const db = admin.firestore();
+    const snapValue = snap.data();
+    const { askForHelpId, uid } = snapValue;
+
+    // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
+    await db.collection('/ask-for-help').doc(askForHelpId).update({
+      'd.reportedBy': admin.firestore.FieldValue.arrayUnion(uid),
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
+
+async function onAskForHelpCreate(snap) {
+  try {
+    const db = admin.firestore();
+    const askForHelpId = snap.id; // get the id
+    const parentPath = snap.ref.parent.path; // get the id
+    const askForHelpSnap = await db.collection(parentPath).doc(askForHelpId).get();
+    const askForHelpSnapData = askForHelpSnap.data();
+
+    // Enforce field to 0
+    await snap.ref.update({
+      'd.notificationCounter': 0,
+    });
+
+    await db.collection('/stats').doc('external').update({
+      askForHelp: admin.firestore.FieldValue.increment(1),
+    });
+
+    await slack.postToSlack(askForHelpId, askForHelpSnapData);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
+
+async function onSubscribeToBeNotifiedCreate(snap) {
+  try {
+    const db = admin.firestore();
+    await db.collection('/stats').doc('external').update({
+      regionSubscribed: admin.firestore.FieldValue.increment(1),
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
+
+async function onSolvedPostsCreate(snap) {
+  try {
+    const db = admin.firestore();
+    const snapValue = snap.data();
+    const { uid } = snapValue;
+    const askForHelpCollectionName = 'ask-for-help';
+
+    if (!userIdsMatch(db, askForHelpCollectionName, snap.id, uid)) return;
+
+    await migrateResponses(db, askForHelpCollectionName, snap.id, 'solved-posts');
+    await deleteDocumentWithSubCollections(db, askForHelpCollectionName, snap.id);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
+
+async function onDeleletedCreate(snap) {
+  try {
+    const db = admin.firestore();
+    const snapValue = snap.data();
+    // collectionName can be either "ask-for-help" or "solved-posts"
+    const { uid, collectionName } = snapValue;
+
+    if (!userIdsMatch(db, collectionName, snap.id, uid)) return;
+
+    await migrateResponses(db, collectionName, snap.id, 'deleted');
+    await deleteDocumentWithSubCollections(db, collectionName, snap.id);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    // eslint-disable-next-line no-console
+    console.log('ID', snap.id);
+  }
+}
+
 exports.sendNotificationEmails = functions
-  .region('europe-west1')
+  .region(REGION_EUROPE_WEST_1)
   .pubsub
   .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
 
-exports.askForHelpCreate = functions.region('europe-west1').firestore.document('/ask-for-help/{requestId}')
-  .onCreate(async (snap) => {
-    try {
-      const db = admin.firestore();
-      const askForHelpId = snap.id; // get the id
-      const parentPath = snap.ref.parent.path; // get the id
-      const askForHelpSnap = await db.collection(parentPath).doc(askForHelpId).get();
-      const askForHelpSnapData = askForHelpSnap.data();
+exports.askForHelpCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/ask-for-help/{requestId}')
+  .onCreate(onAskForHelpCreate);
 
-      // Enforce field to 0
-      await snap.ref.update({
-        'd.notificationCounter': 0,
-      });
+exports.regionSubscribeCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/offer-help/{helperId}')
+  .onCreate(onSubscribeToBeNotifiedCreate);
 
-      await db.collection('/stats').doc('external').update({
-        askForHelp: admin.firestore.FieldValue.increment(1),
-      });
+exports.reportedPostsCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/reported-posts/{reportRequestId}')
+  .onCreate(onReportedPostsCreate);
 
-      await slack.postToSlack(askForHelpId, askForHelpSnapData);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
-    }
-  });
+exports.solvedPostsCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/solved-posts/{reportRequestId}')
+  .onCreate(onSolvedPostsCreate);
 
-exports.regionSubscribeCreate = functions.region('europe-west1').firestore.document('/offer-help/{helperId}')
-  .onCreate(async (snap) => {
-    try {
-      const db = admin.firestore();
-      await db.collection('/stats').doc('external').update({
-        regionSubscribed: admin.firestore.FieldValue.increment(1),
-      });
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
-    }
-  });
+exports.deletedCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/deleted/{reportRequestId}')
+  .onCreate(onDeleletedCreate);
 
-exports.reportedPostsCreate = functions.region('europe-west1').firestore.document('/reported-posts/{reportRequestId}')
-  .onCreate(async (snap) => {
-    try {
-      const db = admin.firestore();
-      const snapValue = snap.data();
-      const { askForHelpId, uid } = snapValue;
-
-      // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
-      await db.collection('/ask-for-help').doc(askForHelpId).update({
-        'd.reportedBy': admin.firestore.FieldValue.arrayUnion(uid),
-      });
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
-    }
-  });
-
-exports.solvedPostsCreate = functions.region('europe-west1').firestore.document('/solved-posts/{reportRequestId}')
-  .onCreate(async (snap) => {
-    try {
-      const db = admin.firestore();
-      const snapValue = snap.data();
-      const { uid } = snapValue;
-      const askForHelpCollectionName = 'ask-for-help';
-
-      if (!userIdsMatch(db, askForHelpCollectionName, snap.id, uid)) return;
-
-      await migrateResponses(db, askForHelpCollectionName, snap.id, 'solved-posts');
-      await deleteDocumentWithSubCollections(db, askForHelpCollectionName, snap.id);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
-    }
-  });
-
-exports.deletedCreate = functions.region('europe-west1').firestore.document('/deleted/{reportRequestId}')
-  .onCreate(async (snap) => {
-    try {
-      const db = admin.firestore();
-      const snapValue = snap.data();
-      // collectionName can be either "ask-for-help" or "solved-posts"
-      const { uid, collectionName } = snapValue;
-
-      if (!userIdsMatch(db, collectionName, snap.id, uid)) return;
-
-      await migrateResponses(db, collectionName, snap.id, 'deleted');
-      await deleteDocumentWithSubCollections(db, collectionName, snap.id);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      // eslint-disable-next-line no-console
-      console.log('ID', snap.id);
-    }
-  });
+exports.offerHelpCreate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document('/ask-for-help/{requestId}/offer-help/{offerId}')
+  .onCreate(onOfferHelpCreate);
