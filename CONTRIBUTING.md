@@ -28,7 +28,7 @@ discuss your changes in an issue instead
 1. Request a review from one or multiple maintainers
 2. One of the maintainers will accept the invite for review, he will be your main reviewer for this pull request.
 3. Your reviewer will ask for changes, if necessary. If no more changes seem necessary, your reviewer will accept your changes
-4. After accepting your changes, your reviewer will ask for a second pair of eyes from a second maintainer.
+4. After accepting your changes, your reviewer will ask for a second pair of eyes from a second maintainer
 5. After both maintainers accept your changes, they will be squashed and merged into master.
 
 ## Any contributions you make will be under AGPL-v3
