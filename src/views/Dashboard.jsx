@@ -114,13 +114,13 @@ function Dashboard(props) {
       <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
       <Tabs defaultTab="open">
         <TabList>
-          <Tab tabFor="open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
-          <Tab tabFor="solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
+          <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
+          <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
         </TabList>
-        <TabPanel tabId="open">
+        <TabPanel tabId="open" data-cy="tabs-open-content">
           <OpenRequests />
         </TabPanel>
-        <TabPanel tabId="solved">
+        <TabPanel tabId="solved" data-cy="tabs-solved-content">
           <ResolvedRequests />
         </TabPanel>
       </Tabs>
