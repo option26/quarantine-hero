@@ -95,7 +95,7 @@ exports.offerHelpCreate = functions.region('europe-west1').firestore.document('/
     }
   });
 
-exports.sendNotificationEmails = functions.pubsub.schedule('every 3 minutes').onRun(async () => {
+exports.sendNotificationEmails = functions.region('europe-west1').pubsub.schedule('*/3 9-23 * * *').timeZone('Europe/Berlin').onRun(async () => {
   const dist = (search, doc) => Math.abs(Number(search) - Number(doc.plz));
 
   const db = admin.firestore();
