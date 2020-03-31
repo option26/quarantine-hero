@@ -50,11 +50,11 @@ export default function Entry(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const doc = await fb.store.collection('/ask-for-help').doc(props.id).get();
-    await fb.store.collection('/deleted').add({
-      askForHelpId: doc.id, ...doc.data(),
+    const collectionName = 'ask-for-help';
+    const doc = await fb.store.collection(collectionName).doc(props.id).get();
+    await fb.store.collection('/deleted').doc(props.id).set({
+      collectionName, ...doc.data(),
     });
-    fb.store.collection('/ask-for-help').doc(props.id).delete();
     setDeleted(true);
   };
 
