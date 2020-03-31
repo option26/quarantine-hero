@@ -95,7 +95,7 @@ exports.offerHelpCreate = functions.region('europe-west1').firestore.document('/
     }
   });
 
-exports.sendNotificationEmails = functions.region('europe-west1').pubsub.schedule('*/3 9-23 * * *').timeZone('Europe/Berlin').onRun(async () => {
+async function searchAndSendNotificationEmails() {
   const dist = (search, doc) => Math.abs(Number(search) - Number(doc.plz));
 
   const db = admin.firestore();
@@ -213,7 +213,14 @@ exports.sendNotificationEmails = functions.region('europe-west1').pubsub.schedul
     // eslint-disable-next-line no-console
     console.error(e);
   }
-});
+}
+
+exports.sendNotificationEmails = functions
+  .region('europe-west1')
+  .pubsub
+  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .timeZone('Europe/Berlin')
+  .onRun(searchAndSendNotificationEmails);
 
 exports.askForHelpCreate = functions.region('europe-west1').firestore.document('/ask-for-help/{requestId}')
   .onCreate(async (snap) => {
