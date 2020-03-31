@@ -5,7 +5,7 @@ We really appreciate your help! We want to make contributing to this project as 
  - Submitting bug fixes
  - Implementing features
  
-## We Develop with GitHub
+## We develop with GitHub
 We use GitHub issues to discuss bugs, features, improvements and meta-questions (such as this document). All contributions
 are submitted with pull requests against master.
 
