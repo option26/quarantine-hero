@@ -73,6 +73,10 @@ export default function AskForHelp() {
     return <Redirect to="/signin/ask-for-help" />;
   }
 
+  if (!user || !user.emailVerified) {
+    return <Redirect to="/verify-email" />;
+  }
+
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <h1 className="font-teaser py-4 pt-10">{t('views.askForHelp.createRequest')}</h1>
