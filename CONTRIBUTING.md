@@ -20,8 +20,8 @@ the maintainers
 2. Ensure that any new code is covered by tests. Check out the `/cypress` directory for examples
 3. Ensure that your pull request does not introduce any new linting errors. You can run `yarn lint` in your local dev
 environment to verify this
-4. Only open a pull request if you consider it to be finished. Do not open "work-in-progress" pull requests, but 
-discuss your changes in an issue instead.
+4. Only open a pull request if you consider your code to be finished. Do not open "work-in-progress" pull requests, but 
+discuss your changes in an issue instead
 5. Make sure that your pull request is based against master
 
 ## Pull request review
