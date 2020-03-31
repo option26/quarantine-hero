@@ -2,6 +2,6 @@
 
 rm -rf dist && \
 rm -rf node_modules && \
-yarn lint && \
 yarn install && \
+yarn lint && \
 NODE_ENV=prod yarn build
