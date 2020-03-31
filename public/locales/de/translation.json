@@ -160,7 +160,40 @@
       "thankYou": "Vielen Dank, wir haben Deine Nachricht weitergeleitet.",
       "toHome": "ZUR STARTSEITE"
     },
-
+    "signIn": {
+      "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.",
+      "wrongUserOrPw": "Falsche Email Adresse oder falsches Passwort angegeben.",
+      "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.",
+      "pwResetError": "Fehler beim Zurücksetzen des Passworts. Bist du sicher, dass du deine E-Mail korrekt angegeben hast?",
+      "yourEmail": "Deine Emailadresse",
+      "yourPw": "Dein Passwort",
+      "email": "Email",
+      "password": "Passwort",
+      "resetPw": "Passwort zurücksetzen",
+      "loginNow": "Jetzt anmelden",
+      "registerNow": "Neu registrieren",
+      "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
+      "headerText": "Melde dich mit deiner E-Mail und deinem Passwort an um {{reasonForSignin}}.",
+      "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten",
+      "emailInvalid": "Bitte gib deine korrekte Emailadresse an.",
+      "tooManyRequests": "Das waren zu viele Fehlversuche, bitte versuche es später noch einmal."
+    },
+    "signUp": {
+      "headerText": "Registriere dich mit deiner E-Mail und einem Passwort um {{reasonForSignup}}.",
+      "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
+      "pwMismatch": "Die Passwörter stimmen nicht überein",
+      "yourEmail": "Deine Emailadresse",
+      "yourPw": "Dein Passwort",
+      "email": "Email",
+      "password": "Passwort",
+      "passwordRepeat": "Passwort wiederholen",
+      "confirmPassword": "Passwort erneut eingeben",
+      "registerNow": "Jetzt registrieren",
+      "emailInUse": "Es existiert bereits ein Account mit dieser Email-Adresse.",
+      "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
+      "haveAnAccount": "Ich habe bereits einen Account",
+      "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
+    },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schiefgelaufen.",
       "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",

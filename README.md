@@ -12,7 +12,7 @@ Everyone is very welcome to create issues, give feedback and contribute to the c
 
 ## Getting Started
 
-This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project. Our Firebase functions are hosted here: https://github.com/florianschmidt1994/quarantaenehelden-firebase-functions
+This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project.
 
 You need the following libraries to get started: `node`, `yarn`, `firebase cli`. So please install them in an appropriate way on your host system. On macOS, you'd also need the `Xcode command line tools`.
 
@@ -125,6 +125,12 @@ Or even better, replace all email-related source code with proper logging.
 After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
 ```console
+cd firebase/functions
+...
+
+npm i
+...
+
 firebase login
 ...
 

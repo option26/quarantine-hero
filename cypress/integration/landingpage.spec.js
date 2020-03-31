@@ -14,7 +14,7 @@ context('Landing Page', () => {
 
     it('clicking on "Ich brauche Hilfe" should redirect to signup', () => {
       cy.get('[data-cy=cta-need-help]').click();
-      cy.hash().should('equal', '#/signup');
+      cy.hash().should('equal', '#/signup/ask-for-help');
     });
 
     it('clicking on an entry should redirect to offer help', () => {

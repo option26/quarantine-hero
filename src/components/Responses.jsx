@@ -8,12 +8,12 @@ const Response = ({ response }) => {
 
   return (
     <li className="px-4 py-2 my-1 block relative ml-12 font-open-sans response">
-      <div className="flex flex-row justify-between items-center mt-2 text-sm">
-        <span className="text-gray-800">
+      <div className="flex flex-row flex-wrap items-center mt-2 text-sm">
+        <span className="flex-grow text-gray-800 break-all">
           {'Antwort von '}
           <a href={`mailto:${response.email}`} className="font-bold">{response.email}</a>
         </span>
-        <a href={`mailto:${response.email}`} className="text-secondary uppercase">
+        <a href={`mailto:${response.email}`} className="flex-grow ml-2 text-right text-secondary uppercase">
           <span className="font-bold">Antworten</span>
           <span className="ml-1 text-xl leading-0">&raquo;</span>
         </a>

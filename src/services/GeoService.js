@@ -8,14 +8,16 @@ export async function getSuggestions(searchString, searchOptions) {
     ...searchOptions,
     input: searchString,
   };
-  return new Promise((resolve, reject) => {
-    autocomplete.getPlacePredictions(request, (result, status) => {
-      if (status === 'OK') {
+  return new Promise((resolve, reject) => autocomplete.getPlacePredictions(request, (result, status) => {
+    switch (status) {
+      case 'OK':
         return resolve(result);
-      }
-      return reject(status);
-    });
-  });
+      case 'ZERO_RESULTS':
+        return resolve([]);
+      default:
+        return reject(status);
+    }
+  }));
 }
 
 export async function getGeodataForString(searchString, searchOptions) {
