@@ -19,4 +19,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Build
-        run: ./.github/workflows/build-frontend.sh
+        run: ./.github/workflows/build-firebase.sh
