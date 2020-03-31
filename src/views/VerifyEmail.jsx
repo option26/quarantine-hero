@@ -21,8 +21,15 @@ const VerifyEmail = (props) => {
     setSendVerificationSuccess(true);
   };
 
-  const recheckEmail = (e) => {
+  const recheckEmail = async (e) => {
     e.preventDefault();
+    // https://github.com/firebase/firebase-js-sdk/issues/2529
+    // https://stackoverflow.com/questions/47243702/firebase-token-email-verified-going-weird
+    // after an immediate sign up and email verification, "firebase.auth().currentUser.emailVerified" is set correctly
+    // however, "auth.token.email_verified" in the firebase backend gets ist value from the ID token which will not get updated until it expires or it is force refreshed
+    // therefore, we need to force refresh the ID token, to make the backend aware that the user is indeed verified, and passes the security rules
+    // by design, if the user would log out and log in again, the token would be refreshed as well
+    await firebaseAppAuth.currentUser.getIdToken(true);
     window.location.reload();
   };
 
