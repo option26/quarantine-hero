@@ -17,12 +17,6 @@ fi
 REPO="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 GIT_REV="$(git rev-parse HEAD)"&& \
-rm -rf dist && \
-rm -rf node_modules && \
-yarn install && \
-node -v && \
-npm -v && \
-NODE_ENV=prod yarn build && \
 cd build/ && \
 git init && \
 git config user.name "GitHub Actions" && \
