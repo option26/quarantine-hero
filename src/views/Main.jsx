@@ -75,7 +75,7 @@ export default function Main() {
           <div className="m-1 md:m-4" />
           <Link
             data-cy="cta-need-help"
-            to="/signup"
+            to="/signup/ask-for-help"
             className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_need_help')}
           >

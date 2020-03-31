@@ -12,7 +12,7 @@ context('Landing Page', () => {
 
     it('clicking on "Ich brauche Hilfe" should redirect to signup', () => {
       cy.get('[data-cy=cta-need-help]').click();
-      cy.hash().should('equal', '#/signup');
+      cy.hash().should('equal', '#/signup/ask-for-help');
     });
 
     it('clicking on an entry should redirect to offer help', () => {
@@ -34,7 +34,7 @@ context('Landing Page', () => {
         }
       });
 
-      cy.visit('localhost:3000/#/signup');
+      cy.visit('localhost:3000/#/signin');
       cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
       cy.get('form input[type="password"]').type('test1234{enter}');
 

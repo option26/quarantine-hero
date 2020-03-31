@@ -154,7 +154,7 @@ export default function DashboardWithAuth() {
   }
 
   if (!user || !user.email) {
-    return <Redirect to="/signup/dashboard" />;
+    return <Redirect to="/signin/dashboard" />;
   }
 
   return <Dashboard user={user} />;
