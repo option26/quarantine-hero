@@ -1,5 +1,5 @@
 # Contributing to QuarantäneHelden
-We really appreciate your help! We want to make contributing to this project as easy and transparent as possible, whether its:
+We really appreciate your help! We want to make contributing to this project as easy and transparent as possible, whether it's:
  - Reporting bugs
  - Proposing new features
  - Submitting bug fixes
