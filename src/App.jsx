@@ -32,7 +32,7 @@ import CompleteOfferHelp from './views/CompleteOfferHelp';
 import NotifyMe from './views/NotifyMe';
 import ScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
-import Presse from './views/Presse';
+import Press from './views/Press';
 import createEventListener from './util/createEventListener';
 import Security from './views/Security';
 
@@ -84,7 +84,7 @@ function App(props) {
               <button type="button" data-cy="btn-sign-out" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components.desktopMenu.signOut')}</button>
             </>
           )}
-          <Link className="mr-6 font-open-sans text-gray-700" to="/presse">{t('App.press')}</Link>
+          <Link className="mr-6 font-open-sans text-gray-700" to="/press">{t('App.press')}</Link>
           <ShareButtons />
         </div>
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
@@ -147,8 +147,8 @@ function App(props) {
                 <Route path="/dsgvo">
                   <DSGVO />
                 </Route>
-                <Route path="/presse">
-                  <Presse />
+                <Route path="/press">
+                  <Press />
                 </Route>
                 <Route path="/notify-me">
                   <NotifyMe />
