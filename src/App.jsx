@@ -147,7 +147,7 @@ function App(props) {
                 <Route path="/dsgvo">
                   <DSGVO />
                 </Route>
-                <Route path="/press">
+                <Route path={['/press', '/presse']}>
                   <Press />
                 </Route>
                 <Route path="/notify-me">
