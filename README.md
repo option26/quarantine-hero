@@ -6,7 +6,9 @@ A project brought to you with :heart: and bootstrapped with [Create React App](h
 
 ## Contributions
 
-As a non-profit project run by volunteers we rely on the support of the open source community. We highly encourage contributions and we are trying to make this process as frictionless as possible. Therefore, we set up a test environment with a special instance of Google's Firebase and we elected two people to coordinate contributions, @tgraupne and @florianschmidt1994.
+As a non-profit project run by volunteers we rely on the support of the open source community. We highly encourage 
+contributions and we are trying to make this process as frictionless as possible. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for 
+more details.
 
 Everyone is very welcome to create issues, give feedback and contribute to the code base. If you'd like to work on an issue, please mention @tgraupne or @florianschmidt1994 in a comment and we will get in touch with you. We are constantly trying to maintain an up-to-date state of the project reflect in labels, reviews and comments.
 
