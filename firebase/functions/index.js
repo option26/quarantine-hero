@@ -34,10 +34,10 @@ async function onOfferHelpCreate(snap) {
       console.error('ask-for-help at ', snap.ref.parent.parent.path, 'does not exist');
       return;
     }
-    const {request, uid} = askRecord.data().d;
+    const { request, uid } = askRecord.data().d;
     const data = await admin.auth().getUser(uid);
-    const {email: receiver} = data.toJSON();
-    const {answer, email} = offer.data();
+    const { email: receiver } = data.toJSON();
+    const { answer, email } = offer.data();
 
     // eslint-disable-next-line no-console
     console.log({
