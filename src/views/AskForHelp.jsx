@@ -69,8 +69,12 @@ export default function AskForHelp() {
     setPlaceId(pId);
   };
 
-  if (!isAuthLoading && (!user || !user.email)) {
+  if (!user || (!isAuthLoading && (!user || !user.email))) {
     return <Redirect to="/signin/ask-for-help" />;
+  }
+
+  if (!user.emailVerified) {
+    return <Redirect to="/verify-email" />;
   }
 
   return (
