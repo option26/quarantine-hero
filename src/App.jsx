@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth';
 import CookieConsent from 'react-cookie-consent';
 import ScrollUpButton from 'react-scroll-up-button';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -11,6 +10,9 @@ import {
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
@@ -36,14 +38,61 @@ import Press from './views/Press';
 import createEventListener from './util/createEventListener';
 import Security from './views/Security';
 
-function App(props) {
+function TopNavigation({ isAuthLoading, user, signOut }) {
+
   const { t } = useTranslation();
 
-  const {
-    user,
-    signOut,
-  } = props;
+  // if the user is not logged in or authentication is loading
+  // show only "Login" and "Presse" in top navigation
+  if (isAuthLoading || !user) {
+    return (
+      <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
+        <Link
+          className="mr-6 font-open-sans text-gray-700"
+          to="/signin/dashboard"
+        >
+          {t('App.login')}
+        </Link>
+        <Link className="mr-6 font-open-sans text-gray-700" to="/press">{t('App.press')}</Link>
+        <ShareButtons />
+      </div>
+    );
+  }
 
+  // if the user is logged in show
+  // "Meine Übersicht", "Logout", "Dashboard" and "Presse" in top navigation
+  return (
+    <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
+      <Link
+        data-cy="nav-my-overview"
+        className="mr-6 font-open-sans text-gray-700"
+        to="/dashboard"
+      >
+        {t('components.desktopMenu.myOverview')}
+      </Link>
+      <button
+        type="button"
+        data-cy="btn-sign-out"
+        className="mr-4 font-open-sans text-gray-700"
+        onClick={signOut}
+      >
+        {t('components.desktopMenu.signOut')}
+      </button>
+      <Link
+        className="mr-6 font-open-sans text-gray-700"
+        to="/press"
+      >
+        {t('App.press')}
+      </Link>
+      <ShareButtons />
+    </div>
+  );
+}
+
+export default function App() {
+  const { t } = useTranslation();
+  const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const signOut = () => firebase.auth().signOut();
 
   const enableAnalytics = () => {
     // Crash reporting
@@ -75,18 +124,7 @@ function App(props) {
   return (
     <div className="flex items-center min-h-screen flex-col bg-kaki">
       <Router>
-        <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-          {!user
-          && <Link className="mr-6 font-open-sans text-gray-700" to="/signin/dashboard">{t('App.login')}</Link>}
-          {user && (
-            <>
-              <Link className="mr-6 font-open-sans text-gray-700" to="/dashboard">{t('components.desktopMenu.myOverview')}</Link>
-              <button type="button" data-cy="btn-sign-out" className="mr-4 font-open-sans text-gray-700" to="#" onClick={signOut}>{t('components.desktopMenu.signOut')}</button>
-            </>
-          )}
-          <Link className="mr-6 font-open-sans text-gray-700" to="/press">{t('App.press')}</Link>
-          <ShareButtons />
-        </div>
+        <TopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <ScrollToTop />
           <DesktopMenu isLoggedIn={user} signOut={signOut} />
@@ -186,7 +224,3 @@ function App(props) {
   );
 }
 
-export default withFirebaseAuth({
-  providers: [],
-  firebaseAppAuth: fb.auth,
-})(App);

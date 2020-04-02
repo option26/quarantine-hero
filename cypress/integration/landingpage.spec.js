@@ -2,6 +2,7 @@ context('Landing Page', () => {
 
   describe('User is not logged in', () => {
     beforeEach(() => {
+      indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000');
     });
 
@@ -57,6 +58,20 @@ context('Landing Page', () => {
     it('clicking on an entry should redirect to offer help', () => {
       cy.get('.entry').first().click();
       cy.hash().should('contain', '#/offer-help/');
+    });
+
+    it('clicking on "Meine Übersicht" should redirect to dashboard', () => {
+      cy.get('[data-cy=nav-my-overview]').click();
+      cy.hash().should('equal', '#/dashboard');
+    });
+
+    it('clicking on "Logout" should log out the user', () => {
+      cy.server();
+      cy.route('POST', 'https://www.googleapis.com/**').as('signOutUser');
+
+      cy.get('[data-cy=btn-sign-out]').click();
+      cy.get('[data-cy=btn-sign-out]').should('not.exist');
+      cy.get('[data-cy=nav-my-overview]').should('not.exist');
     });
   });
 });
