@@ -39,7 +39,6 @@ import createEventListener from './util/createEventListener';
 import Security from './views/Security';
 
 function TopNavigation({ isAuthLoading, user, signOut }) {
-
   const { t } = useTranslation();
 
   // if the user is not logged in or authentication is loading
