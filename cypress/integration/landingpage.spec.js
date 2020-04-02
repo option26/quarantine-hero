@@ -27,13 +27,7 @@ context('Landing Page', () => {
     beforeEach(() => {
       cy.visit('localhost:3000');
 
-      // TODO: This yells ANTI-PATTERN. We should find a way to fix this
-      cy.wait(2000);
-      cy.get('body').then(($body) => {
-        if ($body.find('[data-cy=btn-sign-out]').length > 0) {
-          cy.get('[data-cy=btn-sign-out]').click();
-        }
-      });
+      indexedDB.deleteDatabase('firebaseLocalStorageDb');
 
       cy.visit('localhost:3000/#/signin');
       cy.get('form input[type="email"]').type('florian.schmidt.1994@icloud.com{enter}');
