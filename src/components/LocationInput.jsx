@@ -158,6 +158,7 @@ function Autocomplete(props) {
       <input
         ref={inputRef}
         className="location-search-input appearance-none input-focus truncate"
+        data-cy="location-search-input"
         style={{ paddingRight: '45px' }}
         defaultValue={defaultValue}
         onChange={(e) => {
@@ -180,6 +181,7 @@ function Autocomplete(props) {
         {suggestions.map((s) => (
           <AutocompleteSuggestion
             key={s.description}
+            data-cy="autocomplete-suggestion"
             suggestion={s}
             onClick={() => handleSelect(s)}
           />

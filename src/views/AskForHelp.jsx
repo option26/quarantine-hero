@@ -108,6 +108,7 @@ export default function AskForHelp() {
           </label>
           <textarea
             className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
+            data-cy="ask-for-help-text-input"
             required="required"
             placeholder={t('views.askForHelp.whatCanWeDo')}
             onChange={(e) => setRequest(e.target.value)}
@@ -117,7 +118,7 @@ export default function AskForHelp() {
           {t('views.askForHelp.requestIsPublic')}
         </div>
         <div className="mt-4 w-full flex justify-end">
-          <button type="submit" className="btn-green w-full md:w-1/3">{t('views.askForHelp.askNow')}</button>
+          <button type="submit" data-cy="ask-for-help-submit" className="btn-green w-full md:w-1/3">{t('views.askForHelp.askNow')}</button>
         </div>
       </div>
       <Footer />

@@ -70,6 +70,7 @@ export default function OfferHelp() {
           <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
           <textarea
             className="input-focus"
+            data-cy="offer-help-text-input"
             onChange={(e) => setAnswer(e.target.value)}
             required="required"
             placeholder={t('views.offerHelp.placeholderReply')}
@@ -83,7 +84,7 @@ export default function OfferHelp() {
           {t('views.offerHelp.privacy')}
         </div>
         <div className="mt-4 m-1 w-full">
-          <button type="submit" className="btn-green w-full">{t('views.offerHelp.submit')}</button>
+          <button type="submit" data-cy="offer-help-submit" className="btn-green w-full">{t('views.offerHelp.submit')}</button>
         </div>
         <Footer />
       </form>

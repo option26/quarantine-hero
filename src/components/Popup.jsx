@@ -20,9 +20,9 @@ function getPopupContentComponent(heading, firstButtonComponent, secondButtonCom
   );
 }
 
-function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, disabled = false) {
+function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, cyIdentifier, disabled = false) {
   return () => (
-    <button type="button" className={commonButtonClasses} onClick={onClickFunction} disabled={disabled}>
+    <button type="button" data-cy={cyIdentifier} className={commonButtonClasses} onClick={onClickFunction} disabled={disabled}>
       {text}
       {icon}
     </button>
@@ -87,6 +87,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.heroFound'),
     handleSolved,
     <DoneIcon className="ml-2 mb-1" />,
+    'btn-popup-hero-found',
     showAsSolved,
   );
 
@@ -95,6 +96,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.createNewRequest'),
     handleNewAskForHelp,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-ask-for-help',
   );
 
   const CancelButtonPositiveClass = getButtonForPopup(
@@ -102,6 +104,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.cancel'),
     cancelDelete,
     null,
+    'btn-popup-cancel-positive',
   );
 
   const CancelButtonNegativeClass = getButtonForPopup(
@@ -109,6 +112,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.cancel'),
     cancelDelete,
     null,
+    'btn-popup-cancel-negative',
   );
 
   const DeleteAnywayButton = getButtonForPopup(
@@ -116,6 +120,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.deleteAnyway'),
     handleDelete,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-delete-anyway',
   );
 
   const DeleteTerminallyButton = getButtonForPopup(
@@ -123,6 +128,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.deleteTerminally'),
     handleDelete,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-delete-terminally',
   );
 
   const BackToOverviewButton = getButtonForPopup(
@@ -130,6 +136,7 @@ export default function PopupOnEntryAction(props) {
     t('components.entry.popup.backToOverview'),
     backToOverview,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-back-to-overview',
   );
 
   const PopupContentDeleteReassure = getPopupContentComponent(
@@ -168,6 +175,7 @@ export default function PopupOnEntryAction(props) {
   return (
     <Popup
       modal
+      data-cy="popup-hint-for-entry"
       open={popupVisible}
       onClose={() => {
         setPopupVisible(false);

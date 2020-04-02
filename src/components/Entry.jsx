@@ -200,15 +200,15 @@ export default function Entry(props) {
                 {t('components.entry.message', { count: responses })}
                 <MailOutlineIcon className="ml-2 mb-1 inline-block" />
               </button>
-              <button type="button" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
+              <button type="button" data-cy="btn-entry-solve" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 {t('components.entry.heroFound')}
                 {showAsSolved
                   ? <DoneIcon className="ml-1 mb-1 inline-block" />
-                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block" /> }
+                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block" />}
               </button>
             </>
           )}
-        <button type="button" className={`bg-red-200 text-primary hover:text-white hover:bg-primary ${isOnMobile && 'max-w-5'} ${commonButtonClasses} pl-2 pr-8 md:px-6`} onClick={initializeDelete}>
+        <button type="button" data-cy="btn-entry-delete" className={`bg-red-200 text-primary hover:text-white hover:bg-primary ${isOnMobile && 'max-w-5'} ${commonButtonClasses} pl-2 pr-8 md:px-6`} onClick={initializeDelete}>
           {responses === 0 && !isOnMobile ? t('components.entry.deleteRequestForHelp') : null}
           <DeleteOutlineIcon className="mb-1" />
         </button>
@@ -225,6 +225,8 @@ export default function Entry(props) {
     <>
       <Link
         to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${props.id}`}
+        data-id={props.id}
+        data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
         className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
         key={id}
         ref={link}
