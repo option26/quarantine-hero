@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as Sentry from '@sentry/browser';
+import * as firebase from 'firebase/app';
 import Footer from '../components/Footer';
+import 'firebase/storage';
 
-export default function Presse() {
+function useFirebaseDownload(url, fb) {
+  const [link, setLink] = useState('');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fb.storage()
+      .refFromURL(url)
+      .getDownloadURL()
+      .then((l) => setLink(l))
+      .catch((err) => setError(err));
+  }, [fb, url]);
+
+  return [link, error];
+}
+
+export default function Press() {
+  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
+
+  if (errorGeneratingPressLink) {
+    console.error('Could not generate press link', errorGeneratingPressLink);
+    Sentry.captureException(errorGeneratingPressLink);
+  }
+
   const Article = (props) => (
     <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
       <div className="text-xs text-gray-700">{props.date}</div>
@@ -108,7 +133,7 @@ export default function Presse() {
             <br className="sm:hidden" />
             {' '}
             <a
-              href="https://we.tl/t-FhgDBEFBih"
+              href={presseLink}
               className="text-secondary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
@@ -124,35 +149,56 @@ export default function Presse() {
           </div>
         </div>
         <div className="my-8 flex flex-wrap mb-16">
-          <div className="w-1/3 h-auto">
-            <img alt="bunte" src={require('../assets/bunte_de.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="businessinsider" src={require('../assets/business_insider.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="rpr1" src={require('../assets/rpr1.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="utopia" src={require('../assets/utopia.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="bigfm" src={require('../assets/bigfm.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="br" src={require('../assets/br.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="cosmo" src={require('../assets/cosmo.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
-            <img alt="sat1" src={require('../assets/sat1.jpg')} />
-          </div>
-          <div className="w-1/3 h-auto">
+          <div className="w-1/4 h-auto">
             <img alt="zdf" src={require('../assets/zdf.jpg')} />
           </div>
+          <div className="w-1/4 h-auto">
+            <img alt="sueddeutsche_zeitung" src={require('../assets/sueddeutsche_zeitung.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="sat1" src={require('../assets/sat1.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="berliner_morgenpost" src={require('../assets/berliner_morgenpost.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="deutschlandfunk" src={require('../assets/deutschlandfunk.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="wdr" src={require('../assets/wdr.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="hr" src={require('../assets/hr.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="br" src={require('../assets/br.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="welt" src={require('../assets/welt.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="focus_online" src={require('../assets/focus_online.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="greenpeace_magazin" src={require('../assets/greenpeace_magazin.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="aktion_mensch" src={require('../assets/aktion_mensch.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="utopia" src={require('../assets/utopia.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="vogue" src={require('../assets/vogue.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="cosmopolitan" src={require('../assets/cosmopolitan.jpg')} />
+          </div>
+          <div className="w-1/4 h-auto">
+            <img alt="bunte_de" src={require('../assets/bunte_de.jpg')} />
+          </div>
         </div>
-        {articles.map((article) => <Article {...article} key={article.link} />)}
+        {articles.map((article) => <Article key={article.link || article.text} {...article} />)}
         <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
           <div className="font-bold">Und viele mehr!</div>
         </div>
