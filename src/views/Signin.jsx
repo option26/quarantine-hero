@@ -22,7 +22,7 @@ export default () => {
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
   const location = useLocation();
   const { t } = useTranslation();
-  const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const [user] = useAuthState(firebase.auth());
   const signInWithEmailAndPassword = (mail, pw) => firebase.auth().signInWithEmailAndPassword(mail, pw);
 
   const { returnUrl } = useParams();
