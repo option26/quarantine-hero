@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as Sentry from '@sentry/browser';
+import * as firebase from 'firebase/app';
 import Footer from '../components/Footer';
+import 'firebase/storage';
+
+function useFirebaseDownload(url, fb) {
+  const [link, setLink] = useState('');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fb.storage()
+      .refFromURL(url)
+      .getDownloadURL()
+      .then((l) => setLink(l))
+      .catch((err) => setError(err));
+  }, [fb, url]);
+
+  return [link, error];
+}
 
 export default function Press() {
+  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
+
+  if (errorGeneratingPressLink) {
+    console.error('Could not generate press link', errorGeneratingPressLink);
+    Sentry.captureException(errorGeneratingPressLink);
+  }
+
   const Article = (props) => (
     <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
       <div className="text-xs text-gray-700">{props.date}</div>
@@ -108,7 +133,7 @@ export default function Press() {
             <br className="sm:hidden" />
             {' '}
             <a
-              href="https://we.tl/t-FhgDBEFBih"
+              href={presseLink}
               className="text-secondary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
