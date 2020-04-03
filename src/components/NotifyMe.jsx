@@ -11,7 +11,7 @@ export default function NotifyMe({ location }) {
       <div className="my-3 w-full">
         <Link
           to="/notify-me"
-          className="btn-green-secondary my-3 mb-6 w-full block"
+          className="btn-green-secondary my-3 w-full block"
           onClick={() => fb.analytics.logEvent('button_subscribe_region')}
         >
           {location && location !== ''
