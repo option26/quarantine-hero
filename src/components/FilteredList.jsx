@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from './Entry';
 import Slider from './Slider';
@@ -60,8 +61,7 @@ export default function FilteredList(props) {
         return geoCollection.near({ center: new fb.app.firestore.GeoPoint(coordinates.lat, coordinates.lng), radius });
       } catch (error) {
         // Fallback
-        // eslint-disable-next-line no-console
-        console.error(error);
+        Sentry.captureException(error);
         return buildQuery();
       }
     } else {

@@ -18,7 +18,10 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // Prevent page reload
+    e.preventDefault();
+
     let lat = 0;
     let lng = 0;
     let plz = location;
@@ -66,8 +69,12 @@ export default function AskForHelp() {
     setPlaceId(pId);
   };
 
-  if (!isAuthLoading && (!user || !user.email)) {
-    return <Redirect to="/signup" />;
+  if (!user || (!isAuthLoading && (!user || !user.email))) {
+    return <Redirect to="/signin/ask-for-help" />;
+  }
+
+  if (!user.emailVerified) {
+    return <Redirect to="/verify-email" />;
   }
 
   return (

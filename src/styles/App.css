@@ -16,7 +16,7 @@
 .font-teaser {
     font-family: 'Exo 2', sans-serif;
     font-weight: 600;
-    line-height: 1.40;
+    line-height: 1.4;
     color: #222;
     font-size: 24px;
 }
@@ -59,12 +59,12 @@
     }
 }
 .angle-cut-background::before {
-    position:absolute;
-    content: " ";
-    display:block;
-    left:0;
-    top:0;
-    width:100%;
+    position: absolute;
+    content: ' ';
+    display: block;
+    left: 0;
+    top: 0;
+    width: 100%;
     border-style: solid;
     border-width: 30px 100vw 0 0;
     border-color: white transparent transparent transparent;
@@ -95,7 +95,7 @@
 }
 
 .response:first-child::before {
-    content: " ";
+    content: ' ';
     position: absolute;
     top: -14px;
     left: 128px;
@@ -107,5 +107,19 @@
 }
 
 .bg-white-75 {
-    background-color: rgba(255, 255, 255, 0.75)
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.one-third-underline {
+    position: relative;
+    display: inline-block;
+}
+.one-third-underline::after {
+    content: '';
+    width: 30%;
+    bottom: -6px;
+    left: 0;
+    height: 3px;
+    background: #b6223e;
+    position: absolute;
 }

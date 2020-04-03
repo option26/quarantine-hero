@@ -42,8 +42,9 @@ export default function OfferHelp() {
     });
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = (e) => {
+    // Prevent page reload
+    e.preventDefault();
 
     const collection = fb.store.collection(`/ask-for-help/${id}/offer-help`);
 
@@ -76,7 +77,7 @@ export default function OfferHelp() {
         </div>
         <div className="mt-1 w-full">
           <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourEmail')}</label>
-          <MailInput className="input-focus" placeholder={t('views.offerHelp.placeholderEmail')} onSetEmail={setEmail} defaultValue={email} />
+          <MailInput className="input-focus" placeholder={t('views.offerHelp.placeholderEmail')} onChange={setEmail} defaultValue={email} />
         </div>
         <div className="mt-4 m-1 w-full">
           {t('views.offerHelp.privacy')}

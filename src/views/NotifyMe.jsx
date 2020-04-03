@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import Footer from '../components/Footer';
@@ -14,7 +15,10 @@ export default function NotifyMe() {
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // Prevent page reload
+    e.preventDefault();
+
     window.localStorage.setItem('emailForSignIn', email);
 
     try {
@@ -26,6 +30,7 @@ export default function NotifyMe() {
 
       setSignInLinkSent(true);
     } catch (error) {
+      Sentry.captureException(error);
       // TODO: handle error
     }
   };
@@ -60,7 +65,7 @@ export default function NotifyMe() {
       </div>
       <form onSubmit={handleSubmit}>
         <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
-        <MailInput className="input-focus my-6" placeholder={t('views.notifyMe.yourMail')} onSetEmail={setEmail} defaultValue={email} />
+        <MailInput className="input-focus my-6" placeholder={t('views.notifyMe.yourMail')} onChange={setEmail} defaultValue={email} />
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           {t(
             'views.notifyMe.notifyMe',

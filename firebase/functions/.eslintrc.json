@@ -1,0 +1,7 @@
+{
+    "extends": "airbnb-base",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "root": true
+}

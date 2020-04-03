@@ -50,11 +50,11 @@ export default function Entry(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const doc = await fb.store.collection('/ask-for-help').doc(props.id).get();
-    await fb.store.collection('/deleted').add({
-      askForHelpId: doc.id, ...doc.data(),
+    const collectionName = 'ask-for-help';
+    const doc = await fb.store.collection(collectionName).doc(props.id).get();
+    await fb.store.collection('/deleted').doc(props.id).set({
+      collectionName, ...doc.data(),
     });
-    fb.store.collection('/ask-for-help').doc(props.id).delete();
     setDeleted(true);
   };
 
@@ -69,7 +69,7 @@ export default function Entry(props) {
     // redirect the user to the login page, as we can only store user ids for logged-in users
     if (!userIsLoggedIn) {
       const pathToOfferHelp = `offer-help/${id}`;
-      const pathname = `/signup/${encodeURIComponent(pathToOfferHelp)}`;
+      const pathname = `/signin/${encodeURIComponent(pathToOfferHelp)}`;
       setAttemptingToReport(false);
       return history.push({ pathname, state: { reason_for_registration: t('components.entry.registrationReason') } });
     }
@@ -160,7 +160,7 @@ export default function Entry(props) {
 
   const requestCard = (
     <Link
-      to={`/offer-help/${props.id}`}
+      to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${props.id}`}
       className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
       key={id}
       ref={link}

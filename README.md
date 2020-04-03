@@ -6,13 +6,15 @@ A project brought to you with :heart: and bootstrapped with [Create React App](h
 
 ## Contributions
 
-As a non-profit project run by volunteers we rely on the support of the open source community. We highly encourage contributions and we are trying to make this process as frictionless as possible. Therefore, we set up a test environment with a special instance of Google's Firebase and we elected two people to coordinate contributions, @tgraupne and @florianschmidt1994.
+As a non-profit project run by volunteers we rely on the support of the open source community. We highly encourage 
+contributions and we are trying to make this process as frictionless as possible. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for 
+more details.
 
 Everyone is very welcome to create issues, give feedback and contribute to the code base. If you'd like to work on an issue, please mention @tgraupne or @florianschmidt1994 in a comment and we will get in touch with you. We are constantly trying to maintain an up-to-date state of the project reflect in labels, reviews and comments.
 
 ## Getting Started
 
-This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project. Our Firebase functions are hosted here: https://github.com/florianschmidt1994/quarantaenehelden-firebase-functions
+This repository contains the source code of our website, and the following guide explains how to get started and what you need to improve and use this project.
 
 You need the following libraries to get started: `node`, `yarn`, `firebase cli`. So please install them in an appropriate way on your host system. On macOS, you'd also need the `Xcode command line tools`.
 
@@ -43,6 +45,20 @@ The build is minified, and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### Testing
+Tests are written and executed with [cypress](https://www.cypress.io). All tests are stored in the `/cypress` directory. 
+Tests can be run locally in two ways:
+- `yarn test` will run the tests immediately in a headless browser and output the results to stdout
+- `yarn cypress` will open the cypress UI for interactive testing and test debugging
+
+You need to have your development server running on `localhost:3000` as the tests *will not* start a dev server
+
+When contributing 
+please make sure that:
+
+- All new features are covered by some kind of test
+- Existing tests do not break
 
 ## Backend development
 
@@ -111,6 +127,12 @@ Or even better, replace all email-related source code with proper logging.
 After those changes, you should be able to initialize and deploy your own Firebase function to your specific backend. Within the project folder, run:
 
 ```console
+cd firebase/functions
+...
+
+npm i
+...
+
 firebase login
 ...
 
