@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
-import Entry from './Entry';
+import Entry from './entry/Entry';
 import Slider from './Slider';
 import LocationInput from './LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
