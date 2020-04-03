@@ -205,7 +205,7 @@ export default function Entry(props) {
                 {t('components.entry.heroFound')}
                 {showAsSolved
                   ? <DoneIcon className="ml-1 mb-1 inline-block" />
-                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block" />}
+                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block h-4" />}
               </button>
             </>
           )}
