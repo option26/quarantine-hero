@@ -70,7 +70,7 @@ export default function Map() {
           bootstrapURLKeys={{
             language: 'de',
             region: 'de',
-            key: 'API_KEY_HERE',
+            key: 'AIzaSyDFCKxZqlzYTZ2MDnDrKnfe00jU8vJd4Yg',
           }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map }) => {
