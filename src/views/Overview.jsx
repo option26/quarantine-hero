@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FilteredList from '../components/FilteredList';
+import EntryContainer from '../components/EntryContainer';
 import Footer from '../components/Footer';
 import OnePagers from '../components/OnePagers';
 
@@ -15,7 +15,7 @@ export default function Overview() {
       <OnePagers />
       <div className="h-3 w-full" />
       <div className="py-3">
-        <FilteredList pageSize={20} />
+        <EntryContainer pageSize={20} />
       </div>
       <Footer />
     </div>

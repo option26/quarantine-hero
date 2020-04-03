@@ -11,7 +11,7 @@ import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 import Map from './Map';
 
-export default function FilteredList(props) {
+export default function EntryContainer(props) {
   const { t } = useTranslation();
 
   const {
