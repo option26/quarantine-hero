@@ -22,6 +22,7 @@ export default function Map() {
   const [selectedHelpRequests, setSelectedHelpRequests] = useState([]);
 
   const [lastSelectedMarkerId, setLastSelectedMarkerId] = useState();
+  const [lastSelectedMarkerLocation, setLastSelectedMarkerLocation] = useState();
 
   const [entries, setEntries] = useState([]);
 
@@ -122,6 +123,17 @@ export default function Map() {
                       setSelectedHelpRequests(
                         leaves.map((leaf) => leaf.properties),
                       );
+                      
+                      // if all leaves have the same location, display it below map
+                      // if not, reset it to undefined to show fallback text
+                      const leafLocations = leaves.map(leaf => leaf.properties.location)
+                      const uniqueLeafLocations = leafLocations.filter((value, index, self) => self.indexOf(value) === index)
+                      
+                      if(uniqueLeafLocations.length === 1) {
+                        setLastSelectedMarkerLocation(uniqueLeafLocations[0])
+                      } else {
+                        setLastSelectedMarkerLocation(undefined)
+                      }
                     }}
                   >
                     <p className="font-open-sans">{pointCount}</p>
@@ -148,6 +160,7 @@ export default function Map() {
                   }}
                   onClick={() => {
                     setLastSelectedMarkerId(cluster.properties.id);
+                    setLastSelectedMarkerLocation(cluster.properties.location);
                     setSelectedHelpRequests([cluster.properties]);
                   }}
                 >
@@ -163,9 +176,15 @@ export default function Map() {
         </GoogleMapReact>
       </div>
       <strong className="font-open-sans">
-        {t('components.map.requestsInSelectedRegion', {
-          count: selectedHelpRequests.length,
-        })}
+        {lastSelectedMarkerLocation
+          ? t('components.map.requestsInSelectedRegion', {
+            count: selectedHelpRequests.length,
+            region: lastSelectedMarkerLocation
+          })
+          : t('components.map.requestsInSelectedRegionFallback', {
+              count: selectedHelpRequests.length,
+            })
+        }
       </strong>
       {selectedHelpRequests.length === 0 ? (
         <p className="font-open-sans">

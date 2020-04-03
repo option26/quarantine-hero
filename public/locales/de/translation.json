@@ -287,7 +287,8 @@
     },
     "map": {
       "hint": "Hinweis: Ausgewählte Hilfeanfragen erscheinen unterhalb der Karte!",
-      "requestsInSelectedRegion": "{{count}} Anfrage(n) im ausgewählten Gebiet:",
+      "requestsInSelectedRegion": "{{count}} Anfrage(n) in {{region}}:",
+      "requestsInSelectedRegionFallback": "{{count}} Anfrage(n) im ausgewählten Gebiet:",
       "selectARegionFirst": "Nimm erst eine Auswahl vor!"
     }
   }
