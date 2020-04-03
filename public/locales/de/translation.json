@@ -271,12 +271,9 @@
     "filteredList": {
       "list": "LISTE",
       "map": "KARTE",
-      "in": "In",
-      "noHelpCurrentlyNeeded": "wird gerade keine Hilfe gebraucht!",
-      "notifyMe": "Benachrichtige mich wenn jemand in",
-      "closeTo": "in der Nähe von",
-      "closeToMe": "in meiner Nähe",
-      "needsHelp": "Hilfe braucht!",
+      "noHelpCurrentlyNeededIn": "In {{location}} wird gerade keine Hilfe gebraucht!",
+      "notifyMeForLocation": "Benachrichtige mich wenn jemand in der Nähe von {{location}} Hilfe braucht!",
+      "notifyMeFallback": "Benachrichtige mich wenn jemand in meiner Nähe Hilfe braucht!",
       "showMore": "Weitere anzeigen..."
     },
     "locationInput": {
@@ -287,9 +284,9 @@
     },
     "map": {
       "hint": "Hinweis: Ausgewählte Hilfeanfragen erscheinen unterhalb der Karte!",
-      "requestsInSelectedRegion": "{{count}} Anfrage(n) in {{region}}:",
-      "requestsInSelectedRegionFallback": "{{count}} Anfrage(n) im ausgewählten Gebiet:",
-      "selectARegionFirst": "Nimm erst eine Auswahl vor!"
+      "requestsInSelectedLocation": "{{count}} Anfrage(n) in {{region}}:",
+      "requestsInSelectedLocationFallback": "{{count}} Anfrage(n) im ausgewählten Gebiet:",
+      "selectALocationFirst": "Nimm erst eine Auswahl vor!"
     }
   }
 }

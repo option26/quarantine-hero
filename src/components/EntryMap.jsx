@@ -6,12 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 import fb from '../firebase';
 import Entry from './Entry';
+import { NotifyMe } from './NotifyMe';
 
 const DEFAULT_ZOOM_LEVEL = 6;
 
 const Marker = ({ children }) => children;
 
-export default function Map() {
+export default function EntryMap() {
   const mapRef = useRef();
 
   const { t } = useTranslation();
@@ -22,7 +23,10 @@ export default function Map() {
   const [selectedHelpRequests, setSelectedHelpRequests] = useState([]);
 
   const [lastSelectedMarkerId, setLastSelectedMarkerId] = useState();
-  const [lastSelectedMarkerLocation, setLastSelectedMarkerLocation] = useState();
+  const [
+    lastSelectedMarkerLocation,
+    setLastSelectedMarkerLocation,
+  ] = useState();
 
   const [entries, setEntries] = useState([]);
 
@@ -53,7 +57,6 @@ export default function Map() {
     fetchEntries();
   }, []);
 
-
   const { clusters, supercluster } = useSupercluster({
     points: entries,
     bounds,
@@ -63,6 +66,7 @@ export default function Map() {
 
   return (
     <div>
+      <NotifyMe location={lastSelectedMarkerLocation} />
       <p className="font-open-sans font-hairline text-s italic mb-3">
         {t('components.map.hint')}
       </p>
@@ -123,16 +127,20 @@ export default function Map() {
                       setSelectedHelpRequests(
                         leaves.map((leaf) => leaf.properties),
                       );
-                      
+
                       // if all leaves have the same location, display it below map
                       // if not, reset it to undefined to show fallback text
-                      const leafLocations = leaves.map(leaf => leaf.properties.location)
-                      const uniqueLeafLocations = leafLocations.filter((value, index, self) => self.indexOf(value) === index)
-                      
-                      if(uniqueLeafLocations.length === 1) {
-                        setLastSelectedMarkerLocation(uniqueLeafLocations[0])
+                      const leafLocations = leaves.map(
+                        (leaf) => leaf.properties.location,
+                      );
+                      const uniqueLeafLocations = leafLocations.filter(
+                        (value, index, self) => self.indexOf(value) === index,
+                      );
+
+                      if (uniqueLeafLocations.length === 1) {
+                        setLastSelectedMarkerLocation(uniqueLeafLocations[0]);
                       } else {
-                        setLastSelectedMarkerLocation(undefined)
+                        setLastSelectedMarkerLocation(undefined);
                       }
                     }}
                   >
@@ -177,18 +185,17 @@ export default function Map() {
       </div>
       <strong className="font-open-sans">
         {lastSelectedMarkerLocation
-          ? t('components.map.requestsInSelectedRegion', {
+          ? t('components.map.requestsInSelectedLocation', {
             count: selectedHelpRequests.length,
-            region: lastSelectedMarkerLocation
+            region: lastSelectedMarkerLocation,
           })
-          : t('components.map.requestsInSelectedRegionFallback', {
-              count: selectedHelpRequests.length,
-            })
-        }
+          : t('components.map.requestsInSelectedLocationFallback', {
+            count: selectedHelpRequests.length,
+          })}
       </strong>
       {selectedHelpRequests.length === 0 ? (
         <p className="font-open-sans">
-          {t('components.map.selectARegionFirst')}
+          {t('components.map.selectALocationFirst')}
         </p>
       ) : (
         selectedHelpRequests.map((entry) => <Entry key={entry.id} {...entry} />)
