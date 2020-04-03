@@ -71,6 +71,7 @@ export default function CompleteOfferHelp() {
     }
 
     completeSignup();
+    // eslint-disable-next-line
   }, []);
 
   return (
