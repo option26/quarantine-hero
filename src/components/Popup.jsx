@@ -38,6 +38,7 @@ export default function PopupOnEntryAction(props) {
     deleted,
     popupVisible,
     setPopupVisible,
+    setAttemptingToDelete,
     handleSolved,
     showAsSolved,
     handleNewAskForHelp,
@@ -51,7 +52,7 @@ export default function PopupOnEntryAction(props) {
   const positiveActionButtonClasses = `bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 ${commonButtonClasses}`;
   const negativeActionButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
 
-  const strongerTogetherHashtag = <i>#strongertogether</i>;
+  const strongerTogetherHashtag = <i> #strongertogether</i>;
   const textBodyWasYourRequestSuccessful = (
     <>
       <p className="mt-2">
@@ -178,6 +179,7 @@ export default function PopupOnEntryAction(props) {
       data-cy="popup-hint-for-entry"
       open={popupVisible}
       onClose={() => {
+        setAttemptingToDelete(false);
         setPopupVisible(false);
       }}
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again

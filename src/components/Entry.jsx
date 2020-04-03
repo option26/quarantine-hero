@@ -157,6 +157,7 @@ export default function Entry(props) {
       deleted={deleted}
       popupVisible={popupVisible}
       setPopupVisible={setPopupVisible}
+      setAttemptingToDelete={setAttemptingToDelete}
       handleSolved={handleSolved}
       showAsSolved={showAsSolved}
       handleNewAskForHelp={handleNewAskForHelp}
