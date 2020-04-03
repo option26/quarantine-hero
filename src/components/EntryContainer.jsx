@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import EntryMap from './EntryMap';
-import { EntryList } from './EntryList';
 import { useTranslation } from 'react-i18next';
+import EntryMap from './EntryMap';
+import EntryList from './EntryList';
 
 export default function EntryContainer({ pageSize }) {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ export default function EntryContainer({ pageSize }) {
       {isMapView ? (
         <EntryMap />
       ) : (
-        <EntryList pageSize={pageSize}/>
+        <EntryList pageSize={pageSize} />
       )}
     </div>
   );

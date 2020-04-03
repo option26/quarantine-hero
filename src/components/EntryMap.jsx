@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import fb from '../firebase';
 import Entry from './Entry';
-import { NotifyMe } from './NotifyMe';
+import NotifyMe from './NotifyMe';
 
 const DEFAULT_ZOOM_LEVEL = 6;
 

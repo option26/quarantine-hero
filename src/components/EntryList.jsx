@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { NotifyMe } from "./NotifyMe";
-import fb from '../firebase';
+import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
+import fb from '../firebase';
+import NotifyMe from './NotifyMe';
 import Entry from './Entry';
 import Slider from './Slider';
 import LocationInput from './LocationInput';
@@ -14,7 +14,7 @@ import {
   getLatLng,
 } from '../services/GeoService';
 
-export const EntryList = ({ pageSize = 0 }) => {
+export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
 
   const [searching, setSearching] = useState(false);
@@ -177,37 +177,37 @@ export const EntryList = ({ pageSize = 0 }) => {
             <button
               type="button"
               className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-              onClick={() => setSliderVisible(current => !current)}
+              onClick={() => setSliderVisible((current) => !current)}
             >
               {radius}
               km
             </button>
           </div>
         ) : null}
-            </div>
-        {sliderVisible ? (
-          <div className="pt-5 w-full">
-            <Slider
-              min={1}
-              max={30}
-              initialValue={radius}
-              onChange={v => setRadius(v)}
-              onAfterChange={() => {
-                setSliderVisible(false);
-                loadDocuments(buildFilteredQuery(location), searching);
-              }}
-            />
-          </div>
-        ) : null}
+      </div>
+      {sliderVisible ? (
+        <div className="pt-5 w-full">
+          <Slider
+            min={1}
+            max={30}
+            initialValue={radius}
+            onChange={(v) => setRadius(v)}
+            onAfterChange={() => {
+              setSliderVisible(false);
+              loadDocuments(buildFilteredQuery(location), searching);
+            }}
+          />
+        </div>
+      ) : null}
       <NotifyMe location={location} />
       {entries.length === 0 ? (
         <div className="w-full text-center my-10 font-open-sans">
-          {t("components.filteredList.noHelpCurrentlyNeededIn", {
-            location: location
+          {t('components.filteredList.noHelpCurrentlyNeededIn', {
+            location,
           })}
         </div>
       ) : (
-        entries.map(entry => <Entry key={entry.id} {...entry} />)
+        entries.map((entry) => <Entry key={entry.id} {...entry} />)
       )}
       {pageSize > 0 && !searching ? (
         <div className="flex justify-center pt-3">
@@ -216,10 +216,10 @@ export const EntryList = ({ pageSize = 0 }) => {
             onClick={loadMoreDocuments}
             className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75"
           >
-            {t("components.filteredList.showMore")}
+            {t('components.filteredList.showMore')}
           </button>
         </div>
       ) : null}
     </>
   );
-};
+}
