@@ -36,7 +36,7 @@ context('Dashboard', () => {
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", and 2) cancel when clicking the "ABBRECHEN" button and take the user back to the dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 1!`);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // test behaviour
       cy.visit('localhost:3000/#/dashboard');
