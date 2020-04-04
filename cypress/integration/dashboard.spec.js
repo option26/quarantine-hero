@@ -3,14 +3,14 @@ import createAskForHelpPosting from '../util/createAskForHelpPosting';
 import createResponseForPosting from '../util/createResponseForPosting';
 import { removeAskForHelpEntryWithoutResponses, removeSolvedAskForHelpEntry } from '../util/removeExistingAskForHelpEntries';
 
-const dummyUserMail = 'yemac68103@gotkmail.com';
+const dummyUserMail = 'verified@example.com';
 const dummyUserPw = 'test1234';
 
 context('Dashboard', () => {
 
   beforeEach(() => {
+    indexedDB.deleteDatabase('firebaseLocalStorageDb');
     cy.visit('localhost:3000');
-    // IMPORTANT NOTE: if you use a different account, make sure that it has a verified email, in order to create new postings
     loginVerifiedUser(dummyUserMail, dummyUserPw);
   });
 
@@ -35,7 +35,7 @@ context('Dashboard', () => {
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", and 2) cancel when clicking the "ABBRECHEN" button and take the user back to the dashboard', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 1!`);
       cy.wait(1000); // wait for data to be created server-side
 
       // test behaviour
@@ -67,8 +67,8 @@ context('Dashboard', () => {
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) show a success confirmation when clicking on "ENDGÜLTIG LÖSCHEN" and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(2000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 2!`);
+      cy.wait(3000); // wait for data to be created server-side
 
       // test behaviour
       cy.visit('localhost:3000/#/dashboard');
@@ -83,6 +83,7 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-popup-delete-terminally]').should('be.visible');
       // delete entry
       cy.get('[data-cy=btn-popup-delete-terminally]').click();
+      cy.wait(500); // wait for popup to render
 
       // click "ZURÜCK ZUR ÜBERSICHT" in the following success confirmation
       cy.get('[data-cy=btn-popup-ask-for-help]').should('be.visible');
@@ -98,7 +99,6 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('not.be.visible');
       cy.get('[data-cy=ask-for-help-entry]').should('not.be.visible');
-      cy.wait(1000); // wait for data to be created server-side
     });
   });
 
@@ -106,10 +106,10 @@ context('Dashboard', () => {
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) move the entry to solved if clicking the "HELD*IN GEFUNDEN" button in the popup and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(2000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 3!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(2000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // test behaviour
       cy.visit('localhost:3000/#/dashboard');
@@ -134,17 +134,17 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-entry-delete]').should('not.be.visible');
       cy.get('[data-cy=ask-for-help-entry-with-responses]').should('not.be.visible');
 
-      // remove posting after reload
-      cy.reload();
+      // cleanup: remove posting after reload
+      cy.reload(); // reload to fetch updated data
       removeSolvedAskForHelpEntry();
     });
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) delete the entry if clicking the "DELETE ANYWAY button in the popup and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(1000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 4!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // test behaviour
       cy.visit('localhost:3000/#/dashboard');
@@ -165,7 +165,7 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-popup-ask-for-help]').should('be.visible');
       cy.get('[data-cy=btn-popup-back-to-overview]').should('be.visible');
       cy.get('[data-cy=btn-popup-back-to-overview]').click();
-      cy.wait(1000); // wait for deletion
+      cy.wait(3000); // wait for deletion
 
       // entry should be gone
       cy.get('.popup-content').should('not.be.visible');
@@ -174,12 +174,12 @@ context('Dashboard', () => {
       cy.get('[data-cy=ask-for-help-entry]').should('not.be.visible');
     });
 
-    it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) delete the entry if clicking the "DELETE ANYWAY button in the popup and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
+    it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) delete the entry if clicking the "DELETE ANYWAY button in the popup and 3) take the user back to the ask-for-help page when clicking on "NEUE ANFRAGE ERSTELLEN"', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(1000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 5!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // test behaviour
       cy.visit('localhost:3000/#/dashboard');
@@ -208,10 +208,10 @@ context('Dashboard', () => {
 
     it('should 1) show a reassurement popup when clicking on "HELD*IN GEFUNDEN" and 2) mark an entry as solved when clicking the "HELD*IN GEFUNDEN" button in the popup', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(1000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 6!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
@@ -223,18 +223,20 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-popup-hero-found]').should('be.visible');
       cy.get('[data-cy=btn-popup-cancel-negative]').should('be.visible');
       cy.get('[data-cy=btn-popup-hero-found]').click();
-      cy.wait(2000); // wait for data to be updated server-side
+      cy.wait(5000); // wait for data to be updated server-side
 
-      // entry should be moved to solved
+      // entry should not be visible in "OPEN" tab anymore
       cy.get('[data-cy=btn-popup-hero-found]').should('not.be.visible');
       cy.get('[data-cy=btn-popup-cancel-negative]').should('not.be.visible');
       cy.get('[data-cy=ask-for-help-entry-with-responses]').should('not.be.visible');
 
       // navigate to "ABGESCHLOSSEN" TAB
-      cy.reload();
+      cy.reload(); // reload to fetch updated data
       cy.get('[data-cy=tabs-solved]').click();
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
       cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+
+      removeSolvedAskForHelpEntry();
     });
   });
 
@@ -242,10 +244,10 @@ context('Dashboard', () => {
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", and 2) cancel when clicking the "ABBRECHEN" button and take the user back to the overview', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(1000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 7!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
@@ -259,14 +261,14 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-popup-hero-found]').should('be.visible');
       cy.get('[data-cy=btn-popup-cancel-negative]').should('be.visible');
       cy.get('[data-cy=btn-popup-hero-found]').click();
-      cy.wait(2000); // wait for data to be updated server-side
+      cy.wait(5000); // wait for data to be updated server-side
 
       // navigate to "ABGESCHLOSSEN" TAB
-      cy.reload();
+      cy.reload(); // reload to fetch updated data
       cy.get('[data-cy=tabs-solved]').click();
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
 
-      // get entry
+      // get solved entry and initiate deletion
       cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
@@ -289,13 +291,12 @@ context('Dashboard', () => {
       removeSolvedAskForHelpEntry();
     });
 
-    // TODO: figure out why this test case is not working :(
-    it.skip('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) show a success confirmation when clicking on "ENDGÜLTIG LÖSCHEN" and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
+    it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) show a success confirmation when clicking on "ENDGÜLTIG LÖSCHEN" and 3) take the user back to the overview when clicking on "ZURÜCK ZUR ÜBERSICHT"', () => {
       // create a new posting
-      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test!`);
-      cy.wait(1000); // wait for data to be created server-side
+      createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 8!`);
+      cy.wait(3000); // wait for data to be created server-side
       createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
-      cy.wait(1000); // wait for data to be created server-side
+      cy.wait(3000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
@@ -309,10 +310,10 @@ context('Dashboard', () => {
       cy.get('[data-cy=btn-popup-hero-found]').should('be.visible');
       cy.get('[data-cy=btn-popup-cancel-negative]').should('be.visible');
       cy.get('[data-cy=btn-popup-hero-found]').click();
-      cy.wait(2000); // wait for data to be updated server-side
+      cy.wait(5000); // wait for data to be updated server-side
 
       // navigate to "ABGESCHLOSSEN" TAB
-      cy.reload();
+      cy.reload(); // reload to fetch updated data
       cy.get('[data-cy=tabs-solved]').click();
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
 

@@ -50,7 +50,7 @@ export function removeSolvedAskForHelpEntry() {
   // engage popup content
   cy.get('[data-cy=btn-popup-cancel-positive]').should('be.visible');
   cy.get('[data-cy=btn-popup-delete-terminally]').should('be.visible');
-  cy.get('[data-cy=btn-popup-delete-terminally]').click();
+  cy.get('[data-cy=btn-popup-delete-terminally]').click({ force: true });
   cy.wait(500); // wait for popup
 
   // click "ZURÜCK ZUR ÜBERSICHT" in the following popup
@@ -59,4 +59,5 @@ export function removeSolvedAskForHelpEntry() {
   cy.get('[data-cy=btn-popup-back-to-overview]').click();
   cy.wait(1000); // wait for deletion
   cy.get('.popup-content').should('not.be.visible');
+  cy.wait(2000);
 }
