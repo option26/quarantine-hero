@@ -284,8 +284,10 @@
     },
     "map": {
       "hint": "Hinweis: Ausgewählte Hilfeanfragen erscheinen unterhalb der Karte!",
-      "requestsInSelectedLocation": "{{count}} Anfrage(n) in {{region}}:",
-      "requestsInSelectedLocationFallback": "{{count}} Anfrage(n) im ausgewählten Gebiet:",
+      "requestsInSelectedLocation": "{{count}} Anfrage in {{region}}:",
+      "requestsInSelectedLocation_plural": "{{count}} Anfragen in {{region}}:",
+      "requestsInSelectedLocationFallback": "{{count}} Anfrage im ausgewählten Gebiet:",
+      "requestsInSelectedLocationFallback_plural": "{{count}} Anfragen im ausgewählten Gebiet:",
       "selectALocationFirst": "Nimm erst eine Auswahl vor!"
     }
   }
