@@ -282,7 +282,7 @@
         "solveReassure": {
           "heading": "War dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen dass deine Suche erfolgreich war.",
-          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt und du bekommst keine weiteren Nachrichten von Helfern mehr."
+          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund du bekommst keine weiteren Nachrichten von Helfern mehr."
         },
         "wasYourRequestSuccessful": {
           "heading": "War dein Hilfegesuch erfolgreich?",
@@ -293,7 +293,7 @@
         "yourRequestWasDeleted": {
           "heading": "Dein Hilfegesuch wurde gelöscht!",
           "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
-          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen und eine*n Held*in um Hilfe bitten."
+          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine*n Held*in um Hilfe bitten."
         }
       }
     },
