@@ -267,7 +267,7 @@
         background: transparent;
         border: 0;
         font-family: inherit;
-        font-size: inherit;
+        font-size: .875rem;
         transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
         padding-left: 1rem;
     }
