@@ -191,9 +191,9 @@ export default function Entry(props) {
               if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
             }}
           >
-            {reported ? <img className="flag" src={require('../assets/flag_orange.svg')} alt="" /> : null}
-            {!reported && !attemptingToReport ? <img className="flag" src={require('../assets/flag_red.svg')} alt="" /> : null}
-            {!reported && attemptingToReport ? <img className="cross" src={require('../assets/x.svg')} alt="" /> : null}
+            {reported ? <img className="flag" src={require('../../assets/flag_orange.svg')} alt="" /> : null}
+            {!reported && !attemptingToReport ? <img className="flag" src={require('../../assets/flag_red.svg')} alt="" /> : null}
+            {!reported && attemptingToReport ? <img className="cross" src={require('../../assets/x.svg')} alt="" /> : null}
           </button>
         ) : null}
         {attemptingToReport
@@ -211,7 +211,7 @@ export default function Entry(props) {
                 onClick={reportEntry}
               >
                 Post melden?
-                <img className="ml-2 inline-block" src={require('../assets/flag_white.svg')} alt="" />
+                <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
               </button>
             </div>
           ) : null}
