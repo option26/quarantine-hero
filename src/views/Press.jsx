@@ -23,7 +23,6 @@ export default function Press() {
   const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
 
   if (errorGeneratingPressLink) {
-    console.error('Could not generate press link', errorGeneratingPressLink);
     Sentry.captureException(errorGeneratingPressLink);
   }
 
