@@ -7,7 +7,7 @@ import {
   Tabs, Tab, TabPanel, TabList,
 } from 'react-web-tabs';
 import fb from '../firebase';
-import Entry from '../components/Entry';
+import Entry from '../components/entry/Entry';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');

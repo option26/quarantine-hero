@@ -24,6 +24,6 @@ git config user.email "github-actions-bot@users.noreply.github.com" && \
 git remote add origin "${REPO}" && \
 git checkout -b gh-pages && \
 git add * && \
-git commit -m "quarantaenehelden ${GIT_REV} deployment to gh-pages" && \
+git commit --allow-empty -m "quarantaenehelden ${GIT_REV} deployment to gh-pages" && \
 git fetch && git rebase -s recursive -Xtheirs origin/gh-pages && \
 git push origin gh-pages

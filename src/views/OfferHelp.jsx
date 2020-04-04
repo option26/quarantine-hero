@@ -4,7 +4,7 @@ import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 
-import Entry from '../components/Entry';
+import Entry from '../components/entry/Entry';
 import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
