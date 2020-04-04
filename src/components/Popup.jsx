@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent, textBody = null) {
   const popupContentClasses = 'p-4 bg-kaki font-open-sans flex flex-col justify-center items-center';
-  const popupTextClasses = 'mb-3 pt-2 pb-5 min-w-full pl-4 md:pl-8';
+  const popupTextClasses = 'mb-3 pt-2 pb-5 min-w-full pl-5 md:pl-8 whitespace-pre-line';
   return () => (
     <div className={popupContentClasses}>
       <div className={popupTextClasses}>
