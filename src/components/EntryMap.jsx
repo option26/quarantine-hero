@@ -8,7 +8,9 @@ import fb from '../firebase';
 import Entry from './entry/Entry';
 import NotifyMe from './NotifyMe';
 
-const DEFAULT_ZOOM_LEVEL = 6;
+import userIsOnMobile from '../util/userIsOnMobile';
+
+const DEFAULT_ZOOM_LEVEL = userIsOnMobile() ? 5 : 6;
 
 const Marker = ({ children }) => children;
 
@@ -70,7 +72,7 @@ export default function EntryMap() {
       <p className="font-open-sans font-hairline text-s italic mb-3">
         {t('components.map.hint')}
       </p>
-      <div className="my-3" style={{ height: '750px', width: '100%' }}>
+      <div className="my-3" style={{ height: '600px', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{
             language: 'de',
