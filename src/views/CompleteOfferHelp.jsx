@@ -71,7 +71,7 @@ export default function CompleteOfferHelp() {
     }
 
     completeSignup();
-  }, []);
+  }, [t]);
 
   return (
     <div className="p-4">
