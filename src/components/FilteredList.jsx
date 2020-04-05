@@ -104,7 +104,9 @@ export default function FilteredList(props) {
 
   useEffect(() => {
     loadDocuments(buildQuery());
-  }, []);
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
 
   const handleChange = (address) => {
     setLocation(address);
