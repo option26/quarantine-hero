@@ -16,7 +16,7 @@ import fb from '../firebase';
 
 import { baseUrl } from '../appConfig';
 
-export default () => {
+export default function Signin() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
@@ -138,4 +138,4 @@ export default () => {
       <Footer />
     </div>
   );
-};
+}
