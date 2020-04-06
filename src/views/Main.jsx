@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import FilteredList from '../components/FilteredList';
+import EntryContainer from '../components/EntryContainer';
 import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
@@ -133,7 +133,7 @@ export default function Main() {
               {t('views.main.enterYourPostalCode')}
             </div>
           </div>
-          <FilteredList pageSize={20} />
+          <EntryContainer pageSize={20} />
         </div>
         <Footer />
       </div>

@@ -44,7 +44,7 @@
         "heros": "HELDEN",
         "messages": "NACHRICHTEN"
       },
-      "enterYourPostalCode": "Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden."
+      "enterYourPostalCode": "Gib deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in deinem Umkreis zu finden."
     },
     "askForHelp": {
       "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
@@ -59,7 +59,7 @@
     },
     "overview": {
       "title": "Aktuelle Anfragen",
-      "enterYourPostalCode": "Gib deine Postleitzahl ein, um hilfesuchende Menschen in deinem Umkreis zu finden.",
+      "enterYourPostalCode": "Gib deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in deinem Umkreis zu finden.",
       "noInternet": {
         "preBreak": "Nicht jeder Mensch hat Internet.",
         "postBreak": "Drucke <1>diesen Aushang</1>."
@@ -270,12 +270,11 @@
       "registrationReason": "den Beitrag zu melden"
     },
     "filteredList": {
-      "in": "In",
-      "noHelpCurrentlyNeeded": "wird gerade keine Hilfe gebraucht!",
-      "notifyMe": "Benachrichtige mich wenn jemand in",
-      "closeTo": "in der Nähe von",
-      "closeToMe": "in meiner Nähe",
-      "needsHelp": "Hilfe braucht!",
+      "list": "LISTE",
+      "map": "KARTE",
+      "noHelpCurrentlyNeededIn": "In {{location}} wird gerade keine Hilfe gebraucht!",
+      "notifyMeForLocation": "Benachrichtige mich wenn jemand in der Nähe von {{location}} Hilfe braucht!",
+      "notifyMeFallback": "Benachrichtige mich wenn jemand in meiner Nähe Hilfe braucht!",
       "showMore": "Weitere anzeigen..."
     },
     "locationInput": {
@@ -283,6 +282,14 @@
       "invalidPlz": "Bitte gib eine vier- oder fünfstellige Postleitzahl an.",
       "yourPostalCodeOrNeighbourhood": "Deine Postleitzahl oder Nachbarschaft...",
       "yourPostalCode": "Deine Postleitzahl..."
+    },
+    "map": {
+      "hint": "Hinweis: Ausgewählte Hilfeanfragen erscheinen unterhalb der Karte!",
+      "requestsInSelectedLocation": "{{count}} Anfrage in {{region}}:",
+      "requestsInSelectedLocation_plural": "{{count}} Anfragen in {{region}}:",
+      "requestsInSelectedLocationFallback": "{{count}} Anfrage im ausgewählten Gebiet:",
+      "requestsInSelectedLocationFallback_plural": "{{count}} Anfragen im ausgewählten Gebiet:",
+      "selectALocationFirst": "Nimm erst eine Auswahl vor!"
     }
   }
 }
