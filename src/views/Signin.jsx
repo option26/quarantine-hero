@@ -44,7 +44,7 @@ export default function Signin() {
       const signInResult = await signInWithEmailAndPassword(email, password);
 
       if (!signInResult.user) {
-        setError('Unexpected error during sign in. Please try again!');
+        setError(t('views.signIn.unknownError'));
         Sentry.captureException(new Error('signInWithEmailAndPassword returned a result where the user property is null'));
         return;
       }

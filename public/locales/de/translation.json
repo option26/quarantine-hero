@@ -186,6 +186,7 @@
       "toHome": "ZUR STARTSEITE"
     },
     "signIn": {
+      "unknownError": "Unerwarteter Fehler beim Anmelden. Bitte versuche es erneut",
       "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.",
       "wrongUserOrPw": "Falsche Email Adresse oder falsches Passwort angegeben.",
       "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.",
