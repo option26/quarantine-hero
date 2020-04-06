@@ -118,10 +118,7 @@ export default function EntryList({ pageSize = 0 }) {
 
   useEffect(() => {
     loadDocuments(buildQuery());
-    // We need to ignore the missing dependencies, because with dependencies,
-    // we are stuck in a loop of fetching -> appending -> rendering -> fetching ...
-    // eslint-disable-next-line
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
     setLocation(address);

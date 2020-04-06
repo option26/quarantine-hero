@@ -71,8 +71,7 @@ export default function CompleteOfferHelp() {
     }
 
     completeSignup();
-    // eslint-disable-next-line
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="p-4">
