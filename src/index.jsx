@@ -1,5 +1,11 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import FilteredListFrame from './views/FilteredListFrame';
 
 // At the time of linting style is not available yet.
 // in order to spare the CI the step of running yarn build
@@ -17,7 +23,16 @@ import './i18n'; // Internalization
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
     {/* Suspense is necessary for internalization */}
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/filtered-list-frame">
+          <FilteredListFrame />
+        </Route>
+        <Route path="*">
+          <App />
+        </Route>
+      </Switch>
+    </Router>
   </Suspense>,
   document.getElementById('root'),
 );
