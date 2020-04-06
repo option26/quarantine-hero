@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Sentry from '@sentry/browser';
 import { useTranslation } from 'react-i18next';
 import 'firebase/auth';
 import {
@@ -41,7 +42,16 @@ export default () => {
     e.preventDefault();
     try {
       const signInResult = await signInWithEmailAndPassword(email, password);
-      if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
+
+      if (!signInResult.user) {
+        setError('Unexpected error during sign in. Please try again!');
+        Sentry.captureException(new Error('signInWithEmailAndPassword returned a result where the user property is null'));
+        return;
+      }
+
+      if (!signInResult.user.emailVerified) {
+        await signInResult.user.sendEmailVerification();
+      }
     } catch (err) {
       switch (err.code) {
         case 'auth/user-not-found': setError(t('views.signIn.noUser')); break;
