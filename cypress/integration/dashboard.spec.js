@@ -6,7 +6,8 @@ import { removeAskForHelpEntryWithoutResponses, removeSolvedAskForHelpEntry } fr
 const dummyUserMail = 'verified@example.com';
 const dummyUserPw = 'test1234';
 
-context('Dashboard', () => {
+// test are currently flaky, see https://github.com/kenodressel/quarantine-hero/issues/216
+context.skip('Dashboard', () => {
 
   beforeEach(() => {
     indexedDB.deleteDatabase('firebaseLocalStorageDb');
@@ -40,7 +41,6 @@ context('Dashboard', () => {
 
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
-      cy.wait(500);
       cy.get('[data-cy=ask-for-help-entry]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
