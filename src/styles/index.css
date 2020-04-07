@@ -158,6 +158,8 @@
     cursor: pointer;
 }
 .scroll-up-btn {
+    z-index: 500;
+
     position: fixed;
     right: -100px;
     bottom: 20px;

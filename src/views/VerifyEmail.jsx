@@ -1,19 +1,22 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import withFirebaseAuth from 'react-with-firebase-auth';
-import * as firebaseApp from 'firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import Footer from '../components/Footer';
 
-const firebaseAppAuth = firebaseApp.auth();
 
-const VerifyEmail = (props) => {
+export default () => {
   const [sendVerificationSuccess, setSendVerificationSuccess] = React.useState(false);
+  const [user, isAuthLoading] = useAuthState(firebase.auth());
 
-  const {
-    user,
-  } = props;
+  if (!user && !isAuthLoading) {
+    return <Redirect to="/signup" />;
+  }
 
-  if (user && user.emailVerified) return <Redirect to="/ask-for-help" />;
+  if (user && user.emailVerified) {
+    return <Redirect to="/ask-for-help" />;
+  }
 
   const resendEmail = async (e) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ const VerifyEmail = (props) => {
     // however, "auth.token.email_verified" in the firebase backend gets ist value from the ID token which will not get updated until it expires or it is force refreshed
     // therefore, we need to force refresh the ID token, to make the backend aware that the user is indeed verified, and passes the security rules
     // by design, if the user would log out and log in again, the token would be refreshed as well
-    await firebaseAppAuth.currentUser.getIdToken(true);
+    await user.getIdToken(true);
     window.location.reload();
   };
 
@@ -55,8 +58,3 @@ const VerifyEmail = (props) => {
     </div>
   );
 };
-
-export default withFirebaseAuth({
-  providers: [],
-  firebaseAppAuth,
-})(VerifyEmail);

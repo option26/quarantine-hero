@@ -1,6 +1,5 @@
 import React from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth';
-import * as firebaseApp from 'firebase/app';
+import * as Sentry from '@sentry/browser';
 import { useTranslation } from 'react-i18next';
 import 'firebase/auth';
 import {
@@ -9,25 +8,24 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
+import * as firebase from 'firebase/app';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 import fb from '../firebase';
+
 import { baseUrl } from '../appConfig';
 
-const firebaseAppAuth = firebaseApp.auth();
-
-const Signin = (props) => {
+export default function Signin() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
   const location = useLocation();
   const { t } = useTranslation();
+  const [user] = useAuthState(firebase.auth());
+  const signInWithEmailAndPassword = (mail, pw) => firebase.auth().signInWithEmailAndPassword(mail, pw);
 
-  const {
-    user,
-    signInWithEmailAndPassword,
-  } = props;
   const { returnUrl } = useParams();
 
   if (user) {
@@ -42,18 +40,27 @@ const Signin = (props) => {
 
   const signIn = async (e) => {
     e.preventDefault();
-    const signInResult = await signInWithEmailAndPassword(email, password);
-    if (signInResult.code) {
-      switch (signInResult.code) {
+    try {
+      const signInResult = await signInWithEmailAndPassword(email, password);
+
+      if (!signInResult.user) {
+        setError(t('views.signIn.unknownError'));
+        Sentry.captureException(new Error('signInWithEmailAndPassword returned a result where the user property is null'));
+        return;
+      }
+
+      if (!signInResult.user.emailVerified) {
+        await signInResult.user.sendEmailVerification();
+      }
+    } catch (err) {
+      switch (err.code) {
         case 'auth/user-not-found': setError(t('views.signIn.noUser')); break;
         case 'auth/wrong-password': setError(t('views.signIn.wrongUserOrPw')); break;
         case 'auth/invalid-email': setError(t('views.signIn.emailInvalid')); break;
         case 'auth/too-many-requests': setError(t('views.signIn.tooManyRequests')); break;
-        default: setError(signInResult.message);
+        default: setError(err.message);
       }
-      return;
     }
-    if (!signInResult.user.emailVerified) await signInResult.user.sendEmailVerification();
   };
 
   const sendPasswordResetMail = (e) => {
@@ -131,9 +138,4 @@ const Signin = (props) => {
       <Footer />
     </div>
   );
-};
-
-export default withFirebaseAuth({
-  providers: [],
-  firebaseAppAuth,
-})(Signin);
+}

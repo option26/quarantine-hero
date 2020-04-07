@@ -34,6 +34,16 @@
     background-color: #eeeeee;
 }
 
+.btn-light-green {
+    color: #87a544;
+    background-color: #e9efdd;
+}
+
+.btn-dark-green {
+    color: white;
+    background-color: #87a544;
+}
+
 .angle-cut-background {
     background: #f9f7f0;
     position: relative;

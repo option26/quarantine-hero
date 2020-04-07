@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth';
-import * as firebaseApp from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import {
   Link,
@@ -8,26 +7,23 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
-const firebaseAppAuth = firebaseApp.auth();
-
-const Signup = (props) => {
+export default () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
+  const [user] = useAuthState(firebase.auth());
   const location = useLocation();
   const passwordInput = useRef();
   const passwordRepeatInput = useRef();
   const { t } = useTranslation();
-
-  const {
-    user,
-    createUserWithEmailAndPassword,
-  } = props;
   const { returnUrl } = useParams();
+
+  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(email, pw);
 
   if (user) {
     if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
@@ -43,18 +39,17 @@ const Signup = (props) => {
     // Prevent page reload
     e.preventDefault();
 
-    const signUpResult = await createUserWithEmailAndPassword(email, password);
-    if (signUpResult.code) {
-      switch (signUpResult.code) {
+    try {
+      const signUpResult = await createUserWithEmailAndPassword(email, password);
+      await signUpResult.user.sendEmailVerification();
+    } catch (err) {
+      switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
-        default: setError(signUpResult.message);
+        default: setError(err.message);
       }
-      return;
     }
-
-    await signUpResult.user.sendEmailVerification();
   };
 
   const comparePasswords = () => {
@@ -140,8 +135,3 @@ const Signup = (props) => {
     </div>
   );
 };
-
-export default withFirebaseAuth({
-  providers: [],
-  firebaseAppAuth,
-})(Signup);
