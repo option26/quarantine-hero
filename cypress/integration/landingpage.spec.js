@@ -1,5 +1,3 @@
-import loginVerifiedUser from '../util/loginVerifiedUser';
-
 context('Landing Page', () => {
 
   describe('User is not logged in', () => {
