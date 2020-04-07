@@ -31,7 +31,6 @@ function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, cyI
 
 export default function PopupOnEntryAction(props) {
   const {
-    commonButtonClasses,
     responses,
     attemptingToDelete,
     attemptingToSolve,
@@ -49,8 +48,8 @@ export default function PopupOnEntryAction(props) {
 
   const { t } = useTranslation();
 
-  const positiveActionButtonClasses = `bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 ${commonButtonClasses}`;
-  const negativeActionButtonClasses = `text-primary font-medium min-w-90 ${commonButtonClasses.replace('font-bold', '')}`;
+  const positiveActionButtonClasses = 'bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 btn-common';
+  const negativeActionButtonClasses = 'text-primary min-w-90 btn-common-font-normal';
 
   const strongerTogetherHashtag = <i> #strongertogether</i>;
   const textBodyWasYourRequestSuccessful = (

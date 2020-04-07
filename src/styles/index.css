@@ -6,12 +6,36 @@
 
 @tailwind utilities;
 
+
+.font-open-sans {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0;
+}
+
 .btn-primary {
     @apply rounded p-4 bg-primary text-secondary w-full inline-block text-center font-bold;
 }
 
 .btn-secondary {
     @apply rounded p-4 bg-secondary text-secondary w-full inline-block text-center font-bold;
+}
+
+.btn-common {
+    @apply py-2 uppercase font-open-sans font-bold text-center text-xs;
+}
+
+.btn-common-font-normal {
+    @apply py-2 uppercase font-open-sans font-normal text-center text-xs;
+}
+
+@screen md {
+    .btn-common, .btn-common-normal-font {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+        font-size: .875rem;
+    }
 }
 
 .btn-green {
