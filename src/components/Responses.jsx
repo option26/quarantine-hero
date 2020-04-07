@@ -33,7 +33,7 @@ export default function Responses(props) {
 
   useEffect(() => {
     loadResponses(props.id, props.collectionName).then(setResponses);
-  }, [props.id]);
+  }, [props.id, props.collectionName]);
 
   return (
     <div>
