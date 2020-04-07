@@ -12,7 +12,6 @@ import DoneIcon from '@material-ui/icons/Done';
 import fb from '../../firebase';
 import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
-import userIsOnMobile from '../../util/userIsOnMobile';
 
 import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg';
 import './Entry.css';
@@ -35,7 +34,6 @@ export default function Entry(props) {
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
-  const isOnMobile = userIsOnMobile();
 
   const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
   const [responsesVisible, setResponsesVisible] = useState(false);
@@ -147,11 +145,8 @@ export default function Entry(props) {
     numberOfResponsesText = `${responses} ${t('components.entry.repliesReceived')}`;
   }
 
-  const commonButtonClasses = 'md:px-6 py-2 md:py-3 uppercase font-open-sans font-bold text-center text-xs md:text-sm';
-
   const popupOnEntryAction = (
     <PopupOnEntryAction
-      commonButtonClasses={commonButtonClasses}
       responses={responses}
       attemptingToDelete={attemptingToDelete}
       attemptingToSolve={attemptingToSolve}
@@ -189,18 +184,19 @@ export default function Entry(props) {
     }
 
     const heroFoundButtonClasses = showAsSolved
-      ? `bg-secondary text-white ${commonButtonClasses}`
-      : `bg-tertiary text-secondary hover:bg-secondary hover:text-white ${commonButtonClasses}`;
+      ? 'bg-secondary text-white btn-common'
+      : 'bg-tertiary text-secondary hover:bg-secondary hover:text-white btn-common';
 
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
-          ? <div className={`bg-gray-200 text-gray-700 pt-3 flex-grow mr-px ${commonButtonClasses}`}>{numberOfResponsesText}</div>
+          ? <div className="bg-gray-200 text-gray-700 pt-3 flex-grow mr-px $btn-common">{numberOfResponsesText}</div>
           : (
             <>
-              <button type="button" className={`bg-secondary hover:opacity-75 text-white flex-1 ${commonButtonClasses}`} onClick={toggleResponsesVisible}>
-                {t('components.entry.message', { count: responses })}
+              <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row item-center justify-center" onClick={toggleResponsesVisible}>
+                <div className="block xs:hidden pt-1 md:pt-0">{t('components.entry.message', { count: responses })}</div>
                 <MailOutlineIcon className="ml-2 mb-1 inline-block" />
+                <div className="hidden xs:block font-open-sans font-bold pt-1 md:pt-0">{responses}</div>
               </button>
               <button type="button" data-cy="btn-entry-solve" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 {t('components.entry.heroFound')}
@@ -210,9 +206,9 @@ export default function Entry(props) {
               </button>
             </>
           )}
-        <button type="button" data-cy="btn-entry-delete" className={`bg-red-200 text-primary hover:text-white hover:bg-primary ${isOnMobile && 'max-w-5'} ${commonButtonClasses} pl-2 pr-8 md:px-6`} onClick={initializeDelete}>
-          {responses === 0 && !isOnMobile ? t('components.entry.deleteRequestForHelp') : null}
-          <DeleteOutlineIcon className="mb-1" />
+        <button type="button" data-cy="btn-entry-delete" className="bg-red-200 text-primary hover:text-white hover:bg-primary flex flex-row item-center md:justify-around max-w-5 md:max-w-full btn-common pl-2 pr-8 md:px-6" onClick={initializeDelete}>
+          <div className="hidden md:block">{t('components.entry.deleteRequestForHelp')}</div>
+          <DeleteOutlineIcon className="pb-1" />
         </button>
       </div>
     );
