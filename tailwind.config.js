@@ -4,6 +4,7 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
+      xs: {'max':'320px'}, // iPhone 5/SE
       sm: '640px',
       md: '835px',
       lg: '1024px',
