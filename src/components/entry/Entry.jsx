@@ -190,19 +190,22 @@ export default function Entry(props) {
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
-          ? <div className="bg-gray-200 text-gray-700 pt-3 flex-grow mr-px $btn-common">{numberOfResponsesText}</div>
-          : (
+          ? (
+            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-grow mr-px $btn-common">
+              <div>{numberOfResponsesText}</div>
+            </div>
+          ) : (
             <>
-              <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row item-center justify-center" onClick={toggleResponsesVisible}>
+              <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row items-center justify-center" onClick={toggleResponsesVisible}>
                 <div className="block xs:hidden pt-1 md:pt-0">{t('components.entry.message', { count: responses })}</div>
-                <MailOutlineIcon className="ml-2 mb-1 inline-block" />
-                <div className="hidden xs:block font-open-sans font-bold pt-1 md:pt-0">{responses}</div>
+                <MailOutlineIcon className="ml-2 inline-block" />
+                <div className="hidden xs:block font-open-sans font-bold ml-1">{responses}</div>
               </button>
-              <button type="button" data-cy="btn-entry-solve" className={`md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
-                {t('components.entry.heroFound')}
+              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
+                <div>{t('components.entry.heroFound')}</div>
                 {showAsSolved
-                  ? <DoneIcon className="ml-1 mb-1 inline-block" />
-                  : <QuestionMarkSvg className="ml-1 mb-1 inline-block h-4" />}
+                  ? <DoneIcon className="ml-1 inline-block" />
+                  : <QuestionMarkSvg className="ml-1 inline-block h-4" />}
               </button>
             </>
           )}

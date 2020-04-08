@@ -110,8 +110,8 @@ function Dashboard(props) {
   const tabButtonClass = 'text-black font-bold w-1/2 btn-bottom-border-black';
 
   return (
-    <div className="p-4">
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
+    <div className="p-4 pt-0 md:pt-4">
+      <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
       <Tabs defaultTab="open">
         <TabList>
           <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
