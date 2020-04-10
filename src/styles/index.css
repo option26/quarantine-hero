@@ -244,3 +244,44 @@
     font-size: 4pt;
     color: #aaaaaa;
 }
+
+.iframe-header {
+    height: 190px;
+    background-image: linear-gradient(5deg, #f9f7f0 -37%, #b6223e 117%);
+}
+
+.iframe-header-logo {
+    width: calc(100% + 250px);
+    max-width: 325px;
+    max-height: 200px;
+}
+
+.iframe-header-buttons {
+    width: 600px;
+    min-width: 400px;
+}
+
+.iframe-header-overlay {
+    width: calc(45% - 250px);
+    background-color: #b6223e;
+}
+
+.iframe-header-overlay::after {
+    content: "";
+    position: absolute;
+    top: -250px;
+    left: calc(100% - 250px);
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    background-color: #b6223e;
+    z-index: -1;
+}
+
+.btn-white-shadow {
+    box-shadow: 0 0 20px -4px rgba(255, 255, 255, 0.5);
+}
+
+.btn-white-shadow:hover {
+    box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.8);
+}
