@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import EntryContainer from '../components/EntryContainer';
 import { baseUrl } from '../appConfig';
-
+import EntryContainer from '../components/EntryContainer';
 
 export default function FilteredListView() {
   const { t } = useTranslation();
@@ -16,7 +15,7 @@ export default function FilteredListView() {
         anchors[i].setAttribute('rel', 'noopener noreferrer');
         anchors[i].onclick = (e) => e.stopPropagation();
         const target = anchors[i].getAttribute('href');
-        if (!target.startsWith(baseUrl)) {
+        if (target && !target.startsWith(baseUrl)) {
           anchors[i].setAttribute('href', `${baseUrl}/${target}`);
         }
       }
@@ -33,35 +32,45 @@ export default function FilteredListView() {
 
   return (
     <div className="flex items-center flex-col">
-      <div className="phone-width">
-        <div className="flex text-center font-teaser justify-center w-full my-8 md:my-10">
-          {t('views.main.weAreHumans')}
-          <br />
-          {t('views.main.inTimesOfNeed')}
-          <br />
-          {t('views.main.bePart')}
-          <br />
+      <div className="iframe-header w-full relative overflow-hidden">
+        <div className="iframe-header-overlay absolute h-full z-10 p-8">
+          <img className="iframe-header-logo" src={require('../assets/logo_white.svg')} alt="" />
         </div>
-        <div className="flex justify-around px-2 md:px-4 my-6 md:my-10 w-full">
-          <Link
-            to="/overview"
-            className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary flex-1 hover:opacity-75"
-          >
-            <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
-            {t('views.main.buttons.wantToHelp')}
-          </Link>
-          <div className="mx-1 md:mx-4" />
-          <Link
-            to="/signup/ask-for-help"
-            className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary flex-1 hover:opacity-75"
-          >
-            <img className="w-8" src={require('../assets/need_help.png')} alt="" />
-            {t('views.main.buttons.needHelp')}
-          </Link>
+        <div className="h-full flex flex-col items-end justify-between p-4">
+          <div className="text-white text-right">
+            <Trans i18nKey="views.filteredListFrame.description">
+              <strong>
+                text
+              </strong>
+              {' '}
+              text
+              <br />
+              text
+              <br />
+              text
+            </Trans>
+          </div>
+          <div className="flex z-20 iframe-header-buttons">
+            <Link
+              to="/overview"
+              className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
+            >
+              <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
+              {t('views.main.buttons.wantToHelp')}
+            </Link>
+            <div className="mx-1" />
+            <Link
+              to="/signup/ask-for-help"
+              className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
+            >
+              <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+              {t('views.main.buttons.needHelp')}
+            </Link>
+          </div>
         </div>
       </div>
-      <div className="mt-2 mb-4 px-2 md:px-4 w-full">
-        <EntryContainer pageSize={20} />
+      <div className="mt-6 mb-4 px-4 md:px-16 w-full">
+        <EntryContainer pageSize={20} title="Aktuelle Anfragen durchsuchen" />
       </div>
     </div>
   );
