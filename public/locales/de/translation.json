@@ -283,7 +283,7 @@
         "solveReassure": {
           "heading": "War dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen dass deine Suche erfolgreich war.",
-          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund du bekommst keine weiteren Nachrichten von Helfern mehr."
+          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund du bekommst keine weiteren Nachrichten von Helfenden mehr."
         },
         "wasYourRequestSuccessful": {
           "heading": "War dein Hilfegesuch erfolgreich?",
