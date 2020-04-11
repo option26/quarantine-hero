@@ -14,6 +14,9 @@ import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
 
 import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg';
+import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
+import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
+import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
 import './Entry.css';
 
 export default function Entry(props) {
@@ -39,6 +42,7 @@ export default function Entry(props) {
   const [responsesVisible, setResponsesVisible] = useState(false);
 
   const [deleted, setDeleted] = useState(false);
+  const [solved, setSolved] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(false);
   const [attemptingToSolve, setAttemptingToSolve] = useState(false);
   const [attemptingToReport, setAttemptingToReport] = useState(false);
@@ -67,7 +71,7 @@ export default function Entry(props) {
     });
     setDeleted(true);
     setAttemptingToDelete(false);
-    setPopupVisible(true);
+    setPopupVisible(true); // trigger the deletion confirmation popup
   };
 
   const handleSolved = async (e) => {
@@ -75,7 +79,7 @@ export default function Entry(props) {
     const askForHelpDoc = await fb.store.collection('ask-for-help').doc(props.id).get();
     const data = askForHelpDoc.data();
     await fb.store.collection('solved-posts').doc(props.id).set(data);
-    setDeleted(true);
+    setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
   };
@@ -163,7 +167,7 @@ export default function Entry(props) {
     />
   );
 
-  if (deleted) {
+  if (deleted || solved) {
     // make popup component available to show the success hint, if the entry was previously deleted
     return <>{popupOnEntryAction}</>;
   }
@@ -257,9 +261,9 @@ export default function Entry(props) {
                 if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
               }}
             >
-              {reported ? <img className="flag" src={require('../../assets/flag_orange.svg')} alt="" /> : null}
-              {!reported && !attemptingToReport ? <img className="flag" src={require('../../assets/flag_red.svg')} alt="" /> : null}
-              {!reported && attemptingToReport ? <img className="cross" src={require('../../assets/x.svg')} alt="" /> : null}
+              {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}
+              {!reported && !attemptingToReport ? <FlagRedSvg className="flag" alt="" /> : null}
+              {!reported && attemptingToReport ? <XSymbolSvg className="cross" alt="" /> : null}
             </button>
           ) : null}
           {attemptingToReport
