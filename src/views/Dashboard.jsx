@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Tabs, Tab, TabPanel, TabList,
 } from 'react-web-tabs';
+import * as firebase from 'firebase/app';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
 import useQuery from '../util/useQuery';
@@ -72,6 +73,20 @@ function Dashboard(props) {
   const solvedPosts = (solvedPostsDocs || [])
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
+
+
+  const deleteAccount = async () => {
+    // TODO: Show reassurance dialog and ask for PW
+    const pw = window.prompt('Reenter PW');
+    try {
+      const credentials = await firebase.auth.EmailAuthProvider.credential(user.email, pw);
+      await user.reauthenticateWithCredential(credentials);
+
+      user.delete();
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
@@ -172,6 +187,9 @@ function Dashboard(props) {
         )
         : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
 
+      <div className="mt-3">
+        <button type="button" className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" onClick={deleteAccount}>Delete Account</button>
+      </div>
     </div>
   );
 }
