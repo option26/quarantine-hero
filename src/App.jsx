@@ -28,7 +28,7 @@ import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
 import DSGVO from './views/DSGVO';
 import Sidebar from './components/Sidebar';
-import DesktopMenu from './components/DesktopMenu';
+import DesktopLowerNavigation from './components/DesktopMenu';
 import VerifyEmail from './views/VerifyEmail';
 import CompleteOfferHelp from './views/CompleteOfferHelp';
 import NotifyMe from './views/NotifyMe';
@@ -39,7 +39,7 @@ import createEventListener from './util/createEventListener';
 import Security from './views/Security';
 import FilteredListFrame from './views/FilteredListFrame';
 
-function TopNavigation({ isAuthLoading, user, signOut }) {
+function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
 
   // if the user is not logged in or authentication is loading
@@ -124,27 +124,35 @@ const Frame = (props) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const MobileTopNavigation = () => (
+    <div
+      style={{ zIndex: 101 }}
+      className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5"
+    >
+      <Link
+        to="/"
+        className="font-main ml-4"
+        style={{ fontWeight: '600' }}
+      >
+        <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
+      </Link>
+      <div>
+        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)} />
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="flex items-center min-h-screen flex-col bg-kaki">
-        <TopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
+
+        <DesktopTopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
+        <MobileTopNavigation />
+
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
-          <DesktopMenu isLoggedIn={user} signOut={signOut} />
+          <DesktopLowerNavigation isLoggedIn={user} signOut={signOut} />
           <div className="md:px-16 overflow-hidden">
-            <div
-              style={{ zIndex: 101 }}
-              className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5"
-            >
-              <Link to="/" className="font-main ml-4" style={{ fontWeight: '600' }}>
-                <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
-              </Link>
-              <div>
-                <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)} />
-              </div>
-            </div>
-            <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut} />
             <div className="mt-20 md:mt-0">
-              // renders the actual content of a page
               {props.children}
               <ScrollUpButton
                 ContainerClassName="scroll-up-btn"
@@ -155,6 +163,14 @@ const Frame = (props) => {
             </div>
           </div>
         </div>
+
+        <Sidebar
+          open={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          isLoggedIn={user}
+          signOut={signOut}
+        />
+
         <CookieConsent
           location="bottom"
           buttonText="Okay"
