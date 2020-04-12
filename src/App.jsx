@@ -37,6 +37,7 @@ import ShareButtons from './components/ShareButtons';
 import Press from './views/Press';
 import createEventListener from './util/createEventListener';
 import Security from './views/Security';
+import arrowUpIcon from './assets/arrows_up.svg';
 import FilteredListFrame from './views/FilteredListFrame';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
@@ -89,7 +90,7 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   );
 }
 
-const Frame = (props) => {
+const Page = (props) => {
   // always scroll page to top when changing the pathname
   useScrollToTop();
 
@@ -154,15 +155,16 @@ const Frame = (props) => {
           <div className="md:px-16 overflow-hidden">
             <div className="mt-20 md:mt-0">
               {props.children}
-              <ScrollUpButton
-                ContainerClassName="scroll-up-btn"
-                TransitionClassName="scroll-up-btn-fade"
-              >
-                <img alt="arrow-down" className="arrow-down" src={require('./assets/arrows_up.svg')} />
-              </ScrollUpButton>
             </div>
           </div>
         </div>
+
+        <ScrollUpButton
+          ContainerClassName="scroll-up-btn"
+          TransitionClassName="scroll-up-btn-fade"
+        >
+          <img alt="arrow-down" className="arrow-down" src={arrowUpIcon} />
+        </ScrollUpButton>
 
         <Sidebar
           open={menuOpen}
