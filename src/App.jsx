@@ -121,111 +121,150 @@ export default function App() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const Frame = (props) => (
+    <div className="flex items-center min-h-screen flex-col bg-kaki">
+      <TopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
+      <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
+        <ScrollToTop />
+        <DesktopMenu isLoggedIn={user} signOut={signOut} />
+        <div className="md:px-16 overflow-hidden">
+          <div style={{ zIndex: 101 }}
+               className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
+            <Link to="/" className="font-main ml-4" style={{ fontWeight: '600' }}>
+              <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
+            </Link>
+            <div>
+              <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)} />
+            </div>
+          </div>
+          <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut} />
+          <div className="mt-20 md:mt-0">
+            {props.children}
+            <ScrollUpButton
+              ContainerClassName="scroll-up-btn"
+              TransitionClassName="scroll-up-btn-fade"
+            >
+              <img alt="arrow-down" className="arrow-down" src={require('./assets/arrows_up.svg')} />
+            </ScrollUpButton>
+          </div>
+        </div>
+      </div>
+      <CookieConsent
+        location="bottom"
+        buttonText="Okay"
+        cookieName="cookieConsent"
+        style={{ background: '#2B373B' }}
+        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+        onAccept={enableAnalytics}
+        expires={365}
+      >
+        {t('App.usesCookies')}
+      </CookieConsent>
+    </div>
+  );
+
   return (
     <Router>
       <Switch>
         <Route exact path="/filtered-list-frame">
           <FilteredListFrame />
         </Route>
-        <Route path="*">
-          <div className="flex items-center min-h-screen flex-col bg-kaki">
-            <TopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
-            <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
-              <ScrollToTop />
-              <DesktopMenu isLoggedIn={user} signOut={signOut} />
-              <div className="md:px-16 overflow-hidden">
-                <div style={{ zIndex: 101 }} className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5">
-                  <Link to="/" className="font-main ml-4" style={{ fontWeight: '600' }}>
-                    <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
-                  </Link>
-                  <div>
-                    <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)} />
-                  </div>
-                </div>
-                <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} isLoggedIn={user} signOut={signOut} />
-                <div className="mt-20 md:mt-0">
-                  <Switch>
-                    <Route path="/offer-help/:id">
-                      <OfferHelp />
-                    </Route>
-                    <Route path="/signup/:returnUrl">
-                      <Signup />
-                    </Route>
-                    <Route path="/signup">
-                      <Signup />
-                    </Route>
-                    <Route path="/signin/:returnUrl">
-                      <Signin />
-                    </Route>
-                    <Route path="/signin">
-                      <Signin />
-                    </Route>
-                    <Route path="/verify-email">
-                      <VerifyEmail />
-                    </Route>
-                    <Route path="/ask-for-help">
-                      <AskForHelp />
-                    </Route>
-                    <Route path="/dashboard">
-                      <Dashboard />
-                    </Route>
-                    <Route path="/faq">
-                      <FAQ />
-                    </Route>
-                    <Route path="/security-tips">
-                      <Security />
-                    </Route>
-                    <Route path="/impressum">
-                      <Impressum />
-                    </Route>
-                    <Route path="/overview">
-                      <Overview />
-                    </Route>
-                    <Route path="/success">
-                      <Success />
-                    </Route>
-                    <Route path="/success-offer">
-                      <SuccessOffer />
-                    </Route>
-                    <Route path="/dsgvo">
-                      <DSGVO />
-                    </Route>
-                    <Route path={['/press', '/presse']}>
-                      <Press />
-                    </Route>
-                    <Route path="/notify-me">
-                      <NotifyMe />
-                    </Route>
-                    <Route path="/complete-offer-help">
-                      <CompleteOfferHelp />
-                    </Route>
-                    <Route exact path="/">
-                      <Main />
-                    </Route>
-                    <Route component={NotFound} path="*" />
-                  </Switch>
-                  <ScrollUpButton
-                    ContainerClassName="scroll-up-btn"
-                    TransitionClassName="scroll-up-btn-fade"
-                  >
-                    <img alt="arrow-down" className="arrow-down" src={require('./assets/arrows_up.svg')} />
-                  </ScrollUpButton>
-                </div>
-              </div>
-            </div>
-            <CookieConsent
-              location="bottom"
-              buttonText="Okay"
-              cookieName="cookieConsent"
-              style={{ background: '#2B373B' }}
-              buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-              onAccept={enableAnalytics}
-              expires={365}
-            >
-              {t('App.usesCookies')}
-            </CookieConsent>
-          </div>
+        <Route path="/offer-help/:id">
+          <Frame>
+            <OfferHelp />
+          </Frame>
         </Route>
+        <Route path="/signup/:returnUrl">
+          <Frame>
+            <Signup />
+          </Frame>
+        </Route>
+        <Route path="/signup">
+          <Frame>
+            <Signup />
+          </Frame>
+        </Route>
+        <Route path="/signin/:returnUrl">
+          <Frame>
+            <Signin />
+          </Frame>
+        </Route>
+        <Route path="/signin">
+          <Frame>
+            <Signin />
+          </Frame>
+        </Route>
+        <Route path="/verify-email">
+          <Frame>
+            <VerifyEmail />
+          </Frame>
+        </Route>
+        <Route path="/ask-for-help">
+          <Frame>
+            <AskForHelp />
+          </Frame>
+        </Route>
+        <Route path="/dashboard">
+          <Frame>
+            <Dashboard />
+          </Frame>
+        </Route>
+        <Route path="/faq">
+          <Frame>
+            <FAQ />
+          </Frame>
+        </Route>
+        <Route path="/security-tips">
+          <Frame>
+            <Security />
+          </Frame>
+        </Route>
+        <Route path="/impressum">
+          <Frame>
+            <Impressum />
+          </Frame>
+        </Route>
+        <Route path="/overview">
+          <Frame>
+            <Overview />
+          </Frame>
+        </Route>
+        <Route path="/success">
+          <Frame>
+            <Success />
+          </Frame>
+        </Route>
+        <Route path="/success-offer">
+          <Frame>
+            <SuccessOffer />
+          </Frame>
+        </Route>
+        <Route path="/dsgvo">
+          <Frame>
+            <DSGVO />
+          </Frame>
+        </Route>
+        <Route path={['/press', '/presse']}>
+          <Frame>
+            <Press />
+          </Frame>
+        </Route>
+        <Route path="/notify-me">
+          <Frame>
+            <NotifyMe />
+          </Frame>
+        </Route>
+        <Route path="/complete-offer-help">
+          <Frame>
+            <CompleteOfferHelp />
+          </Frame>
+        </Route>
+        <Route exact path="/">
+          <Frame>
+            <Main />
+          </Frame>
+        </Route>
+        <Route component={NotFound} path="*" />
       </Switch>
     </Router>
   );
