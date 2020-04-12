@@ -152,10 +152,8 @@ const Page = (props) => {
 
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <DesktopLowerNavigation isLoggedIn={user} signOut={signOut} />
-          <div className="md:px-16 overflow-hidden">
-            <div className="mt-20 md:mt-0">
-              {props.children}
-            </div>
+          <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
+            {props.children}
           </div>
         </div>
 
@@ -197,99 +195,104 @@ export default function App() {
           <FilteredListFrame />
         </Route>
         <Route path="/offer-help/:id">
-          <Frame>
+          <Page>
             <OfferHelp />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/signup/:returnUrl">
-          <Frame>
+          <Page>
             <Signup />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/signup">
-          <Frame>
+          <Page>
             <Signup />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/signin/:returnUrl">
-          <Frame>
+          <Page>
             <Signin />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/signin">
-          <Frame>
+          <Page>
             <Signin />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/verify-email">
-          <Frame>
+          <Page>
             <VerifyEmail />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/ask-for-help">
-          <Frame>
+          <Page>
             <AskForHelp />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/dashboard">
-          <Frame>
+          <Page>
             <Dashboard />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/faq">
-          <Frame>
+          <Page>
             <FAQ />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/security-tips">
-          <Frame>
+          <Page>
             <Security />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/impressum">
-          <Frame>
+          <Page>
             <Impressum />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/overview">
-          <Frame>
+          <Page>
             <Overview />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/success">
-          <Frame>
+          <Page>
             <Success />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/success-offer">
-          <Frame>
+          <Page>
             <SuccessOffer />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/dsgvo">
-          <Frame>
+          <Page>
             <DSGVO />
-          </Frame>
+          </Page>
         </Route>
         <Route path={['/press', '/presse']}>
-          <Frame>
+          <Page>
             <Press />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/notify-me">
-          <Frame>
+          <Page>
             <NotifyMe />
-          </Frame>
+          </Page>
         </Route>
         <Route path="/complete-offer-help">
-          <Frame>
+          <Page>
             <CompleteOfferHelp />
-          </Frame>
+          </Page>
         </Route>
         <Route exact path="/">
-          <Frame>
+          <Page>
             <Main />
-          </Frame>
+          </Page>
+        </Route>
+        <Route exact path="/frame">
+          <Page>
+            <div style={{ width: '100%', height: '100%', backgroundColor: 'blue' }}>Hi</div>
+          </Page>
         </Route>
         <Route component={NotFound} path="*" />
       </Switch>
