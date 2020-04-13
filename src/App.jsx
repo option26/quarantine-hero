@@ -289,7 +289,11 @@ export default function App() {
             <Main />
           </Page>
         </Route>
-        <Route component={NotFound} path="*" />
+        <Route path="*">
+          <Page>
+            <NotFound />
+          </Page>
+        </Route>
       </Switch>
     </Router>
   );
