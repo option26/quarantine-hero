@@ -55,17 +55,25 @@ context('Landing Page', () => {
     });
 
     it('clicking on "Meine Übersicht" should redirect to dashboard', () => {
-      cy.get('[data-cy=nav-my-overview]').click();
-      cy.hash().should('equal', '#/dashboard');
+      if (Cypress.env('VIEWPORT') === 'desktop') {
+        cy.get('[data-cy=nav-my-overview]').click();
+        cy.hash().should('equal', '#/dashboard');
+      } else if (Cypress.env('VIEWPORT') === 'mobile') {
+
+      }
     });
 
     it('clicking on "Logout" should log out the user', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signOutUser');
+      if (Cypress.env('VIEWPORT') === 'desktop') {
+        cy.get('[data-cy=btn-sign-out]').should('be.visible');
+        cy.get('[data-cy=btn-sign-out]').click();
+        cy.get('[data-cy=btn-sign-out]').should('not.exist');
+        cy.get('[data-cy=nav-my-overview]').should('not.exist');
+      } else if (Cypress.env('VIEWPORT') === 'mobile') {
 
-      cy.get('[data-cy=btn-sign-out]').click();
-      cy.get('[data-cy=btn-sign-out]').should('not.exist');
-      cy.get('[data-cy=nav-my-overview]').should('not.exist');
+      }
     });
   });
 });
