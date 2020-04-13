@@ -33,7 +33,7 @@ export default function FilteredListView() {
   return (
     <>
       <div className="flex items-center flex-col">
-        <div className="sm:hidden iframe-small-header w-full p-4 flex flex-col items-center justify-between relative overflow-hidden">
+        <div className="block sm:hidden iframe-small-header w-full p-4 flex flex-col items-center justify-between relative overflow-hidden">
           <div className="iframe-small-overlay absolute" />
           <img className="iframe-small-logo z-10" src={require('../assets/logo_white.svg')} alt="" />
           <div className="mt-4 text-white text-center z-10">
@@ -67,7 +67,7 @@ export default function FilteredListView() {
             </Link>
           </div>
         </div>
-        <div className="smi:hidden iframe-header w-full relative overflow-hidden">
+        <div className="hidden sm:block iframe-header w-full relative overflow-hidden">
           <div className="iframe-header-overlay absolute h-full z-10 p-8">
             <img className="iframe-header-logo" src={require('../assets/logo_white.svg')} alt="" />
           </div>
