@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.07d88ce2.chunk.css",
-    "main.js": "/static/js/main.4692d511.chunk.js",
-    "main.js.map": "/static/js/main.4692d511.chunk.js.map",
+    "main.css": "/static/css/main.c29033ef.chunk.css",
+    "main.js": "/static/js/main.4abcca5a.chunk.js",
+    "main.js.map": "/static/js/main.4abcca5a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.5ba2f042.js",
     "runtime-main.js.map": "/static/js/runtime-main.5ba2f042.js.map",
-    "static/js/2.7e6c3a81.chunk.js": "/static/js/2.7e6c3a81.chunk.js",
-    "static/js/2.7e6c3a81.chunk.js.map": "/static/js/2.7e6c3a81.chunk.js.map",
+    "static/js/2.c288f09c.chunk.js": "/static/js/2.c288f09c.chunk.js",
+    "static/js/2.c288f09c.chunk.js.map": "/static/js/2.c288f09c.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.e432fdcdc1af18fd797d60bc27e792a0.js": "/precache-manifest.e432fdcdc1af18fd797d60bc27e792a0.js",
+    "precache-manifest.197b008aedc515ce19804a0e7d62a665.js": "/precache-manifest.197b008aedc515ce19804a0e7d62a665.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.07d88ce2.chunk.css.map": "/static/css/main.07d88ce2.chunk.css.map",
-    "static/js/2.7e6c3a81.chunk.js.LICENSE.txt": "/static/js/2.7e6c3a81.chunk.js.LICENSE.txt",
+    "static/css/main.c29033ef.chunk.css.map": "/static/css/main.c29033ef.chunk.css.map",
+    "static/js/2.c288f09c.chunk.js.LICENSE.txt": "/static/js/2.c288f09c.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -38,6 +38,7 @@
     "static/media/konsistent.svg": "/static/media/konsistent.d8a5ce7d.svg",
     "static/media/logo.svg": "/static/media/logo.c3831aea.svg",
     "static/media/logo_invert.svg": "/static/media/logo_invert.d492beec.svg",
+    "static/media/logo_white.svg": "/static/media/logo_white.670ed4ce.svg",
     "static/media/lokal.svg": "/static/media/lokal.2b286f77.svg",
     "static/media/success.svg": "/static/media/success.ceaaf435.svg",
     "static/media/sueddeutsche_zeitung.jpg": "/static/media/sueddeutsche_zeitung.4c374a4c.jpg",
@@ -46,8 +47,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.5ba2f042.js",
-    "static/js/2.7e6c3a81.chunk.js",
-    "static/css/main.07d88ce2.chunk.css",
-    "static/js/main.4692d511.chunk.js"
+    "static/js/2.c288f09c.chunk.js",
+    "static/css/main.c29033ef.chunk.css",
+    "static/js/main.4abcca5a.chunk.js"
   ]
 }
