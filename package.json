@@ -36,13 +36,21 @@
   },
   "scripts": {
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
-    "start": "npm run build:style && react-scripts start",
-    "build": "npm run build:style && react-scripts build",
-    "test": "cypress run",
+    "start": "yarn run build:style && react-scripts start",
+    "build": "yarn run build:style && react-scripts build",
     "eject": "react-scripts eject",
-    "lint": "cd src && eslint . --ext .jsx .js --no-error-on-unmatched-pattern && cd ..",
-    "lint-fix": "cd src && eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern && cd ..",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "test": "yarn test-frontend && yarn test-backend",
+    "test-frontend": "yarn test-mobile && yarn test-desktop",
+    "test-mobile": "cypress run",
+    "test-desktop": "cypress run --config-file cypress-desktop.json ",
+    "test-backend": "echo 'TODO'",
+    "lint": "yarn lint-frontend && yarn lint-backend",
+    "lint-frontend": "eslint src/ --ext .jsx .js --no-error-on-unmatched-pattern",
+    "lint-backend": "eslint firebase/ --ext .jsx .js --no-error-on-unmatched-pattern",
+    "lint-fix": "yarn lint-fix-frontend && yarn lint-fix-backend",
+    "lint-fix-frontend": "eslint src/ --fix --ext .jsx .js --no-error-on-unmatched-pattern",
+    "lint-fix-backend": "eslint firebase/ --fix --ext .jsx .js --no-error-on-unmatched-pattern"
   },
   "eslintConfig": {
     "extends": "react-app"

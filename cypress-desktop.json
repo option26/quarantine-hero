@@ -1,0 +1,7 @@
+{
+  "viewportWidth": 1280,
+  "viewportHeight": 800,
+  "env":{
+    "VIEWPORT": "mobile"
+  }
+}
