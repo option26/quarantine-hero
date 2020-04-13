@@ -278,6 +278,25 @@
     z-index: -1;
 }
 
+.iframe-small-header {
+    background-image: linear-gradient(5deg, #f9f7f0 -37%, #b6223e 117%);
+}
+
+.iframe-small-overlay {
+    position: absolute;
+    top: -150px;
+    left: -125vw;
+    border-radius: 50%;
+    width: 250vw;
+    height: 400px;
+    background-color: #b6223e;
+}
+
+.iframe-small-logo {
+    max-width: 300px;
+    width: 90%;
+}
+
 .btn-white-shadow {
     box-shadow: 0 0 20px -4px rgba(255, 255, 255, 0.5);
 }

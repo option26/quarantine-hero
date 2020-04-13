@@ -31,13 +31,12 @@ export default function FilteredListView() {
   }, []);
 
   return (
-    <div className="flex items-center flex-col">
-      <div className="iframe-header w-full relative overflow-hidden">
-        <div className="iframe-header-overlay absolute h-full z-10 p-8">
-          <img className="iframe-header-logo" src={require('../assets/logo_white.svg')} alt="" />
-        </div>
-        <div className="h-full flex flex-col items-end justify-between p-4">
-          <div className="text-white text-right">
+    <>
+      <div className="flex items-center flex-col">
+        <div className="sm:hidden iframe-small-header w-full p-4 flex flex-col items-center justify-between relative overflow-hidden">
+          <div className="iframe-small-overlay absolute" />
+          <img className="iframe-small-logo z-10" src={require('../assets/logo_white.svg')} alt="" />
+          <div className="mt-4 text-white text-center z-10">
             <Trans i18nKey="views.filteredListFrame.description">
               <strong>
                 text
@@ -50,7 +49,7 @@ export default function FilteredListView() {
               text
             </Trans>
           </div>
-          <div className="flex z-20 iframe-header-buttons">
+          <div className="mt-4 flex xsi:flex-col w-full z-10">
             <Link
               to="/overview"
               className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
@@ -58,7 +57,7 @@ export default function FilteredListView() {
               <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
               {t('views.main.buttons.wantToHelp')}
             </Link>
-            <div className="mx-1" />
+            <div className="m-1" />
             <Link
               to="/signup/ask-for-help"
               className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
@@ -68,10 +67,47 @@ export default function FilteredListView() {
             </Link>
           </div>
         </div>
+        <div className="smi:hidden iframe-header w-full relative overflow-hidden">
+          <div className="iframe-header-overlay absolute h-full z-10 p-8">
+            <img className="iframe-header-logo" src={require('../assets/logo_white.svg')} alt="" />
+          </div>
+          <div className="h-full flex flex-col items-end justify-between p-4">
+            <div className="text-white text-right">
+              <Trans i18nKey="views.filteredListFrame.description">
+                <strong>
+                  text
+                </strong>
+                {' '}
+                text
+                <br />
+                text
+                <br />
+                text
+              </Trans>
+            </div>
+            <div className="flex z-20 iframe-header-buttons">
+              <Link
+                to="/overview"
+                className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
+              >
+                <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
+                {t('views.main.buttons.wantToHelp')}
+              </Link>
+              <div className="mx-1" />
+              <Link
+                to="/signup/ask-for-help"
+                className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
+              >
+                <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+                {t('views.main.buttons.needHelp')}
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="mt-6 mb-4 px-4 md:px-16 w-full">
         <EntryContainer pageSize={20} title="Aktuelle Anfragen durchsuchen" />
       </div>
-    </div>
+    </>
   );
 }
