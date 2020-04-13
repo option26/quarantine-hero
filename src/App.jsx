@@ -289,11 +289,6 @@ export default function App() {
             <Main />
           </Page>
         </Route>
-        <Route exact path="/frame">
-          <Page>
-            <div style={{ width: '100%', height: '100%', backgroundColor: 'blue' }}>Hi</div>
-          </Page>
-        </Route>
         <Route component={NotFound} path="*" />
       </Switch>
     </Router>
