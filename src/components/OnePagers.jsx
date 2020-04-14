@@ -213,26 +213,36 @@ export default function OnePagers() {
   );
 }
 
-const OnePager = (props) => (
-  <div className="md:ml-0 md:mr-0 p-4 mb-1 bg-gray-custom">
-    <span className="font-semibold">
-      {props.original}
-    </span>
-    {' | '}
-    <a
-      className="text-secondary hover:underline"
-      href={`../assets/${props.signUpFileName}`}
-      download={`../assets/${props.signUpFileName}`}
-    >
-      {props.signUp}
-    </a>
-    {' | '}
-    <a
-      className="text-secondary hover:underline"
-      href={`../assets/${props.posterFileName}`}
-      download={`../assets/${props.posterFileName}`}
-    >
-      {props.poster}
-    </a>
-  </div>
-);
+const OnePager = (props) => {
+  const {
+    original,
+    signUp,
+    signUpFileName,
+    posterFileName,
+    poster,
+  } = props;
+
+  return (
+    <div className="md:ml-0 md:mr-0 p-4 mb-1 bg-gray-custom">
+      <span className="font-semibold">
+        {original}
+      </span>
+      {' | '}
+      <a
+        className="text-secondary hover:underline"
+        href={`../assets/${signUpFileName}`}
+        download={`../assets/${signUpFileName}`}
+      >
+        {signUp}
+      </a>
+      {' | '}
+      <a
+        className="text-secondary hover:underline"
+        href={`../assets/${posterFileName}`}
+        download={`../assets/${posterFileName}`}
+      >
+        {poster}
+      </a>
+    </div>
+  );
+};

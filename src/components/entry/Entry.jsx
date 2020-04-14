@@ -52,8 +52,8 @@ export default function Entry(props) {
   const handleDelete = async (e) => {
     e.preventDefault();
     const collectionName = 'ask-for-help';
-    const doc = await fb.store.collection(collectionName).doc(props.id).get();
-    await fb.store.collection('/deleted').doc(props.id).set({
+    const doc = await fb.store.collection(collectionName).doc(id).get();
+    await fb.store.collection('/deleted').doc(id).set({
       collectionName, ...doc.data(),
     });
     setDeleted(true);
@@ -108,7 +108,7 @@ export default function Entry(props) {
     setResponsesVisible(!responsesVisible);
   };
 
-  const mayDeleteEntryAndSeeResponses = user && (user.uid === props.uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
+  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
 
   const buttonBar = (() => {
     if (!mayDeleteEntryAndSeeResponses) {
@@ -161,7 +161,7 @@ export default function Entry(props) {
 
   const requestCard = (
     <Link
-      to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${props.id}`}
+      to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
       className={`entry bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative break-words ${highlightLeft && 'border-l-4 border-secondary'}`}
       key={id}
       ref={link}

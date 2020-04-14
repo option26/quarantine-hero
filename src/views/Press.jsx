@@ -26,15 +26,34 @@ export default function Press() {
     Sentry.captureException(errorGeneratingPressLink);
   }
 
-  const Article = (props) => (
-    <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
-      <div className="text-xs text-gray-700">{props.date}</div>
-      <div className="font-bold">{props.title}</div>
-      {props.link
-        ? <a className="text-secondary w-full block truncate" href={props.link} target="_blank" rel="nofollow noopener noreferrer">{props.link}</a>
-        : <span className="w-full block truncate">{props.text}</span>}
-    </div>
-  );
+  const Article = (props) => {
+    const {
+      date,
+      title,
+      link,
+      text,
+    } = props;
+
+    return (
+      <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
+        <div className="text-xs text-gray-700">{date}</div>
+        <div className="font-bold">{title}</div>
+        {link
+          ? (
+            <a
+              className="text-secondary w-full block truncate"
+              href={link}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              {link}
+            </a>
+          ) : (
+            <span className="w-full block truncate">{text}</span>
+          )}
+      </div>
+    );
+  };
 
   const articles = [
     {

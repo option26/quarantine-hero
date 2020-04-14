@@ -11,7 +11,9 @@ const offerHelpCollection = fb.store.collection('offer-help');
 
 function Notification(props) {
   const { t } = useTranslation();
-
+  const {
+    location,
+  } = props;
   const onDeleteClick = () => {
     offerHelpCollection.doc(props.id).delete();
   };
@@ -21,7 +23,7 @@ function Notification(props) {
       <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
         {t('views.dashboard.youWillBeNotified')}
         {' '}
-        {props.location}
+        {location}
         {' '}
         {t('views.dashboard.needsHelp')}
         <button type="button" className="cursor-pointer font-bold" onClick={onDeleteClick}>
