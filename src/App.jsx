@@ -104,7 +104,7 @@ export default function App() {
     // Firebase analytics
     fb.analytics = fb.app.analytics();
     const handleHashChange = () => {
-      const hash = document.location.hash;
+      const { hash } = document.location;
       fb.analytics.logEvent('page_view', { page_path: hash.substring(1) });
     };
     handleHashChange();

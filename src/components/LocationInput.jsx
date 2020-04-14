@@ -29,7 +29,7 @@ function ZipCodeInput(props) {
       clearTimeout(scheduledChange);
     }
 
-    const value = e.target.value;
+    const { value } = e.target;
     if (value.length >= 4 && value.length <= 5) {
       e.target.setCustomValidity('');
     } else {
@@ -142,7 +142,7 @@ function Autocomplete(props) {
   };
 
   const validateKeypress = (event) => {
-    const key = event.key;
+    const { key } = event;
     const keyInvalid = !fullText && key.length === 1 && !(/\d/.test(key));
     if (keyInvalid) {
       event.preventDefault();
