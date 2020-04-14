@@ -151,7 +151,7 @@ const Page = (props) => {
         <MobileTopNavigation onMenuIconClick={() => setMenuOpen(true)} />
 
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
-          <DesktopLowerNavigation isLoggedIn={user} signOut={signOut} />
+          <DesktopLowerNavigation />
           <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
             {props.children}
           </div>
@@ -191,7 +191,7 @@ export default function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/filtered-list-frame">
+        <Route path="/filtered-list-frame">
           <FilteredListFrame />
         </Route>
         <Route path="/offer-help/:id">
