@@ -90,6 +90,24 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   );
 }
 
+const MobileTopNavigation = ({ onMenuIconClick }) => (
+  <div
+    style={{ zIndex: 101 }}
+    className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5"
+  >
+    <Link
+      to="/"
+      className="font-main ml-4"
+      style={{ fontWeight: '600' }}
+    >
+      <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
+    </Link>
+    <div>
+      <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} />
+    </div>
+  </div>
+);
+
 const Page = (props) => {
   // always scroll page to top when changing the pathname
   useScrollToTop();
@@ -125,30 +143,12 @@ const Page = (props) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const MobileTopNavigation = () => (
-    <div
-      style={{ zIndex: 101 }}
-      className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5"
-    >
-      <Link
-        to="/"
-        className="font-main ml-4"
-        style={{ fontWeight: '600' }}
-      >
-        <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
-      </Link>
-      <div>
-        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={() => setMenuOpen(true)} />
-      </div>
-    </div>
-  );
-
   return (
     <>
       <div className="flex items-center min-h-screen flex-col bg-kaki">
 
         <DesktopTopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
-        <MobileTopNavigation />
+        <MobileTopNavigation onMenuIconClick={() => setMenuOpen(true)} />
 
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <DesktopLowerNavigation isLoggedIn={user} signOut={signOut} />
