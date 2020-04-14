@@ -212,12 +212,13 @@ function AutocompleteSuggestion(props) {
   } = props;
 
   return (
-    <div
+    <button
+      type="button"
       className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
       onClick={onClick}
       {...props}
     >
       <span>{suggestion.description}</span>
-    </div>
+    </button>
   );
 }

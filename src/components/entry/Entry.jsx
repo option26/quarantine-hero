@@ -198,7 +198,8 @@ export default function Entry(props) {
         ) : null}
         {attemptingToReport
           ? (
-            <div
+            <button
+              type="button"
               className="absolute inset-0 bg-white-75"
               onClick={(e) => {
                 e.preventDefault();
@@ -213,7 +214,7 @@ export default function Entry(props) {
                 Post melden?
                 <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
               </button>
-            </div>
+            </button>
           ) : null}
 
       </div>

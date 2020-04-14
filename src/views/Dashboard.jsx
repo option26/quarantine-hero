@@ -24,9 +24,9 @@ function Notification(props) {
         {props.location}
         {' '}
         {t('views.dashboard.needsHelp')}
-        <div className="cursor-pointer font-bold" onClick={onDeleteClick}>
+        <button type="button" className="cursor-pointer font-bold" onClick={onDeleteClick}>
           &times;
-        </div>
+        </button>
       </div>
     </div>
   );
