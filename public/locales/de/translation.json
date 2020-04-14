@@ -46,6 +46,10 @@
       },
       "enterYourPostalCode": "Gib deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in deinem Umkreis zu finden."
     },
+    "filteredListFrame": {
+      "description": "<strong>Nachbarschaftshilfe</strong> im <br/> deutschsprachigen Raum mit <br/> über 37.000 registrierten Helfenden",
+      "searchCurrent": "Aktuelle Anfragen durchsuchen"
+    },
     "askForHelp": {
       "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
       "whenSomeoneWantsToHelpExplanation": "Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.\n Alles weitere könnt ihr per E-Mail besprechen.",
