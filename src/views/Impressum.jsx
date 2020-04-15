@@ -81,7 +81,7 @@ export default function Impressum() {
           </p>
           <p>
             Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (&apos;&apos;Google&apos;&apos;).
-            Google Analytics verwendet sog. &apos;&apos;Cookies&apos;&apos;, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der
+            Google Analytics verwendet sog. &quot;Cookies&quot;, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der
             Website durch Sie ermöglicht.
             Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer IP-Adresse) wird an einen Server von
             Google in den USA übertragen und dort gespeichert.
