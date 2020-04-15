@@ -24,7 +24,7 @@ export default function FAQ() {
     );
   };
 
-  const QA = (props) => {
+  const QA = ({ question, children }) => {
     const {
       question,
       children,
