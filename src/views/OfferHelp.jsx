@@ -65,7 +65,18 @@ export default function OfferHelp() {
         <div className="mt-4 p-1 font-teaser">
           {t('views.offerHelp.replyToRequest')}
         </div>
-        <Entry {...entry} showFullText highlightLeft key={entry.id} />
+        <Entry
+          key={entry.id}
+          location={entry.location}
+          id={entry.id}
+          request={entry.request}
+          timestamp={entry.timestamp}
+          responses={entry.responses}
+          reportedBy={entry.reportedBy}
+          uid={entry.uid}
+          showFullText
+          highlightLeft
+        />
         <div className="mt-4 p-1 w-full">
           <label htmlFor="offer-help-reply" className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
           <textarea

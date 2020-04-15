@@ -202,7 +202,18 @@ export default function EntryMap() {
           {t('components.map.selectALocationFirst')}
         </p>
       ) : (
-        selectedHelpRequests.map((entry) => <Entry key={entry.id} {...entry} />)
+        selectedHelpRequests.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+          />
+        ))
       )}
     </div>
   );

@@ -116,11 +116,11 @@ export default function Entry(props) {
     }
 
     const commonButtonClasses = 'px-6 py-3 uppercase font-open-sans font-bold text-center';
-    const expandIconProps = {
-      className: 'ml-2',
-      style: {
-        fontSize: '32px', marginTop: '-4px', marginBottom: '-4px', verticalAlign: 'bottom',
-      },
+    const expandIconPropsStyle = {
+      fontSize: '32px',
+      marginTop: '-4px',
+      marginBottom: '-4px',
+      verticalAlign: 'bottom',
     };
 
     return (
@@ -136,12 +136,12 @@ export default function Entry(props) {
               {responsesVisible ? (
                 <>
                   {t('components.entry.hideResponses', { count: responses })}
-                  <ExpandLessIcon {...expandIconProps} />
+                  <ExpandLessIcon className="ml-2" style={expandIconPropsStyle} />
                 </>
               ) : (
                 <>
                   {t('components.entry.showResponses', { count: responses })}
-                  <ExpandMoreIcon {...expandIconProps} />
+                  <ExpandMoreIcon className="ml-2" style={expandIconPropsStyle} />
                 </>
               )}
             </button>

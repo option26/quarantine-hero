@@ -3,7 +3,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 
-export default function DesktopMenu(props) {
+export default function DesktopMenu() {
   const { t } = useTranslation();
 
   const MenuItem = (menuItemProps) => (
@@ -29,7 +29,7 @@ export default function DesktopMenu(props) {
         <Link className="-ml-8 block -mt-12" to="/">
           <img alt="logo" src={require('../assets/logo.svg')} />
         </Link>
-        <Menu {...props} />
+        <Menu />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +79,19 @@ function Dashboard(props) {
             .
           </div>
         )
-        : requestsForHelp.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
+        : requestsForHelp.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+            owner
+          />
+        ))}
 
       <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
 

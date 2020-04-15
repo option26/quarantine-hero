@@ -31,7 +31,6 @@
     "rules": {
         "max-len": "off",
         "react/prop-types": "off",
-        "global-require": "off",
-        "react/jsx-props-no-spreading": "off"
+        "global-require": "off"
     }
 }
