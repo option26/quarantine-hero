@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { useHistory } from 'react-router-dom';
 import '../styles/Map.css';
 import useSupercluster from 'use-supercluster';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,7 @@ const Marker = ({ children }) => children;
 
 export default function EntryMap() {
   const mapRef = useRef();
+  const history = useHistory();
 
   const { t } = useTranslation();
 
@@ -39,6 +41,13 @@ export default function EntryMap() {
       Sentry.captureException(new Error(`Error parsing ask-for-help ${doc.id}`));
       return null;
     }
+  };
+
+  const handleAddressClick = (address) => {
+    history.push({
+      pathname: '/overview',
+      search: `?address=${address}`,
+    });
   };
 
   useEffect(() => {
@@ -222,6 +231,7 @@ export default function EntryMap() {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            onAddressClick={handleAddressClick}
           />
         ))
       )}

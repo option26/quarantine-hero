@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
@@ -45,6 +45,15 @@ function Dashboard(props) {
 
   const { t } = useTranslation();
 
+  const history = useHistory();
+
+  const handleAddressClick = (address) => {
+    history.push({
+      pathname: '/overview',
+      search: `?address=${address}`,
+    });
+  };
+
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
     askForHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
@@ -89,6 +98,7 @@ function Dashboard(props) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            onAddressClick={handleAddressClick}
             owner
           />
         ))}
