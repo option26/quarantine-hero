@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Footer from '../components/Footer';
 import fb from '../firebase';
 
 export default function Success() {
@@ -20,7 +19,6 @@ export default function Success() {
           <Link className="btn-green mt-10" to="/dashboard">{t('views.success.toDashboard')}</Link>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
 import UnderlinedHeader from '../components/UnderlinedHeader';
 
 export default function NotFound() {
@@ -71,7 +70,6 @@ export default function NotFound() {
           {t('views.notFound.toHome')}
         </Link>
       </div>
-      <Footer />
     </>
   );
 }

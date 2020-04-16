@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import EntryContainer from '../components/EntryContainer';
-import Footer from '../components/Footer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
 import Rules from '../components/Rules';
@@ -135,7 +134,6 @@ export default function Main() {
           </div>
           <EntryContainer pageSize={20} />
         </div>
-        <Footer />
       </div>
     </div>
   );

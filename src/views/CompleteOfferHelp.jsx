@@ -5,7 +5,6 @@ import { GeoFirestore } from 'geofirestore';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
-import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 
@@ -87,7 +86,6 @@ export default function CompleteOfferHelp() {
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
         <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
       </div>
-      <Footer />
     </div>
   );
 }

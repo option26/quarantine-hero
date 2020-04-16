@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import Footer from '../components/Footer';
 
 
 export default () => {
@@ -53,8 +52,6 @@ export default () => {
       </button>
 
       {sendVerificationSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Bestätigungs-Link wurde dir zugesendet!</div>}
-      <Footer />
-
     </div>
   );
 };
