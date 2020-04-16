@@ -64,9 +64,9 @@ export default function EntryList({ pageSize = 0 }) {
           radius,
         });
       } catch (error) {
-        // Fallback
+        // Fallback, return mock query
         Sentry.captureException(error);
-        return buildQuery();
+        return { get: () => ({ docs: [] }) };
       }
     } else {
       return collection
@@ -116,12 +116,16 @@ export default function EntryList({ pageSize = 0 }) {
     }
   };
 
-  const handleAddressClick = (loc) => {
-    setLocation(loc);
-  };
-
   useEffect(() => {
-    loadDocuments(buildQuery());
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    const address = urlParams.get('address');
+
+    if (address) {
+      setLocation(address);
+      loadDocuments(buildFilteredQuery(address), true);
+    } else {
+      loadDocuments(buildQuery());
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
@@ -162,6 +166,14 @@ export default function EntryList({ pageSize = 0 }) {
         setSearching(false);
         loadDocuments(buildQuery());
       }
+    }
+  };
+
+  const handleAddressClick = (address) => {
+    if (address) {
+      setLocation(address);
+      setSearching(true);
+      loadDocuments(buildFilteredQuery(address), true);
     }
   };
 
