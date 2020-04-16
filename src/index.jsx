@@ -10,7 +10,7 @@ import './styles/tailwind.css';
 import './styles/index.css';
 import './styles/App.css';
 import App from './App';
-import Loader from './components/Loader';
+import Loader from './components/loader/Loader';
 import * as serviceWorker from './serviceWorker';
 import './i18n'; // Internalization
 
