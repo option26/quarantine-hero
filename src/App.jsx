@@ -92,19 +92,21 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
 }
 
 const MobileTopNavigation = ({ onMenuIconClick }) => (
-  <div
-    style={{ zIndex: 101 }}
-    className="visible md:invisible h-16 w-full fixed top-0 bg-white flex flex-row justify-between w-full items-center pr-5"
-  >
-    <Link
-      to="/"
-      className="font-main ml-4"
-      style={{ fontWeight: '600' }}
+  <div className="w-full visible md:invisible">
+    <div
+      style={{ zIndex: 101 }}
+      className="h-16 w-full fixed top-0 bg-white flex flex-row justify-between items-center pr-5"
     >
-      <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
-    </Link>
-    <div>
-      <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} />
+      <Link
+        to="/"
+        className="font-main ml-4"
+        style={{ fontWeight: '600' }}
+      >
+        <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
+      </Link>
+      <div>
+        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} />
+      </div>
     </div>
   </div>
 );
