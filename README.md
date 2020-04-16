@@ -146,3 +146,8 @@ firebase deploy
 and follow the instructions.
 
 With all that, you should be good to go. In case you missed something or some step was unclear, please create an issue in this repository.
+
+# Necessary Environment variables for CI / CD
+- `TOKEN`: A GitHub token used for committing code to the GH pages branch
+- `FIREBASE_TOKEN`: A Firebase token for deploying the functions to firebase
+- `SENTRY_AUTH_TOKEN`: A Sentry token used for creating a new release after deploying to production
