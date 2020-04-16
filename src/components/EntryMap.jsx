@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css';
 import useSupercluster from 'use-supercluster';
 import { useTranslation } from 'react-i18next';
-
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from './entry/Entry';
 import NotifyMe from './NotifyMe';
@@ -32,12 +32,22 @@ export default function EntryMap() {
 
   const [entries, setEntries] = useState([]);
 
+  const parseDoc = (doc) => {
+    try {
+      return { ...doc.data().d, id: doc.id };
+    } catch (err) {
+      Sentry.captureException(new Error(`Error parsing ask-for-help ${doc.id}`));
+      return null;
+    }
+  };
+
   useEffect(() => {
     const fetchEntries = async () => {
       const queryResult = await fb.store.collection('ask-for-help').get();
 
       const entriesFromQuery = queryResult.docs
-        .map((document) => ({ ...document.data().d, id: document.id }))
+        .map(parseDoc)
+        .filter(Boolean) // filter entries that we weren't able to parse and are therefore null
         .map((dataPoint) => ({
           type: 'Feature',
           properties: {
