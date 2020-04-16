@@ -181,12 +181,13 @@ export default function Entry(props) {
         <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block">
           {t('components.entry.somebodyAt')}
           {' '}
-          <span
+          <button
+            type="button"
             onClick={handleAddressClick}
             className={`font-bold ${onAddressClick ? 'address-clickable' : ''}`}
           >
             {location}
-          </span>
+          </button>
           {' '}
           {t('components.entry.needsHelp')}
         </span>
