@@ -304,3 +304,7 @@
 .btn-white-shadow:hover {
     box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.8);
 }
+
+.address-clickable:hover {
+    color: #87a544
+}
