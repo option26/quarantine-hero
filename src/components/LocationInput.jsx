@@ -1,14 +1,22 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getSuggestions } from '../services/GeoService';
 
 export default function LocationInput(props) {
+  const {
+    required,
+    value,
+    onChange,
+    onSelect,
+  } = props;
+
   if (isMapsApiEnabled) {
-    return <Autocomplete {...props} />;
+    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} />;
   }
-  return <ZipCodeInput {...props} />;
+
+  return <ZipCodeInput required={required} value={value} onChange={onChange} onSelect={onSelect} />;
 }
 
 function ZipCodeInput(props) {
@@ -29,7 +37,7 @@ function ZipCodeInput(props) {
       clearTimeout(scheduledChange);
     }
 
-    const value = e.target.value;
+    const { value } = e.target;
     if (value.length >= 4 && value.length <= 5) {
       e.target.setCustomValidity('');
     } else {
@@ -142,7 +150,7 @@ function Autocomplete(props) {
   };
 
   const validateKeypress = (event) => {
-    const key = event.key;
+    const { key } = event;
     const keyInvalid = !fullText && key.length === 1 && !(/\d/.test(key));
     if (keyInvalid) {
       event.preventDefault();
@@ -212,12 +220,12 @@ function AutocompleteSuggestion(props) {
   } = props;
 
   return (
-    <div
+    <button
+      type="button"
       className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
       onClick={onClick}
-      {...props}
     >
       <span>{suggestion.description}</span>
-    </div>
+    </button>
   );
 }

@@ -6,17 +6,17 @@ import Footer from '../components/Footer';
 export default function FAQ() {
   const { t, i18n } = useTranslation();
 
-  const QAwithLink = (props) => {
-    const hasPostLink = i18n.exists(`views.faq.answers.${props.translationKey}.postLink`);
-    const postLinkText = t(`views.faq.answers.${props.translationKey}.postLink`);
+  const QAwithLink = ({ translationKey }) => {
+    const hasPostLink = i18n.exists(`views.faq.answers.${translationKey}.postLink`);
+    const postLinkText = t(`views.faq.answers.${translationKey}.postLink`);
     const postLinkIsNotEmptyOrFullStop = postLinkText !== '' && postLinkText !== '.';
 
     return (
-      <QA key={props.translationKey} question={t(`views.faq.questions.${props.translationKey}`)}>
-        {t(`views.faq.answers.${props.translationKey}.preLink`)}
-        <Link to={t(`views.faq.answers.${props.translationKey}.url`)} className="text-secondary hover:underline">
+      <QA key={translationKey} question={t(`views.faq.questions.${translationKey}`)}>
+        {t(`views.faq.answers.${translationKey}.preLink`)}
+        <Link to={t(`views.faq.answers.${translationKey}.url`)} className="text-secondary hover:underline">
           {' '}
-          {t(`views.faq.answers.${props.translationKey}.link`)}
+          {t(`views.faq.answers.${translationKey}.link`)}
           {hasPostLink && postLinkIsNotEmptyOrFullStop ? ' ' : ''}
         </Link>
         {postLinkText}
@@ -24,10 +24,10 @@ export default function FAQ() {
     );
   };
 
-  const QA = (props) => (
+  const QA = ({ question, children }) => (
     <>
-      <h2 className="text-xl font-teaser mt-8">{props.question}</h2>
-      <p className="font-open-sans">{props.children}</p>
+      <h2 className="text-xl font-teaser mt-8">{question}</h2>
+      <p className="font-open-sans">{children}</p>
     </>
   );
 

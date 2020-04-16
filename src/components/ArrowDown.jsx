@@ -17,9 +17,9 @@ export default function ArrowDown(props) {
 
   if (visible) {
     return (
-      <div style={{ opacity }} className="arrow-more-content flex items-center justify-center w-full" onClick={() => props.onClick()}>
+      <button type="button" style={{ opacity }} className="arrow-more-content flex items-center justify-center w-full" onClick={() => props.onClick()}>
         <img alt="arrow-down" className="mt-1" src={require('../assets/arrow_down.svg')} />
-      </div>
+      </button>
     );
   }
   return null;

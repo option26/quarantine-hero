@@ -19,6 +19,7 @@ export default function CompleteOfferHelp() {
         const emailRegex = window.location.href.match(/email=([^&]*)/);
         let email;
         if (emailRegex && emailRegex.length > 1 && emailRegex[1]) {
+          // eslint-disable-next-line prefer-destructuring
           email = emailRegex[1];
         } else {
           // TODO: Use nice input for this!

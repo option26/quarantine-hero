@@ -122,7 +122,8 @@ export default function EntryMap() {
                   lat={latitude}
                   lng={longitude}
                 >
-                  <div
+                  <button
+                    type="button"
                     className={`cluster-marker ${
                       lastSelectedMarkerId === cluster.id ? 'cm-selected' : ''
                     }`}
@@ -157,7 +158,7 @@ export default function EntryMap() {
                     }}
                   >
                     <p className="font-open-sans">{pointCount}</p>
-                  </div>
+                  </button>
                 </Marker>
               );
             }
@@ -168,7 +169,8 @@ export default function EntryMap() {
                 lat={latitude}
                 lng={longitude}
               >
-                <div
+                <button
+                  type="button"
                   className={`help-request-marker ${
                     lastSelectedMarkerId === cluster.properties.id
                       ? 'hrm-selected'
@@ -189,7 +191,7 @@ export default function EntryMap() {
                     alt="help-marker"
                     src={require('../assets/need_help.png')}
                   />
-                </div>
+                </button>
               </Marker>
             );
           })}
@@ -210,7 +212,18 @@ export default function EntryMap() {
           {t('components.map.selectALocationFirst')}
         </p>
       ) : (
-        selectedHelpRequests.map((entry) => <Entry key={entry.id} {...entry} />)
+        selectedHelpRequests.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+          />
+        ))
       )}
     </div>
   );
