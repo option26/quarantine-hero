@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 export default function Impressum() {
   return (
@@ -108,7 +107,6 @@ export default function Impressum() {
           </a>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

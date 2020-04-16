@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
-import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
 export default () => {
@@ -131,7 +130,6 @@ export default () => {
       >
         {t('views.signUp.haveAnAccount')}
       </Link>
-      <Footer />
     </div>
   );
 };

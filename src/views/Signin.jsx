@@ -10,7 +10,6 @@ import {
 } from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 import fb from '../firebase';
 
@@ -135,7 +134,6 @@ export default function Signin() {
       >
         {t('views.signIn.registerNow')}
       </Link>
-      <Footer />
     </div>
   );
 }

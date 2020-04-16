@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 export default function DSGVO() {
   return (
@@ -601,7 +600,6 @@ export default function DSGVO() {
           erstellt.
         </p>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Footer from '../components/Footer';
 import fb from '../firebase';
 
 export default function SuccessOffer() {
@@ -18,7 +17,6 @@ export default function SuccessOffer() {
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
         <Link className="btn-green mt-10" to="/">{t('views.successOffer.toHome')}</Link>
       </div>
-      <Footer />
     </div>
   );
 }

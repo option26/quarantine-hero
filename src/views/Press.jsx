@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as Sentry from '@sentry/browser';
 import * as firebase from 'firebase/app';
-import Footer from '../components/Footer';
 import 'firebase/storage';
 
 function useFirebaseDownload(url, fb) {
@@ -201,7 +200,6 @@ export default function Press() {
         <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
           <div className="font-bold">Und viele mehr!</div>
         </div>
-        <Footer />
       </div>
     </div>
   );

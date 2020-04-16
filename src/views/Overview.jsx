@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import EntryContainer from '../components/EntryContainer';
-import Footer from '../components/Footer';
 import OnePagers from '../components/OnePagers';
 
 export default function Overview() {
@@ -17,7 +16,6 @@ export default function Overview() {
       <div className="py-3">
         <EntryContainer pageSize={20} />
       </div>
-      <Footer />
     </div>
   );
 }

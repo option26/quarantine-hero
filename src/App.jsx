@@ -39,6 +39,7 @@ import createEventListener from './util/createEventListener';
 import Security from './views/Security';
 import arrowUpIcon from './assets/arrows_up.svg';
 import FilteredListFrame from './views/FilteredListFrame';
+import Footer from './components/Footer';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
@@ -155,6 +156,7 @@ const Page = (props) => {
           <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
             {props.children}
           </div>
+          <Footer />
         </div>
 
         <ScrollUpButton
