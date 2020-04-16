@@ -17,7 +17,7 @@ jobs:
           TOKEN: ${{ secrets.TOKEN }}
         run: ./.github/workflows/deploy-frontend.sh
       - name: Create a release on Sentry
-        runs: tclindner/sentry-release-action@v1.0.0
+        run: tclindner/sentry-release-action@v1.0.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: quarantine-hero
