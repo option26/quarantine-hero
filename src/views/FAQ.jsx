@@ -24,19 +24,12 @@ export default function FAQ() {
     );
   };
 
-  const QA = ({ question, children }) => {
-    const {
-      question,
-      children,
-    } = props;
-
-    return (
-      <>
-        <h2 className="text-xl font-teaser mt-8">{question}</h2>
-        <p className="font-open-sans">{children}</p>
-      </>
-    );
-  };
+  const QA = ({ question, children }) => (
+    <>
+      <h2 className="text-xl font-teaser mt-8">{question}</h2>
+      <p className="font-open-sans">{children}</p>
+    </>
+  );
 
   function buildFAQ(translationString) {
     return (i18n.exists(`views.faq.answers.${translationString}.preLink`))
