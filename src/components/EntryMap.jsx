@@ -32,16 +32,14 @@ export default function EntryMap() {
 
   const [entries, setEntries] = useState([]);
 
-  function parseDoc(doc) {
+  const parseDoc = (doc) => {
     try {
       return { ...doc.data().d, id: doc.id };
     } catch (err) {
       Sentry.captureException(new Error(`Error parsing ask-for-help ${doc.id}`));
-      // eslint-disable-next-line no-console
-      console.error(`Error parsing ask-for-help ${doc.id}`);
       return null;
     }
-  }
+  };
 
   useEffect(() => {
     const fetchEntries = async () => {
