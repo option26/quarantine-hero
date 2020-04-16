@@ -31,6 +31,12 @@
     "rules": {
         "max-len": "off",
         "react/prop-types": "off",
-        "global-require": "off"
+        "global-require": "off",
+        "object-curly-newline": [
+            "error",
+            {
+                "multiline": true
+            }
+        ]
     }
 }
