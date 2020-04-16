@@ -35,7 +35,7 @@
         "object-curly-newline": [
             "error",
             {
-                "multiline": true
+                "consistent": true
             }
         ]
     }
