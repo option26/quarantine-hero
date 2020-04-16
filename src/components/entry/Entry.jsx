@@ -18,6 +18,7 @@ export default function Entry(props) {
     id = '',
     request = '',
     timestamp = Date.now(),
+    onAddressClick,
     responses = 0,
     highlightLeft = false,
     reportedBy = [],
@@ -57,6 +58,16 @@ export default function Entry(props) {
       collectionName, ...doc.data(),
     });
     setDeleted(true);
+  };
+
+  const handleAddressClick = (e) => {
+    // Only handle if handler is registered
+    if (onAddressClick) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      onAddressClick(location);
+    }
   };
 
   const reportEntry = async (e) => {
@@ -139,11 +150,11 @@ export default function Entry(props) {
                   <ExpandLessIcon {...expandIconProps} />
                 </>
               ) : (
-                <>
-                  {t('components.entry.showResponses', { count: responses })}
-                  <ExpandMoreIcon {...expandIconProps} />
-                </>
-              )}
+                  <>
+                    {t('components.entry.showResponses', { count: responses })}
+                    <ExpandMoreIcon {...expandIconProps} />
+                  </>
+                )}
             </button>
           )}
         <button type="button" className={`bg-red-200 text-primary hover:bg-primary hover:text-white ${commonButtonClasses}`} onClick={handleDelete}>
@@ -171,7 +182,8 @@ export default function Entry(props) {
           {t('components.entry.somebodyAt')}
           {' '}
           <span
-            className="font-bold"
+            onClick={handleAddressClick}
+            className={`font-bold ${onAddressClick ? 'address-clickable' : ''}`}
           >
             {location}
           </span>
