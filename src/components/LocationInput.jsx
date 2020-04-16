@@ -6,6 +6,7 @@ import { getSuggestions } from '../services/GeoService';
 
 export default function LocationInput(props) {
   const {
+    fullText,
     required,
     value,
     onChange,
@@ -13,7 +14,7 @@ export default function LocationInput(props) {
   } = props;
 
   if (isMapsApiEnabled) {
-    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} />;
+    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} fullText={fullText} />;
   }
 
   return <ZipCodeInput required={required} value={value} onChange={onChange} onSelect={onSelect} />;
@@ -22,7 +23,7 @@ export default function LocationInput(props) {
 function ZipCodeInput(props) {
   const {
     required = true,
-    defaultValue = '',
+    value = '',
     onChange = () => {},
     onChangeDebounced = () => {},
     debounce = 200,
@@ -37,24 +38,24 @@ function ZipCodeInput(props) {
       clearTimeout(scheduledChange);
     }
 
-    const { value } = e.target;
-    if (value.length >= 4 && value.length <= 5) {
+    const val = e.target.value;
+    if (val.length >= 4 && val.length <= 5) {
       e.target.setCustomValidity('');
     } else {
       e.target.setCustomValidity(t('components.locationInput.invalidPlz'));
     }
 
     setScheduledChange(setTimeout(() => {
-      onChangeDebounced(value);
+      onChangeDebounced(val);
     }, debounce));
-    onChange(value);
+    onChange(val);
   };
 
   return (
     <div className="w-full">
       <input
         required={required}
-        defaultValue={defaultValue}
+        value={value}
         type="number"
         className="input-focus"
         min={0}
@@ -71,7 +72,7 @@ function ZipCodeInput(props) {
 function Autocomplete(props) {
   const {
     required = true,
-    defaultValue = '',
+    value = '',
     onChange = () => {},
     fullText = false,
     onChangeDebounced = () => { },
@@ -122,12 +123,12 @@ function Autocomplete(props) {
     }
   };
 
-  const handleDebouncedChange = (value) => {
-    loadSuggestions(value);
-    onChangeDebounced(value);
+  const handleDebouncedChange = (val) => {
+    loadSuggestions(val);
+    onChangeDebounced(val);
   };
 
-  const handleChange = (value) => {
+  const handleChange = (val) => {
     setWaitingForResults(true);
     setInvalidNoSelect();
     if (scheduledChange) {
@@ -135,9 +136,9 @@ function Autocomplete(props) {
     }
 
     setScheduledChange(setTimeout(() => {
-      handleDebouncedChange(value);
+      handleDebouncedChange(val);
     }, debounce));
-    onChange(value);
+    onChange(val);
   };
 
   const handleSelect = (suggestion) => {
@@ -159,7 +160,7 @@ function Autocomplete(props) {
 
   useEffect(setInvalidNoSelect, []);
 
-  const loadingVisible = (inputRef.current && inputRef.current.value.length < minSearchInput) || waitingForResults;
+  const loadingVisible = (value.length < minSearchInput) || waitingForResults;
 
   return (
     <div className="relative">
@@ -167,7 +168,7 @@ function Autocomplete(props) {
         ref={inputRef}
         className="location-search-input appearance-none input-focus truncate"
         style={{ paddingRight: '45px' }}
-        defaultValue={defaultValue}
+        value={value}
         onChange={(e) => {
           handleChange(e.target.value);
         }}
