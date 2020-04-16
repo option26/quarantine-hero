@@ -116,6 +116,10 @@ export default function EntryList({ pageSize = 0 }) {
     }
   };
 
+  const handleAddressClick = (loc) => {
+    setLocation(loc);
+  };
+
   useEffect(() => {
     loadDocuments(buildQuery());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -207,7 +211,7 @@ export default function EntryList({ pageSize = 0 }) {
           })}
         </div>
       ) : (
-        entries.map((entry) => <Entry key={entry.id} {...entry} />)
+        entries.map((entry) => <Entry key={entry.id} onAddressClick={handleAddressClick} {...entry} />)
       )}
       {pageSize > 0 && !searching ? (
         <div className="flex justify-center pt-3">
