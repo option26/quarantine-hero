@@ -198,12 +198,18 @@ export default function Entry(props) {
         ) : null}
         {attemptingToReport
           ? (
-            <button
-              type="button"
+            <div
+              role="button"
+              tabIndex="0"
               className="absolute inset-0 bg-white-75"
               onClick={(e) => {
                 e.preventDefault();
                 setAttemptingToReport((curr) => !curr);
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  setAttemptingToReport((curr) => !curr);
+                }
               }}
             >
               <button
@@ -214,7 +220,7 @@ export default function Entry(props) {
                 Post melden?
                 <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
               </button>
-            </button>
+            </div>
           ) : null}
 
       </div>
