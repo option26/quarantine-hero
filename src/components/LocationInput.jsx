@@ -6,6 +6,7 @@ import { getSuggestions } from '../services/GeoService';
 
 export default function LocationInput(props) {
   const {
+    fullText,
     required,
     value,
     onChange,
@@ -13,7 +14,7 @@ export default function LocationInput(props) {
   } = props;
 
   if (isMapsApiEnabled) {
-    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} />;
+    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} fullText={fullText} />;
   }
 
   return <ZipCodeInput required={required} value={value} onChange={onChange} onSelect={onSelect} />;
