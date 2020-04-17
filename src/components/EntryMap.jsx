@@ -114,12 +114,12 @@ export default function EntryMap() {
                 >
                   <button
                     type="button"
-                    className={`cluster-marker ${
+                    className={`cluster-marker focus:outline-none ${
                       lastSelectedMarkerId === cluster.id ? 'cm-selected' : ''
                     }`}
                     style={{
-                      width: `${10 + (pointCount / entries.length) * 20}px`,
-                      height: `${10 + (pointCount / entries.length) * 20}px`,
+                      width: `${22 + (pointCount / entries.length) * 100}px`,
+                      height: `${22 + (pointCount / entries.length) * 100}px`,
                     }}
                     onClick={() => {
                       setLastSelectedMarkerId(cluster.id);
@@ -161,14 +161,14 @@ export default function EntryMap() {
               >
                 <button
                   type="button"
-                  className={`help-request-marker ${
+                  className={`help-request-marker focus:outline-none flex ${
                     lastSelectedMarkerId === cluster.properties.id
                       ? 'hrm-selected'
                       : ''
                   }`}
                   style={{
-                    width: `${10 + (pointCount / entries.length) * 20}px`,
-                    height: `${10 + (pointCount / entries.length) * 20}px`,
+                    width: `${22 + (pointCount / entries.length) * 100}px`,
+                    height: `${22 + (pointCount / entries.length) * 100}px`,
                   }}
                   onClick={() => {
                     setLastSelectedMarkerId(cluster.properties.id);
