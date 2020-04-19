@@ -13,6 +13,7 @@ export default function OfferHelp() {
   const [answer, setAnswer] = useState('');
   const [email, setEmail] = useState('');
   const [deleted, setDeleted] = useState(false);
+  const [report, setReport] = useState(false);
   const [entry, setEntry] = useState({
     id: null,
     uid: null,
@@ -56,7 +57,11 @@ export default function OfferHelp() {
     return history.push('/success-offer');
   };
 
-  useEffect(getUserData, []);
+  useEffect(() => {
+    getUserData();
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    setReport(!!urlParams.get('report'));
+  }, []);
 
   if (!deleted) {
     return (
@@ -73,6 +78,7 @@ export default function OfferHelp() {
           responses={entry.responses}
           reportedBy={entry.reportedBy}
           uid={entry.uid}
+          report={report}
           showFullText
           highlightLeft
         />
