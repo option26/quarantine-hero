@@ -105,7 +105,7 @@ const MobileTopNavigation = ({ onMenuIconClick }) => (
         <img alt="logo" src={require('./assets/logo_invert.svg')} className="h-10" />
       </Link>
       <div>
-        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} />
+        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} data-cy="mobile-menu-icon" />
       </div>
     </div>
   </div>
