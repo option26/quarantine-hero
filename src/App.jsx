@@ -111,7 +111,7 @@ const MobileTopNavigation = ({ onMenuIconClick }) => (
   </div>
 );
 
-const Page = (props) => {
+const Page = ({ children }) => {
   // always scroll page to top when changing the pathname
   useScrollToTop();
 
@@ -156,7 +156,7 @@ const Page = (props) => {
         <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
           <DesktopLowerNavigation />
           <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
-            {props.children}
+            {children}
           </div>
           <Footer />
         </div>
