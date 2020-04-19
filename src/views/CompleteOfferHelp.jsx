@@ -49,36 +49,41 @@ export default function CompleteOfferHelp() {
 
   useEffect(() => {
     async function completeSignup() {
-      if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-        const emailRegex = window.location.href.match(/email=([^&]*)/);
-        let email;
-        if (emailRegex && emailRegex.length > 1 && emailRegex[1]) {
-          // eslint-disable-next-line prefer-destructuring
-          email = emailRegex[1];
-        } else {
-          // TODO: Use nice input for this!
-          // We only end up here if there is no email set in the localStorage of the users browser
-          // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
-          // link in his mobile phones email client.
-          // eslint-disable-next-line no-alert
-          email = window.prompt(t('views.completeOfferHelp.mailYouRegistered'));
-        }
-
-        try {
-          await fb.auth.signInWithEmailLink(email, window.location.href);
-          window.localStorage.removeItem('emailForSignIn');
-
-          const urlParams = new URLSearchParams(window.location.hash);
-          const loc = urlParams.get('#/complete-offer-help?location');
-          const placeId = urlParams.get('#/complete-offer-help?placeId');
-
-          setLocation(loc);
-          createOfferHelp(loc, placeId, email);
-        } catch (err) {
-          setError(err);
-        }
+      if (!firebase.auth().isSignInWithEmailLink(window.location.href)) {
         setLoading(false);
+        setError(true);
+        return;
       }
+
+      const emailRegex = window.location.href.match(/email=([^&]*)/);
+      let email;
+      if (emailRegex && emailRegex.length > 1 && emailRegex[1]) {
+        // eslint-disable-next-line prefer-destructuring
+        email = emailRegex[1];
+      } else {
+        // TODO: Use nice input for this!
+        // We only end up here if there is no email set in the localStorage of the users browser
+        // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
+        // link in his mobile phones email client.
+        // eslint-disable-next-line no-alert
+        email = window.prompt(t('views.completeOfferHelp.mailYouRegistered'));
+      }
+
+      try {
+        await fb.auth.signInWithEmailLink(email, window.location.href);
+        window.localStorage.removeItem('emailForSignIn');
+
+        const urlParams = new URLSearchParams(window.location.hash);
+        const loc = urlParams.get('#/complete-offer-help?location');
+        const placeId = urlParams.get('#/complete-offer-help?placeId');
+
+        setLocation(loc);
+        createOfferHelp(loc, placeId, email);
+      } catch (err) {
+        setError(err);
+      }
+
+      setLoading(false);
     }
 
     completeSignup();
