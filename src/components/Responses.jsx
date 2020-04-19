@@ -34,12 +34,12 @@ const Response = ({ response }) => {
   );
 };
 
-export default function Responses(props) {
+export default function Responses({ id }) {
   const [responses, setResponses] = useState(undefined);
 
   useEffect(() => {
-    loadResponses(props.id).then(setResponses);
-  }, [props.id]);
+    loadResponses(id).then(setResponses);
+  }, [id]);
 
   return (
     <div>

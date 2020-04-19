@@ -25,13 +25,23 @@ export default function Press() {
     Sentry.captureException(errorGeneratingPressLink);
   }
 
-  const Article = (props) => (
+  const Article = ({ date, title, link, text }) => (
     <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full">
-      <div className="text-xs text-gray-700">{props.date}</div>
-      <div className="font-bold">{props.title}</div>
-      {props.link
-        ? <a className="text-secondary w-full block truncate" href={props.link} target="_blank" rel="nofollow noopener noreferrer">{props.link}</a>
-        : <span className="w-full block truncate">{props.text}</span>}
+      <div className="text-xs text-gray-700">{date}</div>
+      <div className="font-bold">{title}</div>
+      {link
+        ? (
+          <a
+            className="text-secondary w-full block truncate"
+            href={link}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >
+            {link}
+          </a>
+        ) : (
+          <span className="w-full block truncate">{text}</span>
+        )}
     </div>
   );
 
@@ -196,7 +206,15 @@ export default function Press() {
             <img alt="bunte_de" src={require('../assets/bunte_de.jpg')} />
           </div>
         </div>
-        {articles.map((article) => <Article key={article.link || article.text} {...article} />)}
+        {articles.map((article) => (
+          <Article
+            key={article.link || article.text}
+            date={article.date}
+            title={article.title}
+            link={article.link}
+            text={article.text}
+          />
+        ))}
         <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
           <div className="font-bold">Und viele mehr!</div>
         </div>

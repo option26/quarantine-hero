@@ -122,13 +122,14 @@ export default function EntryMap() {
                   lat={latitude}
                   lng={longitude}
                 >
-                  <div
-                    className={`cluster-marker ${
+                  <button
+                    type="button"
+                    className={`cluster-marker focus:outline-none ${
                       lastSelectedMarkerId === cluster.id ? 'cm-selected' : ''
                     }`}
                     style={{
-                      width: `${10 + (pointCount / entries.length) * 20}px`,
-                      height: `${10 + (pointCount / entries.length) * 20}px`,
+                      width: `${22 + (pointCount / entries.length) * 100}px`,
+                      height: `${22 + (pointCount / entries.length) * 100}px`,
                     }}
                     onClick={() => {
                       setLastSelectedMarkerId(cluster.id);
@@ -157,7 +158,7 @@ export default function EntryMap() {
                     }}
                   >
                     <p className="font-open-sans">{pointCount}</p>
-                  </div>
+                  </button>
                 </Marker>
               );
             }
@@ -168,15 +169,16 @@ export default function EntryMap() {
                 lat={latitude}
                 lng={longitude}
               >
-                <div
-                  className={`help-request-marker ${
+                <button
+                  type="button"
+                  className={`help-request-marker focus:outline-none flex ${
                     lastSelectedMarkerId === cluster.properties.id
                       ? 'hrm-selected'
                       : ''
                   }`}
                   style={{
-                    width: `${10 + (pointCount / entries.length) * 20}px`,
-                    height: `${10 + (pointCount / entries.length) * 20}px`,
+                    width: `${22 + (pointCount / entries.length) * 100}px`,
+                    height: `${22 + (pointCount / entries.length) * 100}px`,
                   }}
                   onClick={() => {
                     setLastSelectedMarkerId(cluster.properties.id);
@@ -189,7 +191,7 @@ export default function EntryMap() {
                     alt="help-marker"
                     src={require('../assets/need_help.png')}
                   />
-                </div>
+                </button>
               </Marker>
             );
           })}
@@ -210,7 +212,18 @@ export default function EntryMap() {
           {t('components.map.selectALocationFirst')}
         </p>
       ) : (
-        selectedHelpRequests.map((entry) => <Entry key={entry.id} {...entry} />)
+        selectedHelpRequests.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+          />
+        ))
       )}
     </div>
   );
