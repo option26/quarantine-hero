@@ -74,6 +74,9 @@
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
+      "anErrorOccured": "Uuups, da ist wohl etwas schief gelaufen",
+      "verificationError": "Leider konnten wir Deine Emailadresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner Email abgelaufen ist. Bitte versuche es erneut.",
+      "tryAgain": "ERNEUT VERSUCHEN",
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
     "dashboard": {
@@ -225,7 +228,7 @@
       "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
     },
     "notFound": {
-      "ooopsTitle": "Uuups, da ist wohl etwas schiefgelaufen.",
+      "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
       "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",
       "toHome": "Bring mich zur Startseite"
     }
