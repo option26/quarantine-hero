@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import Rules from '../components/Rules';
 
 export default () => (
@@ -225,7 +224,5 @@ export default () => (
       Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
       ausschließlich deren Betreiber verantwortlich.
     </div>
-
-    <Footer />
   </div>
 );

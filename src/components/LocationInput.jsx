@@ -24,8 +24,8 @@ function ZipCodeInput(props) {
   const {
     required = true,
     value = '',
-    onChange = () => {},
-    onChangeDebounced = () => {},
+    onChange = () => { },
+    onChangeDebounced = () => { },
     debounce = 200,
   } = props;
 
@@ -73,7 +73,7 @@ function Autocomplete(props) {
   const {
     required = true,
     value = '',
-    onChange = () => {},
+    onChange = () => { },
     fullText = false,
     onChangeDebounced = () => { },
     debounce = 200,
@@ -87,6 +87,8 @@ function Autocomplete(props) {
   const [scheduledChange, setScheduledChange] = useState(undefined);
   const [suggestions, setSuggestions] = useState([]);
   const [waitingForResults, setWaitingForResults] = useState(false);
+
+  const [selectionIndex, setSelectionIndex] = useState(-1);
 
   const loadSuggestions = async (searchValue) => {
     if (searchValue && searchValue.length >= minSearchInput) {
@@ -158,18 +160,36 @@ function Autocomplete(props) {
     }
   };
 
+  const handleKeyDown = (event) => {
+    const { keyCode } = event;
+    if (keyCode === 38) {
+      setSelectionIndex((prevIdx) => {
+        if (prevIdx === 0 && inputRef.current) {
+          inputRef.current.focus();
+        }
+        return prevIdx > -1 ? prevIdx - 1 : -1;
+      });
+      event.preventDefault();
+    }
+    if (keyCode === 40) {
+      setSelectionIndex((prevIdx) => (prevIdx < suggestions.length - 1 ? prevIdx + 1 : suggestions.length - 1));
+      event.preventDefault();
+    }
+  };
+
   useEffect(setInvalidNoSelect, []);
 
   const loadingVisible = (value.length < minSearchInput) || waitingForResults;
 
   return (
-    <div className="relative">
+    <div role="combobox" aria-controls="suggestion-box" aria-expanded={suggestions.length > 0} className="relative" tabIndex="0" onKeyDown={handleKeyDown}>
       <input
         ref={inputRef}
         className="location-search-input appearance-none input-focus truncate"
         style={{ paddingRight: '45px' }}
         value={value}
         onChange={(e) => {
+          setSelectionIndex(-1);
           handleChange(e.target.value);
         }}
         onKeyDown={validateKeypress}
@@ -185,10 +205,12 @@ function Autocomplete(props) {
           fillLevel={inputRef.current && inputRef.current.value.length}
         />
       )}
-      <div className="absolute w-full bg-white shadow-xl z-10">
-        {suggestions.map((s) => (
+      <div id="suggestion-box" className="absolute w-full bg-white shadow-xl z-10">
+        {suggestions.map((s, i) => (
           <AutocompleteSuggestion
             key={s.description}
+            index={i}
+            selectionIndex={selectionIndex}
             suggestion={s}
             onClick={() => handleSelect(s)}
           />
@@ -217,13 +239,24 @@ function LoadingIndicator(props) {
 function AutocompleteSuggestion(props) {
   const {
     suggestion,
+    index,
+    selectionIndex,
     onClick,
   } = props;
 
+  const ref = useRef();
+
+  useEffect(() => {
+    if (selectionIndex === index && ref.current) {
+      ref.current.focus();
+    }
+  }, [index, selectionIndex]);
+
   return (
     <button
+      ref={ref}
       type="button"
-      className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+      className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer w-full text-left"
       onClick={onClick}
     >
       <span>{suggestion.description}</span>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Footer from '../components/Footer';
 
 export default function FAQ() {
   const { t, i18n } = useTranslation();
@@ -45,7 +44,6 @@ export default function FAQ() {
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
       {buildFAQs(Object.keys(t('views.faq.questions', { returnObjects: true })))}
-      <Footer />
     </div>
   );
 }

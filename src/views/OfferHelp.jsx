@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 
 import Entry from '../components/entry/Entry';
-import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
 export default function OfferHelp() {
@@ -111,7 +110,6 @@ export default function OfferHelp() {
         <div className="mt-4 m-1 w-full">
           <button type="submit" className="btn-green w-full">{t('views.offerHelp.submit')}</button>
         </div>
-        <Footer />
       </form>
     );
   }
