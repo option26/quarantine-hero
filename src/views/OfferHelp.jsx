@@ -61,7 +61,7 @@ export default function OfferHelp() {
     getUserData();
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
     setReport(!!urlParams.get('report'));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!deleted) {
     return (
