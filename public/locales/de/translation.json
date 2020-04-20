@@ -11,9 +11,13 @@
       "bePart": "Sei ein Teil davon.",
       "importantNotes": {
         "title": "WICHTIGER HINWEIS",
+        "cautious": {
+          "title": "Umsichtig",
+          "text": "Helft nicht, wenn Ihr einer Risikogruppe angehört! Helft nicht, wenn Ihr Sorge habt, selbst eine Ansteckungsgefahr darzustellen!"
+        },
         "local": {
           "title": "Lokal",
-          "text": "Helft in eurer Nachbarschaft, zum Beispiel euren Haus-Mitbewohner*innen."
+          "text": "Helft in eurer Nachbarschaft, zum Beispiel euren Hausmitbewohner*innen."
         },
         "consistent": {
           "title": "Konsistent",
@@ -21,30 +25,28 @@
         },
         "distanced": {
           "title": "Distanziert",
-          "textPreBold": "Trefft euch nicht mit anderen Menschen außer denen, denen ihr helfen wollt und habt",
-          "textBold": "KEINEN",
-          "textPostBold": "Kontakt mit Personen in Quarantäne!"
+          "text": "Trefft Euch nicht mit anderen Menschen außer denen, denen Ihr helfen wollt. Vermeidet persönlichen Kontakt und achtet auf Eure eigene Hygiene!"
         }
       },
       "noInternet": {
         "preOptionalBreak": "Nicht jeder Mensch hat Internet.",
-        "postOptionalBreak": "Drucke diesen Aushang in deiner Sprache aus."
+        "postOptionalBreak": "Drucke diesen Aushang in Deiner Sprache aus und häng' ihn in Dein Treppenhaus."
       },
       "buttons": {
         "wantToHelp": "ICH MÖCHTE HELFEN",
         "needHelp": "ICH BRAUCHE HILFE"
       },
       "explanations": {
-        "wantToHelp": "Viele Menschen befinden sich aktuell freiwillig oder notwendigerweise in <strong>häuslicher Quarantäne</strong>. Wenn ihr diesen Menschen helfen wollt, könnt ihr hier sehen, wobei ihr eure Mitmenschen in eurer Nachbarschaft unterstützen könnt!",
-        "needHelp": "Wenn ihr gerade in häuslicher Quarantäne seid und Unterstützung bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> mit dem Hund benötigt könnt ihr das hier euren Mitmenschen mitteilen!"
+        "wantToHelp": "Viele Menschen bleiben gerade zuhause, weil sie beispielsweise zu einer Risiko- gruppe gehören und tragen damit aktiv dazu bei, die Verbreitung von Corona zu verlangsamen. Dabei sind diese Menschen auf Hilfe von außerhalb angewiesen. Wollt auch Ihr Held*innen sein? Dann könnt Ihr hier sehen, wobei Ihr Mitmenschen in Eurer Nachbarschaft unterstützen könnt!",
+        "needHelp": "Ihr solltet gerade besser nicht das Haus verlassen, weil Ihr zu einer Risikogruppe gehört oder vielleicht selbst eine Ansteckungsgefahr darstellen könntet? Seid Held*innen und bleibt zuhause, um die Verbreitung von Corona aktiv zu verlangsamen. Schreibt einfach eine Hilfsanfrage und lasst Euch zum Beispiel bei Einkäufen, Botengängen oder Gassigehen unterstützen."
       },
       "recentRequests": {
         "title": "Aktuelle Anfragen",
         "requests": "ANFRAGEN",
-        "heros": "HELDEN",
+        "heros": "HELD*INNEN",
         "messages": "NACHRICHTEN"
       },
-      "enterYourPostalCode": "Gib deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in deinem Umkreis zu finden."
+      "enterYourPostalCode": "Gib Deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in Deinem Umkreis zu finden."
     },
     "filteredListFrame": {
       "description": "<strong>Nachbarschaftshilfe</strong> im <br/> deutschsprachigen Raum mit <br/> über 37.000 registrierten Helfenden",
@@ -63,7 +65,7 @@
     },
     "overview": {
       "title": "Aktuelle Anfragen",
-      "enterYourPostalCode": "Gib deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in deinem Umkreis zu finden.",
+      "enterYourPostalCode": "Gib Deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in Deinem Umkreis zu finden.",
       "noInternet": {
         "preBreak": "Nicht jeder Mensch hat Internet.",
         "postBreak": "Drucke <1>diesen Aushang</1>."
@@ -211,8 +213,8 @@
       "loginNow": "Jetzt anmelden",
       "registerNow": "Neu registrieren",
       "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
-      "headerText": "Melde dich mit deiner E-Mail und deinem Passwort an um {{reasonForSignin}}.",
-      "reasonForSigninDefault": "eine Hilfe-Anfrage zu posten",
+      "headerText": "Melde Dich mit Deiner E-Mail und deinem Passwort an, um {{reasonForSignin}}.",
+      "reasonForSigninDefault": "eine Hilfeanfrage zu posten",
       "emailInvalid": "Bitte gib deine korrekte Emailadresse an.",
       "tooManyRequests": "Das waren zu viele Fehlversuche, bitte versuche es später noch einmal."
     },
@@ -246,7 +248,7 @@
       "help": "HELFEN",
       "FAQs": "FAQs",
       "signOut": "Logout",
-      "safety": "SICHERHEIT"
+      "safety": "SICHERHEITSHINWEISE"
     },
     "sidebar": {
       "home": "Home",
@@ -259,7 +261,7 @@
       "privacy": "Datenschutz",
       "login": "Login",
       "signOut": "Logout",
-      "safety": "Sicherheit"
+      "safety": "Sicherheitshinweise"
     },
     "footer": {
       "FAQs": "FAQs",

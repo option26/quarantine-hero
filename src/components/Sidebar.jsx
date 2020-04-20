@@ -49,8 +49,8 @@ export default function Sidebar(props) {
       <MenuItem to="/ask-for-help">{t('components.sidebar.askForHelp')}</MenuItem>
       <MenuItem to="/overview">{t('components.sidebar.overview')}</MenuItem>
       {menuProps.isLoggedIn && <MenuItem to="/dashboard">{t('components.sidebar.yourOverview')}</MenuItem>}
-      <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
       <MenuItem to="/security-tips">{t('components.sidebar.safety')}</MenuItem>
+      <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
       <MenuItem to="/press">{t('components.sidebar.press')}</MenuItem>
       <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
       <MenuItem to="/dsgvo">{t('components.sidebar.privacy')}</MenuItem>

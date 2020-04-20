@@ -11,7 +11,7 @@ export default () => (
         <span className="font-bold">Haltet Euch an aktuelle Aufforderungen der Behörden!</span>
         &nbsp;Neue Informationen zum Virus und der Lage vor Ort erfordern schnelle Maßnahmen zu unserem Schutz. Nur wenn
         sie von
-        jedem umgesetzt werden, ist ihre Wirksamkeit gewährleistet!
+        jeder/jedem umgesetzt werden, ist ihre Wirksamkeit gewährleistet!
       </p>
       <div className="mt-4 w-full text-right">
         <button
@@ -32,7 +32,7 @@ export default () => (
 
     <h3 className="text-xl mt-10 font-exo2 mb-2">Umsichtig</h3>
     <div className="font-open-sans">
-      <span className="underline">Helft nicht, wenn Ihr einer Risikogruppe angehört!</span>
+      <span className="font-bold">Helft nicht, wenn Ihr einer Risikogruppe angehört!</span>
       <br />
       Zu den besonders gefährdeten Personengruppen zählen:
       <ul className="list-disc ml-5">
@@ -44,14 +44,14 @@ export default () => (
           Personen mit geschwächtem Immunsystem (z.B. durch Medikamente wie Cortison)
         </li>
         <li className="mt-1">
-          Raucher
+          Rauchende
         </li>
       </ul>
     </div>
 
     <div className="mt-5 font-open-sans">
-      <span className="underline">
-        Helft nicht, wenn Ihr Sorge habt selbst eine Ansteckungsgefahr darzustellen!
+      <span className="font-bold">
+        Helft nicht, wenn Ihr Sorge habt, selbst eine Ansteckungsgefahr darzustellen!
       </span>
       <br />
       Eine Ansteckungsgefahr besteht nicht nur durch das Coronavirus sondern auch durch andere Krankheiten (z.B.
@@ -59,7 +59,7 @@ export default () => (
       <ul className="list-disc ml-5">
         <li className="mt-1"> Ihr aktuell Krankheitssymptome habt, wie z.B. Fieber, Husten oder Atemnot,</li>
         <li className="mt-1">
-          Ihr einen persönlichen Kontakt zu einer im Labor nachgewiesenen mit SARS-CoV-2 infizierten Person hattet!
+          Ihr persönlichen Kontakt zu einer im Labor nachgewiesenen mit SARS-CoV-2 infizierten Person hattet,
         </li>
         <li className="mt-1">
           Ihr in den letzten 14 Tagen in einem internationalen Risikogebiet bzw. einem in Deutschland besonders
@@ -83,12 +83,12 @@ export default () => (
     <p className="font-open-sans">
       Helft in Eurer Nachbarschaft, zum Beispiel Euren Haus-Mitbewohner*innen. Vermeidet also, längere Strecken
       unterwegs zu sein oder anderen Menschen zu begegnen, um die Möglichkeit einer Ansteckung gering zu halten. So
-      schützt Ihr nicht nur Euch, sondern vor allem die Personen, um die Ihr euch kümmert!
+      schützt Ihr nicht nur Euch, sondern vor allem die Personen, um die Ihr Euch kümmert!
     </p>
 
     <h3 className="text-xl mt-10 font-exo2 mb-2">Konsistent</h3>
     <div className="font-open-sans">
-      <div className="underline">Sucht Euch EINEN Haushalt in Eurer Nähe, der Hilfe braucht!</div>
+      <div className="font-bold">Sucht Euch EINEN Haushalt in Eurer Nähe, der Hilfe braucht!</div>
       Es ist wichtig, potentielle Infektionsketten möglichst gering zu halten (insbesondere wenn ein persönlicher
       Kontakt nicht vermeidbar ist, z.B. bei der Betreuung von Kindern). Helft daher nach Möglichkeit nur einem Haushalt
       und vermeidet sonstige soziale Kontakte.
@@ -96,38 +96,45 @@ export default () => (
 
     <h3 className="text-xl mt-10 font-exo2 mb-2">Distanziert</h3>
     <div className="font-open-sans">
-      <div className="underline">Trefft klare Absprachen und vermeidet einen persönlichen Kontakt!</div>
+      <div className="font-bold">Trefft klare Absprachen und vermeidet persönlichen Kontakt!</div>
       Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als zwei Metern
       oder durch den Kontakt mit Tröpfchen beim Niesen oder Husten. Besprecht daher am Telefon, in sozialen Medien
       o.ä.
       was genau benötigt wird und wie Übergaben (Geld, Arzneimittelrezepte, Einkäufe etc.) kontaktlos erfolgen
       können.
 
-      <div className="underline mt-5">Achtet auf Eure eigene Hygiene!</div>
+      <div className="font-bold mt-5">Achtet auf Eure eigene Hygiene!</div>
       Wascht Euch regelmäßig und ausreichend lang (min. 20 Sek.) die Hände. Vor allem vor dem Trinken oder Essen und
       nach dem Kontakt mit Haustieren oder Türklinken. Versucht Euch nicht ins Gesicht zu fassen und desinfiziert
       häufig
-      genutzte Gegenstände, wie euer Handy.
+      genutzte Gegenstände, wie Euer Handy.
 
       <div className="mt-5">
-        <span className="underline">Tragt Einweg-Handschuhe,</span>
+        <span className="font-bold">Tragt Einweg-Handschuhe,</span>
         {' '}
         wenn Ihr Gegenstände von mit SARS-CoV-2
         infizierten Personen entgegennehmt.
       </div>
 
-      <div className="underline mt-5">Haltet Abstand zu anderen Leuten!</div>
+      <div className="font-bold mt-5">Haltet Abstand zu anderen Leuten!</div>
       Versucht einen Abstand von mindestens zwei Metern zu anderen Personen einzuhalten und vermeidet direkten Körperkontakt
       wie
       Umarmungen oder Händeschütteln.
 
-      <div className="underline mt-5">Haltet die Hustenetikette ein!</div>
+      <div className="font-bold mt-5">Haltet die Hustenetikette ein!</div>
       Hustet oder niest nur in Eure Ellenbeuge oder in ein Taschentuch, das danach entsorgt wird. Bittet auch Personen
       in
-      deinem Umkreis dies zu tun.
+      Eurem Umkreis, dies zu tun.
     </div>
 
-    <div className="mt-4">
+    <div className="p-4 bg-kaki font-open-sans mt-5">
+      <div className="font-bold">Hinweis</div>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der
+      Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
+      ausschließlich deren Betreiber*innen verantwortlich.
+    </div>
+
+    <div className="mt-5">
       <div className="font-bold font-open-sans">Quellen</div>
       <span className="font-open-sans mt-2">
         <a
@@ -216,13 +223,6 @@ export default () => (
       >
         Verordnung des Schweizerischen Bundesrats über Maßnahmen des Coronavirus
       </a>
-    </div>
-
-    <div className="p-4 bg-kaki font-open-sans mt-10">
-      <div className="font-bold">Hinweis</div>
-      Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der
-      Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
-      ausschließlich deren Betreiber verantwortlich.
     </div>
   </div>
 );

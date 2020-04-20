@@ -1,27 +1,28 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-export default () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <Rule title="Umsichtig" icon={require('../assets/dont_help.svg')}>
-      Helft nicht, wenn Ihr einer Risikogruppe angehört! Helft nicht, wenn Ihr Sorge habt selbst eine
-      Ansteckungsgefahr
-      darzustellen!
-    </Rule>
+export default () => {
+  const { t } = useTranslation();
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Rule title={t('views.main.importantNotes.cautious.title')} icon={require('../assets/dont_help.svg')}>
+        {t('views.main.importantNotes.cautious.text')}
+      </Rule>
 
-    <Rule title="Lokal" icon={require('../assets/lokal.svg')}>
-      Helft in Eurer Nachbarschaft, zum Beispiel Euren Haus-Mitbewohner*innen.
-    </Rule>
+      <Rule title={t('views.main.importantNotes.local.title')} icon={require('../assets/lokal.svg')}>
+        {t('views.main.importantNotes.local.text')}
+      </Rule>
 
-    <Rule title="Konsistent" icon={require('../assets/konsistent.svg')}>
-      Helft nur einem Haushalt, aber das konsistent. Sucht Euch zum Beispiel eine Familie und helft nur dieser.
-    </Rule>
+      <Rule title={t('views.main.importantNotes.consistent.title')} icon={require('../assets/konsistent.svg')}>
+        {t('views.main.importantNotes.consistent.text')}
+      </Rule>
 
-    <Rule title="Distanziert" icon={require('../assets/distanziert.svg')}>
-      Trefft euch nicht mit anderen Menschen außer denen, denen Ihr helfen wollt. Vermeidet persönlichen Kontakt und
-      achtet auf eure eigene Hygiene!
-    </Rule>
-  </div>
-);
+      <Rule title={t('views.main.importantNotes.distanced.title')} icon={require('../assets/distanziert.svg')}>
+        {t('views.main.importantNotes.distanced.text')}
+      </Rule>
+    </div>
+  );
+};
 
 const Rule = ({ icon, title, children }) => (
   <div className="mt-5 md:mt-2 md:px-2 flex flex-row md:flex-col md:text-center items-center">
