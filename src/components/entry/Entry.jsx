@@ -201,7 +201,7 @@ export default function Entry(props) {
           ) : (
             <>
               <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row items-center justify-center" onClick={toggleResponsesVisible}>
-                <div className="hidden xs:block pt-1 md:pt-0">{t('components.entry.message', { count: responses })}</div>
+                <div className="hidden xs:block">{t('components.entry.message', { count: responses })}</div>
                 <MailOutlineIcon className="ml-2 inline-block" />
                 <div className="block xs:hidden font-open-sans font-bold ml-1">{responses}</div>
               </button>
