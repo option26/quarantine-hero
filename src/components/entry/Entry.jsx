@@ -205,7 +205,7 @@ export default function Entry(props) {
                 <MailOutlineIcon className="ml-2 inline-block" />
                 <div className="block xs:hidden font-open-sans font-bold ml-1">{responses}</div>
               </button>
-              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center md:flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
+              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 <div>{t('components.entry.heroFound')}</div>
                 {showAsSolved
                   ? <DoneIcon className="ml-1 inline-block" />
