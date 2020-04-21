@@ -67,7 +67,7 @@ function Dashboard(props) {
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((doc) => ({ ...doc.d, id: doc.id, showAsSolved: true }))
+    .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
@@ -77,7 +77,7 @@ function Dashboard(props) {
 
   const OpenRequests = () => (
     <div>
-      { requestsForHelp.length === 0
+      {requestsForHelp.length === 0
         ? (
           <div className="font-open-sans my-4">
             {t('views.dashboard.noRequests')}
@@ -127,6 +127,7 @@ function Dashboard(props) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            showAsSolved
             owner
           />
         ))}
