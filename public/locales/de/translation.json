@@ -280,7 +280,7 @@
       "registrationReason": "den Beitrag zu melden",
       "heroFound": "Held*in gefunden",
       "popup": {
-        "heroFound": "Ich habe eine*n Held*in gefunden",
+        "heroFound": "Ich habe eine Held*in gefunden",
         "deleteAnyway": "Trotzdem löschen",
         "backToOverview": "Zurück zur Übersicht",
         "reassureDeletion": "Diese Anfrage wirklich löschen?",
@@ -288,8 +288,8 @@
         "deleteTerminally": "Endgültig löschen",
         "createNewRequest": "Neue Anfrage Erstellen",
         "solveReassure": {
-          "heading": "War dein Hilfegesuch erfolgreich?",
-          "firstSentence": "Lass die Community wissen dass Deine Suche erfolgreich war.",
+          "heading": "War Dein Hilfegesuch erfolgreich?",
+          "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
           "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund Du bekommst keine weiteren Nachrichten von Helfenden mehr."
         },
         "wasYourRequestSuccessful": {
@@ -301,7 +301,7 @@
         "yourRequestWasDeleted": {
           "heading": "Dein Hilfegesuch wurde gelöscht!",
           "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
-          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine*n Held*in um Hilfe bitten."
+          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine Held*in um Hilfe bitten."
         }
       }
     },
