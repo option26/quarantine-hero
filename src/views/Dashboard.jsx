@@ -88,7 +88,7 @@ function Dashboard(props) {
             .
           </div>
         )
-       : requestsForHelp.map((entry) => (
+        : requestsForHelp.map((entry) => (
           <Entry
             key={entry.id}
             location={entry.location}
@@ -117,7 +117,19 @@ function Dashboard(props) {
             .
           </div>
         )
-        : solvedPosts.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
+        : solvedPosts.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+            owner
+          />
+        ))}
     </div>
   );
 

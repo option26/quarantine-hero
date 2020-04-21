@@ -76,9 +76,9 @@ export default function Entry(props) {
 
   const handleSolved = async (e) => {
     e.preventDefault();
-    const askForHelpDoc = await fb.store.collection('ask-for-help').doc(props.id).get();
+    const askForHelpDoc = await fb.store.collection('ask-for-help').doc(id).get();
     const data = askForHelpDoc.data();
-    await fb.store.collection('solved-posts').doc(props.id).set(data);
+    await fb.store.collection('solved-posts').doc(id).set(data);
     setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
@@ -230,7 +230,7 @@ export default function Entry(props) {
     <>
       <Link
         to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
-        data-id={props.id}
+        data-id={id}
         data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
         className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
         key={id}
@@ -260,11 +260,6 @@ export default function Entry(props) {
                 setAttemptingToReport((curr) => !curr);
                 if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
               }}
-              onKeyDown={(e) => {
-                if (e.keyCode === 13) {
-                  setAttemptingToReport((curr) => !curr);
-                }
-              }}
             >
               {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}
               {!reported && !attemptingToReport ? <FlagRedSvg className="flag" alt="" /> : null}
@@ -274,10 +269,17 @@ export default function Entry(props) {
           {attemptingToReport
             ? (
               <div
+                role="button"
+                tabIndex="0"
                 className="absolute inset-0 bg-white-75"
                 onClick={(e) => {
                   e.preventDefault();
                   setAttemptingToReport((curr) => !curr);
+                }}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) {
+                    setAttemptingToReport((curr) => !curr);
+                  }
                 }}
               >
                 <button

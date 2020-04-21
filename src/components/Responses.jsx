@@ -28,7 +28,7 @@ const Response = ({ response }) => {
   );
 };
 
-export default function Responses({ id }) {
+export default function Responses({ id, collectionName }) {
   const [responses, setResponses] = useState(undefined);
 
   useEffect(() => {
