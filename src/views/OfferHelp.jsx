@@ -60,7 +60,7 @@ export default function OfferHelp() {
   useEffect(() => {
     getUserData();
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
-    setReport(!!urlParams.get('report'));
+    setReport(urlParams.has('report'));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!deleted) {
