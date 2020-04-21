@@ -195,7 +195,7 @@ export default function Entry(props) {
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
           ? (
-            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-grow mr-px $btn-common">
+            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-grow mr-px btn-common">
               <div>{numberOfResponsesText}</div>
             </div>
           ) : (
