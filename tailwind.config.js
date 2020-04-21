@@ -4,7 +4,7 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
-      xs: '320px',
+      xs: '321px',
       sm: '640px',
       md: '835px',
       lg: '1024px',
@@ -125,8 +125,9 @@ module.exports = {
         800: '#97266d',
         900: '#702459',
       },
-      'secondary': '#87a544',
-      'primary': '#b6223e',
+      primary: '#b6223e',
+      secondary: '#87a544',
+      tertiary: '#eaefde',
     },
     spacing: {
       px: '1px',
@@ -328,6 +329,7 @@ module.exports = {
       '5xl': '64rem',
       '6xl': '72rem',
       full: '100%',
+      '5': '5%',
       ...breakpoints(theme('screens')),
     }),
     minHeight: {
@@ -337,6 +339,7 @@ module.exports = {
     },
     minWidth: {
       '0': '0',
+      '90': '90%',
       full: '100%',
     },
     objectPosition: {
