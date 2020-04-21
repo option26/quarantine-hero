@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.6bb01778.chunk.css",
-    "main.js": "/static/js/main.2411bda6.chunk.js",
-    "main.js.map": "/static/js/main.2411bda6.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5ba2f042.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5ba2f042.js.map",
-    "static/js/2.c688baf4.chunk.js": "/static/js/2.c688baf4.chunk.js",
-    "static/js/2.c688baf4.chunk.js.map": "/static/js/2.c688baf4.chunk.js.map",
+    "main.css": "/static/css/main.cc756dd5.chunk.css",
+    "main.js": "/static/js/main.da4bc435.chunk.js",
+    "main.js.map": "/static/js/main.da4bc435.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f899e961.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
+    "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
+    "static/js/2.07d0a0bf.chunk.js": "/static/js/2.07d0a0bf.chunk.js",
+    "static/js/2.07d0a0bf.chunk.js.map": "/static/js/2.07d0a0bf.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.9b163ab953ee0e2d95fec705472ec718.js": "/precache-manifest.9b163ab953ee0e2d95fec705472ec718.js",
+    "precache-manifest.99be3cc9091fa43166d6ada2c3f87d9a.js": "/precache-manifest.99be3cc9091fa43166d6ada2c3f87d9a.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.6bb01778.chunk.css.map": "/static/css/main.6bb01778.chunk.css.map",
-    "static/js/2.c688baf4.chunk.js.LICENSE.txt": "/static/js/2.c688baf4.chunk.js.LICENSE.txt",
+    "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
+    "static/css/main.cc756dd5.chunk.css.map": "/static/css/main.cc756dd5.chunk.css.map",
+    "static/js/2.07d0a0bf.chunk.js.LICENSE.txt": "/static/js/2.07d0a0bf.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -23,8 +25,8 @@
     "static/media/dont_help.svg": "/static/media/dont_help.a64bafef.svg",
     "static/media/error.svg": "/static/media/error.808fe86a.svg",
     "static/media/fb.svg": "/static/media/fb.745240d0.svg",
-    "static/media/flag_orange.svg": "/static/media/flag_orange.ec6c25de.svg",
-    "static/media/flag_red.svg": "/static/media/flag_red.7a7d5bf7.svg",
+    "static/media/flag_orange.ec6c25de.svg": "/static/media/flag_orange.ec6c25de.svg",
+    "static/media/flag_red.7a7d5bf7.svg": "/static/media/flag_red.7a7d5bf7.svg",
     "static/media/flag_white.svg": "/static/media/flag_white.6be2712d.svg",
     "static/media/gh.svg": "/static/media/gh.031ea242.svg",
     "static/media/greenpeace_magazin.jpg": "/static/media/greenpeace_magazin.8a4f3c7a.jpg",
@@ -41,15 +43,17 @@
     "static/media/logo_invert.svg": "/static/media/logo_invert.d492beec.svg",
     "static/media/logo_white.svg": "/static/media/logo_white.670ed4ce.svg",
     "static/media/lokal.svg": "/static/media/lokal.2b286f77.svg",
+    "static/media/questionmark.653b6547.svg": "/static/media/questionmark.653b6547.svg",
     "static/media/success.svg": "/static/media/success.ceaaf435.svg",
     "static/media/sueddeutsche_zeitung.jpg": "/static/media/sueddeutsche_zeitung.4c374a4c.jpg",
     "static/media/tw.svg": "/static/media/tw.b76bad5a.svg",
-    "static/media/x.svg": "/static/media/x.1adc23eb.svg"
+    "static/media/x.1adc23eb.svg": "/static/media/x.1adc23eb.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5ba2f042.js",
-    "static/js/2.c688baf4.chunk.js",
-    "static/css/main.6bb01778.chunk.css",
-    "static/js/main.2411bda6.chunk.js"
+    "static/js/runtime-main.f899e961.js",
+    "static/css/2.750b42cb.chunk.css",
+    "static/js/2.07d0a0bf.chunk.js",
+    "static/css/main.cc756dd5.chunk.css",
+    "static/js/main.da4bc435.chunk.js"
   ]
 }
