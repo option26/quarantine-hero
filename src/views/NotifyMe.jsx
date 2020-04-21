@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
-import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
 
@@ -73,7 +72,6 @@ export default function NotifyMe() {
           )}
         </button>
       </form>
-      <Footer />
     </div>
   );
 }

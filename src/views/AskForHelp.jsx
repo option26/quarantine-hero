@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
-import Footer from '../components/Footer';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 
@@ -121,7 +120,6 @@ export default function AskForHelp() {
           <button type="submit" data-cy="ask-for-help-submit" className="btn-green w-full md:w-1/3">{t('views.askForHelp.askNow')}</button>
         </div>
       </div>
-      <Footer />
     </form>
   );
 }

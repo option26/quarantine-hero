@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,9 @@ const solvedPostsCollection = fb.store.collection('solved-posts');
 
 function Notification(props) {
   const { t } = useTranslation();
-
+  const {
+    location,
+  } = props;
   const onDeleteClick = () => {
     offerHelpCollection.doc(props.id).delete();
   };
@@ -25,12 +27,12 @@ function Notification(props) {
       <div className="shadow rounded border mb-4 px-4 py-2 flex justify-between">
         {t('views.dashboard.youWillBeNotified')}
         {' '}
-        {props.location}
+        {location}
         {' '}
         {t('views.dashboard.needsHelp')}
-        <div className="cursor-pointer font-bold" onClick={onDeleteClick}>
+        <button type="button" className="cursor-pointer font-bold" onClick={onDeleteClick}>
           &times;
-        </div>
+        </button>
       </div>
     </div>
   );
@@ -86,7 +88,19 @@ function Dashboard(props) {
             .
           </div>
         )
-        : requestsForHelp.map((entry) => (<Entry {...entry} key={entry.id} owner />))}
+       : requestsForHelp.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+            owner
+          />
+        ))}
     </div>
   );
 

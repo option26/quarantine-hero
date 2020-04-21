@@ -65,8 +65,8 @@ export default function Entry(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const doc = await fb.store.collection(collectionName).doc(props.id).get();
-    await fb.store.collection('/deleted').doc(props.id).set({
+    const doc = await fb.store.collection(collectionName).doc(id).get();
+    await fb.store.collection('/deleted').doc(id).set({
       collectionName, ...doc.data(),
     });
     setDeleted(true);
@@ -180,7 +180,7 @@ export default function Entry(props) {
     setResponsesVisible(!responsesVisible);
   };
 
-  const mayDeleteEntryAndSeeResponses = user && (user.uid === props.uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
+  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
 
   const buttonBar = (() => {
     if (!mayDeleteEntryAndSeeResponses) {
@@ -229,7 +229,7 @@ export default function Entry(props) {
   const requestCard = (
     <>
       <Link
-        to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${props.id}`}
+        to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
         data-id={props.id}
         data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
         className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
@@ -259,6 +259,11 @@ export default function Entry(props) {
                 const prevValue = attemptingToReport;
                 setAttemptingToReport((curr) => !curr);
                 if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  setAttemptingToReport((curr) => !curr);
+                }
               }}
             >
               {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}

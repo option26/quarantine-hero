@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 
 import Entry from '../components/entry/Entry';
-import Footer from '../components/Footer';
 import MailInput from '../components/MailInput';
 
 export default function OfferHelp() {
@@ -65,10 +64,22 @@ export default function OfferHelp() {
         <div className="mt-4 p-1 font-teaser">
           {t('views.offerHelp.replyToRequest')}
         </div>
-        <Entry {...entry} showFullText highlightLeft key={entry.id} />
+        <Entry
+          key={entry.id}
+          location={entry.location}
+          id={entry.id}
+          request={entry.request}
+          timestamp={entry.timestamp}
+          responses={entry.responses}
+          reportedBy={entry.reportedBy}
+          uid={entry.uid}
+          showFullText
+          highlightLeft
+        />
         <div className="mt-4 p-1 w-full">
-          <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
+          <label htmlFor="offer-help-reply" className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourReply')}</label>
           <textarea
+            id="offer-help-reply"
             className="input-focus"
             data-cy="offer-help-text-input"
             onChange={(e) => setAnswer(e.target.value)}
@@ -77,8 +88,14 @@ export default function OfferHelp() {
           />
         </div>
         <div className="mt-1 w-full">
-          <label className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourEmail')}</label>
-          <MailInput className="input-focus" placeholder={t('views.offerHelp.placeholderEmail')} onChange={setEmail} defaultValue={email} />
+          <label htmlFor="your-email" className="text-gray-700 text-sm font-open-sans">{t('views.offerHelp.yourEmail')}</label>
+          <MailInput
+            id="your-email"
+            className="input-focus"
+            placeholder={t('views.offerHelp.placeholderEmail')}
+            onChange={setEmail}
+            defaultValue={email}
+          />
         </div>
         <div className="mt-4 m-1 w-full">
           {t('views.offerHelp.privacy')}
@@ -86,7 +103,6 @@ export default function OfferHelp() {
         <div className="mt-4 m-1 w-full">
           <button type="submit" data-cy="offer-help-submit" className="btn-green w-full">{t('views.offerHelp.submit')}</button>
         </div>
-        <Footer />
       </form>
     );
   }

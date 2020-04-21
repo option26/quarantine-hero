@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css';
 import useSupercluster from 'use-supercluster';
 import { useTranslation } from 'react-i18next';
-
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from './entry/Entry';
 import NotifyMe from './NotifyMe';
@@ -32,12 +32,22 @@ export default function EntryMap() {
 
   const [entries, setEntries] = useState([]);
 
+  const parseDoc = (doc) => {
+    try {
+      return { ...doc.data().d, id: doc.id };
+    } catch (err) {
+      Sentry.captureException(new Error(`Error parsing ask-for-help ${doc.id}`));
+      return null;
+    }
+  };
+
   useEffect(() => {
     const fetchEntries = async () => {
       const queryResult = await fb.store.collection('ask-for-help').get();
 
       const entriesFromQuery = queryResult.docs
-        .map((document) => ({ ...document.data().d, id: document.id }))
+        .map(parseDoc)
+        .filter(Boolean) // filter entries that we weren't able to parse and are therefore null
         .map((dataPoint) => ({
           type: 'Feature',
           properties: {
@@ -112,13 +122,14 @@ export default function EntryMap() {
                   lat={latitude}
                   lng={longitude}
                 >
-                  <div
-                    className={`cluster-marker ${
+                  <button
+                    type="button"
+                    className={`cluster-marker focus:outline-none ${
                       lastSelectedMarkerId === cluster.id ? 'cm-selected' : ''
                     }`}
                     style={{
-                      width: `${10 + (pointCount / entries.length) * 20}px`,
-                      height: `${10 + (pointCount / entries.length) * 20}px`,
+                      width: `${22 + (pointCount / entries.length) * 100}px`,
+                      height: `${22 + (pointCount / entries.length) * 100}px`,
                     }}
                     onClick={() => {
                       setLastSelectedMarkerId(cluster.id);
@@ -147,7 +158,7 @@ export default function EntryMap() {
                     }}
                   >
                     <p className="font-open-sans">{pointCount}</p>
-                  </div>
+                  </button>
                 </Marker>
               );
             }
@@ -158,15 +169,16 @@ export default function EntryMap() {
                 lat={latitude}
                 lng={longitude}
               >
-                <div
-                  className={`help-request-marker ${
+                <button
+                  type="button"
+                  className={`help-request-marker focus:outline-none flex ${
                     lastSelectedMarkerId === cluster.properties.id
                       ? 'hrm-selected'
                       : ''
                   }`}
                   style={{
-                    width: `${10 + (pointCount / entries.length) * 20}px`,
-                    height: `${10 + (pointCount / entries.length) * 20}px`,
+                    width: `${22 + (pointCount / entries.length) * 100}px`,
+                    height: `${22 + (pointCount / entries.length) * 100}px`,
                   }}
                   onClick={() => {
                     setLastSelectedMarkerId(cluster.properties.id);
@@ -179,7 +191,7 @@ export default function EntryMap() {
                     alt="help-marker"
                     src={require('../assets/need_help.png')}
                   />
-                </div>
+                </button>
               </Marker>
             );
           })}
@@ -200,7 +212,18 @@ export default function EntryMap() {
           {t('components.map.selectALocationFirst')}
         </p>
       ) : (
-        selectedHelpRequests.map((entry) => <Entry key={entry.id} {...entry} />)
+        selectedHelpRequests.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+          />
+        ))
       )}
     </div>
   );

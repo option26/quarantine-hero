@@ -28,12 +28,12 @@ const Response = ({ response }) => {
   );
 };
 
-export default function Responses(props) {
+export default function Responses({ id }) {
   const [responses, setResponses] = useState(undefined);
 
   useEffect(() => {
-    loadResponses(props.id, props.collectionName).then(setResponses);
-  }, [props.id, props.collectionName]);
+    loadResponses(id, collectionName).then(setResponses);
+  }, [id, collectionName]);
 
   return (
     <div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 export default function Impressum() {
   return (
@@ -80,8 +79,8 @@ export default function Impressum() {
             <br />
           </p>
           <p>
-            Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (''Google'').
-            Google Analytics verwendet sog. ''Cookies'', Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der
+            Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (&quot;Google&quot;).
+            Google Analytics verwendet sog. &quot;Cookies&quot;, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der
             Website durch Sie ermöglicht.
             Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer IP-Adresse) wird an einen Server von
             Google in den USA übertragen und dort gespeichert.
@@ -108,7 +107,6 @@ export default function Impressum() {
           </a>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
