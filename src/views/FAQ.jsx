@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import StyledMarkdown from '../util/StyledMardown';
+import useCms from '../util/useCms';
+import useFirebaseDownload from '../util/useFirebaseDownload';
 
 export default function FAQ() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [faqs] = useCms('faq');
 
-  function buildFAQ(translationString) {
-    return (i18n.exists(`views.faq.answers.${translationString}.preLink`))
-      ? <QAwithLink key={translationString} translationKey={translationString} />
-      : <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>{t(`views.faq.answers.${translationString}`)}</QA>;
-  }
-
-  function buildFAQs(arrayOfKeys) {
-    return arrayOfKeys.map((translationString) => buildFAQ(translationString));
-  }
+  const QA = ({ question, children, link }) => (
+    <>
+      <h2 className="text-xl font-teaser mt-8">{question}</h2>
+      <StyledMarkdown className="text-justify">{children}</StyledMarkdown>
+      <img src={useFirebaseDownload(link)[0]} alt="Foobar" />
+    </>
+  );
 
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
-      {buildFAQs(Object.keys(t('views.faq.questions', { returnObjects: true })))}
+      {faqs.map((faq) => <QA key={faq.question} question={faq.question} link="gs://qhero-stage.appspot.com/Test.png">{faq.answer}</QA>)}
     </div>
   );
 }

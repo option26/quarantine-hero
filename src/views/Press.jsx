@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as Sentry from '@sentry/browser';
 import * as firebase from 'firebase/app';
-import 'firebase/storage';
-
-function useFirebaseDownload(url, fb) {
-  const [link, setLink] = useState('');
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fb.storage()
-      .refFromURL(url)
-      .getDownloadURL()
-      .then((l) => setLink(l))
-      .catch((err) => setError(err));
-  }, [fb, url]);
-
-  return [link, error];
-}
+import useCms from '../util/useCms';
+import useFirebaseDownload from '../util/useFirebaseDownload';
 
 export default function Press() {
   const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
+  const [articles] = useCms('press');
 
   if (errorGeneratingPressLink) {
     Sentry.captureException(errorGeneratingPressLink);
@@ -44,79 +31,6 @@ export default function Press() {
         )}
     </div>
   );
-
-  const articles = [
-    {
-      date: '20.03.2020',
-      title: 'ZDF - drehscheibe vom 20. März 2020',
-      link: 'https://www.zdf.de/nachrichten/drehscheibe/drehscheibe-vom-20-maerz-2020-100.html',
-    },
-    {
-      date: '19.03.2020',
-      title: 'Cosmo',
-      text: 'Radiobeitrag',
-    },
-    {
-      date: '19.03.2020',
-      title: 'ZDF - Mittagsmagazin vom 19. März 2020 (11:30 min)',
-      link: 'https://www.zdf.de/nachrichten/zdf-mittagsmagazin/zdf-mittagsmagazin-vom-19-maerz-2020-100.html',
-    },
-    {
-      date: '19.03.2020',
-      title: 'emoition - 37 sinnvolle Ideen gegen Einsamkeit und Langeweile #flattenthecurve',
-      link: 'https://www.emotion.de/psychologie-partnerschaft/persoenlichkeit/37-sinnvolle-ideen-gegen-einsamkeit-und-langeweile',
-    },
-    {
-      date: '19.03.2020',
-      title: 'ZDF - heute+ vom 19.03.2020 (9:20 min)',
-      link: 'https://www.zdf.de/nachrichten/heute-plus/200319-hplus-gesamt-100.html',
-    },
-    {
-      date: '19.03.2020',
-      title: 'bigFM -  Nachbarschaftshilfe: So könnt Ihr helfen',
-      link: 'https://www.bigfm.de/buzzhaltestelle/30998/nachbarschaftshilfe-hier-koennt-ihr-helfen',
-    },
-    {
-      date: '18.03.2020',
-      title: 'BR - Auf diesen Plattformen vernetzt sich ganz Bayern zu praktischer Nachbarschaftshilfe ',
-      link: 'https://www.br.de/radio/bayern2/sendungen/zuendfunk/auf-diesen-plattformen-vernetzt-sich-ganz-bayern-zu-praktischer-nachbarschaftshilfe100.html',
-    },
-    {
-      date: '18.03.2020',
-      title: 'Hessenschau - Wie sich in der Corona-Zeit Nachbarn gegenseitig unterstützen',
-      link: 'https://www.hessenschau.de/gesellschaft/wie-sich-in-der-corona-zeit-nachbarn-gegenseitig-unterstuetzen,nachbarschaftshilfe-corona-100.html',
-    },
-    {
-      date: '17.03.2020',
-      title: 'Radio Köln',
-      text: 'Interview',
-    },
-    {
-      date: '16.03.2020',
-      title: 'rpr1 - RPR1.Corona-Hilfenetzwerk',
-      link: 'https://www.rpr1.de/programm/aktion/rpr1corona-hilfenetzwerk',
-    },
-    {
-      date: '16.03.2020',
-      title: 'BUNTE.de - Quarantänehelden: So kannst du Menschen in Quarantäne jetzt helfen',
-      link: 'https://www.bunte.de/family/bewegende-geschichten/geschichten-des-lebens/gegenseitige-unterstuetzung-organisation-quarantaene-helden-hier-hilft-man-sich-waehrend-der-corona.html',
-    },
-    {
-      date: '16.03.2020',
-      title: 'businessinsider.de - So könnt ihr andere Menschen in Zeiten von Corona unterstützen — oder selbst Hilfe bekommen',
-      link: 'https://www.businessinsider.de/wirtschaft/verbraucher/so-koennt-ihr-andere-menschen-in-zeiten-von-corona-unterstuetzen-oder-selbst-hilfe-bekommen/',
-    },
-    {
-      date: '16.03.2020',
-      title: 'Sat1 Regional - #NachbarschaftsChallenge: Wie Menschen in der Coronavirus-Krise auf andere Weise zusammenrücken',
-      link: 'https://www.sat1regional.de/nachbarschaftschallenge-wie-menschen-in-der-coronavirus-krise-zusammenruecken/',
-    },
-    {
-      date: '16.03.2020',
-      title: 'Utopia.de - Quarantänehelden: So kannst du Menschen in Quarantäne jetzt helfen',
-      link: 'https://utopia.de/quarantaenehelden-corona-virus-helfen-179241/',
-    },
-  ];
 
   return (
     <div>
