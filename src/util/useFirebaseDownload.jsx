@@ -6,11 +6,16 @@ export default function useFirebaseDownload(url) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    firebase.storage()
-      .refFromURL(url)
-      .getDownloadURL()
-      .then((l) => setLink(l))
-      .catch((err) => setError(err));
+    const getLink = async () => {
+      try {
+        const l = await firebase.storage().refFromURL(url).getDownloadURL();
+        setLink(l);
+      } catch (err) {
+        setError(err);
+      }
+    };
+
+    getLink();
   }, [url]);
 
   return [link, error];
