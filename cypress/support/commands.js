@@ -9,8 +9,20 @@
 // ***********************************************
 //
 //
+
+import { loginVerifiedUser, loginSecondaryUser, loginNotVerifiedUser } from '../util/loginUser';
+import logoutUser from '../util/logoutUser';
+import createAskForHelpPosting from '../util/createAskForHelpPosting';
+import createResponseForPosting from '../util/createResponseForPosting';
+
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add('loginVerified', loginVerifiedUser);
+Cypress.Commands.add('loginSecondary', loginSecondaryUser);
+Cypress.Commands.add('loginNotVerified', loginNotVerifiedUser);
+Cypress.Commands.add('logout', logoutUser);
+
+Cypress.Commands.add('createAskForHelp', createAskForHelpPosting);
+Cypress.Commands.add('createResponse', createResponseForPosting);
 //
 //
 // -- This is a child command --
