@@ -59,6 +59,7 @@ export default function OfferHelp() {
 
   useEffect(() => {
     getUserData();
+    // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
     setReport(urlParams.has('report'));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
