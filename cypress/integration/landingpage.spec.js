@@ -1,11 +1,14 @@
-const verifiedEmailAdress = 'verified@example.com';
-const password = 'test1234';
+import createAskForHelpPosting from '../util/createAskForHelpPosting';
 
 context('Landing Page', () => {
 
   describe('User is not logged in', () => {
     before(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
+      // Make sure there is at least one entry
+      cy.loginVerified();
+      createAskForHelpPosting('68159');
+
+      cy.logout();
     });
 
     beforeEach(() => {
@@ -31,16 +34,12 @@ context('Landing Page', () => {
   describe('User is logged in and his email address has been verified', () => {
 
     before(() => {
-      cy.visit('localhost:3000');
+      // Make sure there is at least one own entry
+      cy.loginSecondary();
+      cy.createAskForHelp('95182');
 
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
-      cy.get('form input[type="password"]').type(`${password}{enter}`);
-
-      // TODO: Why do we redirect to ask-for-help here!
-      cy.hash().should('equal', '#/ask-for-help');
+      cy.loginVerified();
+      cy.createAskForHelp('68159');
     });
 
     beforeEach(() => {
@@ -52,7 +51,7 @@ context('Landing Page', () => {
       cy.hash().should('equal', '#/overview');
     });
 
-    it('clicking on "Ich brauche Hilfe" should redirect to signup', () => {
+    it('clicking on "Ich brauche Hilfe" should redirect to ask-for-help', () => {
       cy.get('[data-cy=cta-need-help]').click();
       cy.hash().should('equal', '#/ask-for-help');
     });
