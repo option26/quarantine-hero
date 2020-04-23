@@ -30,6 +30,7 @@ export default function MailInput(props) {
   return (
     <input
       className={className}
+      data-cy="mail-input"
       type="email"
       placeholder={placeholder}
       onChange={(e) => {

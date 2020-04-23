@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 import '../styles/Map.css';
 import useSupercluster from 'use-supercluster';
 import { useTranslation } from 'react-i18next';
-import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from './entry/Entry';
 import NotifyMe from './NotifyMe';
 
 import userIsOnMobile from '../util/userIsOnMobile';
+import parseDoc from '../util/parseDoc';
 
 const DEFAULT_ZOOM_LEVEL = userIsOnMobile() ? 5 : 6;
 
@@ -33,15 +33,6 @@ export default function EntryMap() {
   ] = useState();
 
   const [entries, setEntries] = useState([]);
-
-  const parseDoc = (doc) => {
-    try {
-      return { ...doc.data().d, id: doc.id };
-    } catch (err) {
-      Sentry.captureException(new Error(`Error parsing ask-for-help ${doc.id}`));
-      return null;
-    }
-  };
 
   const handleAddressClick = (address) => {
     history.push({

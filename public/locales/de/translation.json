@@ -74,6 +74,9 @@
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
+      "anErrorOccured": "Uuups, da ist wohl etwas schief gelaufen",
+      "verificationError": "Leider konnten wir Deine Emailadresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner Email abgelaufen ist. Bitte versuche es erneut.",
+      "tryAgain": "ERNEUT VERSUCHEN",
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
     "dashboard": {
@@ -82,11 +85,16 @@
       "needsHelp": "Hilfe benötigt",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
+      "noResolvedRequests": "Du hast noch keine Held*innen für deine Gesuche gefunden. Du kannst ein neues Gesuch",
       "create": "erstellen",
       "yourNotifications": "Deine Benachrichtigungen",
       "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
       "here": "hier",
-      "register": "registrieren"
+      "register": "registrieren",
+      "tabs": {
+        "open": "OFFEN",
+        "solved": "ABGESCHLOSSEN"
+      }
     },
     "privacy": {
       "title": "Datenschutzerklärung"
@@ -225,7 +233,7 @@
       "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
     },
     "notFound": {
-      "ooopsTitle": "Uuups, da ist wohl etwas schiefgelaufen.",
+      "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
       "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",
       "toHome": "Bring mich zur Startseite"
     }
@@ -266,12 +274,36 @@
       "somebodyAt": "Jemand in",
       "needsHelp": "braucht Hilfe!",
       "before": "vor",
-      "showResponses": "Antwort ansehen",
-      "showResponses_plural": "{{count}} Antworten ansehen",
-      "hideResponses": "Antwort verbergen",
-      "hideResponses_plural": "{{count}} Antworten verbergen",
+      "message": "{{count}} Nachricht",
+      "message_plural": "{{count}} Nachrichten",
       "deleteRequestForHelp": "Löschen",
-      "registrationReason": "den Beitrag zu melden"
+      "registrationReason": "den Beitrag zu melden",
+      "heroFound": "Held*in gefunden",
+      "popup": {
+        "heroFound": "Ich habe eine Held*in gefunden",
+        "deleteAnyway": "Trotzdem löschen",
+        "backToOverview": "Zurück zur Übersicht",
+        "reassureDeletion": "Diese Anfrage wirklich löschen?",
+        "cancel": "Abbrechen",
+        "deleteTerminally": "Endgültig löschen",
+        "createNewRequest": "Neue Anfrage Erstellen",
+        "solveReassure": {
+          "heading": "War Dein Hilfegesuch erfolgreich?",
+          "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
+          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund Du bekommst keine weiteren Nachrichten von Helfenden mehr."
+        },
+        "wasYourRequestSuccessful": {
+          "heading": "War Dein Hilfegesuch erfolgreich?",
+          "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
+          "secondSentence": "Anstatt Dein Hilfegesuch zu löschen markieren wir es als abgeschlossen.",
+          "thirdSentence": "Du kannst es natürlich jederzeit trotzdem löschen."
+        },
+        "yourRequestWasDeleted": {
+          "heading": "Dein Hilfegesuch wurde gelöscht!",
+          "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
+          "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine Held*in um Hilfe bitten."
+        }
+      }
     },
     "filteredList": {
       "list": "LISTE",

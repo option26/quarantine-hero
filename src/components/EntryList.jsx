@@ -13,6 +13,7 @@ import {
   getGeodataForString,
   getLatLng,
 } from '../services/GeoService';
+import parseDoc from '../util/parseDoc';
 
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
@@ -76,12 +77,12 @@ export default function EntryList({ pageSize = 0 }) {
     }
   };
 
+
   const appendDocuments = (documents) => {
     setLastEntry(documents[documents.length - 1]);
-    const newEntries = documents.map((doc) => {
-      const data = doc.data();
-      return { ...(data.d || data), id: doc.id };
-    });
+    const newEntries = documents
+      .map(parseDoc)
+      .filter(Boolean); // filter entries that we weren't able to parse and are therefore null
     setEntries((e) => [...e, ...newEntries]);
   };
 

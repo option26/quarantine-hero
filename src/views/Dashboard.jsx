@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
+import {
+  Tabs, Tab, TabPanel, TabList,
+} from 'react-web-tabs';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
+const solvedPostsCollection = fb.store.collection('solved-posts');
 
 function Notification(props) {
   const { t } = useTranslation();
@@ -42,7 +46,6 @@ function Notification(props) {
 
 function Dashboard(props) {
   const { user } = props;
-
   const { t } = useTranslation();
 
   const history = useHistory();
@@ -54,7 +57,7 @@ function Dashboard(props) {
     });
   };
 
-  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionData(
+  const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
@@ -62,27 +65,33 @@ function Dashboard(props) {
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
-  const [offersDocs, isLoadingOffers] = useCollectionData(
+  const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
     offerHelpCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
-  const offers = (offersDocs || []).map((val) => ({ ...val.d, id: val.id }));
+  const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));
 
-  if (isLoadingRequestsForHelp || isLoadingOffers) {
+  const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionDataOnce(
+    solvedPostsCollection.where('d.uid', '==', user.uid),
+    { idField: 'id' },
+  );
+  const solvedPosts = (solvedPostsDocs || [])
+    .map((doc) => ({ ...doc.d, id: doc.id }))
+    .sort((a, b) => b.timestamp - a.timestamp);
+
+  if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
     // return <DashboardLoading />;
   }
 
-  return (
-    <div className="p-4">
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourRequests')}</h1>
-
+  const OpenRequests = () => (
+    <div>
       {requestsForHelp.length === 0
         ? (
-          <div className="font-open-sans">
+          <div className="font-open-sans my-4">
             {t('views.dashboard.noRequests')}
             {' '}
-            <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>hier</Link>
+            <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>{t('views.dashboard.here')}</Link>
             {' '}
             {t('views.dashboard.create')}
             .
@@ -102,6 +111,56 @@ function Dashboard(props) {
             owner
           />
         ))}
+    </div>
+  );
+
+  const ResolvedRequests = () => (
+    <div>
+      {solvedPosts.length === 0
+        ? (
+          <div className="font-open-sans my-4">
+            {t('views.dashboard.noResolvedRequests')}
+            {' '}
+            <Link className="text-secondary hover:underline" to="/ask-for-help" onClick={() => fb.analytics.logEvent('button_want_to_help')}>{t('views.dashboard.here')}</Link>
+            {' '}
+            {t('views.dashboard.create')}
+            .
+          </div>
+        )
+        : solvedPosts.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+            showAsSolved
+            owner
+          />
+        ))}
+    </div>
+  );
+
+  const tabButtonClass = 'text-black font-bold w-1/2 btn-bottom-border-black';
+
+  return (
+    <div className="p-4 pt-0 md:pt-4">
+      <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
+      <Tabs defaultTab="open">
+        <TabList>
+          <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
+          <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
+        </TabList>
+        <TabPanel tabId="open" data-cy="tabs-open-content">
+          <OpenRequests />
+        </TabPanel>
+        <TabPanel tabId="solved" data-cy="tabs-solved-content">
+          <ResolvedRequests />
+        </TabPanel>
+      </Tabs>
 
       <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
 
