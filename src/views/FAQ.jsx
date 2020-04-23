@@ -19,7 +19,7 @@ export default function FAQ() {
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
-      {faqs.map((faq) => <QA key={faq.question} question={faq.question} link="gs://qhero-stage.appspot.com/Test.png">{faq.answer}</QA>)}
+      {faqs.map((faq) => <QA key={faq.question} question={faq.question} link={faq.link}>{faq.answer}</QA>)}
     </div>
   );
 }
