@@ -4,8 +4,11 @@ const password = 'test1234';
 context('Landing Page', () => {
 
   describe('User is not logged in', () => {
-    beforeEach(() => {
+    before(() => {
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    });
+
+    beforeEach(() => {
       cy.visit('localhost:3000');
     });
 
@@ -20,14 +23,14 @@ context('Landing Page', () => {
     });
 
     it('clicking on an entry should redirect to offer help', () => {
-      cy.get('.entry').first().click();
+      cy.get('[data-cy*=ask-for-help-entry]').first().click();
       cy.hash().should('contain', '#/offer-help/');
     });
   });
 
   describe('User is logged in and his email address has been verified', () => {
 
-    beforeEach(() => {
+    before(() => {
       cy.visit('localhost:3000');
 
       indexedDB.deleteDatabase('firebaseLocalStorageDb');
@@ -38,7 +41,9 @@ context('Landing Page', () => {
 
       // TODO: Why do we redirect to ask-for-help here!
       cy.hash().should('equal', '#/ask-for-help');
+    });
 
+    beforeEach(() => {
       cy.visit('localhost:3000');
     });
 
@@ -52,9 +57,14 @@ context('Landing Page', () => {
       cy.hash().should('equal', '#/ask-for-help');
     });
 
-    it('clicking on an entry should redirect to dashboard', () => {
-      cy.get('.entry').first().click();
+    it('clicking on own entry should redirect to dashboard', () => {
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=own]').first().click();
       cy.hash().should('contain', '#/dashboard');
+    });
+
+    it('clicking on other entry should redirect to offer-help', () => {
+      cy.get('[data-cy*=ask-for-help-entry]:not([data-cy*=own])').first().click();
+      cy.hash().should('contain', '#/offer-help/');
     });
 
     it('clicking on "Meine Übersicht" should redirect to dashboard', () => {
@@ -78,7 +88,7 @@ context('Landing Page', () => {
         cy.get('[data-cy=nav-my-overview]').should('not.exist');
       } else if (Cypress.env('VIEWPORT') === 'mobile') {
         cy.get('[data-cy=mobile-menu-icon]').click();
-        cy.get('[data-cy=mobile-nav-sign-out]').should('be.visible');
+        cy.get('[data-cy=mobile-nav-sign-out]', { timeout: 5000 }).should('be.visible');
         cy.get('[data-cy=mobile-nav-sign-out]').click();
         cy.get('[data-cy=mobile-menu-icon]').click();
         cy.get('[data-cy=mobile-nav-sign-out]').should('not.exist');
