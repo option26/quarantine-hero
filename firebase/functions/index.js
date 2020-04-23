@@ -161,7 +161,7 @@ async function searchAndSendNotificationEmails() {
             request: askForHelpSnapData.d.request,
             location: askForHelpSnapData.d.location,
             link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-            reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report=true`,
+            reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
           },
           hideWarnings: true, // removes triple bracket warning
         });
