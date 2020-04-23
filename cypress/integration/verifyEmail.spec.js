@@ -1,23 +1,22 @@
 context('Verify Email Page', () => {
 
   describe('User is not logged in', () => {
-    beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/verify-email');
+    before(() => {
+      cy.logout();
     });
 
     it('visiting the page should redirect to sign up', () => {
+      cy.visit('localhost:3000/#/verify-email');
       cy.hash().should('equal', '#/signup');
     });
   });
 
   describe('User is logged in and his email address has not been verified', () => {
 
-    beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('not.verified@example.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+    before(() => {
+      cy.logout();
+
+      cy.loginNotVerified();
     });
 
     it('visiting the page should not redirect him', () => {
@@ -28,11 +27,10 @@ context('Verify Email Page', () => {
 
   describe('User is logged in and his email address has been verified', () => {
 
-    beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type('verified@example.com{enter}');
-      cy.get('form input[type="password"]').type('test1234{enter}');
+    before(() => {
+      cy.logout();
+
+      cy.loginVerified();
     });
 
     it('visiting the page should redirect to ask-for-help', () => {
