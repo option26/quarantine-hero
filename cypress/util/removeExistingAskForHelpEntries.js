@@ -1,3 +1,5 @@
+// TODO: Put this into one function and handle it via query parameter
+
 export function removeAskForHelpEntryWithoutResponses() {
   cy.get('[data-cy=ask-for-help-entry]').should('be.visible');
   cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
