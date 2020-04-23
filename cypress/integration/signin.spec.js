@@ -1,12 +1,10 @@
-const verifiedEmailAdress = 'verified@example.com';
-const notVerifiedEmailAddress = 'not.verified@example.com';
-const notExistingEmailAddress = 'not.existing@example.com';
-const password = 'test1234';
+import { verifiedEmailAddress, notExistingEmailAddress, password } from '../util/loginUser';
 
 context('SignIn', () => {
   describe('User is not logged in and no returnUrl', () => {
     beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
+      cy.logout();
+
       cy.visit('localhost:3000/#/signin');
       cy.hash().should('equal', '#/signin');
     });
@@ -20,7 +18,7 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
@@ -44,7 +42,7 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('form input[type="password"]').type('wrong-password{enter}');
 
       cy.wait('@signInUser');
@@ -55,7 +53,8 @@ context('SignIn', () => {
 
   describe('User is not logged in and returnUrl is /overview', () => {
     beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
+      cy.logout();
+
       cy.visit('localhost:3000/#/signin/overview');
       cy.hash().should('equal', '#/signin/overview');
     });
@@ -69,7 +68,7 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('form input[type="password"]').type(`${password}{enter}`);
 
       cy.wait('@signInUser');
@@ -93,7 +92,7 @@ context('SignIn', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
 
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('form input[type="password"]').type('wrong-password{enter}');
 
       cy.wait('@signInUser');
@@ -104,11 +103,9 @@ context('SignIn', () => {
 
   describe('User is logged in and email is verified', () => {
     before(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
-      cy.get('form input[type="password"]').type(`${password}{enter}`);
-      cy.hash().should('equal', '#/signin');
+      cy.logout();
+
+      cy.loginVerified();
     });
 
     it('navigating to signin should redirect to /ask-for-help', () => {
@@ -124,11 +121,9 @@ context('SignIn', () => {
 
   describe('User is logged in and email is not verified', () => {
     before(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type(`${notVerifiedEmailAddress}{enter}`);
-      cy.get('form input[type="password"]').type(`${password}{enter}`);
-      cy.hash().should('equal', '#/signin');
+      cy.logout();
+
+      cy.loginNotVerified();
     });
 
     it('navigating to signin without returnURL should redirect to /verfiy-email', () => {
@@ -143,8 +138,11 @@ context('SignIn', () => {
   });
 
   describe('User requests password reset', () => {
+    before(() => {
+      cy.logout();
+    });
+
     beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signin');
       cy.hash().should('equal', '#/signin');
     });
@@ -161,7 +159,7 @@ context('SignIn', () => {
     });
 
     it('clicking with an existing email should succeed', () => {
-      cy.get('form input[type="email"]').type(`${verifiedEmailAdress}{enter}`);
+      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('[data-cy=btn-pw-reset]').click();
       cy.get('[data-cy=error-label]').should('not.exist');
       cy.get('[data-cy=pw-reset-success-label]').should('exist');
