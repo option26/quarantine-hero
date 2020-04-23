@@ -1,18 +1,13 @@
-import loginVerifiedUser from '../util/loginVerifiedUser';
+import { verifiedEmailAddress } from '../util/loginUser';
 import createAskForHelpPosting from '../util/createAskForHelpPosting';
 import createResponseForPosting from '../util/createResponseForPosting';
 import { removeAskForHelpEntryWithoutResponses, removeSolvedAskForHelpEntry } from '../util/removeExistingAskForHelpEntries';
 
-const dummyUserMail = 'verified@example.com';
-const dummyUserPw = 'test1234';
-
 // test are currently flaky, see https://github.com/kenodressel/quarantine-hero/issues/216
 context.skip('Dashboard', () => {
 
-  beforeEach(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
-    cy.visit('localhost:3000');
-    loginVerifiedUser(dummyUserMail, dummyUserPw);
+  before(() => {
+    cy.loginVerified();
   });
 
   describe('user has no entries', () => {
@@ -41,7 +36,7 @@ context.skip('Dashboard', () => {
 
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
-      cy.get('[data-cy=ask-for-help-entry]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -60,7 +55,7 @@ context.skip('Dashboard', () => {
       cy.get('[data-cy=btn-popup-delete-terminally]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
-      cy.get('[data-cy=ask-for-help-entry]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry]').should('be.visible');
 
       // remove posting
       removeAskForHelpEntryWithoutResponses();
@@ -74,7 +69,7 @@ context.skip('Dashboard', () => {
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -100,7 +95,7 @@ context.skip('Dashboard', () => {
       // make sure entry is removed (at least UI side)
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('not.be.visible');
-      cy.get('[data-cy=ask-for-help-entry]').should('not.be.visible');
+      cy.get('[data-cy*=ask-for-help-entry]').should('not.be.visible');
     });
   });
 
@@ -110,13 +105,13 @@ context.skip('Dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 3!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -133,7 +128,7 @@ context.skip('Dashboard', () => {
       cy.get('[data-cy=btn-popup-delete-anyway]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('not.be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('not.be.visible');
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('not.be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('not.be.visible');
 
       // cleanup: remove posting after reload
       cy.reload(); // reload to fetch updated data
@@ -144,13 +139,13 @@ context.skip('Dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 4!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -173,20 +168,20 @@ context.skip('Dashboard', () => {
       cy.get('.popup-content').should('not.be.visible');
       cy.get('[data-cy=btn-popup-hero-found]').should('not.be.visible');
       cy.get('[data-cy=btn-popup-delete-anyway]').should('not.be.visible');
-      cy.get('[data-cy=ask-for-help-entry]').should('not.be.visible');
+      cy.get('[data-cy*=ask-for-help-entry]').should('not.be.visible');
     });
 
     it('should 1) show a reassurement popup when clicking on "LÖSCHEN", 2) delete the entry if clicking the "DELETE ANYWAY button in the popup and 3) take the user back to the ask-for-help page when clicking on "NEUE ANFRAGE ERSTELLEN"', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 5!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // initialize deletion attempt
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -213,13 +208,13 @@ context.skip('Dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 6!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').click();
@@ -232,13 +227,13 @@ context.skip('Dashboard', () => {
       // entry should not be visible in "OPEN" tab anymore
       cy.get('[data-cy=btn-popup-hero-found]').should('not.be.visible');
       cy.get('[data-cy=btn-popup-cancel-negative]').should('not.be.visible');
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('not.be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('not.be.visible');
 
       // navigate to "ABGESCHLOSSEN" TAB
       cy.reload(); // reload to fetch updated data
       cy.get('[data-cy=tabs-solved]').click();
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
 
       removeSolvedAskForHelpEntry();
     });
@@ -250,13 +245,13 @@ context.skip('Dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 7!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').click();
@@ -274,7 +269,7 @@ context.skip('Dashboard', () => {
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
 
       // get solved entry and initiate deletion
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
@@ -288,7 +283,7 @@ context.skip('Dashboard', () => {
       cy.get('.popup-content').should('not.be.visible');
       cy.get('[data-cy=btn-popup-cancel-positive]').should('not.be.visible');
       cy.get('[data-cy=btn-popup-delete-terminally]').should('not.be.visible');
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
 
@@ -300,13 +295,13 @@ context.skip('Dashboard', () => {
       // create a new posting
       createAskForHelpPosting('68159', `dashboard.spec.js ${new Date().toUTCString()} test case 8!`);
       cy.wait(5000); // wait for data to be created server-side
-      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, dummyUserMail);
+      createResponseForPosting(`dashboard.spec.js ${new Date().toUTCString()} I can help you!`, verifiedEmailAddress);
       cy.wait(5000); // wait for data to be created server-side
 
       // mark as solved
       cy.visit('localhost:3000/#/dashboard');
       cy.wait(500);
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').click();
@@ -324,7 +319,7 @@ context.skip('Dashboard', () => {
       cy.get('[data-cy=tabs-solved-content]').should('be.visible');
 
       // get entry
-      cy.get('[data-cy=ask-for-help-entry-with-responses]').should('be.visible');
+      cy.get('[data-cy*=ask-for-help-entry][data-cy*=with-responses]').should('be.visible');
       cy.get('[data-cy=btn-entry-solve]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').should('be.visible');
       cy.get('[data-cy=btn-entry-delete]').first().click();
