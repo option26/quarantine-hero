@@ -231,7 +231,7 @@ export default function Entry(props) {
       <Link
         to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
         data-id={id}
-        data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
+        data-cy={`ask-for-help-entry${responses > 0 ? ' with-responses' : ''}${entryBelongsToCurrentUser ? ' own' : ''}`}
         className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
         key={id}
         ref={link}
