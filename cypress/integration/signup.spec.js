@@ -1,7 +1,6 @@
+import { verifiedEmailAddress, password } from '../util/loginUser';
+
 const blacklistedEmail = 'example@byom.de';
-const verifiedEmailAddress = 'verified@example.com';
-const notVerifiedEmailAddress = 'not.verified@example.com';
-const password = 'test1234';
 
 function randomString() {
   const first = Math.random()
@@ -16,8 +15,11 @@ function randomString() {
 }
 context('SignUp', () => {
   describe('User is not logged in and no returnUrl', () => {
+    before(() => {
+      cy.logout();
+    });
+
     beforeEach(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
       cy.visit('localhost:3000/#/signup');
       cy.hash().should('equal', '#/signup');
     });
@@ -71,11 +73,9 @@ context('SignUp', () => {
 
   describe('User is logged in and email is verified', () => {
     before(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
-      cy.get('form input[type="password"]').type(`${password}{enter}`);
-      cy.hash().should('equal', '#/signin');
+      cy.logout();
+
+      cy.loginVerified();
     });
 
     it('navigating to signin should redirect to /ask-for-help', () => {
@@ -91,11 +91,9 @@ context('SignUp', () => {
 
   describe('User is logged in and email is not verified', () => {
     before(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-      cy.visit('localhost:3000/#/signin');
-      cy.get('form input[type="email"]').type(`${notVerifiedEmailAddress}{enter}`);
-      cy.get('form input[type="password"]').type(`${password}{enter}`);
-      cy.hash().should('equal', '#/signin');
+      cy.logout();
+
+      cy.loginNotVerified();
     });
 
     it('navigating to signin without returnURL should redirect to /verfiy-email', () => {
