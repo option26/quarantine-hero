@@ -29,8 +29,10 @@ export default () => (
     <h2 className="text-2xl font-exo2">Die vier Grundregeln</h2>
 
     <Rules />
-
-    <h3 className="text-xl mt-10 font-exo2 mb-2">Umsichtig</h3>
+    <div className="flex items-center mt-10 mb-2">
+      <img className="w-8 h-8 mr-2" src={require('../assets/dont_help.svg')} alt="dont help" />
+      <h3 className="text-xl font-exo2">Umsichtig</h3>
+    </div>
     <div className="font-open-sans">
       <span className="font-bold">Helft nicht, wenn Ihr einer Risikogruppe angehört!</span>
       <br />
@@ -79,14 +81,20 @@ export default () => (
       </ul>
     </div>
 
-    <h3 className="text-xl mt-10 font-exo2 mb-2">Lokal</h3>
+    <div className="flex items-center mt-10 mb-2">
+      <img className="w-8 h-8 mr-2" src={require('../assets/lokal.svg')} alt="local" />
+      <h3 className="text-xl font-exo2">Lokal</h3>
+    </div>
     <p className="font-open-sans">
       Helft in Eurer Nachbarschaft, zum Beispiel Euren Haus-Mitbewohner*innen. Vermeidet also, längere Strecken
       unterwegs zu sein oder anderen Menschen zu begegnen, um die Möglichkeit einer Ansteckung gering zu halten. So
       schützt Ihr nicht nur Euch, sondern vor allem die Personen, um die Ihr Euch kümmert!
     </p>
 
-    <h3 className="text-xl mt-10 font-exo2 mb-2">Konsistent</h3>
+    <div className="flex items-center mt-10 mb-2">
+      <img className="w-8 h-8 mr-2" src={require('../assets/konsistent.svg')} alt="consistent" />
+      <h3 className="text-xl font-exo2">Konsistent</h3>
+    </div>
     <div className="font-open-sans">
       <div className="font-bold">Sucht Euch EINEN Haushalt in Eurer Nähe, der Hilfe braucht!</div>
       Es ist wichtig, potentielle Infektionsketten möglichst gering zu halten (insbesondere wenn ein persönlicher
@@ -94,7 +102,10 @@ export default () => (
       und vermeidet sonstige soziale Kontakte.
     </div>
 
-    <h3 className="text-xl mt-10 font-exo2 mb-2">Distanziert</h3>
+    <div className="flex items-center mt-10 mb-2">
+      <img className="w-8 h-8 mr-2" src={require('../assets/distanziert.svg')} alt="distanced" />
+      <h3 className="text-xl font-exo2">Distanziert</h3>
+    </div>
     <div className="font-open-sans">
       <div className="font-bold">Trefft klare Absprachen und vermeidet persönlichen Kontakt!</div>
       Die größte Ansteckungsgefahr besteht bei einem direkten Kontakt mit einer Person im Abstand von weniger als zwei Metern
