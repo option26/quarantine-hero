@@ -2,24 +2,25 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import StyledMarkdown from '../util/StyledMardown';
 import useCms from '../util/useCms';
-import useFirebaseDownload from '../util/useFirebaseDownload';
+import Loader from '../components/loader/Loader';
 
 export default function FAQ() {
   const { t } = useTranslation();
   const [faqs] = useCms('faq');
 
-  const QA = ({ question, children, link }) => (
+  const QA = ({ question, children }) => (
     <>
       <h2 className="text-xl font-teaser mt-8">{question}</h2>
       <StyledMarkdown className="text-justify">{children}</StyledMarkdown>
-      <img src={useFirebaseDownload(link)[0]} alt="Foobar" />
     </>
   );
 
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
-      {faqs.map((faq) => <QA key={faq.question} question={faq.question} link={faq.link}>{faq.answer}</QA>)}
+      <Loader waitOn={faqs.length > 0}>
+        {faqs.map((faq) => <QA key={faq.question} question={faq.question}>{faq.answer}</QA>)}
+      </Loader>
     </div>
   );
 }
