@@ -52,7 +52,9 @@ context('Landing Page', () => {
       cy.hash().should('equal', '#/ask-for-help');
     });
 
-    it('clicking on an entry should redirect to dashboard', () => {
+    // TODO: The redirect depends on the ownership of the entry.
+    //  We need to split this and find a way to prepare the test
+    it.skip('clicking on an entry should redirect to dashboard', () => {
       cy.get('.entry').first().click();
       cy.hash().should('contain', '#/dashboard');
     });

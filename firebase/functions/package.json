@@ -7,7 +7,9 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "lint": "eslint ."
+    "test": "echo 'TODO'",
+    "lint": "eslint . --ext .jsx .js --no-error-on-unmatched-pattern",
+    "lint-fix": "eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern"
   },
   "engines": {
     "node": "8"
