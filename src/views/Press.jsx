@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 import * as firebase from 'firebase/app';
+import Loader from '../components/loader/Loader';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
 
@@ -120,15 +121,17 @@ export default function Press() {
             <img alt="bunte_de" src={require('../assets/bunte_de.jpg')} />
           </div>
         </div>
-        {articles.map((article) => (
-          <Article
-            key={article.link || article.text}
-            date={article.date}
-            title={article.title}
-            link={article.link}
-            text={article.text}
-          />
-        ))}
+        <Loader waitOn={articles.length > 0}>
+          {articles.map((article) => (
+            <Article
+              key={article.link || article.text}
+              date={article.date}
+              title={article.title}
+              link={article.link}
+              text={article.text}
+            />
+          ))}
+        </Loader>
         <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
           <div className="font-bold">Und viele mehr!</div>
         </div>

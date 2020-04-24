@@ -1,6 +1,7 @@
 import React from 'react';
 import Rules from '../components/Rules';
 import useCms from '../util/useCms';
+import Loader from '../components/loader/Loader';
 import StyledMarkdown from '../util/StyledMardown';
 
 const icons = {
@@ -52,10 +53,14 @@ export default function Security() {
 
       <h2 className="text-2xl font-exo2">Die vier Grundregeln</h2>
       <Rules />
-      {securityRules.map((c) => <ContentBlock key={c.title} title={c.title} text={c.text} />)}
+      <Loader waitOn={securityRules.length > 0}>
+        {securityRules.map((c) => <ContentBlock key={c.title} title={c.title} text={c.text} />)}
+      </Loader>
 
       <h2 id="current-news" className="text-2xl font-exo2 mt-10">Wo informiere ich mich am besten?</h2>
-      {furtherInformation.map((i) => <ContentBlock className="leading-relaxed" key={i.title} title={i.title} text={i.text} icon={i.icon} />)}
+      <Loader waitOn={furtherInformation.length > 0}>
+        {furtherInformation.map((i) => <ContentBlock className="leading-relaxed" key={i.title} title={i.title} text={i.text} icon={i.icon} />)}
+      </Loader>
 
       <div className="p-4 bg-kaki font-open-sans mt-10">
         <div className="font-bold">Hinweis</div>
