@@ -9,13 +9,13 @@ export default function Impressum() {
           <p>Angaben gemäß § 5 TMG</p>
           <br />
           <p>
-            Keno Dreßel
+            Tom Graupner & Keno Dreßel
             <br />
-            devize marketing GmbH
+            Andreas-Schubert-Str. 23
             <br />
-            Chaussee Str. 13
+            A-Gebäude
             <br />
-            10115 Berlin
+            01069 Dresden
           </p>
           <br />
           <p>

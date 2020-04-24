@@ -125,9 +125,9 @@ export default function Press() {
           Aktuelle Pressemeldungen und ein Pressekit
         </div>
         <div className="font-open-sans mt-4">
-          Neben vielen lokalen Helden haben unter anderem diese Medien geholfen die QuarantäneHelden bekannt zu machen um noch mehr Hilfesuchende zu
+          Neben vielen lokalen Held*innen haben unter anderem diese Medien geholfen, die QuarantäneHeld*innen bekannt zu machen, um noch mehr Hilfesuchende zu
           unterstützen.
-          Hier findet ihr aktuelle Artikel und Nachrichten.
+          Hier findet Ihr aktuelle Artikel und Nachrichten.
         </div>
         <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex">
           <div>
