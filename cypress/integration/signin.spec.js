@@ -16,7 +16,7 @@ context('SignIn', () => {
 
     it('signin with valid credentials', () => {
       cy.server();
-      cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
+      cy.route('POST', 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo**').as('signInUser'); //TODO: Example for having the full URL, this, however was not used everywhere yet and might not be necesasry at all
 
       cy.get('form input[type="email"]').type(`${verifiedEmailAddress}{enter}`);
       cy.get('form input[type="password"]').type(`${password}{enter}`);
@@ -26,6 +26,8 @@ context('SignIn', () => {
       cy.hash().should('equal', '#/ask-for-help');
     });
 
+    //TODO: This test fails as there is a second call to /getAccountInfo which leads to the fact that a user gets logged in aagain after it was logged out
+    //TODO: This only happens if we do not wait in the previous test. if we wait, the second request does not seem to be executed.
     it('signin with invalid email', () => {
       cy.server();
       cy.route('POST', 'https://www.googleapis.com/**').as('signInUser');
