@@ -1,12 +1,10 @@
-import createAskForHelpPosting from '../util/createAskForHelpPosting';
-
 context('Landing Page', () => {
 
   describe('User is not logged in', () => {
     before(() => {
       // Make sure there is at least one entry
       cy.loginVerified();
-      createAskForHelpPosting('68159');
+      cy.createAskForHelp('68159');
 
       cy.logout();
     });
