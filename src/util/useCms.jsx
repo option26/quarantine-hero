@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as firebase from 'firebase/app';
+import * as Sentry from '@sentry/browser';
 import i18next from 'i18next';
 
 export default function useCms(collectionName) {
@@ -13,7 +14,7 @@ export default function useCms(collectionName) {
 
         contentRef.once('value', (snapshot) => {
           if (snapshot.val() === null) {
-            return reject(new Error('Undefined key'));
+            return reject(new Error(`No content for lang ${lang} in ${collName}`));
           }
           return resolve(contentRef);
         });
@@ -27,7 +28,12 @@ export default function useCms(collectionName) {
           const contentRef = await getContent(collectionName, languages[i]);
           contentRef.on('value', (snapshot) => setContent(snapshot.val()));
           return;
-        } catch (err) { } // eslint-disable-line no-empty
+        } catch (err) {
+          // We did not find any content for all tested languages
+          if (i === languages.length - 1) {
+            Sentry.captureException(new Error(`Ultimately failed to get content: ${err.message}`));
+          }
+        }
       }
     };
 
