@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import StyledMarkdown from '../util/StyledMardown';
+import StyledMarkdown from '../util/StyledMarkdown';
 import useCms from '../util/useCms';
 import Loader from '../components/loader/Loader';
 

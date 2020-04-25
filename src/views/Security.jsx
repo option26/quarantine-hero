@@ -2,7 +2,7 @@ import React from 'react';
 import Rules from '../components/Rules';
 import useCms from '../util/useCms';
 import Loader from '../components/loader/Loader';
-import StyledMarkdown from '../util/StyledMardown';
+import StyledMarkdown from '../util/StyledMarkdown';
 
 const icons = {
   dont_help: require('../assets/dont_help.svg'),

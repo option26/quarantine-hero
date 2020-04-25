@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 
-export default function StyledMardown(props) {
+export default function StyledMarkdown(props) {
   const {
     children,
     options = {
