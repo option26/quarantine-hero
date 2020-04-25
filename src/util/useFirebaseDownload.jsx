@@ -8,8 +8,8 @@ export default function useFirebaseDownload(url) {
   useEffect(() => {
     const getLink = async () => {
       try {
-        const l = await firebase.storage().refFromURL(url).getDownloadURL();
-        setLink(l);
+        const downloadLink = await firebase.storage().refFromURL(url).getDownloadURL();
+        setLink(downloadLink);
       } catch (err) {
         setError(err);
       }
