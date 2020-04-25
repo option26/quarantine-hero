@@ -20,7 +20,7 @@ export default () => {
 
   const resendEmail = async (e) => {
     e.preventDefault();
-    await user.sendEmailVerification({ url: `${baseUrl}/ask-for-help` });
+    await user.sendEmailVerification({ url: `${baseUrl}/#/ask-for-help` });
     setSendVerificationSuccess(true);
   };
 
