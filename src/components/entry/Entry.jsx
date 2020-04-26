@@ -69,6 +69,7 @@ export default function Entry(props) {
     await fb.store.collection('/deleted').doc(id).set({
       collectionName, ...doc.data(),
     });
+    await fb.analytics.logEvent('help_request_deleted');
     setDeleted(true);
     setAttemptingToDelete(false);
     setPopupVisible(true); // trigger the deletion confirmation popup
@@ -79,6 +80,7 @@ export default function Entry(props) {
     const askForHelpDoc = await fb.store.collection('ask-for-help').doc(id).get();
     const data = askForHelpDoc.data();
     await fb.store.collection('solved-posts').doc(id).set(data);
+    await fb.analytics.logEvent('help_request_solved');
     setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
@@ -135,6 +137,7 @@ export default function Entry(props) {
       timestamp: Date.now(),
     };
     await reportedPostsCollection.add(data);
+    await fb.analytics.logEvent('help_request_reported');
     setAttemptingToReport(false);
     return setReported(true);
   };
