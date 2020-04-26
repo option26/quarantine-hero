@@ -58,11 +58,11 @@ export default function Main() {
 
         <ArrowDown onClick={scrollTo} />
 
-        <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full" id="hilfe-buttons">
+        <div className="flex justify-around mx-4 md:mx-0 my-6 md:my-10" id="hilfe-buttons">
           <Link
             data-cy="cta-need-help"
             to="/signup/ask-for-help"
-            className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
+            className="flex justify-center items-center rounded text-white p-3 btn-main bg-primary flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_need_help')}
           >
             <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
@@ -72,7 +72,7 @@ export default function Main() {
           <Link
             data-cy="cta-want-to-help"
             to="/overview"
-            className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
+            className="flex justify-center items-center rounded text-white p-3 btn-main bg-secondary flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_want_to_help')}
           >
             <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
