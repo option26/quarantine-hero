@@ -232,7 +232,7 @@ export default function Entry(props) {
         to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
         data-id={id}
         data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
-        className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
+        className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry hyphens-auto relative ${highlightLeft && 'border-l-4 border-secondary'}`}
         key={id}
         ref={link}
       >
