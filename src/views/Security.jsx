@@ -138,14 +138,7 @@ export default () => (
       Eurem Umkreis, dies zu tun.
     </div>
 
-    <div className="p-4 bg-kaki font-open-sans mt-5">
-      <div className="font-bold">Hinweis</div>
-      Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der
-      Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
-      ausschließlich deren Betreiber*innen verantwortlich.
-    </div>
-
-    <div className="mt-5">
+    <div className="mt-4">
       <div className="font-bold font-open-sans">Quellen</div>
       <span className="font-open-sans mt-2">
         <a
@@ -234,6 +227,13 @@ export default () => (
       >
         Verordnung des Schweizerischen Bundesrats über Maßnahmen des Coronavirus
       </a>
+    </div>
+
+    <div className="p-4 bg-kaki font-open-sans mt-10">
+      <div className="font-bold">Hinweis</div>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der
+      Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
+      ausschließlich deren Betreiber verantwortlich.
     </div>
   </div>
 );
