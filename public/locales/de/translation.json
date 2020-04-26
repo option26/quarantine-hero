@@ -53,14 +53,14 @@
       "searchCurrent": "Aktuelle Anfragen durchsuchen"
     },
     "askForHelp": {
-      "createRequest": "Erstelle eine Anfrage um Helden um Hilfe zu bitten.",
-      "whenSomeoneWantsToHelpExplanation": "Wenn dir jemand helfen möchte, kann er dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an deine E-Mail.\n Alles weitere könnt ihr per E-Mail besprechen.",
+      "createRequest": "Erstelle eine Anfrage um Helden*innen um Hilfe zu bitten.",
+      "whenSomeoneWantsToHelpExplanation": "Wenn Dir jemand helfen möchte, kann er Dich über diese Website kontaktieren und wir leiten die Kontaktanfrage automatisch an Deine E-Mail weiter.\n Alles weitere könnt ihr per E-Mail besprechen.",
       "noRequestsHere": "Bitte stellt hier keine Angebote ein.",
-      "ifYouWantToGetNotified": "Wenn Du Dich benachrichten lassen willst, wenn jemand in deiner Nähe Hilfe benötigt, nutze",
+      "ifYouWantToGetNotified": "Wenn Du Dich benachrichten lassen willst, wenn jemand in Deiner Nähe Hilfe benötigt, nutze",
       "thisFunction": "diese Funktion",
-      "whereAreYou": "Wo bist du?",
-      "whatCanWeDo": "Wobei kann man dir helfen?",
-      "requestIsPublic": "Sobald du deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht einsehbar.",
+      "whereAreYou": "Wo bist Du?",
+      "whatCanWeDo": "Wobei kann man Dir helfen?",
+      "requestIsPublic": "Sobald Du Deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht sichtbar.",
       "askNow": "Jetzt um Hilfe bitten"
     },
     "overview": {
@@ -72,12 +72,12 @@
       }
     },
     "completeOfferHelp": {
-      "mailYouRegistered": "Bitte geben sie die Email ein, mit der sie sich registriert haben",
+      "mailYouRegistered": "Bitte gib Deine E-Mail-Adresse ein, mit der Du Dich registriert hast",
       "youAreHero": "Du bist eine Held*in!",
-      "mailVerified": "Deine Emailadresse wurde verifiziert! Du wirst nun von uns per Email benachrichtigt werden, wenn jemand in",
+      "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
       "anErrorOccured": "Uuups, da ist wohl etwas schief gelaufen",
-      "verificationError": "Leider konnten wir Deine Emailadresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner Email abgelaufen ist. Bitte versuche es erneut.",
+      "verificationError": "Leider konnten wir Deine E-Mail-Adresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner E-Mail abgelaufen ist. Bitte versuche es erneut.",
       "tryAgain": "ERNEUT VERSUCHEN",
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
@@ -87,7 +87,7 @@
       "needsHelp": "Hilfe benötigt",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
-      "noResolvedRequests": "Du hast noch keine Held*innen für deine Gesuche gefunden. Du kannst ein neues Gesuch",
+      "noResolvedRequests": "Du hast noch keine Held*innen für Deine Gesuche gefunden. Du kannst ein neues Gesuch",
       "create": "erstellen",
       "yourNotifications": "Deine Benachrichtigungen",
       "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
@@ -102,7 +102,7 @@
       "title": "Datenschutzerklärung"
     },
     "faq": {
-      "title": "Hier werden Deine wichtigsten Fragen beantwortet!",
+      "title": "Hier werden die häufigsten Fragen beantwortet!",
       "questions": {
         "howDoesItWork": "Wie funktioniert die Plattform QuarantäneHeld*innen?",
         "whereDoesItWork": "Wo funktioniert die Plattform QuarantäneHeld*innen?",
@@ -124,13 +124,13 @@
         "iGetNoAnswers": "Ich erhalte keine Antworten auf meine Anfrage, obwohl die Website anzeigt jemand hätte geantwortet?"
       },
       "answers": {
-        "howDoesItWork": "Auf der Plattform QuarantäneHeld*innen kommen Menschen zusammen, die sich gegenseitig unterstützen. Hier findest Du Anfragen von Personen, die etwas benötigen, aber selbst ihr Zuhause oder ihren Quarantäne-Ort nicht verlassen können. Als Hilfesuchende*r kannst Du hier Anfragen einstellen und Menschen in Deiner Nähe werden informiert.\n\nAls Helfende*r  kannst Du Dir Anfragen in Deiner Nähe anzeigen lassen und diese beantworten. Wenn Du Dich mit Deiner E-Mail Adresse anmeldest und angibst, in welchem Umkreis Du Deine Hilfe anbieten möchtest, wirst Du von uns automatisch per Mail benachrichtigt, sobald jemand Hilfe benötigt. Wir leiten Deine Nachricht an Hilfesuchende weiter, die dann zu Dir Kontakt aufnehmen können. Alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) werden dann direkt und persönlich geklärt.",
+        "howDoesItWork": "Auf der Plattform QuarantäneHeld*innen kommen Menschen zusammen, die sich gegenseitig unterstützen. Hier findest Du Anfragen von Personen, die etwas benötigen, aber selbst ihr Zuhause oder ihren Quarantäne-Ort nicht verlassen können. Als Hilfesuchende*r kannst Du hier Anfragen einstellen und Menschen in Deiner Nähe werden informiert.\n\nAls Helfende*r kannst Du Dir Anfragen in Deiner Nähe anzeigen lassen und diese beantworten. Wenn Du Dich mit Deiner E-Mail Adresse anmeldest und angibst, in welchem Umkreis Du Deine Hilfe anbieten möchtest, wirst Du von uns automatisch per Mail benachrichtigt, sobald jemand Hilfe benötigt. Wir leiten Deine Nachricht an Hilfesuchende weiter, die dann zu Dir Kontakt aufnehmen können. Alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) werden dann direkt und persönlich geklärt.",
         "whereDoesItWork": "QuarantäneHeld*innen ist im gesamten DACH-Raum und in Süd-Tirol verfügbar. Du kannst also Hilfegesuche in Deutschland, Österreich und der Schweiz aufgeben und beantworten.",
         "whichKindOfRequests": "Prinzipiell können alle Anfragen gestellt werden, bei denen Hilfe von außen benötigt wird. Das kann ein Einkauf der nötigsten Lebensmittel, ein Botengang oder eine Erledigung sein.",
         "canICreateRequestsForOthers": "Ja, Du kannst auch Anfragen stellvertretend für jemand anderen stellen. Viele Nutzer*innen von QuarantäneHeld*innen stellen beispielsweise Anfragen für ihre Großeltern, die weiter weg wohnen. Die initiale Kontaktaufnahme läuft in diesem Fall über die angegebene E-Mail-Adresse, danach können Helfende direkt mit den Hilfesuchenden Kontakt aufnehmen.",
         "howToPay": "Handelt es sich bei der Anfrage um einen Einkauf, könnt Ihr selbst absprechen, wie Ihr die Bezahlung des Einkaufs handhabt. Gleichwohl solltet Ihr im Vorhinein absprechen, wie die Übergabe kontaktlos ablaufen kann.",
         "howToBeSafe": "Diese Plattform funktioniert auf Vertrauensbasis. QuarantäneHeld*innen kann für die eingestellten Anfragen keine Haftung übernehmen. Darüber hinaus hat QuarantäneHeld*innen keine Möglichkeit, die beteiligten Personen zu überprüfen. Bitte sprecht Euch daher gut ab und entscheidet selbst, ob Ihr eine Anfrage beantworten wollt, oder wie Übergaben ablaufen sollen. Solltet Ihr Euch zu einem Zeitpunkt unwohl fühlen, sagt das vereinbarte Treffen im Zweifel ab und nehmt bitte Kontakt zu Vertrauenspersonen auf.",
-        "whoCanSeeRequests": "Deine Anfrage und ein ungefährer Ort sind öffentlich einsehbar. Dein Name und Deine E-Mail-Adresse sind nicht öffentlich einsehbar.",
+        "whoCanSeeRequests": "Deine Anfrage und ein ungefährer Ort sind öffentlich einsehbar. Dein Name und Deine E-Mail-Adresse sind nicht öffentlich sichtbar.",
         "howToContact": "Helfende werden per E-Mail informiert, sobald jemand in ihrer Nähe Hilfe benötigt oder können auf QuarantäneHeld*innen nach Anfragen in ihrer Nähe suchen. Über ein Formular schicken sie dann eine Email an Dich. Du kannst dann entscheiden, ob und mit wem Du Kontakt aufnehmen möchtest. Alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) werden dann direkt und persönlich geklärt.",
         "whatToKeepInMind": {
           "preLink": "Um Dich selbst und andere zu schützen haben wir vier Grundregeln ausgearbeitet, die Du unbedingt beachten solltest. Diese und weitere Verweise zu regelmäßig aktualisierten Quellen findest Du ",
@@ -145,15 +145,15 @@
           "url": "/security-tips"
         },
         "doIGetPaid": "Nein. Das Helfen findet auf freiwilliger Basis statt.",
-        "whatAboutSafety": "Bitte stelle stets Deine eigene Sicherheit an erste Stelle und vermeide direkten Kontakt. Solltest Du Dich zu einem Zeitpunkt unwohl fühlen, sagt das vereinbarte Treffen im Zweifel ab und nimm bitte Kontakt zu einer Vertrauenspersonen auf.",
+        "whatAboutSafety": "Bitte stelle stets Deine eigene Sicherheit an erste Stelle und vermeide direkten Kontakt. Solltest Du Dich zu einem Zeitpunkt unwohl fühlen, sag das vereinbarte Treffen im Zweifel ab und nimm bitte Kontakt zu einer Vertrauenspersonen auf.",
         "howCanISupportQhero": {
-          "preLink": "Melde Dich einfach mit Deiner E-Mail Adresse an, sodass Du mitbekommst, wenn Menschen in Deinem Umfeld Hilfe benötigen! Des Weiteren kannst Du QuarantäneHeld*innen unterstützen, indem Du Freund*innen und Verwandten von der Plattform erzählst und unsere Aushänge an geeigneten Stellen platzierst. Diese findest Du in mehreren Sprachen ",
+          "preLink": "Melde Dich einfach mit Deiner E-Mail-Adresse an, sodass Du mitbekommst, wenn Menschen in Deinem Umfeld Hilfe benötigen! Des Weiteren kannst Du QuarantäneHeld*innen unterstützen, indem Du Freund*innen und Verwandten von der Plattform erzählst und unsere Aushänge an geeigneten Stellen platzierst. Diese findest Du in mehreren Sprachen ",
           "link": "hier",
           "postLink": ".",
           "url": "/"
         },
         "howHelpPeopleWithoutInternet": {
-          "preLink": "Du kannst unseren Aushang im Treppenhaus Deiner Wohnung aufhängen. Vorlagen in mehreren Sprachen haben wir dir ",
+          "preLink": "Du kannst unseren Aushang im Treppenhaus Deiner Wohnung aufhängen. Vorlagen in mehreren Sprachen haben wir Dir ",
           "link": "auf der Startseite",
           "postLink": " bereitgestellt.",
           "url": "/"
@@ -176,23 +176,23 @@
     },
     "notifyMe": {
       "beNotified": "Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.",
-      "emailSent": "Wir haben dir eine Email gesendet! Bitte überprüfe dein Postfach und klicke auf den Link in unserer Email! Wir werden dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
-      "yourMail": "Deine Emailadresse",
+      "emailSent": "Wir haben Dir eine E-Mail gesendet! Bitte überprüfe Dein Postfach und klicke auf den Link in unserer E-Mail! Wir werden Dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
+      "yourMail": "Deine E-Mail-Adresse",
       "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!"
     },
     "offerHelp": {
-      "replyToRequest": "Antworte auf die Anfrage und beschreibe wie und wann du helfen kannst.",
+      "replyToRequest": "Antworte auf die Anfrage und beschreibe wie und wann Du helfen kannst.",
       "yourReply": "Deine Antwort",
       "placeholderReply": "Ich kann helfen!",
       "yourEmail": "Deine E-Mail",
       "placeholderEmail": "ich@helfer.de",
-      "privacy": "Wenn Sie das abschicken stimmen Sie zu, dass wir ihre Kontaktdaten an den Anfragensteller weiterleiten.",
+      "privacy": "Wenn Du das abschickst stimmst Du zu, dass wir Deine Kontaktdaten an Hilfesuchende weiterleiten.",
       "submit": "NACHRICHT ABSCHICKEN",
-      "alreadyOffline": "Der Anfragesteller hat die Anfrage bereits wieder offline genommen. Vielen Dank für Deine Unterstützung!",
+      "alreadyOffline": "Der/die Hilfesuchende*r hat die Anfrage bereits wieder offline genommen. Vielen Dank für Deine Unterstützung!",
       "helpSomeoneElse": "ANDEREN LEUTEN HELFEN"
     },
     "success": {
-      "thankYou": "Vielen Dank, wir haben deine Anfrage eingestellt.",
+      "thankYou": "Vielen Dank, wir haben Deine Anfrage eingestellt.",
       "toDashboard": "ZU DEINER ÜBERSICHT"
     },
     "successOffer": {
@@ -201,42 +201,42 @@
     },
     "signIn": {
       "unknownError": "Unerwarteter Fehler beim Anmelden. Bitte versuche es erneut",
-      "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere dich zuerst.",
-      "wrongUserOrPw": "Falsche Email Adresse oder falsches Passwort angegeben.",
-      "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um dein Passwort zurück zu setzen.",
-      "pwResetError": "Fehler beim Zurücksetzen des Passworts. Bist du sicher, dass du deine E-Mail korrekt angegeben hast?",
-      "yourEmail": "Deine Emailadresse",
+      "noUser": "Es existiert kein Nutzer mit dieser Email. Bitte registriere Dich zuerst.",
+      "wrongUserOrPw": "Falsche E-Mail-Adresse oder falsches Passwort angegeben.",
+      "enterEmailForReset": "Bitte fülle das E-Mail Feld aus, um Dein Passwort zurück zu setzen.",
+      "pwResetError": "Fehler beim Zurücksetzen des Passworts. Bist Du sicher, dass Du Deine E-Mail korrekt angegeben hast?",
+      "yourEmail": "Deine E-Mail-Adresse",
       "yourPw": "Dein Passwort",
-      "email": "Email",
+      "email": "E-Mail",
       "password": "Passwort",
       "resetPw": "Passwort zurücksetzen",
       "loginNow": "Jetzt anmelden",
       "registerNow": "Neu registrieren",
-      "pwResetConfirmation": "Eine Email mit Anleitung zum Zurücksetzen deines Passworts wurde dir zugesendet!",
-      "headerText": "Melde Dich mit Deiner E-Mail und deinem Passwort an, um {{reasonForSignin}}.",
+      "pwResetConfirmation": "Eine E-Mail mit Anleitung zum Zurücksetzen Deines Passworts wurde Dir zugesendet!",
+      "headerText": "Melde Dich mit Deiner E-Mail-Adresse und deinem Passwort an, um {{reasonForSignin}}.",
       "reasonForSigninDefault": "eine Hilfeanfrage zu posten",
-      "emailInvalid": "Bitte gib deine korrekte Emailadresse an.",
+      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
       "tooManyRequests": "Das waren zu viele Fehlversuche, bitte versuche es später noch einmal."
     },
     "signUp": {
-      "headerText": "Registriere dich mit deiner E-Mail und einem Passwort um {{reasonForSignup}}.",
+      "headerText": "Registriere Die mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
       "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
       "pwMismatch": "Die Passwörter stimmen nicht überein",
-      "yourEmail": "Deine Emailadresse",
+      "yourEmail": "Deine E-Mail-Adresse",
       "yourPw": "Dein Passwort",
-      "email": "Email",
+      "email": "E-Mail",
       "password": "Passwort",
       "passwordRepeat": "Passwort wiederholen",
       "confirmPassword": "Passwort erneut eingeben",
       "registerNow": "Jetzt registrieren",
-      "emailInUse": "Es existiert bereits ein Account mit dieser Email-Adresse.",
+      "emailInUse": "Es existiert bereits ein Account mit dieser E-Mail-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
       "haveAnAccount": "Ich habe bereits einen Account",
-      "emailInvalid": "Bitte gib deine korrekte Emailadresse an."
+      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an."
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
-      "ItBusy": "Unser IT-Held ist leider gerade beschäftigt, kümmert sich aber um das Problem, sobald Kapazitäten frei werden.",
+      "ItBusy": "Unsere IT-Held*innen sind leider gerade beschäftigt, kümmern sich aber um das Problem, sobald Kapazitäten frei werden.",
       "toHome": "Bring mich zur Startseite"
     }
   },
