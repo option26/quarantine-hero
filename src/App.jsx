@@ -78,7 +78,7 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
         className="mr-4 font-open-sans text-gray-700"
         to="/faq"
       >
-        FAQs
+        {t('components.desktopMenu.FAQs')}
       </Link>
       <Link
         className="mr-4 font-open-sans text-gray-700"

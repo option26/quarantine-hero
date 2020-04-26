@@ -242,7 +242,6 @@
   },
   "components": {
     "desktopMenu": {
-      "yourOverview": "DEINE ÜBERSICHT",
       "myOverview": "Meine Übersicht",
       "requestHelp": "HILFE ANFRAGEN",
       "help": "HELFEN",
@@ -253,8 +252,8 @@
     "sidebar": {
       "home": "Home",
       "askForHelp": "Ich brauche Hilfe",
-      "overview": "Ich möchte helfen",
-      "yourOverview": "Deine Übersicht",
+      "help": "Ich möchte helfen",
+      "myOverview": "Meine Übersicht",
       "FAQs": "FAQs",
       "press": "Presse",
       "legal": "Impressum",
