@@ -213,13 +213,13 @@
       "loginNow": "Jetzt anmelden",
       "registerNow": "Neu registrieren",
       "pwResetConfirmation": "Eine E-Mail mit Anleitung zum Zurücksetzen Deines Passworts wurde Dir zugesendet!",
-      "headerText": "Melde Dich mit Deiner E-Mail-Adresse und deinem Passwort an, um {{reasonForSignin}}.",
+      "headerText": "Melde Dich mit Deiner E-Mail-Adresse und Deinem Passwort an, um {{reasonForSignin}}.",
       "reasonForSigninDefault": "eine Hilfeanfrage zu posten",
       "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
       "tooManyRequests": "Das waren zu viele Fehlversuche, bitte versuche es später noch einmal."
     },
     "signUp": {
-      "headerText": "Registriere Die mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
+      "headerText": "Registriere Dich mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
       "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
       "pwMismatch": "Die Passwörter stimmen nicht überein",
       "yourEmail": "Deine E-Mail-Adresse",
