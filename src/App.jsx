@@ -44,44 +44,44 @@ import Footer from './components/Footer';
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
 
-  // if the user is not logged in or authentication is loading
-  // show only "Login" and "Presse" in top navigation
-  if (isAuthLoading || !user) {
-    return (
-      <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-        <Link
-          className="mr-6 font-open-sans text-gray-700"
-          to="/signin/dashboard"
-        >
-          {t('App.login')}
-        </Link>
-        <Link className="mr-6 font-open-sans text-gray-700" to="/press">{t('App.press')}</Link>
-        <ShareButtons />
-      </div>
-    );
-  }
-
-  // if the user is logged in show
-  // "Meine Übersicht", "Logout", "Dashboard" and "Presse" in top navigation
+  // Depending on the user auth status, show different elements in the top navigation
   return (
     <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
+      {isAuthLoading || !user
+        ? (
+          <Link
+            className="mr-4 font-open-sans text-gray-700"
+            to="/signin/dashboard"
+          >
+            {t('App.login')}
+          </Link>
+        ) : (
+          <>
+            <Link
+              data-cy="nav-my-overview"
+              className="mr-4 font-open-sans text-gray-700"
+              to="/dashboard"
+            >
+              {t('components.desktopMenu.myOverview')}
+            </Link>
+            <button
+              type="button"
+              data-cy="btn-sign-out"
+              className="mr-4 font-open-sans text-gray-700"
+              onClick={signOut}
+            >
+              {t('components.desktopMenu.signOut')}
+            </button>
+          </>
+        )}
       <Link
-        data-cy="nav-my-overview"
-        className="mr-6 font-open-sans text-gray-700"
-        to="/dashboard"
-      >
-        {t('components.desktopMenu.myOverview')}
-      </Link>
-      <button
-        type="button"
-        data-cy="btn-sign-out"
         className="mr-4 font-open-sans text-gray-700"
-        onClick={signOut}
+        to="/faq"
       >
-        {t('components.desktopMenu.signOut')}
-      </button>
+        {t('components.desktopMenu.FAQs')}
+      </Link>
       <Link
-        className="mr-6 font-open-sans text-gray-700"
+        className="mr-4 font-open-sans text-gray-700"
         to="/press"
       >
         {t('App.press')}

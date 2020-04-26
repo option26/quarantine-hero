@@ -60,48 +60,33 @@ export default function Main() {
 
         <div className="flex justify-around my-6 px-2 md:px-0 md:my-10 w-full" id="hilfe-buttons">
           <Link
-            data-cy="cta-want-to-help"
-            to="/overview"
-            className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
-            onClick={() => fb.analytics.logEvent('button_want_to_help')}
-          >
-            <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
-            {t('views.main.buttons.wantToHelp')}
-          </Link>
-          <div className="m-1 md:m-4" />
-          <Link
             data-cy="cta-need-help"
             to="/signup/ask-for-help"
             className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main bg-primary md:flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_need_help')}
           >
-            <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+            <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
             {t('views.main.buttons.needHelp')}
+          </Link>
+          <div className="m-1 md:m-4" />
+          <Link
+            data-cy="cta-want-to-help"
+            to="/overview"
+            className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main bg-secondary md:flex-1 hover:opacity-75"
+            onClick={() => fb.analytics.logEvent('button_want_to_help')}
+          >
+            <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
+            {t('views.main.buttons.wantToHelp')}
           </Link>
         </div>
 
         <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
-          <p className="mb-4 md:leading-7 md:text-justify flex-1">
-            <Trans i18nKey="views.main.explanations.wantToHelp">
-              text
-              {' '}
-              <strong>
-                text
-              </strong>
-              text
-            </Trans>
+          <p className="hyphens-auto md:leading-7 text-justify flex-1">
+            <Trans i18nKey="views.main.explanations.needHelp" />
           </p>
-          <div className="md:m-4" />
-          <p className="md:leading-7 md:text-justify flex-1">
-            <Trans i18nKey="views.main.explanations.needHelp">
-              text
-              <strong>text</strong>
-              text
-              <strong>text</strong>
-              text
-              <strong>text</strong>
-              text
-            </Trans>
+          <div className="m-4" />
+          <p className="hyphens-auto md:leading-7 text-justify flex-1">
+            <Trans i18nKey="views.main.explanations.wantToHelp" />
           </p>
         </div>
       </div>
