@@ -22,7 +22,7 @@ export default () => {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
 
-  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(email, pw);
+  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
 
   if (user) {
     if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
