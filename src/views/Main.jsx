@@ -81,7 +81,7 @@ export default function Main() {
         </div>
 
         <div className="p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
-          <p className="mb-4 md:leading-7 text-justify flex-1">
+          <p className="hyphens-auto md:leading-7 text-justify flex-1">
             <Trans i18nKey="views.main.explanations.needHelp">
               text
               <strong>text</strong>
@@ -92,8 +92,8 @@ export default function Main() {
               text
             </Trans>
           </p>
-          <div className="md:m-4" />
-          <p className="md:leading-7 text-justify flex-1">
+          <div className="m-4" />
+          <p className="hyphens-auto md:leading-7 text-justify flex-1">
             <Trans i18nKey="views.main.explanations.wantToHelp">
               text
               {' '}
