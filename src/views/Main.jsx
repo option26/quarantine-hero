@@ -43,7 +43,24 @@ export default function Main() {
           {t('views.main.bePart')}
           <br />
         </div>
-        <div className="w-full flex justify-center  mt-4 md:mt-12">
+
+        <div className="w-full flex justify-center my-8">
+          <div className="text-right text-xs">
+            Partner der Initiative
+            <br />
+            des Bundesministeriums
+            <br />
+            für Gesundheit
+          </div>
+          <div className="m-2" />
+          <img
+            style={{ height: '54px' }}
+            src={require('../assets/bmg_logo.svg')}
+            alt="zusammen gegen corona logo"
+          />
+        </div>
+
+        <div className="w-full flex justify-center mt-4">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
             {t('views.main.importantNotes.title')}
           </div>
