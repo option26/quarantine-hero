@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -30,6 +31,7 @@ export default function EntryList({ pageSize = 0 }) {
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
+  const windowLocation = useLocation();
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -128,7 +130,7 @@ export default function EntryList({ pageSize = 0 }) {
     } else {
       loadDocuments(buildQuery());
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
     setLocation(address);
