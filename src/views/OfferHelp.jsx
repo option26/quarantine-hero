@@ -42,13 +42,6 @@ export default function OfferHelp() {
     });
   };
 
-  const handleAddressClick = (address) => {
-    history.push({
-      pathname: '/overview',
-      search: `?address=${address}`,
-    });
-  };
-
   const handleSubmit = (e) => {
     // Prevent page reload
     e.preventDefault();
@@ -86,7 +79,6 @@ export default function OfferHelp() {
           responses={entry.responses}
           reportedBy={entry.reportedBy}
           uid={entry.uid}
-          onAddressClick={handleAddressClick}
           report={report}
           showFullText
           highlightLeft

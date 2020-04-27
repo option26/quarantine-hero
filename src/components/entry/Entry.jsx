@@ -116,12 +116,15 @@ export default function Entry(props) {
   };
 
   const handleAddressClick = (e) => {
-    // Only handle if handler is registered
+    e.preventDefault();
+    e.stopPropagation();
     if (onAddressClick) {
-      e.preventDefault();
-      e.stopPropagation();
-
       onAddressClick(location);
+    } else {
+      history.push({
+        pathname: '/overview',
+        search: `?address=${location}`,
+      });
     }
   };
 
@@ -255,7 +258,7 @@ export default function Entry(props) {
             <button
               type="button"
               onClick={handleAddressClick}
-              className={`font-bold ${onAddressClick ? 'address-clickable' : ''}`}
+              className="font-bold address-clickable"
             >
               {location}
             </button>
