@@ -26,7 +26,7 @@ export default function FAQ() {
   const QA = ({ question, children }) => (
     <>
       <h2 className="text-xl font-teaser mt-8">{question}</h2>
-      <p className="font-open-sans">{children}</p>
+      <p className="font-open-sans text-justify">{children}</p>
     </>
   );
 

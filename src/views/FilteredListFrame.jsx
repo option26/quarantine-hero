@@ -54,7 +54,7 @@ export default function FilteredListView() {
               to="/overview"
               className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
             >
-              <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
+              <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
               {t('views.main.buttons.wantToHelp')}
             </Link>
             <div className="m-1" />
@@ -62,7 +62,7 @@ export default function FilteredListView() {
               to="/signup/ask-for-help"
               className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
             >
-              <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+              <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
               {t('views.main.buttons.needHelp')}
             </Link>
           </div>
@@ -90,7 +90,7 @@ export default function FilteredListView() {
                 to="/overview"
                 className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
               >
-                <img className="w-8 mr-1" src={require('../assets/hero.png')} alt="" />
+                <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
                 {t('views.main.buttons.wantToHelp')}
               </Link>
               <div className="mx-1" />
@@ -98,7 +98,7 @@ export default function FilteredListView() {
                 to="/signup/ask-for-help"
                 className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
               >
-                <img className="w-8" src={require('../assets/need_help.png')} alt="" />
+                <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
                 {t('views.main.buttons.needHelp')}
               </Link>
             </div>

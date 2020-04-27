@@ -352,6 +352,10 @@
     border-bottom: 3px solid #222222;
 }
 
+.hyphens-auto {
+    hyphens: auto;
+}
+
 @media only screen and (max-width: 834px) {
     .rwt__tab {
         background: transparent;

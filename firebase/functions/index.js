@@ -157,10 +157,11 @@ async function searchAndSendNotificationEmails() {
           from: 'help@quarantaenehelden.org',
           templateId: 'd-9e0d0ec8eda04c9a98e6cb1edffdac71',
           dynamic_template_data: {
-            subject: 'QuarantäneHelden - Jemand braucht deine Hilfe!',
+            subject: 'QuarantäneHelden - Jemand braucht Deine Hilfe!',
             request: askForHelpSnapData.d.request,
             location: askForHelpSnapData.d.location,
             link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
+            reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
           },
           hideWarnings: true, // removes triple bracket warning
         });

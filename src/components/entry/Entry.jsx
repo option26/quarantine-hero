@@ -31,6 +31,7 @@ export default function Entry(props) {
     responses = 0,
     highlightLeft = false,
     reportedBy = [],
+    report = false,
     uid = '',
   } = props;
 
@@ -46,7 +47,7 @@ export default function Entry(props) {
   const [solved, setSolved] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(false);
   const [attemptingToSolve, setAttemptingToSolve] = useState(false);
-  const [attemptingToReport, setAttemptingToReport] = useState(false);
+  const [attemptingToReport, setAttemptingToReport] = useState(report);
   const [popupVisible, setPopupVisible] = useState(false);
 
   const userIsLoggedIn = !!user && !!user.uid;
@@ -243,7 +244,7 @@ export default function Entry(props) {
         to={entryBelongsToCurrentUser ? '/dashboard' : `/offer-help/${id}`}
         data-id={id}
         data-cy={`ask-for-help-entry${responses > 0 ? '-with-responses' : ''}`}
-        className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry relative ${highlightLeft && 'border-l-4 border-secondary'}`}
+        className={`bg-white px-4 py-2 rounded w-full my-3 text-xl block entry hyphens-auto relative ${highlightLeft && 'border-l-4 border-secondary'}`}
         key={id}
         ref={link}
       >

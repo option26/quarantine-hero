@@ -13,6 +13,7 @@ export default function OfferHelp() {
   const [answer, setAnswer] = useState('');
   const [email, setEmail] = useState('');
   const [deleted, setDeleted] = useState(false);
+  const [report, setReport] = useState(false);
   const [entry, setEntry] = useState({
     id: null,
     uid: null,
@@ -63,7 +64,12 @@ export default function OfferHelp() {
     return history.push('/success-offer');
   };
 
-  useEffect(getUserData, []);
+  useEffect(() => {
+    getUserData();
+    // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    setReport(urlParams.has('report'));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!deleted) {
     return (
@@ -81,6 +87,7 @@ export default function OfferHelp() {
           reportedBy={entry.reportedBy}
           uid={entry.uid}
           onAddressClick={handleAddressClick}
+          report={report}
           showFullText
           highlightLeft
         />
