@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import * as firebase from 'firebase';
 import Loader from '../components/loader/Loader';
+import StatusIndicator from '../components/StatusIndicator';
 
 export default function HandleEmailAction() {
   const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
@@ -55,12 +57,13 @@ function VerifyEmailView({ continueUrl, actionCode }) {
 function ResetPasswordView({ continueUrl, actionCode }) {
   const [tokenInvalid, setTokenInvalid] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const [password, setPassword] = useState('');
   const passwordInput = useRef();
   const passwordRepeatInput = useRef();
 
-  const history = useHistory();
+  const { t } = useTranslation();
 
   const verifyToken = async () => {
     try {
@@ -83,17 +86,17 @@ function ResetPasswordView({ continueUrl, actionCode }) {
       switch (err) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
         case 'auth/invalid-action-token': setTokenInvalid(true); break;
-        case 'auth/weak-password': setError('Pw too short'); break; // TODO i18n
+        case 'auth/weak-password': setError(t('views.emailAction.resetPassword.pwTooShort')); break;
         default: setError(err.message);
       }
     }
 
-    history.push(continueUrl);
+    setSuccess(true);
   };
 
   const comparePasswords = () => {
     if (passwordInput.current.value !== passwordRepeatInput.current.value) {
-      passwordRepeatInput.current.setCustomValidity("Passwords don't match"); //TODO i18n
+      passwordRepeatInput.current.setCustomValidity(t('views.emailActions.resetPassword.pwMismatch'));
     } else {
       passwordRepeatInput.current.setCustomValidity('');
     }
@@ -103,25 +106,31 @@ function ResetPasswordView({ continueUrl, actionCode }) {
 
 
   if (tokenInvalid) {
-    return (
-      <div>Error invalid token</div>
-    );
+    return <StatusIndicator success={false} text={t('views.emailActions.invalidToken')} />;
+  }
+
+  if (success) {
+    return <StatusIndicator success text={t('views.emailActions.resetPassword.success')} continueUrl={continueUrl} continueText={continueUrl && t('views.emailActions.resetPassword.continue')} />;
   }
 
   return (
-    <>
-      <h3 className="text-xl">Reset Password //TODO i18n</h3>
+    <div className="p-4 mt-8">
       <form onSubmit={resetPassword}>
         <div className="mb-4">
+          <div className="font-teaser mb-6">
+            {t('views.emailActions.resetPassword.heading')}
+          </div>
+        </div>
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
-            Passwort // TODO i18n
+            {t('views.emailActions.resetPassword.newPassword')}
           </label>
           <input
             ref={passwordInput}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
             id="password"
             type="password"
-            placeholder="Neues passwort" // TODO i18n
+            placeholder={t('views.emailActions.resetPassword.yourPw')}
             value={password}
             required="required"
             autoComplete="new-password"
@@ -133,7 +142,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
         </div>
         <div className="mb-8">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
-            Passwort wiederholen // TODO i18n
+            {t('views.emailActions.resetPassword.repeatPassword')}
           </label>
           <input
             ref={passwordRepeatInput}
@@ -141,7 +150,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
             id="password_repeat"
             type="password"
             autoComplete="new-password"
-            placeholder="Passwort bestätigen" // TODO i18n
+            placeholder={t('views.emailActions.resetPassword.confirmPassword')}
             required="required"
             onChange={comparePasswords}
           />
@@ -152,11 +161,11 @@ function ResetPasswordView({ continueUrl, actionCode }) {
             className="btn-green w-full"
             type="submit"
           >
-            Passwort ändern // TODO i18n
+            {t('views.emailActions.resetPassword.changePassword')}
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
