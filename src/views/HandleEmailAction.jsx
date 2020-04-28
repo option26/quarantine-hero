@@ -1,38 +1,51 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import * as firebase from 'firebase';
+import * as Sentry from '@sentry/browser';
 import Loader from '../components/loader/Loader';
 import StatusIndicator from '../components/StatusIndicator';
 
 export default function HandleEmailAction() {
-  const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
-  const mode = urlParams.get('mode');
-  const continueUrl = urlParams.get('continueUrl');
-  const actionCode = urlParams.get('oobCode');
+  const location = useLocation();
+  const { t } = useTranslation();
+
+  const [mode, setMode] = useState(undefined);
+  const [continueUrl, setContinueUrl] = useState(undefined);
+  const [actionCode, setActionCode] = useState(undefined);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    setMode(urlParams.get('mode') || undefined);
+    setContinueUrl(urlParams.get('continueUrl') || undefined);
+    setActionCode(urlParams.get('oobCode') || undefined);
+  }, [location]);
 
   switch (mode) {
     case 'verifyEmail': return <VerifyEmailView continueUrl={continueUrl} actionCode={actionCode} />;
     case 'resetPassword': return <ResetPasswordView continueUrl={continueUrl} actionCode={actionCode} />;
     case 'recoverEmail': return <RecoverEmailView continueUrl={continueUrl} actionCode={actionCode} />;
-    default: return <div>error</div>;
+    default: {
+      Sentry.captureException(new Error(`Unknown email handler action: ${mode}`));
+      return <StatusIndicator success={false} text={t('views.emailActions.unknownAction')} />;
+    }
   }
 }
 
 function VerifyEmailView({ continueUrl, actionCode }) {
-  const [loading, setLoading] = useState(true);
-  const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const { t } = useTranslation();
 
-  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [user, isAuthLoading] = useAuthState(firebase.auth());
 
   const verifyEmail = async () => {
     try {
       await firebase.auth().applyActionCode(actionCode);
-
-      history.push(continueUrl);
-    } catch (err) {
       setLoading(false);
+    } catch (err) {
+      setError(true);
     }
   };
 
@@ -46,10 +59,19 @@ function VerifyEmailView({ continueUrl, actionCode }) {
     verifyEmail();
   }, []);
 
+  if (error) {
+    return (
+      <StatusIndicator success={false} text={t('views.emailActions.invalidToken')}>
+        {!isAuthLoading && user && <button type="button" className="btn-green mt-10" onClick={resendVerificationLink}>Resend link</button>}
+      </StatusIndicator>
+    );
+  }
+
   return (
     <Loader waitOn={!loading}>
-      <div>Error during email verification</div>
-      {user && !isAuthLoading && <button type="button" onClick={resendVerificationLink}>Resend link</button>}
+      <StatusIndicator success text={t('views.emailActions.verifyEmail.verificationSuccess')}>
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.verifyEmail.continue')}</Link> : null}
+      </StatusIndicator>
     </Loader>
   );
 }
@@ -58,6 +80,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
   const [tokenInvalid, setTokenInvalid] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [password, setPassword] = useState('');
   const passwordInput = useRef();
@@ -82,6 +105,8 @@ function ResetPasswordView({ continueUrl, actionCode }) {
 
     try {
       await firebase.auth().confirmPasswordReset(actionCode, password);
+
+      setSuccess(true);
     } catch (err) {
       switch (err) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
@@ -90,8 +115,6 @@ function ResetPasswordView({ continueUrl, actionCode }) {
         default: setError(err.message);
       }
     }
-
-    setSuccess(true);
   };
 
   const comparePasswords = () => {
@@ -102,7 +125,13 @@ function ResetPasswordView({ continueUrl, actionCode }) {
     }
   };
 
-  useEffect(() => verifyToken(), [actionCode]);
+  useEffect(() => {
+    const init = async () => {
+      await verifyToken();
+      setLoading(false);
+    };
+    init();
+  }, [actionCode]);
 
 
   if (tokenInvalid) {
@@ -110,76 +139,84 @@ function ResetPasswordView({ continueUrl, actionCode }) {
   }
 
   if (success) {
-    return <StatusIndicator success text={t('views.emailActions.resetPassword.success')} continueUrl={continueUrl} continueText={continueUrl && t('views.emailActions.resetPassword.continue')} />;
+    return (
+      <StatusIndicator success text={t('views.emailActions.resetPassword.success')}>
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.resetPassword.continue')}</Link> : null}
+      </StatusIndicator>
+    );
   }
 
   return (
-    <div className="p-4 mt-8">
-      <form onSubmit={resetPassword}>
-        <div className="mb-4">
-          <div className="font-teaser mb-6">
-            {t('views.emailActions.resetPassword.heading')}
+    <Loader waitOn={!loading}>
+      <div className="p-4 mt-8">
+        <form onSubmit={resetPassword}>
+          <div className="mb-4">
+            <div className="font-teaser mb-6">
+              {t('views.emailActions.resetPassword.heading')}
+            </div>
           </div>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
-            {t('views.emailActions.resetPassword.newPassword')}
-          </label>
-          <input
-            ref={passwordInput}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
-            id="password"
-            type="password"
-            placeholder={t('views.emailActions.resetPassword.yourPw')}
-            value={password}
-            required="required"
-            autoComplete="new-password"
-            onChange={(e) => {
-              comparePasswords();
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div className="mb-8">
-          <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
-            {t('views.emailActions.resetPassword.repeatPassword')}
-          </label>
-          <input
-            ref={passwordRepeatInput}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
-            id="password_repeat"
-            type="password"
-            autoComplete="new-password"
-            placeholder={t('views.emailActions.resetPassword.confirmPassword')}
-            required="required"
-            onChange={comparePasswords}
-          />
-        </div>
-        {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
-        <div className="flex justify-end mt-6">
-          <button
-            className="btn-green w-full"
-            type="submit"
-          >
-            {t('views.emailActions.resetPassword.changePassword')}
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
+              {t('views.emailActions.resetPassword.newPassword')}
+            </label>
+            <input
+              ref={passwordInput}
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
+              id="password"
+              type="password"
+              placeholder={t('views.emailActions.resetPassword.yourPw')}
+              value={password}
+              required="required"
+              autoComplete="new-password"
+              onChange={(e) => {
+                comparePasswords();
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-8">
+            <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
+              {t('views.emailActions.resetPassword.repeatPassword')}
+            </label>
+            <input
+              ref={passwordRepeatInput}
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
+              id="password_repeat"
+              type="password"
+              autoComplete="new-password"
+              placeholder={t('views.emailActions.resetPassword.confirmPassword')}
+              required="required"
+              onChange={comparePasswords}
+            />
+          </div>
+          {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
+          <div className="flex justify-end mt-6">
+            <button
+              className="btn-green w-full"
+              type="submit"
+            >
+              {t('views.emailActions.resetPassword.changePassword')}
+            </button>
+          </div>
+        </form>
+      </div>
+    </Loader>
   );
 }
 
 function RecoverEmailView({ continueUrl, actionCode }) {
+  const { t } = useTranslation();
+
+  const [loading, setLoading] = useState(true);
   const [tokenInvalid, setTokenInvalid] = useState(false);
   const [recoveredEmail, setRecoveredEmail] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
+  const [pwResetSent, setPwResetSent] = useState(false);
   const [error, setError] = useState(false);
-
-  const history = useHistory();
 
   const verifyToken = async () => {
     try {
-      const tokenInfo = await firebase.auth().verifyPasswordResetCode(actionCode);
+      const tokenInfo = await firebase.auth().checkActionCode(actionCode);
       return tokenInfo.data.email;
     } catch (err) {
       setTokenInvalid(true);
@@ -196,56 +233,84 @@ function RecoverEmailView({ continueUrl, actionCode }) {
       switch (err) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
         case 'auth/invalid-action-token': setTokenInvalid(true); break;
-        case 'auth/weak-password': setError('Pw too short'); break; // TODO i18n
-        default: setError(err.message);
+        default: setError(true);
       }
     }
   };
 
   const sendPwResetLink = async () => {
+    try {
+      await firebase.auth().sendPasswordResetEmail(recoveredEmail);
+    } catch (err) {
+      setError(true);
+    }
 
+    setPwResetSent(true);
   };
 
   useEffect(() => {
-    const onInit = async () => {
+    const init = async () => {
       setRecoveredEmail(await verifyToken());
+      setLoading(false);
     };
 
-    onInit();
+    init();
   }, [actionCode]);
 
 
   if (tokenInvalid) {
-    return (
-      <div>Error invalid token</div>
-    );
+    return <StatusIndicator success={false} text={t('views.emailActions.invalidToken')} />;
   }
 
   if (error) {
+    return <StatusIndicator success={false} text={t('views.emailActions.recoverEmail.error')} />;
+  }
+
+  if (pwResetSent) {
     return (
-      <div>
-        An error occured
-        {` ${error} `}
-      </div>
+      <StatusIndicator success text={t('views.emailActions.recoverEmail.pwResetSent')}>
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.resetPassword.continue')}</Link> : null}
+      </StatusIndicator>
     );
   }
 
   if (resetSuccess) {
     return (
-      <div>
-        Do you also want to reset your password?
-        <button type="button" onClick={sendPwResetLink}>Yes, send me a reset link</button>
-        <button type="button" onClick={history.push(continueUrl)}>No, only continue</button>
-      </div>
+      <StatusIndicator success text={t('views.emailActions.recoverEmail.resetSuccess')}>
+        <div className="flex flex-col w-full mt-10">
+          <button className="btn-green w-full mt-2" type="button" onClick={sendPwResetLink}>
+            {t('views.emailActions.recoverEmail.resetPassword')}
+          </button>
+          <Link className="mt-2 btn-green-secondary block w-full" to={continueUrl || '/'}>
+            {t('views.emailActions.recoverEmail.continueNoReset')}
+          </Link>
+        </div>
+      </StatusIndicator>
     );
   }
 
   return (
-    <div>
-      Do you want to revert your email back to
-      {` ${recoveredEmail} `}
-      ?
-      <button type="button" onClick={resetEmail}>Reset Email</button>
-    </div>
+    <Loader waitOn={!loading}>
+      <div className="p-4 mt-8">
+        <div className="mb-4">
+          <div className="font-teaser mb-6">
+            {t('views.emailActions.recoverEmail.heading')}
+          </div>
+        </div>
+        <div className="mb-4">
+          <Trans i18nKey="views.emailActions.recoverEmail.wantRecovery">
+            text
+            <strong>{{ recoveredEmail }}</strong>
+            text
+          </Trans>
+        </div>
+        <button className="btn-green w-full mt-2" type="button" onClick={resetEmail}>
+          {t('views.emailActions.recoverEmail.resetEmail')}
+        </button>
+        <Link className="mt-2 btn-green-secondary block w-full" to="/">
+          {t('views.emailActions.recoverEmail.abortToHome')}
+        </Link>
+      </div>
+    </Loader>
   );
 }
