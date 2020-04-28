@@ -255,6 +255,7 @@
         "pwMismatch": "Die Passwörter stimmen nicht überein",
         "repeatPassword": "Passwort wiederholen",
         "confirmPassword": "Passwort erneut eingeben",
+        "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
         "changePassword": "Passwort ändern",
         "success": "Dein Passwort wurde erfolgreich geändert!",
         "continue": "Weiter"
