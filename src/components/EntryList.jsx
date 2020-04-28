@@ -121,7 +121,7 @@ export default function EntryList({ pageSize = 0 }) {
 
   useEffect(() => {
     // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
-    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    const urlParams = new URLSearchParams(windowLocation.search);
     const address = urlParams.get('address');
 
     if (address) {
