@@ -245,6 +245,26 @@
       "recheckEmail": "Bestätigung überprüfen",
       "resendEmail": "E-Mail erneut senden",
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
+    },
+    "emailActions": {
+      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da dein Token abgelaufen ist. Bitte versuche es erneut.",
+      "resetPassword": {
+        "heading": "Hier kannst Du Dein Passwort zurücksetzen",
+        "newPassword": "Neues Passwort",
+        "yourPw": "Dein Passwort",
+        "pwMismatch": "Die Passwörter stimmen nicht überein",
+        "repeatPassword": "Passwort wiederholen",
+        "confirmPassword": "Passwort erneut eingeben",
+        "changePassword": "Passwort ändern",
+        "success": "Dein Passwort wurde erfolgreich geändert!",
+        "continue": "Weiter"
+      },
+      "verifyEmail": {
+
+      },
+      "recoverEmail": {
+
+      }
     }
   },
   "components": {
