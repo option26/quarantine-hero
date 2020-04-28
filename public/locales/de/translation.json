@@ -248,6 +248,7 @@
     },
     "emailActions": {
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da dein Token abgelaufen ist. Bitte versuche es erneut.",
+      "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist.",
       "resetPassword": {
         "heading": "Hier kannst Du Dein Passwort zurücksetzen",
         "newPassword": "Neues Passwort",
@@ -261,14 +262,27 @@
         "continue": "Weiter"
       },
       "verifyEmail": {
-
+        "verificationSuccess": "Deine E-Mail-Adresse wurde erfolgreich verifiziert!",
+        "continue": "Weiter"
       },
       "recoverEmail": {
-
+        "heading": "E-Mail Änderung rückgängig machen",
+        "abortToHome": "Abbrechen und zurück zur Startseite",
+        "wantRecovery": "Willst Du die Änderung Deiner E-Mail-Adresse rückgängig machen und wieder <strong>{{recoveredEmail}}</strong> verwenden?",
+        "resetEmail": "E-Mail-Adresse zurücksetzen",
+        "resetSuccess": "Deine E-Mail-Adresse wurde erfolgreich zurückgesetzt. Falls Du Sorge hast, dass Dein Passort in falsche Hände gelangt ist, kannst Du es unten zurücksetzten.",
+        "error": "Beim Zurücksetzen deiner E-Mail-Adresse ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        "continueNoReset": "Nein, weiter mit aktuellem Passwort",
+        "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
+        "continue": "Weiter",
+        "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
       }
     }
   },
   "components": {
+    "statusIndicator": {
+      "toHome": "ZUR STARTSEITE"
+    },
     "desktopMenu": {
       "myOverview": "Meine Übersicht",
       "requestHelp": "HILFE ANFRAGEN",
