@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loader.css';
 
-const Loader = () => (
+const Spinner = () => (
   <div className="w-full h-full flex items-center justify-center">
     <div className="lds-ring">
       <div />
@@ -12,4 +12,9 @@ const Loader = () => (
   </div>
 );
 
-export default Loader;
+export default function Loader({ children, waitOn = false }) {
+  if (waitOn) {
+    return children;
+  }
+  return <Spinner />;
+}
