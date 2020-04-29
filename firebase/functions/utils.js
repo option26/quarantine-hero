@@ -72,8 +72,19 @@ async function deleteDocumentWithSubCollections(db, collectionName, documentId) 
   return deleteCollection(db, collectionPath, batchSize);
 }
 
+async function getEntriesOfUser(db, collection, key, uid, useCollectionGroup = false) {
+  let userEntries;
+  if (!useCollectionGroup) {
+    userEntries = await db.collection(collection).where(key, '==', uid).get();
+  } else {
+    userEntries = await db.collectionGroup(collection).where(key, '==', uid).get();
+  }
+  return userEntries;
+}
+
 module.exports = {
   userIdsMatch,
   migrateResponses,
   deleteDocumentWithSubCollections,
+  getEntriesOfUser,
 };
