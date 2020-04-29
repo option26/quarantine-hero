@@ -302,6 +302,9 @@
     "statusIndicator": {
       "toHome": "ZUR STARTSEITE"
     },
+    "deleteAccountButton": {
+      "wrongPassword": "Dein angegebenes Passwort ist leider inkorrekt"
+    },
     "desktopMenu": {
       "myOverview": "Meine Übersicht",
       "requestHelp": "HILFE ANFRAGEN",

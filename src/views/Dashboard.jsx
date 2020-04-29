@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
+import Popup from 'reactjs-popup';
 import {
   Tabs, Tab, TabPanel, TabList,
 } from 'react-web-tabs';
@@ -74,19 +75,6 @@ function Dashboard(props) {
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
-
-  const deleteAccount = async () => {
-    // TODO: Show reassurance dialog and ask for PW
-    const pw = window.prompt('Reenter PW');
-    try {
-      const credentials = await firebase.auth.EmailAuthProvider.credential(user.email, pw);
-      await user.reauthenticateWithCredential(credentials);
-
-      user.delete();
-    } catch (err) {
-      console.log("Error", err);
-    }
-  };
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
@@ -188,9 +176,76 @@ function Dashboard(props) {
         : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
 
       <div className="mt-3">
-        <button type="button" className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" onClick={deleteAccount}>Delete Account</button>
+        <DeleteAccountButton className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
     </div>
+  );
+}
+
+function DeleteAccountButton({ user, className }) {
+  const [error, setError] = useState('');
+  const { t } = useTranslation();
+
+  const deleteAccount = async (e) => {
+    e.preventDefault();
+
+    const pw = new FormData(e.target).get('password');
+
+    try {
+      const credentials = await firebase.auth.EmailAuthProvider.credential(user.email, pw);
+      await user.reauthenticateWithCredential(credentials);
+
+      user.delete();
+    } catch (err) {
+      switch (err.code) {
+        case 'auth/wrong-password': setError(t('components.deleteAccountButton.wrongPassword')); break;
+        default: setError(err.message);
+      }
+    }
+  };
+
+  return (
+    <Popup
+      modal
+      trigger={<button type="button" className={className}>Account löschen</button>}
+      onClose={(e) => e.preventDefault()}
+      lockScroll
+      // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
+      contentStyle={
+        {
+          padding: '0',
+          width: 'auto',
+          borderWidth: '0px',
+          maxWidth: '90%',
+          minWidth: '50%',
+        }
+      }
+    >
+      {(close) => (
+        <div className="flex flex-col p-8 bg-kaki">
+          <div className="font-teaser mb-6">
+            Löschen bestätigen
+          </div>
+          <form onSubmit={deleteAccount}>
+            <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
+              Passwort
+            </label>
+            <input
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
+              id="password_repeat"
+              name="password"
+              type="password"
+              autoComplete="password"
+              placeholder="Passwort erneut eingeben"
+              required="required"
+            />
+            {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
+            <button type="submit" className="mt-4 rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right w-full">Account unwiederuflich löschen</button>
+          </form>
+          <button type="button" className="mt-2 btn-green-secondary" onClick={close}>Abbrechen</button>
+        </div>
+      )}
+    </Popup>
   );
 }
 
