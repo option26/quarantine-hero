@@ -10,7 +10,6 @@ import {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import MailInput from '../components/MailInput';
-import { baseUrl } from '../appConfig';
 
 export default () => {
   const [email, setEmail] = React.useState('');
