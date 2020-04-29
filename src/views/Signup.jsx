@@ -41,7 +41,7 @@ export default () => {
 
     try {
       const signUpResult = await createUserWithEmailAndPassword(email, password);
-      await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl}` });
+      await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
     } catch (err) {
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
