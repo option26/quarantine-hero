@@ -1,5 +1,5 @@
 # Maintainers
-QuarantäneHelden is maintained by the following group of people:
+QuarantineHero is maintained by the following group of people:
 
 **Florian**
 - GitHub [@florianschmidt1994](https://github.com/florianschmidt1994) 
