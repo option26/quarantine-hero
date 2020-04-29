@@ -13,7 +13,7 @@ import Loader from '../components/loader/Loader';
 import buildSha1Hash from '../util/buildHash';
 import useQuery from '../util/useQuery';
 
-export default function CompleteOfferHelp() {
+export default function CompleteNotification() {
   const { t } = useTranslation();
   const queryParams = useQuery();
   const [user] = useAuthState(fb.auth);
@@ -22,9 +22,9 @@ export default function CompleteOfferHelp() {
   const [location, setLocation] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const createOfferHelp = async (loc, placeId, email) => {
+  const createNotification = async (loc, placeId, email) => {
     const geofirestore = new GeoFirestore(fb.store);
-    const offerHelpCollection = geofirestore.collection('/offer-help');
+    const notificationCollection = geofirestore.collection('notifications');
 
     let lat = 0;
     let lng = 0;
@@ -44,7 +44,7 @@ export default function CompleteOfferHelp() {
     }
 
     // Create will work but subsequent updates will fail. This is to prevent duplicates
-    await offerHelpCollection.doc(await buildSha1Hash(`${email}_${plz}`)).set({
+    await notificationCollection.doc(await buildSha1Hash(`${email}_${plz}`)).set({
       email,
       location: loc,
       plz,
@@ -57,12 +57,12 @@ export default function CompleteOfferHelp() {
   };
 
   useEffect(() => {
-    async function completeOfferHelp() {
+    async function completeNotification() {
       const { location: loc, placeId } = queryParams;
 
       setLocation(loc);
       try {
-        await createOfferHelp(loc, placeId, user.email);
+        await createNotification(loc, placeId, user.email);
         setSuccess(true);
       } catch (err) {
         Sentry.captureException(err);
@@ -71,7 +71,7 @@ export default function CompleteOfferHelp() {
     }
 
     if (user) {
-      completeOfferHelp();
+      completeNotification();
     }
   }, [queryParams, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -82,13 +82,13 @@ export default function CompleteOfferHelp() {
   if (!success) {
     return (
       <>
-        <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
+        <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeNotification.anErrorOccured')}</h1>
         <p>
-          {t('views.completeOfferHelp.error')}
+          {t('views.completeNotification.error')}
         </p>
         <div className="flex justify-center flex-col items-center mb-8">
           <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
-          <Link className="btn-green mt-10" to="/notify-me">{t('views.completeOfferHelp.tryAgain')}</Link>
+          <Link className="btn-green mt-10" to="/notify-me">{t('views.completeNotification.tryAgain')}</Link>
         </div>
       </>
     );
@@ -96,17 +96,17 @@ export default function CompleteOfferHelp() {
 
   return (
     <>
-      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.youAreHero')}</h1>
+      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeNotification.youAreHero')}</h1>
       <p>
-        {t('views.completeOfferHelp.mailVerified')}
+        {t('views.completeNotification.mailVerified')}
         {' '}
         <span className="text-secondary">{location}</span>
         {' '}
-        {t('views.completeOfferHelp.needsHelp')}
+        {t('views.completeNotification.needsHelp')}
       </p>
       <div className="flex justify-center flex-col items-center mb-8">
         <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
-        <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
+        <Link className="btn-green mt-10" to="/dashboard">{t('views.completeNotification.toYourOverview')}</Link>
       </div>
     </>
   );
