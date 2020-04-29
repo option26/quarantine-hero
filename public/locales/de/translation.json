@@ -238,6 +238,13 @@
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
       "ItBusy": "Unsere IT-Held*innen sind leider gerade beschäftigt, kümmern sich aber um das Problem, sobald Kapazitäten frei werden.",
       "toHome": "Bring mich zur Startseite"
+    },
+    "verifyEmail": {
+      "confirmEmail": "E-Mail-Addresse bestätigen",
+      "explanation": "Damit potentielle Helfer*innen auf Dich zukommen können, müssen wir sicherstellen, dass Deine E-Mail-Adresse korrekt hinterlegt ist. Bestätige diese bitte, indem Du auf den Link in der E-Mail, welche wir Dir gerade gesendet haben, klickst.",
+      "recheckEmail": "Bestätigung überprüfen",
+      "resendEmail": "E-Mail erneut senden",
+      "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
     }
   },
   "components": {
