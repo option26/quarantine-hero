@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { baseUrl } from '../appConfig';
 
 
 export default () => {
@@ -19,7 +20,7 @@ export default () => {
 
   const resendEmail = async (e) => {
     e.preventDefault();
-    await user.sendEmailVerification();
+    await user.sendEmailVerification({ url: `${baseUrl}/#/ask-for-help` });
     setSendVerificationSuccess(true);
   };
 

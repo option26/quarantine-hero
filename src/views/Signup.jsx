@@ -10,6 +10,7 @@ import {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import MailInput from '../components/MailInput';
+import { baseUrl } from '../appConfig';
 
 export default () => {
   const [email, setEmail] = React.useState('');
@@ -40,7 +41,7 @@ export default () => {
 
     try {
       const signUpResult = await createUserWithEmailAndPassword(email, password);
-      await signUpResult.user.sendEmailVerification();
+      await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl}` });
     } catch (err) {
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
