@@ -10,7 +10,7 @@ import fb from '../firebase';
 import Entry from '../components/entry/Entry';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
-const offerHelpCollection = fb.store.collection('offer-help');
+const notificationCollection = fb.store.collection('notifications');
 const solvedPostsCollection = fb.store.collection('solved-posts');
 
 function Notification(props) {
@@ -19,7 +19,7 @@ function Notification(props) {
     location,
   } = props;
   const onDeleteClick = () => {
-    offerHelpCollection.doc(props.id).delete();
+    notificationCollection.doc(props.id).delete();
   };
 
   return (
@@ -57,7 +57,7 @@ function Dashboard(props) {
     .sort((a, b) => b.timestamp - a.timestamp);
 
   const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
-    offerHelpCollection.where('d.uid', '==', user.uid),
+    notificationCollection.where('d.uid', '==', user.uid),
     { idField: 'id' },
   );
   const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));

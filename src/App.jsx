@@ -30,7 +30,7 @@ import DSGVO from './views/DSGVO';
 import Sidebar from './components/Sidebar';
 import DesktopLowerNavigation from './components/DesktopMenu';
 import VerifyEmail from './views/VerifyEmail';
-import CompleteOfferHelp from './views/CompleteOfferHelp';
+import CompleteNotification from './views/CompleteNotification';
 import NotifyMe from './views/NotifyMe';
 import useScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
@@ -283,9 +283,9 @@ export default function App() {
             <NotifyMe />
           </Page>
         </Route>
-        <Route path="/complete-offer-help">
+        <Route path="/complete-notification">
           <Page>
-            <CompleteOfferHelp />
+            <CompleteNotification />
           </Page>
         </Route>
         <Route exact path="/">

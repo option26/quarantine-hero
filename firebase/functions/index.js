@@ -103,11 +103,11 @@ async function searchAndSendNotificationEmails() {
   const getEligibleHelpOffers = async (askForHelpSnapData) => {
     let queryResult = [];
     if (MAPS_ENABLED) {
-      const offersRef = new GeoCollectionReference(db.collection('offer-help'));
-      const query = offersRef.near({ center: askForHelpSnapData.coordinates, radius: 30 });
+      const notificationsRef = new GeoCollectionReference(db.collection('notifications'));
+      const query = notificationsRef.near({ center: askForHelpSnapData.coordinates, radius: 30 });
       queryResult = (await query.get()).docs.map((doc) => doc.data());
     } else {
-      const offersRef = db.collection('offer-help');
+      const notificationsRef = db.collection('notifications');
       if (!askForHelpSnapData || !askForHelpSnapData.d || !askForHelpSnapData.d.plz) {
         // eslint-disable-next-line no-console
         console.warn('Failed to find plz for ask-for-help ', askForHelpSnapData);
@@ -115,7 +115,7 @@ async function searchAndSendNotificationEmails() {
         const search = askForHelpSnapData.d.plz;
         const start = `${search.slice(0, -3)}000`;
         const end = `${search.slice(0, -3)}999`;
-        const results = await offersRef.orderBy('d.plz').startAt(start).endAt(end).get();
+        const results = await notificationsRef.orderBy('d.plz').startAt(start).endAt(end).get();
         const allPossibleOffers = results.docs
           .map((doc) => ({ id: doc.id, ...doc.data().d }))
           .filter(({ plz }) => plz.length === search.length);
@@ -328,7 +328,7 @@ exports.askForHelpCreate = functions
 exports.regionSubscribeCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/offer-help/{helperId}')
+  .document('/notifications/{helperId}')
   .onCreate(onSubscribeToBeNotifiedCreate);
 
 exports.reportedPostsCreate = functions

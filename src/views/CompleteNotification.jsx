@@ -9,15 +9,15 @@ import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
 
-export default function CompleteOfferHelp() {
+export default function CompleteNotification() {
   const { t } = useTranslation();
   const [isLoading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
   const [error, setError] = useState(undefined);
 
-  const createOfferHelp = async (loc, placeId, email) => {
+  const createNotification = async (loc, placeId, email) => {
     const geofirestore = new GeoFirestore(fb.store);
-    const offerHelpCollection = geofirestore.collection('/offer-help');
+    const notificationCollection = geofirestore.collection('notifications');
     let lat = 0;
     let lng = 0;
     let plz = loc;
@@ -35,7 +35,7 @@ export default function CompleteOfferHelp() {
       lng = coordinates.lng;
     }
 
-    await offerHelpCollection.add({
+    await notificationCollection.add({
       email,
       location: loc,
       plz,
@@ -66,7 +66,7 @@ export default function CompleteOfferHelp() {
         // this might happen e.g. if the user signs up on his desktop pc and clicks the confirmation
         // link in his mobile phones email client.
         // eslint-disable-next-line no-alert
-        email = window.prompt(t('views.completeOfferHelp.mailYouRegistered'));
+        email = window.prompt(t('views.completeNotification.mailYouRegistered'));
       }
 
       try {
@@ -74,11 +74,11 @@ export default function CompleteOfferHelp() {
         window.localStorage.removeItem('emailForSignIn');
 
         const urlParams = new URLSearchParams(window.location.hash);
-        const loc = urlParams.get('#/complete-offer-help?location');
-        const placeId = urlParams.get('#/complete-offer-help?placeId');
+        const loc = urlParams.get('#/complete-notification?location');
+        const placeId = urlParams.get('#/complete-notification?placeId');
 
         setLocation(loc);
-        createOfferHelp(loc, placeId, email);
+        createNotification(loc, placeId, email);
       } catch (err) {
         setError(err);
       }
@@ -94,29 +94,29 @@ export default function CompleteOfferHelp() {
       {isLoading && <Loader />}
       {!isLoading && error && (
         <>
-          <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
+          <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeNotification.anErrorOccured')}</h1>
           <p>
-            {t('views.completeOfferHelp.verificationError')}
+            {t('views.completeNotification.verificationError')}
           </p>
           <div className="flex justify-center flex-col items-center mb-8">
             <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
-            <Link className="btn-green mt-10" to="/notify-me">{t('views.completeOfferHelp.tryAgain')}</Link>
+            <Link className="btn-green mt-10" to="/notify-me">{t('views.completeNotification.tryAgain')}</Link>
           </div>
         </>
       )}
       {!isLoading && !error && (
         <>
-          <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.youAreHero')}</h1>
+          <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeNotification.youAreHero')}</h1>
           <p>
-            {t('views.completeOfferHelp.mailVerified')}
+            {t('views.completeNotification.mailVerified')}
             {' '}
             <span className="text-secondary">{location}</span>
             {' '}
-            {t('views.completeOfferHelp.needsHelp')}
+            {t('views.completeNotification.needsHelp')}
           </p>
           <div className="flex justify-center flex-col items-center mb-8">
             <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
-            <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
+            <Link className="btn-green mt-10" to="/dashboard">{t('views.completeNotification.toYourOverview')}</Link>
           </div>
         </>
       )}

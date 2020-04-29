@@ -22,7 +22,7 @@ export default function NotifyMe() {
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: `${baseUrl}/#/complete-offer-help?location=${location}&placeId=${placeId}&email=${email}`,
+        url: `${baseUrl}/#/complete-notification?location=${location}&placeId=${placeId}&email=${email}`,
         handleCodeInApp: true,
       });
       fb.analytics.logEvent('success_subscribe_region');

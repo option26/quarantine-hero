@@ -71,7 +71,7 @@
         "postBreak": "Drucke <1>diesen Aushang</1>."
       }
     },
-    "completeOfferHelp": {
+    "completeNotification": {
       "mailYouRegistered": "Bitte gib Deine E-Mail-Adresse ein, mit der Du Dich registriert hast",
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
