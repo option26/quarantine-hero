@@ -15,7 +15,7 @@ sgMail.setApiKey(sgMailApiKey);
 
 const REGION_EUROPE_WEST_1 = 'europe-west1';
 const MAX_RESULTS = 30;
-const MAPS_ENABLED = false;
+const MAPS_ENABLED = true;
 const MINIMUM_NOTIFICATION_DELAY = 20;
 const SEND_EMAILS = sgMailApiKey !== null;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
