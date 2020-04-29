@@ -111,7 +111,7 @@ await sgMail.send({
   },
   templateId: 'd-ed9746e4ff064676b7df121c81037fab',
   dynamic_template_data: {
-    subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+    subject: 'QuarantäneHeld*Innen - Jemand hat Dir geschrieben!',
     answer,
     email,
     request,
