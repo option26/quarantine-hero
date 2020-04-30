@@ -72,7 +72,6 @@
       }
     },
     "completeOfferHelp": {
-      "mailYouRegistered": "Bitte gib Deine E-Mail-Adresse ein, mit der Du Dich registriert hast",
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
@@ -250,6 +249,13 @@
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da dein Token abgelaufen ist. Bitte versuche es erneut.",
       "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist.",
       "continue": "Weiter",
+      "signIn": {
+        "invalidEmail": "Die angegebene E-Mail-Adresse ist ungültig. Bitte versuche es erneut",
+        "invalidLink": "Die Aktion kann leider nich durgeführt werden, da der benutze Link ungülig ist",
+        "mailYouRegistered": "Bitte gib die E-Mail-Adresse ein, mit der Du Dich registriert hast",
+        "yourEmail": "Deine E-Mail-Adresse",
+        "email": "E-Mail-Adresse"
+      },
       "resetPassword": {
         "heading": "Hier kannst Du Dein Passwort zurücksetzen",
         "newPassword": "Neues Passwort",
