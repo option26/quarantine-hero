@@ -1,4 +1,4 @@
-# QuarantineHero
+# QuarantineHeros
 <img src="qhero_icon.png" align="right" width="60"/>
 At quarantaenehelden.org we created a platform for people to support those in their community who might need a little extra help during this time of quarantine. The platform connects people who need help or cannot leave their homes, with those in their neighborhood who are able to run errands, deliver groceries, take pets on walks, and other tasks. On our website, you can register to ask for help or to provide help for others. Let's support those in our community!
 
@@ -111,7 +111,7 @@ await sgMail.send({
   },
   templateId: 'd-ed9746e4ff064676b7df121c81037fab',
   dynamic_template_data: {
-    subject: 'QuarantäneHeld*Innen - Jemand hat Dir geschrieben!',
+    subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
     answer,
     email,
     request,
