@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import * as Sentry from '@sentry/browser';
 import Loader from '../components/loader/Loader';
 import StatusIndicator from '../components/StatusIndicator';
+import { baseUrl } from '../appConfig';
 
 export default function HandleEmailAction() {
   const location = useLocation();
@@ -18,7 +19,8 @@ export default function HandleEmailAction() {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     setMode(urlParams.get('mode') || undefined);
-    setContinueUrl(urlParams.get('continueUrl') || undefined);
+    // Firebase requires the continue URL to have a domain part. As we use Links for routing, we strip the domain part off.
+    setContinueUrl(urlParams.get('continueUrl').split('#')[1] || undefined);
     setActionCode(urlParams.get('oobCode') || undefined);
   }, [location]);
 
@@ -38,6 +40,7 @@ function VerifyEmailView({ continueUrl, actionCode }) {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
   const [user, isAuthLoading] = useAuthState(firebase.auth());
 
   const verifyEmail = async () => {
@@ -49,9 +52,15 @@ function VerifyEmailView({ continueUrl, actionCode }) {
     }
   };
 
-  const resendVerificationLink = () => {
+  const resendVerificationLink = async () => {
     if (user) {
-      user.sendEmailVerification();
+      try {
+        // ContinueURL already contains trailing '/' so we don't need to add it
+        await user.sendEmailVerification({ url: `${baseUrl}/#${continueUrl}` });
+        setResendSuccess(true);
+      } catch (err) {
+        Sentry.captureException(err);
+      }
     }
   };
 
@@ -59,10 +68,21 @@ function VerifyEmailView({ continueUrl, actionCode }) {
     verifyEmail();
   }, []);
 
+  if (resendSuccess) {
+    return (
+      <StatusIndicator success text={t('views.emailActions.verifyEmail.emailResent')}>
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.continue')}</Link> : null}
+      </StatusIndicator>
+    );
+  }
+
   if (error) {
     return (
       <StatusIndicator success={false} text={t('views.emailActions.invalidToken')}>
-        {!isAuthLoading && user && <button type="button" className="btn-green mt-10" onClick={resendVerificationLink}>Resend link</button>}
+        <div className="flex flex-col">
+          {!isAuthLoading && user && <button type="button" className="btn-green mt-10" onClick={resendVerificationLink}>{t('views.emailActions.verifyEmail.resendEmail')}</button>}
+          <Link className="btn-green-secondary mt-2" to="/">{t('views.emailActions.verifyEmail.toHome')}</Link>
+        </div>
       </StatusIndicator>
     );
   }
@@ -70,7 +90,7 @@ function VerifyEmailView({ continueUrl, actionCode }) {
   return (
     <Loader waitOn={!loading}>
       <StatusIndicator success text={t('views.emailActions.verifyEmail.verificationSuccess')}>
-        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.verifyEmail.continue')}</Link> : null}
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.continue')}</Link> : null}
       </StatusIndicator>
     </Loader>
   );
@@ -141,7 +161,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
   if (success) {
     return (
       <StatusIndicator success text={t('views.emailActions.resetPassword.success')}>
-        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.resetPassword.continue')}</Link> : null}
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.continue')}</Link> : null}
       </StatusIndicator>
     );
   }
@@ -269,7 +289,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
   if (pwResetSent) {
     return (
       <StatusIndicator success text={t('views.emailActions.recoverEmail.pwResetSent')}>
-        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.resetPassword.continue')}</Link> : null}
+        {continueUrl ? <Link className="btn-green mt-10" to={continueUrl}>{t('views.emailActions.continue')}</Link> : null}
       </StatusIndicator>
     );
   }
