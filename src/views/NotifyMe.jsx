@@ -18,13 +18,12 @@ export default function NotifyMe() {
     // Prevent page reload
     e.preventDefault();
 
-    window.localStorage.setItem('emailForSignIn', email);
-
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
         url: `${baseUrl}/#/complete-offer-help?location=${location}&placeId=${placeId}&email=${email}`,
         handleCodeInApp: true,
       });
+      window.localStorage.setItem('emailForSignIn', email);
       fb.analytics.logEvent('success_subscribe_region');
 
       setSignInLinkSent(true);
