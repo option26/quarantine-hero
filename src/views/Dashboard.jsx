@@ -208,7 +208,6 @@ function DeleteAccountButton({ user, className }) {
     <Popup
       modal
       trigger={<button type="button" className={className}>Account löschen</button>}
-      onClose={(e) => e.preventDefault()}
       lockScroll
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
       contentStyle={
