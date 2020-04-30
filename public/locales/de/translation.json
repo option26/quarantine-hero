@@ -249,6 +249,7 @@
     "emailActions": {
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da dein Token abgelaufen ist. Bitte versuche es erneut.",
       "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist.",
+      "continue": "Weiter",
       "resetPassword": {
         "heading": "Hier kannst Du Dein Passwort zurücksetzen",
         "newPassword": "Neues Passwort",
@@ -258,12 +259,13 @@
         "confirmPassword": "Passwort erneut eingeben",
         "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
         "changePassword": "Passwort ändern",
-        "success": "Dein Passwort wurde erfolgreich geändert!",
-        "continue": "Weiter"
+        "success": "Dein Passwort wurde erfolgreich geändert!"
       },
       "verifyEmail": {
         "verificationSuccess": "Deine E-Mail-Adresse wurde erfolgreich verifiziert!",
-        "continue": "Weiter"
+        "resendEmail": "E-Mail erneut senden",
+        "emailResent": "Wir haben Dir erneut eine E-Mail mit Verifizierungslink geschickt",
+        "toHome": "Zur Startseite"
       },
       "recoverEmail": {
         "heading": "E-Mail Änderung rückgängig machen",
@@ -274,7 +276,6 @@
         "error": "Beim Zurücksetzen deiner E-Mail-Adresse ist ein Fehler aufgetreten. Bitte versuche es erneut.",
         "continueNoReset": "Nein, weiter mit aktuellem Passwort",
         "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
-        "continue": "Weiter",
         "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
       }
     }
