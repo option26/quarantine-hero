@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation, Trans } from 'react-i18next';
 import * as firebase from 'firebase';
+import Popup from 'reactjs-popup';
 import * as Sentry from '@sentry/browser';
 import Loader from '../components/loader/Loader';
 import StatusIndicator from '../components/StatusIndicator';
@@ -12,27 +13,136 @@ export default function HandleEmailAction() {
   const location = useLocation();
   const { t } = useTranslation();
 
-  const [mode, setMode] = useState(undefined);
-  const [continueUrl, setContinueUrl] = useState(undefined);
-  const [actionCode, setActionCode] = useState(undefined);
+  const [urlParams, setUrlParams] = useState(undefined);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    setMode(urlParams.get('mode') || undefined);
+    // Becasue signInWithEmail links put the query parameters in front of the hash, we need to retrieve both ways here
+    const paramObj = {};
+    const paramArray = [...new URLSearchParams(location.search).entries(), ...new URLSearchParams(window.location.search)];
+    for (let i = 0; i < paramArray.length; i += 1) {
+      const [key, value] = paramArray[i];
+      paramObj[key] = value;
+    }
+
     // Firebase requires the continue URL to have a domain part. As we use Links for routing, we strip the domain part off.
-    setContinueUrl(urlParams.get('continueUrl').split('#')[1] || undefined);
-    setActionCode(urlParams.get('oobCode') || undefined);
+    paramObj.continueUrl = paramObj.continueUrl && paramObj.continueUrl.split('#')[1];
+    setUrlParams(paramObj);
   }, [location]);
 
-  switch (mode) {
-    case 'verifyEmail': return <VerifyEmailView continueUrl={continueUrl} actionCode={actionCode} />;
-    case 'resetPassword': return <ResetPasswordView continueUrl={continueUrl} actionCode={actionCode} />;
-    case 'recoverEmail': return <RecoverEmailView continueUrl={continueUrl} actionCode={actionCode} />;
-    default: {
-      Sentry.captureException(new Error(`Unknown email handler action: ${mode}`));
-      return <StatusIndicator success={false} text={t('views.emailActions.unknownAction')} />;
+  if (urlParams) {
+    switch (urlParams.mode) {
+      case 'signIn': return <SignInView continueUrl={urlParams.continueUrl} />;
+      case 'verifyEmail': return <VerifyEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
+      case 'resetPassword': return <ResetPasswordView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
+      case 'recoverEmail': return <RecoverEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
+      default: {
+        Sentry.captureException(new Error(`Unknown email handler action: ${urlParams.mode}`));
+        return <StatusIndicator success={false} text={t('views.emailActions.unknownAction')} />;
+      }
     }
   }
+
+  return <Loader />;
+}
+
+function SignInView({ continueUrl }) {
+  const { t } = useTranslation();
+  const history = useHistory();
+
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState(window.localStorage.getItem('emailForSignIn'));
+
+  const verifyUrl = () => {
+    if (!firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      setError(t('views.emailAction.signIn.invalidLink'));
+    }
+  };
+
+  const finishSignIn = async () => {
+    try {
+      await firebase.auth().signInWithEmailLink(email, window.location.href);
+
+      // Remove query params in front of hash
+      window.history.replaceState(null, null, window.location.pathname);
+      history.replace(continueUrl || '/');
+    } catch (err) {
+      switch (err.code) {
+        case 'auth/invalid-action-code': setError(t('views.emailAction.invalidToken')); break;
+        case 'auth/invalid-email': setError(t('views.emailAction.signIn.invalidEmail')); break;
+        default: setError(err.message);
+      }
+
+      Sentry.captureException(err);
+    }
+
+    window.localStorage.removeItem('emailForSignIn');
+  };
+
+  useEffect(() => {
+    verifyUrl();
+    setIsLoading(false);
+  }, []); // eslint-disable react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (email) {
+      finishSignIn();
+    }
+  }, [email]);
+
+  if (error) {
+    return <StatusIndicator success={false} text={error} />;
+  }
+
+  return (
+    <>
+      <Popup
+        modal
+        open={!isLoading && !email}
+        lockScroll
+        // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
+        contentStyle={
+          {
+            padding: '0',
+            width: 'auto',
+            borderWidth: '0px',
+            maxWidth: '90%',
+            minWidth: '30%',
+          }
+        }
+      >
+        {(close) => (
+          <div className="flex flex-col p-8 bg-kaki">
+            <div className="font-teaser mb-6">
+              {t('views.emailActions.signIn.mailYouRegistered')}
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setEmail(new FormData(e.target).get('email'));
+                close();
+              }}
+            >
+              <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="email">
+                {t('views.emailActions.signIn.email')}
+              </label>
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder={t('views.emailActions.signIn.yourEmail')}
+                required="required"
+              />
+              <button type="submit" className="mt-4 btn-green w-full">{t('views.emailActions.continue')}</button>
+            </form>
+          </div>
+        )}
+      </Popup>
+      <Loader />
+    </>
+  );
 }
 
 function VerifyEmailView({ continueUrl, actionCode }) {
@@ -128,7 +238,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
 
       setSuccess(true);
     } catch (err) {
-      switch (err) {
+      switch (err.code) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
         case 'auth/invalid-action-token': setTokenInvalid(true); break;
         case 'auth/weak-password': setError(t('views.emailAction.resetPassword.pwTooShort')); break;
@@ -250,7 +360,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
 
       setResetSuccess(true);
     } catch (err) {
-      switch (err) {
+      switch (err.code) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
         case 'auth/invalid-action-token': setTokenInvalid(true); break;
         default: setError(true);
