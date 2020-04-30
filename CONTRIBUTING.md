@@ -1,4 +1,4 @@
-# Contributing to QuarantäneHelden
+# Contributing to QuarantineHeros
 We really appreciate your help! We want to make contributing to this project as easy and transparent as possible, whether it's:
  - Reporting bugs
  - Proposing new features
@@ -36,6 +36,6 @@ When you submit code changes, your changes are understood to be under the same A
 Feel free to contact the maintainers if that's a concern!
 
 ## Thank you
-Thank you for considering to contribute to QuarantäneHelden! We are a group of people wanting to help out in those crazy times!
+Thank you for considering to contribute to QuarantineHeros! We are a group of people wanting to help out in those crazy times!
 We greatly appreciate everybody who supports us in building a platform that connects people who want to help
 with those who need help!

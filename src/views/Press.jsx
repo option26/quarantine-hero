@@ -146,7 +146,7 @@ export default function Press() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              QuarantaeneHelden.zip
+              QuarantaeneHeld*innen.zip
             </a>
             <div>
               Pressekontakt:

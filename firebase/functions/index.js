@@ -45,7 +45,7 @@ async function onOfferHelpCreate(snap) {
       from: email,
       templateId: 'd-ed9746e4ff064676b7df121c81037fab',
       dynamic_template_data: {
-        subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+        subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
         answer,
         email,
         request,
@@ -61,7 +61,7 @@ async function onOfferHelpCreate(snap) {
           },
           templateId: 'd-ed9746e4ff064676b7df121c81037fab',
           dynamic_template_data: {
-            subject: 'QuarantäneHelden - Jemand hat dir geschrieben!',
+            subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
             answer,
             email,
             request,
@@ -157,7 +157,7 @@ async function searchAndSendNotificationEmails() {
           from: 'help@quarantaenehelden.org',
           templateId: 'd-9e0d0ec8eda04c9a98e6cb1edffdac71',
           dynamic_template_data: {
-            subject: 'QuarantäneHelden - Jemand braucht Deine Hilfe!',
+            subject: 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!',
             request: askForHelpSnapData.d.request,
             location: askForHelpSnapData.d.location,
             link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,

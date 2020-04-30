@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from 'react-i18next';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { baseUrl } from '../appConfig';
@@ -9,6 +10,8 @@ import { baseUrl } from '../appConfig';
 export default () => {
   const [sendVerificationSuccess, setSendVerificationSuccess] = React.useState(false);
   const [user, isAuthLoading] = useAuthState(firebase.auth());
+
+  const { t } = useTranslation();
 
   if (!user && !isAuthLoading) {
     return <Redirect to="/signup" />;
@@ -38,21 +41,20 @@ export default () => {
 
   return (
     <div>
-      <h1 className="font-teaser py-4 pt-10">E-Mail Addresse bestätigen</h1>
+      <h1 className="font-teaser py-4 pt-10">{t('views.verifyEmail.confirmEmail')}</h1>
       <div className="font-open-sans">
-        Damit potentielle Helfer*innen auf dich zukommen können, müssen wir sicherstellen, dass deine E-Mail Adresse korrekt hinterlegt ist.
-        Bestätige diese bitte indem du auf den Link in der E-Mail, welche wir dir gerade gesendet haben, klickst.
+        {t('views.verifyEmail.explanation')}
       </div>
 
       <button type="button" onClick={recheckEmail} className="btn-green w-full mt-8">
-        Bestätigung überprüfen
+        {t('views.verifyEmail.recheckEmail')}
       </button>
 
       <button type="button" onClick={resendEmail} className="btn-green-secondary w-full mt-4">
-        E-Mail erneut senden
+        {t('views.verifyEmail.resendEmail')}
       </button>
 
-      {sendVerificationSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">Eine Email mit Bestätigungs-Link wurde dir zugesendet!</div>}
+      {sendVerificationSuccess && <div className="my-5 bg-yellow-100 border rounded p-2 px-4 text-gray-800">{t('views.verifyEmail.resendSuccess')}</div>}
     </div>
   );
 };
