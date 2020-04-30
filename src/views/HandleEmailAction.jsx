@@ -66,7 +66,7 @@ function VerifyEmailView({ continueUrl, actionCode }) {
 
   useEffect(() => {
     verifyEmail();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (resendSuccess) {
     return (
@@ -151,7 +151,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
       setLoading(false);
     };
     init();
-  }, [actionCode]);
+  }, [actionCode]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   if (tokenInvalid) {
@@ -275,7 +275,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
     };
 
     init();
-  }, [actionCode]);
+  }, [actionCode]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   if (tokenInvalid) {
