@@ -39,7 +39,7 @@ export default function Entry(props) {
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
 
-  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de }); // @TODO get locale from i18n.language or use i18n for formatting
+  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de, addSuffix: true }); // @TODO get locale from i18n.language or use i18n for formatting
   const [responsesVisible, setResponsesVisible] = useState(false);
 
   const [deleted, setDeleted] = useState(false);
@@ -301,11 +301,7 @@ export default function Entry(props) {
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <div className="flex flex-row justify-between items-center mt-4 mb-2">
           <div className="text-xs text-secondary mr-1 font-bold">{mayDeleteEntryAndSeeResponses ? '' : numberOfResponsesText}</div>
-          <span className="text-gray-500 inline-block text-right text-xs font-open-sans">
-            {t('components.entry.before')}
-            {' '}
-            {date}
-          </span>
+          <span className="text-gray-500 inline-block text-right text-xs font-open-sans">{date}</span>
         </div>
         {buttonBar}
       </Link>

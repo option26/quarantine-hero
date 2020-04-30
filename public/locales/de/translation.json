@@ -274,7 +274,6 @@
       "repliesReceived": "Antworten erhalten",
       "somebodyAt": "Jemand in",
       "needsHelp": "braucht Hilfe!",
-      "before": "vor",
       "message": "{{count}} Nachricht",
       "message_plural": "{{count}} Nachrichten",
       "deleteRequestForHelp": "Löschen",
