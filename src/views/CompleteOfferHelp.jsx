@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import * as Sentry from '@sentry/browser';
 import { GeoFirestore } from 'geofirestore';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +16,12 @@ export default function CompleteOfferHelp() {
 
   const [isLoading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState(false);
 
   const createOfferHelp = async (loc, placeId, email) => {
-    // TODO: Check if entry exists, if yes, show error
-
     const geofirestore = new GeoFirestore(fb.store);
     const offerHelpCollection = geofirestore.collection('/offer-help');
+
     let lat = 0;
     let lng = 0;
     let plz = loc;
@@ -39,7 +39,8 @@ export default function CompleteOfferHelp() {
       lng = coordinates.lng;
     }
 
-    await offerHelpCollection.add({
+    // Create will work but subsequent updates will fail. This is to prevent duplicates
+    await offerHelpCollection.doc(`${email}_${plz}`).set({
       email,
       location: loc,
       plz,
@@ -59,7 +60,12 @@ export default function CompleteOfferHelp() {
       const placeId = urlParams.get('placeId');
 
       setLocation(loc);
-      await createOfferHelp(loc, placeId, email);
+      try {
+        await createOfferHelp(loc, placeId, email);
+      } catch (err) {
+        Sentry.captureException(err);
+        setError(true);
+      }
       setLoading(false);
     }
 
@@ -74,7 +80,7 @@ export default function CompleteOfferHelp() {
             <>
               <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
               <p>
-                {t('views.completeOfferHelp.verificationError')}
+                {t('views.completeOfferHelp.error')}
               </p>
               <div className="flex justify-center flex-col items-center mb-8">
                 <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
