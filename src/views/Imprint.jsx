@@ -10,7 +10,7 @@ export default function Imprint() {
           <p>Angaben gemäß § 5 TMG</p>
           <br />
           <p>
-            Tom Graupner & Keno Dreßel
+            Tom Graupner &amp; Keno Dreßel
             <br />
             Andreas-Schubert-Str. 23
             <br />
@@ -83,12 +83,17 @@ export default function Imprint() {
             <br />
             Als Betreiber*innen möchten wir darauf hinweisen, dass der Quellcode dieser Website als Open Source Projekt
             unter folgender Adresse veröffentlicht wurde:&nbsp;
-            <Link to="https://github.com/kenodressel/quarantine-hero">
+            <a
+              className="text-secondary hover:underline block"
+              href="https://github.com/kenodressel/quarantine-hero"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               https://github.com/kenodressel/quarantine-hero
-            </Link>
+            </a>
             <br />
             <br />
-            Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter
+            Soweit die Inhalte auf dieser Seite nicht von den Betreiber*innen erstellt wurden, werden die Urheberrechte Dritter
             beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
             Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von
             Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
