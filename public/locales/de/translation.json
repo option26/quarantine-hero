@@ -76,7 +76,7 @@
       "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
       "anErrorOccured": "Uuups, da ist wohl etwas schief gelaufen",
-      "verificationError": "Leider konnten wir Deine E-Mail-Adresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner E-Mail abgelaufen ist. Bitte versuche es erneut.",
+      "error": "Leider konnten wir die Benachrichtung nicht erstellen. Das kann zum Beispiel daran liegen, dass Du bereits eine aktive Benachrichtigung für dieses Gebiet hast oder dass ein Fehler beim Erstellen aufgetreten ist. Falls Du noch keine Benachrichtigung in diesem Gebiet erstellt hast, versuch es bitte erneut.",
       "tryAgain": "ERNEUT VERSUCHEN",
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
