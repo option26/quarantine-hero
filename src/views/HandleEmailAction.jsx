@@ -55,7 +55,7 @@ function SignInView({ continueUrl }) {
 
   const verifyUrl = () => {
     if (!firebase.auth().isSignInWithEmailLink(window.location.href)) {
-      setError(t('views.emailAction.signIn.invalidLink'));
+      setError(t('views.emailActions.signIn.invalidLink'));
     }
   };
 
@@ -68,8 +68,8 @@ function SignInView({ continueUrl }) {
       history.replace(continueUrl || '/');
     } catch (err) {
       switch (err.code) {
-        case 'auth/invalid-action-code': setError(t('views.emailAction.invalidToken')); break;
-        case 'auth/invalid-email': setError(t('views.emailAction.signIn.invalidEmail')); break;
+        case 'auth/invalid-action-code': setError(t('views.emailActions.invalidToken')); break;
+        case 'auth/invalid-email': setError(t('views.emailActions.signIn.invalidEmail')); break;
         default: setError(err.message);
       }
 
@@ -88,7 +88,7 @@ function SignInView({ continueUrl }) {
     if (email) {
       finishSignIn();
     }
-  }, [email]);
+  }, [email]); // eslint-disable react-hooks/exhaustive-deps
 
   if (error) {
     return <StatusIndicator success={false} text={error} />;
@@ -241,7 +241,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
       switch (err.code) {
         case 'auth/expired-action-token': setTokenInvalid(true); break;
         case 'auth/invalid-action-token': setTokenInvalid(true); break;
-        case 'auth/weak-password': setError(t('views.emailAction.resetPassword.pwTooShort')); break;
+        case 'auth/weak-password': setError(t('views.emailActions.resetPassword.pwTooShort')); break;
         default: setError(err.message);
       }
     }
