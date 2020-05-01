@@ -175,7 +175,7 @@ function Dashboard(props) {
         )
         : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
 
-      <div className="mt-3">
+      <div className="mt-12">
         <DeleteAccountButton className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
     </div>
@@ -207,7 +207,7 @@ function DeleteAccountButton({ user, className }) {
   return (
     <Popup
       modal
-      trigger={<button type="button" className={className}>Account löschen</button>}
+      trigger={<button type="button" className={className}>{t('components.deleteAccountButton.deleteAccount')}</button>}
       lockScroll
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
       contentStyle={
@@ -223,11 +223,11 @@ function DeleteAccountButton({ user, className }) {
       {(close) => (
         <div className="flex flex-col p-8 bg-kaki">
           <div className="font-teaser mb-6">
-            Löschen bestätigen
+            {t('components.deleteAccountButton.confirmDeletion')}
           </div>
           <form onSubmit={deleteAccount}>
             <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
-              Passwort
+              {t('components.deleteAccountButton.password')}
             </label>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none input-focus"
@@ -235,13 +235,13 @@ function DeleteAccountButton({ user, className }) {
               name="password"
               type="password"
               autoComplete="password"
-              placeholder="Passwort erneut eingeben"
+              placeholder={t('components.deleteAccountButton.repeatePassword')}
               required="required"
             />
             {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
-            <button type="submit" className="mt-4 rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right w-full">Account unwiederuflich löschen</button>
+            <button type="submit" className="mt-4 rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right w-full">{t('components.deleteAccountButton.deleteFinally')}</button>
           </form>
-          <button type="button" className="mt-2 btn-green-secondary" onClick={close}>Abbrechen</button>
+          <button type="button" className="mt-2 btn-green-secondary" onClick={close}>{t('components.deleteAccountButton.abort')}</button>
         </div>
       )}
     </Popup>

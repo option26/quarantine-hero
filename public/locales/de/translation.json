@@ -303,6 +303,12 @@
       "toHome": "ZUR STARTSEITE"
     },
     "deleteAccountButton": {
+      "deleteAccount": "Account löschen",
+      "password": "Passwort",
+      "confirmDeletion": "Löschen bestätigen",
+      "repeatePassword": "Passwort erneut eingeben",
+      "deleteFinally": "Account unwiederuflich löschen",
+      "abort": "Abbrechen",
       "wrongPassword": "Dein angegebenes Passwort ist leider inkorrekt"
     },
     "desktopMenu": {
