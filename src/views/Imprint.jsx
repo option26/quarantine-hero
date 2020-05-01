@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Imprint() {
   return (
@@ -91,7 +90,6 @@ export default function Imprint() {
             >
               https://github.com/kenodressel/quarantine-hero
             </a>
-            <br />
             <br />
             Soweit die Inhalte auf dieser Seite nicht von den Betreiber*innen erstellt wurden, werden die Urheberrechte Dritter
             beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
