@@ -4,7 +4,7 @@ import { de } from 'date-fns/locale';
 import loadResponses from '../services/loadResponses';
 
 const Response = ({ response }) => {
-  const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: de });
+  const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: de, addSuffix: true });
 
   return (
     <li className="px-4 py-2 my-1 block relative ml-12 font-open-sans response">
@@ -19,11 +19,7 @@ const Response = ({ response }) => {
         </a>
       </div>
       <p className="mt-2 mb-2 text-xl text-gray-800 whitespace-pre-line">{response.answer}</p>
-      <p className="text-gray-500 text-right text-xs">
-        vor
-        {' '}
-        {date}
-      </p>
+      <p className="text-gray-500 text-right text-xs">{date}</p>
     </li>
   );
 };
