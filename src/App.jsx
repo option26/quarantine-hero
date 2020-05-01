@@ -17,7 +17,7 @@ import Main from './views/Main';
 import OfferHelp from './views/OfferHelp';
 import Dashboard from './views/Dashboard';
 import FAQ from './views/FAQ';
-import Impressum from './views/Impressum';
+import Imprint from './views/Imprint';
 import Signup from './views/Signup';
 import Signin from './views/Signin';
 import AskForHelp from './views/AskForHelp';
@@ -250,7 +250,7 @@ export default function App() {
         </Route>
         <Route path="/impressum">
           <Page>
-            <Impressum />
+            <Imprint />
           </Page>
         </Route>
         <Route path="/overview">
