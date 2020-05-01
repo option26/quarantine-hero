@@ -318,28 +318,17 @@ async function onUserDelete(user) {
     const askForHelpEntries = await getEntriesOfUser(db, 'ask-for-help', 'd.uid', user.uid);
     askForHelpEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'ask-for-help', doc.id));
 
-    // Delete help offers
-    const askForHelpOffersEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
-    askForHelpOffersEntries.docs.forEach((doc) => doc.ref.delete());
-
-
     // Delete solved posts
     const solvedPostEntries = await getEntriesOfUser(db, 'solved-posts', 'd.uid', user.uid);
     solvedPostEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'solved-posts', doc.id));
-
-    // Delete help offers
-    const solvedPostOffersEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
-    solvedPostOffersEntries.docs.forEach((doc) => doc.ref.delete());
-
 
     // Delete delted post
     const deletedPostEntries = await getEntriesOfUser(db, 'deleted', 'd.uid', user.uid);
     deletedPostEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id));
 
-    // Delete help offers
+    // Delete help offers for all (ask-for-help, solved and deleted)
     const deletedPostOffersEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
     deletedPostOffersEntries.docs.forEach((doc) => doc.ref.delete());
-
 
     // Delete notifications
     const notificationEntries = await getEntriesOfUser(db, 'notifications', 'd.uid', user.uid);
@@ -350,8 +339,14 @@ async function onUserDelete(user) {
     reportedPostsEntries.docs.forEach((doc) => doc.ref.update({ uid: 'ghost-user' }));
 
     // Anonymize ask-for-help reported-by
-    const askForHelpReportedByEntries = await db.collection('ask-for-help').where('d.uid', 'in', reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId)).get();
-    askForHelpReportedByEntries.docs.forEach((doc) => {
+    const reportedEntryIds = reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId);
+    const askForHelpPromise = await db.collection('ask-for-help').where('d.uid', 'in', reportedEntryIds).get();
+    const solvedPromise = await db.collection('solved-posts').where('d.uid', 'in', reportedEntryIds).get();
+    const deletedPromise = await db.collection('deleted').where('d.uid', 'in', reportedEntryIds).get();
+
+    const result = await Promise.all([askForHelpPromise, solvedPromise, deletedPromise]);
+    const reportedEntries = result.reduce((arr, elem) => arr.concat(elem.docs), []);
+    reportedEntries.forEach((doc) => {
       doc.ref.update({ d: { reportedBy: admin.firestore.FieldValue.arrayRemove(user.uid) } });
       if (!doc.data().d.reportedBy.includes('ghost-user')) {
         doc.ref.update({ d: { reportedBy: admin.firestore.FieldValue.arrayUnion('ghost-user') } });
