@@ -338,18 +338,22 @@ async function onUserDelete(user) {
     const reportedPostsEntries = await getEntriesOfUser(db, 'reported-posts', 'uid', user.uid);
     reportedPostsEntries.docs.forEach((doc) => doc.ref.update({ uid: 'ghost-user' }));
 
-    // Anonymize ask-for-help reported-by
+    // Anonymize reported-by
     const reportedEntryIds = reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId);
-    const askForHelpPromise = await db.collection('ask-for-help').where('d.uid', 'in', reportedEntryIds).get();
-    const solvedPromise = await db.collection('solved-posts').where('d.uid', 'in', reportedEntryIds).get();
-    const deletedPromise = await db.collection('deleted').where('d.uid', 'in', reportedEntryIds).get();
+    const entryRefs = [];
+    for (let i = 0; i < reportedEntryIds.length; i += 1) {
+      entryRefs.push(db.collection('ask-for-help').doc(reportedEntryIds[i]));
+      entryRefs.push(db.collection('solved-posts').doc(reportedEntryIds[i]));
+      entryRefs.push(db.collection('deleted').doc(reportedEntryIds[i]));
+    }
 
-    const result = await Promise.all([askForHelpPromise, solvedPromise, deletedPromise]);
-    const reportedEntries = result.reduce((arr, elem) => arr.concat(elem.docs), []);
+    const reportedEntries = await db.getAll(...entryRefs);
     reportedEntries.forEach((doc) => {
-      doc.ref.update({ d: { reportedBy: admin.firestore.FieldValue.arrayRemove(user.uid) } });
+      if (!doc.exists) return;
+
+      doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) });
       if (!doc.data().d.reportedBy.includes('ghost-user')) {
-        doc.ref.update({ d: { reportedBy: admin.firestore.FieldValue.arrayUnion('ghost-user') } });
+        doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') });
       }
     });
   } catch (e) {
