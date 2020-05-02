@@ -1,19 +1,15 @@
 const { google } = require('googleapis');
-const { OAuth2Client } = require('google-auth-library');
-const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
+const {
+  sheet_id: SPREADSHEET_ID,
+  service_account_email: SERVICE_ACCOUNT_EMAIL,
+  private_key: PRIVATE_KEY,
+  range: RANGE,
+  api_key: API_KEY,
+} = functions.config().googlesheets;
+
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const SPREADSHEET_ID = '1UsyHXG2_XQob7wGCrsSeSGyWt7sgmo-2Ez0ed3JQbdM';
-const RANGE = 'Verfuegbarkeiten!data';
-
-// eslint-disable-next-line camelcase
-const { client_id, client_secret } = functions.config().googlesheets;
-
-const REDIRECT_URL = 'https://europe-west1-qhero-stage.cloudfunctions.net/oauthCallback';
-const DB_TOKEN_PATH = '/google-sheets-api-tokens';
-
-const oauthClient = new OAuth2Client(client_id, client_secret, REDIRECT_URL);
 
 const weekdayIndex = {
   'Monday Morning': 0,
@@ -46,7 +42,7 @@ function getCurrentShift() {
   const now = new Date();
   const day = days[now.getDay()];
 
-  // as long as this function is run in
+  // FIXME: as long as this function is run in
   // 'europe-west1' this will work properly
   // because the time zone is identical to
   // what we assume our call center hours
@@ -74,17 +70,9 @@ function getCurrentShift() {
   return `${day} ${partOfDay}`;
 }
 
-async function getAuthorizedClient() {
-  const snapshot = await admin.database().ref(DB_TOKEN_PATH).once('value');
-  const oauthTokens = snapshot.val();
-  oauthClient.setCredentials(oauthTokens);
-
-  return oauthClient;
-}
-
 async function getValues(params) {
-
-  const sheets = google.sheets({ version: 'v4', auth: await getAuthorizedClient() });
+  const auth = new google.auth.JWT(SERVICE_ACCOUNT_EMAIL, null, PRIVATE_KEY, SCOPES);
+  const sheets = google.sheets({ version: 'v4', auth });
 
   return new Promise((resolve, reject) => {
     sheets.spreadsheets.values.get(params, (err, res) => {
@@ -95,29 +83,6 @@ async function getValues(params) {
       }
     });
   });
-}
-
-function configureGoogleApiAccess(req, res) {
-  res.set('Cache-Control', 'private, max-age=0, s-maxage=0');
-  res.redirect(oauthClient.generateAuthUrl({
-    access_type: 'offline',
-    scope: SCOPES,
-    prompt: 'consent',
-  }));
-}
-
-async function oauthCallback(req, res) {
-  res.set('Cache-Control', 'private, max-age=0, s-maxage=0');
-  const { code } = req.query;
-  try {
-    const { tokens } = await oauthClient.getToken(code);
-    await admin.database().ref(DB_TOKEN_PATH).set(tokens);
-    return res.send('Successfully connected google sheets with firebase functions').status(200);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-    return res.status(400).send(err);
-  }
 }
 
 async function getPeopleForShift(shift) {
@@ -138,15 +103,21 @@ async function getPeopleForShift(shift) {
       const number = row[1];
       const availability = row.slice(2, row.length);
 
-      const rowIdx = weekdayIndex[shift];
+      const colIdx = weekdayIndex[shift];
 
-      return availability[rowIdx] === 'ja' ? number : null;
+      return availability[colIdx] === 'ja' ? number : null;
     })
     .filter(Boolean);
 }
 
 async function handleIncomingCall(req, res) {
-  // TODO: Secure with some kind of token as this exposes our phone numbers!
+  const { authorization } = req.headers;
+
+  if (!authorization || !authorization.startsWith('Bearer ') || authorization.substr(7) !== API_KEY) {
+    res.status(401).end();
+    return;
+  }
+
   const shift = getCurrentShift();
 
   try {
@@ -160,12 +131,10 @@ async function handleIncomingCall(req, res) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(`An error occurred while retrieving numbers: ${err}`);
-    res.send('').status(500).end();
+    res.status(500).end();
   }
 }
 
 module.exports = {
   handleIncomingCall,
-  configureGoogleApiAccess,
-  oauthCallback,
 };
