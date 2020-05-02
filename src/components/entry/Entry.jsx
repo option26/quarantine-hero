@@ -27,6 +27,7 @@ export default function Entry(props) {
     id = '',
     request = '',
     timestamp = Date.now(),
+    onAddressClick,
     responses = 0,
     highlightLeft = false,
     reportedBy = [],
@@ -114,6 +115,19 @@ export default function Entry(props) {
   const backToOverview = async (e) => {
     e.preventDefault();
     setPopupVisible(false);
+  };
+
+  const handleAddressClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onAddressClick) {
+      onAddressClick(location);
+    } else {
+      history.push({
+        pathname: '/overview',
+        search: `?address=${location}`,
+      });
+    }
   };
 
   const reportEntry = async (e) => {
@@ -244,11 +258,13 @@ export default function Entry(props) {
           <span className="text-xs font-open-sans text-gray-800 mt-2 inline-block">
             {t('components.entry.somebodyAt')}
             {' '}
-            <span
-              className="font-bold"
+            <button
+              type="button"
+              onClick={handleAddressClick}
+              className="font-bold address-clickable"
             >
               {location}
-            </span>
+            </button>
             {' '}
             {t('components.entry.needsHelp')}
           </span>

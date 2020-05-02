@@ -329,6 +329,10 @@
     box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.8);
 }
 
+.address-clickable:hover {
+    color: #87a544
+}
+
 /* the following classes are necessary to overwrite the default border of the tab bar */
 .btn-bottom-border-black::after {
     border-bottom: 3px solid #222222;

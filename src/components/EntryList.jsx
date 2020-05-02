@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -30,6 +31,7 @@ export default function EntryList({ pageSize = 0 }) {
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
+  const windowLocation = useLocation();
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -65,9 +67,9 @@ export default function EntryList({ pageSize = 0 }) {
           radius,
         });
       } catch (error) {
-        // Fallback
+        // Fallback, return mock query
         Sentry.captureException(error);
-        return buildQuery();
+        return { get: () => ({ docs: [] }) };
       }
     } else {
       return collection
@@ -118,8 +120,17 @@ export default function EntryList({ pageSize = 0 }) {
   };
 
   useEffect(() => {
-    loadDocuments(buildQuery());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
+    const urlParams = new URLSearchParams(windowLocation.search);
+    const address = urlParams.get('address');
+
+    if (address) {
+      setLocation(address);
+      loadDocuments(buildFilteredQuery(address), true);
+    } else {
+      loadDocuments(buildQuery());
+    }
+  }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
     setLocation(address);
@@ -159,6 +170,14 @@ export default function EntryList({ pageSize = 0 }) {
         setSearching(false);
         loadDocuments(buildQuery());
       }
+    }
+  };
+
+  const handleAddressClick = (address) => {
+    if (address) {
+      setLocation(address);
+      setSearching(true);
+      loadDocuments(buildFilteredQuery(address), true);
     }
   };
 
@@ -218,6 +237,7 @@ export default function EntryList({ pageSize = 0 }) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            onAddressClick={handleAddressClick}
           />
         ))
       )}
