@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# exit script as soon as any command returns non-zero
+set -e
 
 if [[ -n "$TOKEN" ]]; then
     GITHUB_TOKEN=$TOKEN
@@ -16,14 +18,14 @@ fi
 
 REPO="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-GIT_REV="$(git rev-parse HEAD)"&& \
-cd build/ && \
-git init && \
-git config user.name "GitHub Actions" && \
-git config user.email "github-actions-bot@users.noreply.github.com" && \
-git remote add origin "${REPO}" && \
-git checkout -b gh-pages && \
-git add * && \
-git commit --allow-empty -m "quarantaenehelden ${GIT_REV} deployment to gh-pages" && \
-git fetch && git rebase -s recursive -Xtheirs origin/gh-pages && \
+GIT_REV="$(git rev-parse HEAD)"
+cd build/
+git init
+git config user.name "GitHub Actions"
+git config user.email "github-actions-bot@users.noreply.github.com"
+git remote add origin "${REPO}"
+git checkout -b gh-pages
+git add *
+git commit --allow-empty -m "quarantaenehelden ${GIT_REV} deployment to gh-pages"
+git fetch && git rebase -s recursive -Xtheirs origin/gh-pages
 git push origin gh-pages
