@@ -82,13 +82,13 @@ function SignInView({ continueUrl }) {
   useEffect(() => {
     verifyUrl();
     setIsLoading(false);
-  }, []); // eslint-disable react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (email) {
       finishSignIn();
     }
-  }, [email]); // eslint-disable react-hooks/exhaustive-deps
+  }, [email]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) {
     return <StatusIndicator success={false} text={error} />;
