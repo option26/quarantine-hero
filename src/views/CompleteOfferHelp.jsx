@@ -9,8 +9,7 @@ import fb from '../firebase';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
-
-const crypto = window.crypto || window.msCrypto;
+import buildSha1Hash from '../util/buildHash';
 
 export default function CompleteOfferHelp() {
   const { t } = useTranslation();
@@ -41,11 +40,8 @@ export default function CompleteOfferHelp() {
       lng = coordinates.lng;
     }
 
-    const idHashBuffer = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(`${email}_${plz}`));
-    const idHashArray = Array.from(new Uint8Array(idHashBuffer)); // convert buffer to byte array
-    const idHash = idHashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
     // Create will work but subsequent updates will fail. This is to prevent duplicates
-    await offerHelpCollection.doc(idHash).set({
+    await offerHelpCollection.doc(await buildSha1Hash(`${email}_${plz}`)).set({
       email,
       location: loc,
       plz,
