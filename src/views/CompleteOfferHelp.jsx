@@ -73,38 +73,39 @@ export default function CompleteOfferHelp() {
     completeOfferHelp();
   }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <>
+        <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
+        <p>
+          {t('views.completeOfferHelp.error')}
+        </p>
+        <div className="flex justify-center flex-col items-center mb-8">
+          <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
+          <Link className="btn-green mt-10" to="/notify-me">{t('views.completeOfferHelp.tryAgain')}</Link>
+        </div>
+      </>
+    );
+  }
+
   return (
-    <Loader waitOn={!isLoading}>
-      <div className="p-4">
-        {error
-          ? (
-            <>
-              <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
-              <p>
-                {t('views.completeOfferHelp.error')}
-              </p>
-              <div className="flex justify-center flex-col items-center mb-8">
-                <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
-                <Link className="btn-green mt-10" to="/notify-me">{t('views.completeOfferHelp.tryAgain')}</Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.youAreHero')}</h1>
-              <p>
-                {t('views.completeOfferHelp.mailVerified')}
-                {' '}
-                <span className="text-secondary">{location}</span>
-                {' '}
-                {t('views.completeOfferHelp.needsHelp')}
-              </p>
-              <div className="flex justify-center flex-col items-center mb-8">
-                <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
-                <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
-              </div>
-            </>
-          )}
+    <>
+      <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.youAreHero')}</h1>
+      <p>
+        {t('views.completeOfferHelp.mailVerified')}
+        {' '}
+        <span className="text-secondary">{location}</span>
+        {' '}
+        {t('views.completeOfferHelp.needsHelp')}
+      </p>
+      <div className="flex justify-center flex-col items-center mb-8">
+        <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
+        <Link className="btn-green mt-10" to="/dashboard">{t('views.completeOfferHelp.toYourOverview')}</Link>
       </div>
-    </Loader>
+    </>
   );
 }
