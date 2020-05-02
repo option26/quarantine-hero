@@ -39,7 +39,7 @@ jobs:
           start: yarn start
           wait-on: http://localhost:3000
           config-file: cypress.json
-  test-frontend-dekstop:
+  test-frontend-desktop:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
