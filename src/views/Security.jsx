@@ -16,7 +16,7 @@ function ContentBlock({ className, title, text, icon }) {
   return (
     <>
       <div className="flex items-center mt-10 mb-2">
-        <img className="w-8 h-8 mr-2" src={icons[icon]} alt="" />
+        {icon && <img className="w-8 h-8 mr-2" src={icons[icon]} alt="" />}
         <h3 className="text-xl font-exo2">{title}</h3>
       </div>
       <StyledMarkdown className={className}>{text}</StyledMarkdown>
@@ -58,12 +58,12 @@ export default function Security() {
       <h2 className="text-2xl font-exo2">{t('views.security.goldenRules')}</h2>
       <Rules />
       <Loader waitOn={securityRules.length > 0}>
-        {securityRules.map((c) => <ContentBlock key={c.title} title={c.title} text={c.text} />)}
+        {securityRules.map((r) => <ContentBlock key={r.title} title={r.title} text={r.text} icon={r.icon} />)}
       </Loader>
 
       <h2 id="current-news" className="text-2xl font-exo2 mt-10">{t('views.security.whereGetInformation')}</h2>
       <Loader waitOn={furtherInformation.length > 0}>
-        {furtherInformation.map((i) => <ContentBlock className="leading-relaxed" key={i.title} title={i.title} text={i.text} icon={i.icon} />)}
+        {furtherInformation.map((i) => <ContentBlock className="leading-relaxed" key={i.title} title={i.title} text={i.text} />)}
       </Loader>
 
       <div className="p-4 bg-kaki font-open-sans mt-10">
