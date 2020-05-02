@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Rules from '../components/Rules';
 import useCms from '../util/useCms';
 import Loader from '../components/loader/Loader';
@@ -24,19 +25,21 @@ function ContentBlock({ className, title, text, icon }) {
 }
 
 export default function Security() {
+  const { t } = useTranslation();
+
   const [securityRules] = useCms('security-rules');
   const [furtherInformation] = useCms('security-further-info');
 
   return (
     <div className="px-5 sm:mt-10">
-      <h1 className="text-2xl font-exo2">Sicherheitshinweise</h1>
-      <div className="text-2xl text-primary font-exo2 italic font-semibold">#sicherhelfen</div>
+      <h1 className="text-2xl font-exo2">{t('views.security.securityNotices')}</h1>
+      <div className="text-2xl text-primary font-exo2 italic font-semibold">{t('views.security.helpSafeHashtag')}</div>
 
       <div className="bg-kaki p-4 my-10 font-open-sans">
         <p>
-          <span className="font-bold">Haltet Euch an aktuelle Aufforderungen der Behörden!</span>
-          &nbsp;Neue Informationen zum Virus und der Lage vor Ort erfordern schnelle Maßnahmen zu unserem Schutz. Nur wenn
-          sie von jeder/jedem umgesetzt werden, ist ihre Wirksamkeit gewährleistet!
+          <span className="font-bold">{t('views.security.stickToAuthorities')}</span>
+          &nbsp;
+          {t('views.security.stickToMeasures')}
         </p>
         <div className="mt-4 w-full text-right">
           <button
@@ -46,27 +49,26 @@ export default function Security() {
               document.getElementById('current-news').scrollIntoView();
             }}
           >
-            Aktuelle Links &gt;
+            {t('views.security.recentLinks')}
+            &nbsp;&gt;
           </button>
         </div>
       </div>
 
-      <h2 className="text-2xl font-exo2">Die vier Grundregeln</h2>
+      <h2 className="text-2xl font-exo2">{t('views.security.goldenRules')}</h2>
       <Rules />
       <Loader waitOn={securityRules.length > 0}>
         {securityRules.map((c) => <ContentBlock key={c.title} title={c.title} text={c.text} />)}
       </Loader>
 
-      <h2 id="current-news" className="text-2xl font-exo2 mt-10">Wo informiere ich mich am besten?</h2>
+      <h2 id="current-news" className="text-2xl font-exo2 mt-10">{t('views.security.whereGetInformation')}</h2>
       <Loader waitOn={furtherInformation.length > 0}>
         {furtherInformation.map((i) => <ContentBlock className="leading-relaxed" key={i.title} title={i.title} text={i.text} icon={i.icon} />)}
       </Loader>
 
       <div className="p-4 bg-kaki font-open-sans mt-10">
-        <div className="font-bold">Hinweis</div>
-        Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der
-        Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
-        ausschließlich deren Betreiber*innen verantwortlich.
+        <div className="font-bold">{t('views.security.note')}</div>
+        {t('views.security.disclaimer')}
       </div>
     </div>
   );

@@ -309,6 +309,17 @@
         "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
         "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
       }
+    },
+    "security": {
+      "securityNotices": "Sicherheitshinweise",
+      "helpSafeHashtag": "#sicherhelfen",
+      "stickToAuthorities": "Haltet Euch an aktuelle Aufforderungen der Behörden!",
+      "stickToMeasures": "Neue Informationen zum Virus und der Lage vor Ort erfordern schnelle Maßnahmen zu unserem Schutz. Nur wenn sie von jeder/jedem umgesetzt werden, ist ihre Wirksamkeit gewährleistet!",
+      "recentLinks": "Aktuelle Links",
+      "goldenRules": "Die vier Grundregeln",
+      "whereGetInformation": "Wo informiere ich mich am besten?",
+      "note": "Hinweis",
+      "disclaimer": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber*innen verantwortlich."
     }
   },
   "components": {
