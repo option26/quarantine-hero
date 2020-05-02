@@ -251,7 +251,7 @@
       "continue": "Weiter",
       "signIn": {
         "invalidEmail": "Die angegebene E-Mail-Adresse ist ungültig. Bitte versuche es erneut",
-        "invalidLink": "Die Aktion kann leider nich durgeführt werden, da der benutze Link ungülig ist",
+        "invalidLink": "Die Aktion kann leider nicht durchgeführt werden, da der verwendete Link ungülig ist",
         "mailYouRegistered": "Bitte gib die E-Mail-Adresse ein, mit der Du Dich registriert hast",
         "yourEmail": "Deine E-Mail-Adresse",
         "email": "E-Mail-Adresse"
