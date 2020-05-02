@@ -8,8 +8,8 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "test": "echo 'TODO'",
-    "lint": "eslint . --ext .jsx .js --no-error-on-unmatched-pattern",
-    "lint-fix": "eslint . --fix --ext .jsx .js --no-error-on-unmatched-pattern"
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "engines": {
     "node": "8"
