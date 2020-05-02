@@ -219,6 +219,8 @@
     },
     "signUp": {
       "headerText": "Registriere Dich mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
+      "headerTextExtended": "Falls du bereits einen Account bei QuarantäneHeld*innen hast, kannst Du Dich stattdessen auch direkt anmelden.",
+      "headerTextPartner": "Hier kannst Du in Deiner Nachbarschaft Hilfe erfragen!",
       "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
       "pwMismatch": "Die Passwörter stimmen nicht überein",
       "yourEmail": "Deine E-Mail-Adresse",
@@ -231,7 +233,8 @@
       "emailInUse": "Es existiert bereits ein Account mit dieser E-Mail-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
       "haveAnAccount": "Ich habe bereits einen Account",
-      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an."
+      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
+      "partnerText": "Für heldenhafte Hilfe von {{helpers}} registrierten Helfenden: <br /><strong>{{partnerName}}</strong> in Kooperation mit QuaranäneHeld*innen!"
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
