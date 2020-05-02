@@ -1,5 +1,6 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
+import { baseUrl } from '../appConfig';
 
 export default function StyledMarkdown(props) {
   const {
@@ -8,6 +9,12 @@ export default function StyledMarkdown(props) {
       forceBlock: true,
       overrides: {
         a: {
+          component: ({ href, className, children: title }) => {
+            if (href.startsWith('http') && !href.startsWith(baseUrl)) {
+              return <a href={href} className={className} target="_blank" rel="noopener noreferrer">{title}</a>;
+            }
+            return <a href={href} className={className}>{title}</a>;
+          },
           props: {
             className: 'text-secondary hover:underline',
           },
