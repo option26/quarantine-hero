@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import {
 } from 'react-web-tabs';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
+import getUrlParamFromWindowLocation from '../util/getUrlParamFromWindowLocation';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
@@ -47,6 +48,10 @@ function Notification(props) {
 function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
+  const windowLocation = useLocation();
+
+  const attemptingToSolve = getUrlParamFromWindowLocation(windowLocation, 'solve');
+  const entryIdFromUrl = getUrlParamFromWindowLocation(windowLocation, 'entry');
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
@@ -98,6 +103,7 @@ function Dashboard(props) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            showSolveHint={attemptingToSolve && entry.responses > 0 && entryIdFromUrl === entry.id}
             owner
           />
         ))}
