@@ -15,6 +15,7 @@ import {
   getLatLng,
 } from '../services/GeoService';
 import parseDoc from '../util/parseDoc';
+import getUrlParamFromWindowLocation from '../util/getUrlParamFromWindowLocation';
 
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
@@ -121,9 +122,7 @@ export default function EntryList({ pageSize = 0 }) {
   };
 
   useEffect(() => {
-    // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
-    const urlParams = new URLSearchParams(windowLocation.search);
-    const address = urlParams.get('address');
+    const address = getUrlParamFromWindowLocation(windowLocation, 'address');
 
     if (address) {
       setLocation(address);
