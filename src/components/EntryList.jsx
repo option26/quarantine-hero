@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -15,7 +15,7 @@ import {
   getLatLng,
 } from '../services/GeoService';
 import parseDoc from '../util/parseDoc';
-import getUrlParamFromWindowLocation from '../util/getUrlParamFromWindowLocation';
+import useQuery from '../util/useQuery';
 
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export default function EntryList({ pageSize = 0 }) {
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
-  const windowLocation = useLocation();
+  const { addressFromUrl } = useQuery();
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -122,16 +122,14 @@ export default function EntryList({ pageSize = 0 }) {
   };
 
   useEffect(() => {
-    const address = getUrlParamFromWindowLocation(windowLocation, 'address');
-
-    if (address) {
-      setLocation(address);
-      loadDocuments(buildFilteredQuery(address), true);
+    if (addressFromUrl) {
+      setLocation(addressFromUrl);
+      loadDocuments(buildFilteredQuery(addressFromUrl), true);
     } else {
       setLocation('');
       loadDocuments(buildQuery());
     }
-  }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [addressFromUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
     setLocation(address);
