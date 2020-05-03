@@ -33,7 +33,7 @@ export default function EntryList({ pageSize = 0 }) {
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
-  const { addressFromUrl } = useQuery();
+  const { address: addressFromUrl } = useQuery();
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -228,20 +228,20 @@ export default function EntryList({ pageSize = 0 }) {
           })}
         </div>
       ) : (
-        entries.map((entry) => (
-          <Entry
-            key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
-            onAddressClick={handleAddressClick}
-          />
-        ))
-      )}
+          entries.map((entry) => (
+            <Entry
+              key={entry.id}
+              location={entry.location}
+              id={entry.id}
+              request={entry.request}
+              timestamp={entry.timestamp}
+              responses={entry.responses}
+              reportedBy={entry.reportedBy}
+              uid={entry.uid}
+              onAddressClick={handleAddressClick}
+            />
+          ))
+        )}
       {pageSize > 0 && !searching ? (
         <div className="flex justify-center pt-3">
           <button
