@@ -246,7 +246,7 @@
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
     },
     "emailActions": {
-      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da dein Token abgelaufen ist. Bitte versuche es erneut.",
+      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Token abgelaufen ist. Bitte versuche es erneut.",
       "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist.",
       "continue": "Weiter",
       "signIn": {
@@ -279,7 +279,7 @@
         "wantRecovery": "Willst Du die Änderung Deiner E-Mail-Adresse rückgängig machen und wieder <strong>{{recoveredEmail}}</strong> verwenden?",
         "resetEmail": "E-Mail-Adresse zurücksetzen",
         "resetSuccess": "Deine E-Mail-Adresse wurde erfolgreich zurückgesetzt. Falls Du Sorge hast, dass Dein Passort in falsche Hände gelangt ist, kannst Du es unten zurücksetzten.",
-        "error": "Beim Zurücksetzen deiner E-Mail-Adresse ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        "error": "Beim Zurücksetzen Deiner E-Mail-Adresse ist ein Fehler aufgetreten. Bitte versuche es erneut.",
         "continueNoReset": "Nein, weiter mit aktuellem Passwort",
         "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
         "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
