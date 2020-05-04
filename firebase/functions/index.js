@@ -50,7 +50,7 @@ async function onOfferHelpCreate(snap) {
         answer,
         email,
         request,
-        askForHelpId: askForHelp.id,
+        askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
       },
     };
 
