@@ -32,9 +32,9 @@ export default function HandleEmailAction() {
   if (urlParams) {
     switch (urlParams.mode) {
       case 'signIn': return <SignInView continueUrl={urlParams.continueUrl} />;
-      case 'verifyEmail': return <VerifyEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
-      case 'resetPassword': return <ResetPasswordView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
-      case 'recoverEmail': return <RecoverEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.actionCode} />;
+      case 'verifyEmail': return <VerifyEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
+      case 'resetPassword': return <ResetPasswordView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
+      case 'recoverEmail': return <RecoverEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
       default: {
         Sentry.captureException(new Error(`Unknown email handler action: ${urlParams.mode}`));
         return <StatusIndicator success={false} text={t('views.emailActions.unknownAction')} />;
@@ -158,6 +158,7 @@ function VerifyEmailView({ continueUrl, actionCode }) {
       await firebase.auth().applyActionCode(actionCode);
       setLoading(false);
     } catch (err) {
+      Sentry.captureException(err);
       setError(true);
     }
   };
