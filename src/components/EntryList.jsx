@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -20,6 +20,7 @@ import useQuery from '../util/useQuery';
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
   const history = useHistory();
+  const windowLocation = useLocation();
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
