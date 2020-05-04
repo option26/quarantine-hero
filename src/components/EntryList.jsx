@@ -228,20 +228,20 @@ export default function EntryList({ pageSize = 0 }) {
           })}
         </div>
       ) : (
-          entries.map((entry) => (
-            <Entry
-              key={entry.id}
-              location={entry.location}
-              id={entry.id}
-              request={entry.request}
-              timestamp={entry.timestamp}
-              responses={entry.responses}
-              reportedBy={entry.reportedBy}
-              uid={entry.uid}
-              onAddressClick={handleAddressClick}
-            />
-          ))
-        )}
+        entries.map((entry) => (
+          <Entry
+            key={entry.id}
+            location={entry.location}
+            id={entry.id}
+            request={entry.request}
+            timestamp={entry.timestamp}
+            responses={entry.responses}
+            reportedBy={entry.reportedBy}
+            uid={entry.uid}
+            onAddressClick={handleAddressClick}
+          />
+        ))
+      )}
       {pageSize > 0 && !searching ? (
         <div className="flex justify-center pt-3">
           <button
