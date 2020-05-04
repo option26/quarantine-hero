@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -18,6 +18,7 @@ import parseDoc from '../util/parseDoc';
 
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
+  const history = useHistory();
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
@@ -128,6 +129,7 @@ export default function EntryList({ pageSize = 0 }) {
       setLocation(address);
       loadDocuments(buildFilteredQuery(address), true);
     } else {
+      setLocation('');
       loadDocuments(buildQuery());
     }
   }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -175,9 +177,11 @@ export default function EntryList({ pageSize = 0 }) {
 
   const handleAddressClick = (address) => {
     if (address) {
-      setLocation(address);
-      setSearching(true);
-      loadDocuments(buildFilteredQuery(address), true);
+      const newLocation = {
+        ...windowLocation,
+        search: `?address=${address}`,
+      };
+      history.push(newLocation);
     }
   };
 
