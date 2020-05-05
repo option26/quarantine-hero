@@ -4,17 +4,18 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import * as Sentry from '@sentry/browser';
 import { GeoFirestore } from 'geofirestore';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
 import buildSha1Hash from '../util/buildHash';
+import useQuery from '../util/useQuery';
 
 export default function CompleteOfferHelp() {
   const { t } = useTranslation();
-  const windowLocation = useLocation();
+  const queryParams = useQuery();
   const [user] = useAuthState(fb.auth);
 
   const [isLoading, setLoading] = useState(true);
@@ -57,9 +58,7 @@ export default function CompleteOfferHelp() {
 
   useEffect(() => {
     async function completeOfferHelp() {
-      const urlParams = new URLSearchParams(windowLocation.search);
-      const loc = urlParams.get('location');
-      const placeId = urlParams.get('placeId');
+      const { location: loc, placeId } = queryParams;
 
       setLocation(loc);
       try {
@@ -74,7 +73,7 @@ export default function CompleteOfferHelp() {
     if (user) {
       completeOfferHelp();
     }
-  }, [windowLocation, user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [queryParams, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <Loader />;

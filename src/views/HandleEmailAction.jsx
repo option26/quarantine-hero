@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation, Trans } from 'react-i18next';
 import * as firebase from 'firebase';
@@ -8,26 +8,24 @@ import * as Sentry from '@sentry/browser';
 import Loader from '../components/loader/Loader';
 import StatusIndicator from '../components/StatusIndicator';
 import { baseUrl } from '../appConfig';
+import useQuery from '../util/useQuery';
 
 export default function HandleEmailAction() {
-  const location = useLocation();
   const { t } = useTranslation();
 
   const [urlParams, setUrlParams] = useState(undefined);
+  const queryParams = useQuery();
 
   useEffect(() => {
-    // Becasue signInWithEmail links put the query parameters in front of the hash, we need to retrieve both ways here
-    const paramObj = {};
-    const paramArray = [...new URLSearchParams(location.search).entries(), ...new URLSearchParams(window.location.search)];
-    for (let i = 0; i < paramArray.length; i += 1) {
-      const [key, value] = paramArray[i];
-      paramObj[key] = value;
-    }
+    const paramObj = {
+      mode: queryParams.mode,
+      // Firebase requires the continue URL to have a domain part. As we use Links for routing, we strip the domain part off.
+      continueUrl: queryParams.continueUrl && queryParams.continueUrl.split('#')[1],
+      oobCode: queryParams.oobCode,
+    };
 
-    // Firebase requires the continue URL to have a domain part. As we use Links for routing, we strip the domain part off.
-    paramObj.continueUrl = paramObj.continueUrl && paramObj.continueUrl.split('#')[1];
     setUrlParams(paramObj);
-  }, [location]);
+  }, [queryParams]);
 
   if (urlParams) {
     switch (urlParams.mode) {
