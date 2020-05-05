@@ -302,6 +302,12 @@
     "statusIndicator": {
       "toHome": "ZUR STARTSEITE"
     },
+    "responses": {
+      "answerDeleted": "Diese Antwort wurde gelöscht.",
+      "answer": "Antworten",
+      "answerFrom": "Antwort von",
+      "answersLoading": "Antworten werden geladen"
+    },
     "deleteAccountButton": {
       "deleteAccount": "Account löschen",
       "password": "Passwort",
