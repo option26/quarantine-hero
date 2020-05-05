@@ -20,7 +20,7 @@ export default function NotifyMe() {
 
     try {
       await fb.auth.sendSignInLinkToEmail(email, {
-        url: `${baseUrl}/#/complete-offer-help?location=${location}&placeId=${placeId}&email=${email}`,
+        url: `${baseUrl}/#/complete-offer-help?location=${location}&placeId=${placeId}`,
         handleCodeInApp: true,
       });
       window.localStorage.setItem('emailForSignIn', email);

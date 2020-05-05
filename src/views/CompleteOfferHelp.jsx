@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import * as Sentry from '@sentry/browser';
@@ -14,10 +15,11 @@ import buildSha1Hash from '../util/buildHash';
 export default function CompleteOfferHelp() {
   const { t } = useTranslation();
   const windowLocation = useLocation();
+  const [user] = useAuthState(fb.auth);
 
   const [isLoading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
-  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const createOfferHelp = async (loc, placeId, email) => {
     const geofirestore = new GeoFirestore(fb.store);
@@ -57,27 +59,28 @@ export default function CompleteOfferHelp() {
     async function completeOfferHelp() {
       const urlParams = new URLSearchParams(windowLocation.search);
       const loc = urlParams.get('location');
-      const email = urlParams.get('email');
       const placeId = urlParams.get('placeId');
 
       setLocation(loc);
       try {
-        await createOfferHelp(loc, placeId, email);
+        await createOfferHelp(loc, placeId, user.email);
+        setSuccess(true);
       } catch (err) {
         Sentry.captureException(err);
-        setError(true);
       }
       setLoading(false);
     }
 
-    completeOfferHelp();
-  }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (user) {
+      completeOfferHelp();
+    }
+  }, [windowLocation, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
+  if (!success) {
     return (
       <>
         <h1 className="text-2xl font-exo2 mt-10 mb-6">{t('views.completeOfferHelp.anErrorOccured')}</h1>
