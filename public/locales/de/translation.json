@@ -246,8 +246,8 @@
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
     },
     "emailActions": {
-      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Token abgelaufen ist. Bitte versuche es erneut.",
-      "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist.",
+      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Link abgelaufen ist. Bitte versuche es erneut.",
+      "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist. Bitte versuche es erneut. Falls der Fehler weiter besteht, kannst Du Dich gerne unter help@quarantaenehelden.org bei uns melden.",
       "continue": "Weiter",
       "signIn": {
         "invalidEmail": "Die angegebene E-Mail-Adresse ist ungültig. Bitte versuche es erneut",
