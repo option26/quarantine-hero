@@ -40,6 +40,7 @@ import Security from './views/Security';
 import arrowUpIcon from './assets/arrows_up.svg';
 import FilteredListFrame from './views/FilteredListFrame';
 import Footer from './components/Footer';
+import HandleEmailAction from './views/HandleEmailAction';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
@@ -286,6 +287,11 @@ export default function App() {
         <Route path="/complete-offer-help">
           <Page>
             <CompleteOfferHelp />
+          </Page>
+        </Route>
+        <Route path="/handle-email-action">
+          <Page>
+            <HandleEmailAction />
           </Page>
         </Route>
         <Route exact path="/">
