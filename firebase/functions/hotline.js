@@ -111,9 +111,9 @@ async function getPeopleForShift(shift) {
 }
 
 async function handleIncomingCall(req, res) {
-  const { authorization } = req.headers;
+  const { apikey } = req.query;
 
-  if (!authorization || !authorization.startsWith('Bearer ') || authorization.substr(7) !== API_KEY) {
+  if (!apikey || apikey !== API_KEY) {
     res.status(401).end();
     return;
   }
