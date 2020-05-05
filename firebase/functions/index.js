@@ -40,35 +40,27 @@ async function onOfferHelpCreate(snap) {
     const { email: receiver } = data.toJSON();
     const { answer, email } = offer.data();
 
-    // eslint-disable-next-line no-console
-    console.log({
+    const sendgridOptions = {
       to: receiver,
-      from: email,
+      from: 'help@quarantaenehelden.org',
       templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+      replyTo: { email },
+      hideWarnings: true, // removes triple bracket warning
       dynamic_template_data: {
         subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
         answer,
         email,
         request,
+        askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
       },
-    });
+    };
+
+    // eslint-disable-next-line no-console
+    console.log(sendgridOptions);
+
     try {
       if (SEND_EMAILS) {
-        await sgMail.send({
-          to: receiver,
-          from: 'help@quarantaenehelden.org',
-          replyTo: {
-            email,
-          },
-          templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-          dynamic_template_data: {
-            subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
-            answer,
-            email,
-            request,
-          },
-          hideWarnings: true, // removes triple bracket warning
-        });
+        await sgMail.send(sendgridOptions);
       } else {
         // eslint-disable-next-line no-console
         console.log(sendingMailsDisabledLogMessage);
