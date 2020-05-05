@@ -72,12 +72,11 @@
       }
     },
     "completeOfferHelp": {
-      "mailYouRegistered": "Bitte gib Deine E-Mail-Adresse ein, mit der Du Dich registriert hast",
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
       "anErrorOccured": "Uuups, da ist wohl etwas schief gelaufen",
-      "verificationError": "Leider konnten wir Deine E-Mail-Adresse nicht verifizieren. Das kann zum Beispiel daran liegen, dass der Link in Deiner E-Mail abgelaufen ist. Bitte versuche es erneut.",
+      "error": "Leider konnten wir die Benachrichtung nicht erstellen. Das kann zum Beispiel daran liegen, dass Du bereits eine aktive Benachrichtigung für dieses Gebiet hast oder dass ein Fehler beim Erstellen aufgetreten ist. Falls Du noch keine Benachrichtigung in diesem Gebiet erstellt hast, versuch es bitte erneut.",
       "tryAgain": "ERNEUT VERSUCHEN",
       "toYourOverview": "ZU DEINER ÜBERSICHT"
     },
@@ -245,9 +244,52 @@
       "recheckEmail": "Bestätigung überprüfen",
       "resendEmail": "E-Mail erneut senden",
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
+    },
+    "emailActions": {
+      "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Link abgelaufen ist. Bitte versuche es erneut.",
+      "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist. Bitte versuche es erneut. Falls der Fehler weiter besteht, kannst Du Dich gerne unter help@quarantaenehelden.org bei uns melden.",
+      "continue": "Weiter",
+      "signIn": {
+        "invalidEmail": "Die angegebene E-Mail-Adresse ist ungültig. Bitte versuche es erneut",
+        "invalidLink": "Die Aktion kann leider nicht durchgeführt werden, da der verwendete Link ungülig ist",
+        "mailYouRegistered": "Bitte gib die E-Mail-Adresse ein, mit der Du Dich registriert hast",
+        "yourEmail": "Deine E-Mail-Adresse",
+        "email": "E-Mail-Adresse"
+      },
+      "resetPassword": {
+        "heading": "Hier kannst Du Dein Passwort zurücksetzen",
+        "newPassword": "Neues Passwort",
+        "yourPw": "Dein Passwort",
+        "pwMismatch": "Die Passwörter stimmen nicht überein",
+        "repeatPassword": "Passwort wiederholen",
+        "confirmPassword": "Passwort erneut eingeben",
+        "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
+        "changePassword": "Passwort ändern",
+        "success": "Dein Passwort wurde erfolgreich geändert!"
+      },
+      "verifyEmail": {
+        "verificationSuccess": "Deine E-Mail-Adresse wurde erfolgreich verifiziert!",
+        "resendEmail": "E-Mail erneut senden",
+        "emailResent": "Wir haben Dir erneut eine E-Mail mit Verifizierungslink geschickt",
+        "toHome": "Zur Startseite"
+      },
+      "recoverEmail": {
+        "heading": "E-Mail Änderung rückgängig machen",
+        "abortToHome": "Abbrechen und zurück zur Startseite",
+        "wantRecovery": "Willst Du die Änderung Deiner E-Mail-Adresse rückgängig machen und wieder <strong>{{recoveredEmail}}</strong> verwenden?",
+        "resetEmail": "E-Mail-Adresse zurücksetzen",
+        "resetSuccess": "Deine E-Mail-Adresse wurde erfolgreich zurückgesetzt. Falls Du Sorge hast, dass Dein Passort in falsche Hände gelangt ist, kannst Du es unten zurücksetzten.",
+        "error": "Beim Zurücksetzen Deiner E-Mail-Adresse ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        "continueNoReset": "Nein, weiter mit aktuellem Passwort",
+        "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
+        "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
+      }
     }
   },
   "components": {
+    "statusIndicator": {
+      "toHome": "ZUR STARTSEITE"
+    },
     "desktopMenu": {
       "myOverview": "Meine Übersicht",
       "requestHelp": "HILFE ANFRAGEN",
