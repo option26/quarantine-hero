@@ -33,6 +33,8 @@ export default function Entry(props) {
     reportedBy = [],
     report = false,
     uid = '',
+    showSolveHint = false,
+    showDeleteHint = false,
   } = props;
 
   const history = useHistory();
@@ -45,10 +47,10 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState(false);
   const [solved, setSolved] = useState(false);
-  const [attemptingToDelete, setAttemptingToDelete] = useState(false);
-  const [attemptingToSolve, setAttemptingToSolve] = useState(false);
+  const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
+  const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
-  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(showSolveHint || showDeleteHint);
 
   const userIsLoggedIn = !!user && !!user.uid;
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);

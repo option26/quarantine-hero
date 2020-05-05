@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import NotifyMe from './NotifyMe';
@@ -15,10 +15,12 @@ import {
   getLatLng,
 } from '../services/GeoService';
 import parseDoc from '../util/parseDoc';
+import useQuery from '../util/useQuery';
 
 export default function EntryList({ pageSize = 0 }) {
   const { t } = useTranslation();
   const history = useHistory();
+  const windowLocation = useLocation();
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
@@ -32,7 +34,7 @@ export default function EntryList({ pageSize = 0 }) {
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
-  const windowLocation = useLocation();
+  const { address: addressFromUrl } = useQuery();
 
   const buildQuery = async (lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
@@ -121,18 +123,14 @@ export default function EntryList({ pageSize = 0 }) {
   };
 
   useEffect(() => {
-    // Because we use the hash router, we cannot use the default functionality here as it would expect the query parameters before the hash
-    const urlParams = new URLSearchParams(windowLocation.search);
-    const address = urlParams.get('address');
-
-    if (address) {
-      setLocation(address);
-      loadDocuments(buildFilteredQuery(address), true);
+    if (addressFromUrl) {
+      setLocation(addressFromUrl);
+      loadDocuments(buildFilteredQuery(addressFromUrl), true);
     } else {
       setLocation('');
       loadDocuments(buildQuery());
     }
-  }, [windowLocation]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [addressFromUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (address) => {
     setLocation(address);

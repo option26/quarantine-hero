@@ -8,6 +8,7 @@ import {
 } from 'react-web-tabs';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
+import useQuery from '../util/useQuery';
 
 const askForHelpCollection = fb.store.collection('ask-for-help');
 const offerHelpCollection = fb.store.collection('offer-help');
@@ -47,6 +48,8 @@ function Notification(props) {
 function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
+
+  const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl } = useQuery();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
@@ -98,6 +101,8 @@ function Dashboard(props) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
+            showSolveHint={attemptingToSolve && !attemptingToDelete && entry.responses > 0 && entryIdFromUrl === entry.id}
+            showDeleteHint={!attemptingToSolve && attemptingToDelete && entryIdFromUrl === entry.id}
             owner
           />
         ))}
