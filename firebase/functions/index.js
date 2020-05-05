@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 const sgMail = require('@sendgrid/mail');
 const { GeoCollectionReference } = require('geofirestore');
 const slack = require('./slack');
+const { handleIncomingCall } = require('./hotline.js');
 const { userIdsMatch, migrateResponses, deleteDocumentWithSubCollections } = require('./utils');
 
 admin.initializeApp();
@@ -354,3 +355,8 @@ exports.offerHelpCreate = functions
   .firestore
   .document('/ask-for-help/{requestId}/offer-help/{offerId}')
   .onCreate(onOfferHelpCreate);
+
+exports.handleIncomingCall = functions
+  .region(REGION_EUROPE_WEST_1)
+  .https
+  .onRequest(handleIncomingCall);
