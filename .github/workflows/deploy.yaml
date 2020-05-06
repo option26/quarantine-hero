@@ -10,8 +10,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+      - name: Install dependencies
+        run: yarn install
       - name: Build
-        run: ./.github/workflows/build-frontend.sh
+        run: yarn build
+        with:
+          env: NODE_ENV=prod
       - name: Deploy
         env:
           TOKEN: ${{ secrets.TOKEN }}
@@ -28,11 +32,14 @@ jobs:
 
   deploy-firebase:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: firebase/functions
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      - name: Build
-        run: ./.github/workflows/build-firebase.sh
+      - name: Install Dependencies
+        run: npm install
       - name: Deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
