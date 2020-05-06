@@ -14,8 +14,8 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-        with:
-          env: NODE_ENV=prod
+        env:
+          NODE_ENV: prod
       - name: Deploy
         env:
           TOKEN: ${{ secrets.TOKEN }}
