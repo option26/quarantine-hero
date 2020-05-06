@@ -22,7 +22,7 @@ export default () => (
 
 // We use an array to be able to manage this via the CMS in the future
 const partners = [
-  { key: 'nachbarhilft', name: 'Nachbar Hilft!', imgSource: require('../assets/nachbar_hilft.png') },
+  { key: 'nachbarhilft', name: 'In Quarantäne? Nachbar hilft!', imgSource: require('../assets/nachbar_hilft.png') },
 ];
 
 function SignupHeader() {
