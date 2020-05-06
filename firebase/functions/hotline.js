@@ -1,5 +1,6 @@
 const { google } = require('googleapis');
 const functions = require('firebase-functions');
+const moment = require('moment-timezone');
 
 const {
   sheet_id: SPREADSHEET_ID,
@@ -39,15 +40,8 @@ const days = [
 ];
 
 function getCurrentShift() {
-  const now = new Date();
-  const day = days[now.getDay()];
-
-  // FIXME: as long as this function is run in
-  // 'europe-west1' this will work properly
-  // because the time zone is identical to
-  // what we assume our call center hours
-  // in germany are
-  const hour = now.getHours();
+  const day = days[moment().tz('Europe/Berlin').get('day')];
+  const hour = moment().tz('Europe/Berlin').get('hour');
 
   let partOfDay;
   switch (true) {
