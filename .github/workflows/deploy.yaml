@@ -43,4 +43,4 @@ jobs:
       - name: Deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: ./.github/workflows/deploy-firebase.sh
+        run: ../../.github/workflows/deploy-firebase.sh
