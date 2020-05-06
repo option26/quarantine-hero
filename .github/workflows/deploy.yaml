@@ -30,7 +30,7 @@ jobs:
           tagName: ${{ github.sha }}
           environment: production
 
-  deploy-backend:
+  deploy-firebase:
     runs-on: ubuntu-latest
     defaults:
       run:

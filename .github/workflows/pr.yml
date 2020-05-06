@@ -54,7 +54,7 @@ jobs:
           wait-on: http://localhost:3000
           config-file: cypress-desktop.json
 
-  lint-backend:
+  lint-firebase:
     runs-on: ubuntu-latest
     defaults:
       run:
