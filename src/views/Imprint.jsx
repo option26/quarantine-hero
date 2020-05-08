@@ -84,11 +84,11 @@ export default function Imprint() {
             unter folgender Adresse veröffentlicht wurde:&nbsp;
             <a
               className="text-secondary hover:underline block"
-              href="https://github.com/kenodressel/quarantine-hero"
+              href="https://github.com/quarantine-hero/quarantine-hero"
               target="_blank"
               rel="noopener noreferrer"
             >
-              https://github.com/kenodressel/quarantine-hero
+              https://github.com/quarantine-hero/quarantine-hero
             </a>
             <br />
             Soweit die Inhalte auf dieser Seite nicht von den Betreiber*innen erstellt wurden, werden die Urheberrechte Dritter

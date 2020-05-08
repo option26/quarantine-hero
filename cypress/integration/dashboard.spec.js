@@ -6,7 +6,7 @@ import { removeAskForHelpEntryWithoutResponses, removeSolvedAskForHelpEntry } fr
 const dummyUserMail = 'verified@example.com';
 const dummyUserPw = 'test1234';
 
-// test are currently flaky, see https://github.com/kenodressel/quarantine-hero/issues/216
+// test are currently flaky, see https://github.com/quarantine-hero/quarantine-hero/issues/216
 context.skip('Dashboard', () => {
 
   beforeEach(() => {

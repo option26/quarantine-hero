@@ -19,7 +19,7 @@ export default function ShareButtons() {
         </a>
       </div>
       <div className="ml-1 mr-2 cursor-pointer">
-        <a href="https://github.com/kenodressel/quarantine-hero" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/quarantine-hero/quarantine-hero" target="_blank" rel="noopener noreferrer">
           <img alt="twitter" src={require('../assets/gh.svg')} className="w-8 opacity-50 hover:opacity-100 transition-all duration-200" />
         </a>
       </div>

@@ -99,7 +99,7 @@ export default function EntryList({ pageSize = 0 }) {
     let documents = results.docs;
 
     // we need to perform client-side sorting since the location filter is applied
-    // https://github.com/kenodressel/quarantine-hero/issues/89
+    // https://github.com/quarantine-hero/quarantine-hero/issues/89
     if (searchActive) {
       if (isMapsApiEnabled) {
         documents = documents.sort(
