@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useTranslation } from 'react-i18next';
@@ -196,19 +197,18 @@ export default function OnePagers() {
             />
           )}
       </div>
-      {isOpen
-        ? (
-          onePager.map((element) => (
-            <OnePager
-              key={element.language}
-              original={element.original}
-              signUpFileName={element.signUpFileName}
-              signUp={element.signUp}
-              posterFileName={element.posterFileName}
-              poster={element.poster}
-            />
-          ))
-        ) : null}
+      <Collapse in={isOpen}>
+        {onePager.map((element) => (
+          <OnePager
+            key={element.language}
+            original={element.original}
+            signUpFileName={element.signUpFileName}
+            signUp={element.signUp}
+            posterFileName={element.posterFileName}
+            poster={element.poster}
+          />
+        ))}
+      </Collapse>
     </>
   );
 }
