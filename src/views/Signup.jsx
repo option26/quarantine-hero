@@ -12,6 +12,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
 import { useEmailVerified } from '../util/emailVerified';
+import checkMark from '../assets/check.svg';
 
 export default () => {
   const [email, setEmail] = React.useState('');
@@ -124,14 +125,14 @@ export default () => {
         </div>
         <div className="mb-8">
           <label className="flex text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="privacy_policy">
-            <div className="bg-white border rounded w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+            <div className="bg-white border rounded w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 checkbox">
               <input id="privacy_policy" type="checkbox" required="required" className="opacity-0 absolute" />
-              <svg className="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
+              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={checkMark} />
             </div>
             <div className="select-none">
               <Trans i18nKey="views.signUp.acceptPrivacyPolicy">
                 text
-                <Link to="/privacy-policy" className="text-secondary hover:underline">text</Link>
+                <a href={`${baseUrl}/#/privacy-policy`} target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">text</a>
                 text
               </Trans>
             </div>
