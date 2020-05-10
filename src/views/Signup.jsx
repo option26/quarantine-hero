@@ -141,6 +141,7 @@ export default () => {
         {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
         <div className="flex justify-end mt-6">
           <button
+            data-cy="btn-submit-signup"
             className="btn-green w-full"
             type="submit"
           >
