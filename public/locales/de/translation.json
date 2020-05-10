@@ -227,6 +227,7 @@
       "password": "Passwort",
       "passwordRepeat": "Passwort wiederholen",
       "confirmPassword": "Passwort erneut eingeben",
+      "acceptPrivacyPolicy": "Ich stimme den <1>Datenschutzbestimmungen</1> zu!",
       "registerNow": "Jetzt registrieren",
       "emailInUse": "Es existiert bereits ein Account mit dieser E-Mail-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",

@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="mx-1">|</div>
         <Link to="/impressum">{t('components.footer.legal')}</Link>
         <div className="mx-1">|</div>
-        <Link to="/dsgvo">{t('components.footer.privacy')}</Link>
+        <Link to="/privacy-policy">{t('components.footer.privacy')}</Link>
       </div>
       <span className="text-gray-500 text-xs block w-full text-center">{t('components.footer.forEveryone')}</span>
     </div>
