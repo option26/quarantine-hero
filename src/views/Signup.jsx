@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
+import Collapse from '@material-ui/core/Collapse';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -10,8 +11,12 @@ import {
 } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailInput from '../components/MailInput';
+import fb from '../firebase';
 import { baseUrl } from '../appConfig';
+import useQuery from '../util/useQuery';
 
 export default () => (
   <div className="p-4">
@@ -28,76 +33,93 @@ const partners = [
 function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
+  const { source, fullExplanation } = useQuery();
   const location = useLocation();
-
-  const [source, setSource] = useState(undefined);
   const [user] = useAuthState(firebase.auth());
 
-  const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+  const { name: partnerName, imgSource: partnerImg } = partners.find((p) => p.key === source) || {};
+  const showPartner = !!(partnerName && partnerImg);
 
   const reasonForSignup = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
     : t('views.signUp.reasonForSignupDefault');
   const headerText = t('views.signUp.headerText', { reasonForSignup });
 
-  useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    if (query.has('source')) {
-      setSource(query.get('source'));
-    }
-  }, [location]);
-
-
   if (user) {
     if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
     return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
   }
 
-  const partner = partners.find((p) => p.key === source);
-  if (source && partner) {
-    const { name: partnerName, imgSource } = partner;
-    if (partnerName && imgSource) {
-      return (
-        <div className="mt-8 mb-6">
-          <div className="flex flex-row sm:flex-col-reverse">
-            <div className="flex flex-shrink-0 items-center">
-              <img className="rounded-full w-24 h-24" src={imgSource} alt="" />
-              <p className="hidden sm:block ml-4 text-lg">
-                {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
-                <br />
-                <strong>{partnerName}</strong>
-                {' '}
-                {t('views.signUp.partnerTextOutro')}
-              </p>
-            </div>
-            <div className="m-2" />
-            <div style={{ hyphens: 'manual' }} className="font-teaser">
-              {t('views.signUp.headerTextPartner')}
-            </div>
-          </div>
-          <p className="mt-4 sm:hidden">
-            {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
-            {' '}
-            <strong>{partnerName}</strong>
-            {' '}
-            {t('views.signUp.partnerTextOutro')}
-          </p>
-          <p className="mt-4">
-            {headerText}
-            {' '}
-            {t('views.signUp.headerTextExtended')}
-          </p>
-        </div>
-      );
-    }
-  }
-
   return (
     <div className="mt-8 mb-6">
       <div className="font-teaser">
-        {headerText}
+        {(showPartner || fullExplanation) ? t('views.signUp.welcomeAtQh') : headerText}
       </div>
+      {showPartner && <Partner partnerName={partnerName} partnerImg={partnerImg} />}
+      {fullExplanation && <Explanation />}
+      {(showPartner || fullExplanation) && (
+        <p className="mt-4">
+          {headerText}
+          {' '}
+          {t('views.signUp.headerTextExtended')}
+        </p>
+      )}
     </div>
+  );
+}
+
+function Partner({ partnerName, partnerImg }) {
+  const { t } = useTranslation();
+  const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+
+  return (
+    <div className="mt-4 flex flex-row items-center">
+      <img className="rounded-full w-24 h-24" src={partnerImg} alt="" />
+      <div className="mx-4 my-2" />
+      <p className="text-sm sm:text-base">
+        {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
+        <br />
+        <strong>{partnerName}</strong>
+        {' '}
+        {t('views.signUp.partnerTextOutro')}
+      </p>
+    </div>
+  );
+}
+
+function Explanation() {
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        className="mt-4 mb-1 px-4 py-2 flex justify-start items-center bg-kaki w-full focus:outline-none"
+        onClick={() => {
+          setIsOpen((current) => !current);
+        }}
+      >
+        <div className="font-semibold">{t('views.signUp.whatIsQh')}</div>
+        <div className="flex-1" />
+        {
+          React.createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
+            className: 'cursor-pointer hover:opacity-50',
+            style: { fontSize: '40px' },
+          })
+        }
+      </button>
+      <Collapse in={isOpen}>
+        <div className="p-4 bg-kaki">
+          Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!
+          <br />
+          <br />
+          Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.
+          <br />
+          <br />
+          Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen.
+        </div>
+      </Collapse>
+    </>
   );
 }
 
@@ -120,6 +142,7 @@ function SignupBody() {
     try {
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
+      fb.analytics.logEvent(`signup_${source || 'norefer'}`);
     } catch (err) {
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;

@@ -221,6 +221,8 @@
       "headerText": "Registriere Dich mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
       "headerTextExtended": "Falls Du bereits einen Account bei QuarantäneHeld*innen hast, kannst Du Dich stattdessen auch direkt anmelden.",
       "headerTextPartner": "Hier kannst Du in Deiner Nachbarschaft Hilfe erfragen!",
+      "whatIsQh": "Was ist QuarantäneHeld*innen?",
+      "welcomeAtQh": "Willkommen bei QuarantäneHeld*innen!",
       "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
       "pwMismatch": "Die Passwörter stimmen nicht überein",
       "yourEmail": "Deine E-Mail-Adresse",
