@@ -125,6 +125,7 @@ const Page = ({ children }) => {
     Sentry.init({
       dsn: process.env.REACT_APP_SENTRY_DSN,
       environment: process.env.REACT_APP_ENV,
+      release: process.env.REACT_APP_SENTRY_RELEASE,
     });
 
     // Firebase analytics
@@ -298,6 +299,21 @@ export default function App() {
           <Page>
             <Main />
           </Page>
+        </Route>
+        <Route exact path="/test-sentry">
+          <button
+            className="btn border-black p-2 bg-secondary rounded m-4 shadow"
+            type="button"
+            onClick={() => {
+              // eslint-disable-next-line no-console
+              console.log('Capturing exception');
+              // eslint-disable-next-line no-console
+              console.log(process.env.REACT_APP_SENTRY_RELEASE);
+              Sentry.captureException('captured test exception');
+            }}
+          >
+            Capture Exception
+          </button>
         </Route>
         <Route path="*">
           <Page>

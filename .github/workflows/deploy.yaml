@@ -16,6 +16,7 @@ jobs:
         run: yarn build
         env:
           NODE_ENV: prod
+          REACT_APP_SENTRY_RELEASE: ${{ github.sha }}
       - name: Deploy
         env:
           TOKEN: ${{ secrets.TOKEN }}
