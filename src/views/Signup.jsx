@@ -132,6 +132,7 @@ function SignupBody() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
   const location = useLocation();
+  const { source } = useQuery();
 
   const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
 
