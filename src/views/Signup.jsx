@@ -17,6 +17,7 @@ import MailInput from '../components/MailInput';
 import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
+import * as Sentry from '@sentry/browser';
 
 export default () => (
   <div className="p-4">
@@ -141,10 +142,13 @@ function SignupBody() {
     e.preventDefault();
 
     try {
+      const userSource = source || 'direct';
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
-      fb.analytics.logEvent(`signup_${source || 'norefer'}`);
+      await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
+      fb.analytics.logEvent(`signup_${userSource}`);
     } catch (err) {
+      Sentry.captureException(err);
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
