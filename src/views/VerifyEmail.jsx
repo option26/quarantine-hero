@@ -20,7 +20,6 @@ export default () => {
   }
 
   if (user && !emailVerifiedLoading && emailVerified) {
-    console.log('Email Verified. Redirecting to ask for help');
     return <Redirect to="/ask-for-help" />;
   }
 

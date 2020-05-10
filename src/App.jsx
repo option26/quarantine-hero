@@ -41,7 +41,6 @@ import arrowUpIcon from './assets/arrows_up.svg';
 import FilteredListFrame from './views/FilteredListFrame';
 import Footer from './components/Footer';
 import HandleEmailAction from './views/HandleEmailAction';
-import isEmailVerified from './util/emailVerified';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
