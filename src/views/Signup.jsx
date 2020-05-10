@@ -9,6 +9,7 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -17,7 +18,6 @@ import MailInput from '../components/MailInput';
 import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
-import * as Sentry from '@sentry/browser';
 
 export default () => (
   <div className="p-4">
