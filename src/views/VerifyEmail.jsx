@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { baseUrl } from '../appConfig';
+import { useEmailVerified } from '../util/emailVerified';
 
 
 export default () => {
   const [sendVerificationSuccess, setSendVerificationSuccess] = React.useState(false);
   const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
 
   const { t } = useTranslation();
 
@@ -17,7 +19,7 @@ export default () => {
     return <Redirect to="/signup" />;
   }
 
-  if (user && user.emailVerified) {
+  if (user && !emailVerifiedLoading && emailVerified) {
     return <Redirect to="/ask-for-help" />;
   }
 

@@ -14,6 +14,7 @@ import MailInput from '../components/MailInput';
 import fb from '../firebase';
 
 import { baseUrl } from '../appConfig';
+import { useEmailVerified } from '../util/emailVerified';
 
 export default function Signin() {
   const [email, setEmail] = React.useState('');
@@ -23,13 +24,23 @@ export default function Signin() {
   const location = useLocation();
   const { t } = useTranslation();
   const [user] = useAuthState(firebase.auth());
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
   const signInWithEmailAndPassword = (mail, pw) => firebase.auth().signInWithEmailAndPassword(mail, pw);
 
   const { returnUrl } = useParams();
 
   if (user) {
-    if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
-    return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
+    if (returnUrl) {
+      return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
+    }
+
+    if (!emailVerifiedLoading && !emailVerified) {
+      return <Redirect to="/verify-email" />;
+    }
+
+    if (!emailVerifiedLoading && emailVerified) {
+      return <Redirect to="/ask-for-help" />;
+    }
   }
 
   const reasonForSignin = location && location.state && location.state.reason_for_registration

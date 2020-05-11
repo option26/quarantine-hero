@@ -11,12 +11,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
+import { useEmailVerified } from '../util/emailVerified';
 
 export default () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const [user] = useAuthState(firebase.auth());
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
   const location = useLocation();
   const passwordInput = useRef();
   const passwordRepeatInput = useRef();
@@ -26,8 +28,17 @@ export default () => {
   const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
 
   if (user) {
-    if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
-    return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
+    if (returnUrl) {
+      return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
+    }
+
+    if (!emailVerifiedLoading && !emailVerified) {
+      return <Redirect to="/verify-email" />;
+    }
+
+    if (!emailVerifiedLoading && emailVerified) {
+      return <Redirect to="/ask-for-help" />;
+    }
   }
 
   const reasonForSignup = location && location.state && location.state.reason_for_registration
