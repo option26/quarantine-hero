@@ -153,6 +153,9 @@ function VerifyEmailView({ continueUrl, actionCode }) {
 
   const verifyEmail = async () => {
     try {
+      if (user) {
+        await firebase.auth().signOut();
+      }
       await firebase.auth().applyActionCode(actionCode);
       setLoading(false);
     } catch (err) {
