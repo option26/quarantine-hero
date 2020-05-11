@@ -12,29 +12,17 @@ import useQuery from '../util/useQuery';
 
 export default function HandleEmailAction() {
   const { t } = useTranslation();
-
-  const [urlParams, setUrlParams] = useState(undefined);
   const queryParams = useQuery();
 
-  useEffect(() => {
-    const paramObj = {
-      mode: queryParams.mode,
-      // Firebase requires the continue URL to have a domain part. As we use Links for routing, we strip the domain part off.
-      continueUrl: queryParams.continueUrl && queryParams.continueUrl.split('#')[1],
-      oobCode: queryParams.oobCode,
-    };
-
-    setUrlParams(paramObj);
-  }, [queryParams]);
-
-  if (urlParams) {
-    switch (urlParams.mode) {
-      case 'signIn': return <SignInView continueUrl={urlParams.continueUrl} />;
-      case 'verifyEmail': return <VerifyEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
-      case 'resetPassword': return <ResetPasswordView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
-      case 'recoverEmail': return <RecoverEmailView continueUrl={urlParams.continueUrl} actionCode={urlParams.oobCode} />;
+  if (queryParams) {
+    const continueUrl = queryParams.continueUrl && queryParams.continueUrl.split('#')[1];
+    switch (queryParams.mode) {
+      case 'signIn': return <SignInView continueUrl={continueUrl} />;
+      case 'verifyEmail': return <VerifyEmailView continueUrl={continueUrl} actionCode={queryParams.oobCode} />;
+      case 'resetPassword': return <ResetPasswordView continueUrl={continueUrl} actionCode={queryParams.oobCode} />;
+      case 'recoverEmail': return <RecoverEmailView continueUrl={continueUrl} actionCode={queryParams.oobCode} />;
       default: {
-        Sentry.captureException(new Error(`Unknown email handler action: ${urlParams.mode}`));
+        Sentry.captureException(new Error(`Unknown email handler action: ${queryParams.mode}`));
         return <StatusIndicator success={false} text={t('views.emailActions.unknownAction')} />;
       }
     }
