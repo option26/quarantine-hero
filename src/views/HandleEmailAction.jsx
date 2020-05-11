@@ -141,6 +141,10 @@ function VerifyEmailView({ continueUrl, actionCode }) {
 
   const verifyEmail = async () => {
     try {
+      const tokenInfo = await firebase.auth().checkActionCode(actionCode);
+      if (user && user.email !== tokenInfo.data.email) {
+        await firebase.auth().signOut();
+      }
       await firebase.auth().applyActionCode(actionCode);
       setLoading(false);
     } catch (err) {
