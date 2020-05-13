@@ -18,6 +18,7 @@ import MailInput from '../components/MailInput';
 import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
+import { useEmailVerified } from '../util/emailVerified';
 
 export default () => (
   <div className="p-4">
@@ -38,6 +39,8 @@ function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
   const { source, fullExplanation } = useQuery();
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
+
   const location = useLocation();
   const [user] = useAuthState(firebase.auth());
 
@@ -50,8 +53,17 @@ function SignupHeader() {
   const headerText = t('views.signUp.headerText', { reasonForSignup });
 
   if (user) {
-    if (returnUrl) return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
-    return user.emailVerified ? <Redirect to="/ask-for-help" /> : <Redirect to="/verify-email" />;
+    if (returnUrl) {
+      return <Redirect to={`/${decodeURIComponent(returnUrl)}`} />;
+    }
+
+    if (!emailVerifiedLoading && !emailVerified) {
+      return <Redirect to="/verify-email" />;
+    }
+
+    if (!emailVerifiedLoading && emailVerified) {
+      return <Redirect to="/ask-for-help" />;
+    }
   }
 
   return (

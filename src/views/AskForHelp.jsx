@@ -7,11 +7,14 @@ import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
+import { useEmailVerified } from '../util/emailVerified';
 
 export default function AskForHelp() {
   const { t } = useTranslation();
 
   const [user, isAuthLoading] = useAuthState(fb.auth);
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(fb.auth);
+
   const [request, setRequest] = useState('');
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState(undefined);
@@ -72,7 +75,7 @@ export default function AskForHelp() {
     return <Redirect to="/signin/ask-for-help" />;
   }
 
-  if (!user.emailVerified) {
+  if (!emailVerifiedLoading && !emailVerified) {
     return <Redirect to="/verify-email" />;
   }
 
