@@ -32,7 +32,6 @@ const partners = [
   { key: 'nachbarhilft', name: 'In Quarantäne? Nachbar hilft!', imgSource: require('../assets/nachbar_hilft.png') },
   { key: 'wittweiden', name: 'WITT WEIDEN', imgSource: require('../assets/witt_weiden.png') },
   { key: 'siehan', name: 'Sieh an!', imgSource: require('../assets/sieh_an.png') },
-
 ];
 
 function SignupHeader() {
