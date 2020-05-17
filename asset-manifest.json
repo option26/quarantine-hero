@@ -1,25 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b36301e.chunk.css",
-    "main.js": "/static/js/main.91f01439.chunk.js",
-    "main.js.map": "/static/js/main.91f01439.chunk.js.map",
+    "main.css": "/static/css/main.b4bfe14f.chunk.css",
+    "main.js": "/static/js/main.b9fc191e.chunk.js",
+    "main.js.map": "/static/js/main.b9fc191e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.3bd4e630.chunk.js": "/static/js/2.3bd4e630.chunk.js",
-    "static/js/2.3bd4e630.chunk.js.map": "/static/js/2.3bd4e630.chunk.js.map",
+    "static/js/2.162a6c92.chunk.js": "/static/js/2.162a6c92.chunk.js",
+    "static/js/2.162a6c92.chunk.js.map": "/static/js/2.162a6c92.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.afe3762118c503e6d98015629fd94b33.js": "/precache-manifest.afe3762118c503e6d98015629fd94b33.js",
+    "precache-manifest.e95600903dda4e847fcda6623aedd848.js": "/precache-manifest.e95600903dda4e847fcda6623aedd848.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
-    "static/css/main.4b36301e.chunk.css.map": "/static/css/main.4b36301e.chunk.css.map",
-    "static/js/2.3bd4e630.chunk.js.LICENSE.txt": "/static/js/2.3bd4e630.chunk.js.LICENSE.txt",
+    "static/css/main.b4bfe14f.chunk.css.map": "/static/css/main.b4bfe14f.chunk.css.map",
+    "static/js/2.162a6c92.chunk.js.LICENSE.txt": "/static/js/2.162a6c92.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
     "static/media/berliner_morgenpost.jpg": "/static/media/berliner_morgenpost.6c9456d0.jpg",
     "static/media/bmg_logo.svg": "/static/media/bmg_logo.28dbe276.svg",
     "static/media/bunte_de.jpg": "/static/media/bunte_de.f7b1ea8c.jpg",
+    "static/media/check.svg": "/static/media/check.dde12861.svg",
     "static/media/clipboard.svg": "/static/media/clipboard.d5681166.svg",
     "static/media/cosmopolitan.jpg": "/static/media/cosmopolitan.0ea04a67.jpg",
     "static/media/distanziert.svg": "/static/media/distanziert.1d6cc75d.svg",
@@ -55,8 +56,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.3bd4e630.chunk.js",
-    "static/css/main.4b36301e.chunk.css",
-    "static/js/main.91f01439.chunk.js"
+    "static/js/2.162a6c92.chunk.js",
+    "static/css/main.b4bfe14f.chunk.css",
+    "static/js/main.b9fc191e.chunk.js"
   ]
 }
