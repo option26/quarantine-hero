@@ -62,6 +62,16 @@ export default function Main() {
 
         <div className="w-full flex justify-center mt-4">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {t('views.main.hotline.ourHotline')}
+          </div>
+        </div>
+        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
+          <div className="text-3xl text-primary font-bold font-open-sans">{t('views.main.hotline.number')}</div>
+          <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
+        </div>
+
+        <div className="w-full flex justify-center mt-8">
+          <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
             {t('views.main.importantNotes.title')}
           </div>
         </div>
