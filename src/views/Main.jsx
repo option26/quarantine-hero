@@ -66,7 +66,12 @@ export default function Main() {
           </div>
         </div>
         <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
-          <div className="text-3xl text-primary font-bold font-open-sans">{t('views.main.hotline.number')}</div>
+          <a
+            className="text-3xl text-primary font-bold font-open-sans"
+            href={`tel:${t('views.main.hotline.number')}`}
+          >
+            {t('views.main.hotline.number')}
+          </a>
           <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
         </div>
 
