@@ -1,7 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
-import { de } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -10,6 +9,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 
 import fb from '../../firebase';
+import getDateFnsLocaleObject from '../../util/getDateFnsLocaleObject';
 import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
 
@@ -42,7 +42,7 @@ export default function Entry(props) {
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
 
-  const date = formatDistance(new Date(timestamp), Date.now(), { locale: de, addSuffix: true }); // @TODO get locale from i18n.language or use i18n for formatting
+  const date = formatDistance(new Date(timestamp), Date.now(), { locale: getDateFnsLocaleObject(), addSuffix: true });
   const [responsesVisible, setResponsesVisible] = useState(false);
 
   const [deleted, setDeleted] = useState(false);
