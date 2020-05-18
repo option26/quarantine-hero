@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import Collapse from '@material-ui/core/Collapse';
+import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import {
@@ -7,26 +9,48 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation, Trans } from 'react-i18next';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailInput from '../components/MailInput';
+import fb from '../firebase';
 import { baseUrl } from '../appConfig';
+import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
 import checkMark from '../assets/check.svg';
 
-export default () => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [error, setError] = React.useState('');
-  const [user] = useAuthState(firebase.auth());
-  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
-  const location = useLocation();
-  const passwordInput = useRef();
-  const passwordRepeatInput = useRef();
+export default () => (
+  <div className="p-4">
+    <SignupHeader />
+    <SignupBody />
+  </div>
+);
+
+// We use an array to be able to manage this via the CMS in the future
+const partners = [
+  { key: 'nachbarhilft', name: 'In Quarantäne? Nachbar hilft!', imgSource: require('../assets/nachbar_hilft.png') },
+  { key: 'wittweiden', name: 'WITT WEIDEN', imgSource: require('../assets/witt_weiden.png') },
+  { key: 'siehan', name: 'Sieh an!', imgSource: require('../assets/sieh_an.png') },
+];
+
+function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
+  const { source, fullExplanation } = useQuery();
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
 
-  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
+  const location = useLocation();
+  const [user] = useAuthState(firebase.auth());
+
+  const { name: partnerName, imgSource: partnerImg } = partners.find((p) => p.key === source) || {};
+  const showPartner = !!(partnerName && partnerImg);
+
+  const reasonForSignup = location && location.state && location.state.reason_for_registration
+    ? location.state.reason_for_registration
+    : t('views.signUp.reasonForSignupDefault');
+  const headerText = t('views.signUp.headerText', { reasonForSignup });
 
   if (user) {
     if (returnUrl) {
@@ -42,24 +66,111 @@ export default () => {
     }
   }
 
-  const reasonForSignup = location && location.state && location.state.reason_for_registration
-    ? location.state.reason_for_registration
-    : t('views.signUp.reasonForSignupDefault');
-  const headerText = t('views.signUp.headerText', { reasonForSignup });
+  return (
+    <div className="mt-8 mb-6">
+      <div className="font-teaser">
+        {(showPartner || fullExplanation) ? t('views.signUp.welcomeAtQh') : headerText}
+      </div>
+      {showPartner && <Partner partnerName={partnerName} partnerImg={partnerImg} />}
+      {fullExplanation && <Explanation />}
+      {(showPartner || fullExplanation) && (
+        <p className="mt-4">
+          {headerText}
+          {' '}
+          {t('views.signUp.headerTextExtended')}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function Partner({ partnerName, partnerImg }) {
+  const { t } = useTranslation();
+  const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+
+  return (
+    <div className="mt-4 flex flex-row items-center">
+      <img className="rounded-full w-24 h-24" src={partnerImg} alt="" />
+      <div className="mx-4 my-2" />
+      <p className="text-sm sm:text-base">
+        {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
+        <br />
+        <strong>{partnerName}</strong>
+        {' '}
+        {t('views.signUp.partnerTextOutro')}
+      </p>
+    </div>
+  );
+}
+
+function Explanation() {
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        className="mt-4 mb-1 px-4 py-2 flex justify-start items-center bg-kaki w-full focus:outline-none"
+        onClick={() => {
+          setIsOpen((current) => !current);
+        }}
+      >
+        <div className="font-semibold">{t('views.signUp.whatIsQh')}</div>
+        <div className="flex-1" />
+        {
+          React.createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
+            className: 'cursor-pointer hover:opacity-50',
+            style: { fontSize: '40px' },
+          })
+        }
+      </button>
+      <Collapse in={isOpen}>
+        <div className="p-4 bg-kaki">
+          Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!
+          <br />
+          <br />
+          Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.
+          <br />
+          <br />
+          Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen.
+        </div>
+      </Collapse>
+    </>
+  );
+}
+
+function SignupBody() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const passwordInput = useRef();
+  const passwordRepeatInput = useRef();
+  const { t } = useTranslation();
+  const { returnUrl } = useParams();
+  const location = useLocation();
+  const { source } = useQuery();
+
+  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
 
   const registerUser = async (e) => {
     // Prevent page reload
     e.preventDefault();
 
     try {
+      const userSource = source || 'direct';
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
+      await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
+      fb.analytics.logEvent(`signup_${userSource}`);
     } catch (err) {
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
-        default: setError(err.message);
+        default: {
+          setError(err.message);
+          Sentry.captureException(err);
+        }
       }
     }
   };
@@ -73,12 +184,9 @@ export default () => {
   };
 
   return (
-    <div className="p-4 mt-8">
+    <>
       <form onSubmit={registerUser}>
         <div className="mb-4">
-          <div className="font-teaser mb-6">
-            {headerText}
-          </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             {t('views.signUp.email')}
           </label>
@@ -159,6 +267,6 @@ export default () => {
       >
         {t('views.signUp.haveAnAccount')}
       </Link>
-    </div>
+    </>
   );
-};
+}
