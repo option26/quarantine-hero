@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DSGVO() {
+export default function PrivacyPolicy() {
   return (
     <div className="mt-4 p-4">
       <div className="impressum">

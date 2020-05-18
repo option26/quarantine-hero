@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailInput from '../components/MailInput';
@@ -19,6 +19,7 @@ import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
+import checkMark from '../assets/check.svg';
 
 export default () => (
   <div className="p-4">
@@ -215,7 +216,7 @@ function SignupBody() {
             }}
           />
         </div>
-        <div className="mb-8">
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password_repeat">
             {t('views.signUp.passwordRepeat')}
           </label>
@@ -230,9 +231,25 @@ function SignupBody() {
             onChange={comparePasswords}
           />
         </div>
+        <div className="mb-8">
+          <label className="flex text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="privacy_policy">
+            <div className="bg-white border rounded w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 checkbox">
+              <input id="privacy_policy" type="checkbox" required="required" className="opacity-0 absolute" />
+              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={checkMark} />
+            </div>
+            <div className="select-none">
+              <Trans i18nKey="views.signUp.acceptPrivacyPolicy">
+                text
+                <a href={`${baseUrl}/#/privacy-policy`} target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">text</a>
+                text
+              </Trans>
+            </div>
+          </label>
+        </div>
         {error && <div data-cy="error-label" className="text-red-500">{error}</div>}
         <div className="flex justify-end mt-6">
           <button
+            data-cy="btn-submit-signup"
             className="btn-green w-full"
             type="submit"
           >

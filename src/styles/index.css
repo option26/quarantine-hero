@@ -356,6 +356,14 @@
     hyphens: auto;
 }
 
+input:checked + svg, input:checked + img {
+    display: block;
+}
+
+.checkbox:focus-within {
+    border: 2px solid #87a544;
+}
+
 @media only screen and (max-width: 834px) {
     .rwt__tab {
         background: transparent;

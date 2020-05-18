@@ -9,6 +9,11 @@
       "weAreHumans": "Wir sind Menschen.",
       "inTimesOfNeed": "In Zeiten der Not helfen wir uns.",
       "bePart": "Sei ein Teil davon.",
+      "hotline": {
+        "ourHotline": "UNSERE HOTLINE",
+        "number": "089 143770224",
+        "serviceHours": "Von 10:00 - 18:00 Uhr für Euch da!"
+      },
       "importantNotes": {
         "title": "WICHTIGER HINWEIS",
         "cautious": {
@@ -231,6 +236,7 @@
       "password": "Passwort",
       "passwordRepeat": "Passwort wiederholen",
       "confirmPassword": "Passwort erneut eingeben",
+      "acceptPrivacyPolicy": "Ich stimme den <1>Datenschutzbestimmungen</1> zu!",
       "registerNow": "Jetzt registrieren",
       "emailInUse": "Es existiert bereits ein Account mit dieser E-Mail-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",

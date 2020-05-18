@@ -26,7 +26,7 @@ import Success from './views/Success';
 import NotFound from './views/NotFound';
 import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
-import DSGVO from './views/DSGVO';
+import PrivacyPolicy from './views/PrivacyPolicy';
 import Sidebar from './components/Sidebar';
 import DesktopLowerNavigation from './components/DesktopMenu';
 import VerifyEmail from './views/VerifyEmail';
@@ -270,9 +270,9 @@ export default function App() {
             <SuccessOffer />
           </Page>
         </Route>
-        <Route path="/dsgvo">
+        <Route path="/privacy-policy">
           <Page>
-            <DSGVO />
+            <PrivacyPolicy />
           </Page>
         </Route>
         <Route path={['/press', '/presse']}>
