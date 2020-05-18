@@ -162,12 +162,14 @@ function SignupBody() {
       await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
       fb.analytics.logEvent(`signup_${userSource}`);
     } catch (err) {
-      Sentry.captureException(err);
       switch (err.code) {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
-        default: setError(err.message);
+        default: {
+          setError(err.message);
+          Sentry.captureException(err);
+        }
       }
     }
   };
