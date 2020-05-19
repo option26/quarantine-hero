@@ -8,6 +8,7 @@ import {
   Tabs, Tab, TabPanel, TabList,
 } from 'react-web-tabs';
 import * as firebase from 'firebase/app';
+import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
 import useQuery from '../util/useQuery';
@@ -199,7 +200,10 @@ function DeleteAccountButton({ user, className }) {
     } catch (err) {
       switch (err.code) {
         case 'auth/wrong-password': setError(t('components.deleteAccountButton.wrongPassword')); break;
-        default: setError(err.message);
+        default: {
+          setError(err.message);
+          Sentry.captureException(err);
+        }
       }
     }
   };
