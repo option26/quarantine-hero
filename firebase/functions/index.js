@@ -327,7 +327,7 @@ async function onUserDelete(user) {
     deletedPostEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id));
 
     // Delete help offers for all (ask-for-help, solved and deleted)
-    const deletedPostOffersEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
+    const helpOfferEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
     deletedPostOffersEntries.docs.forEach((doc) => doc.ref.update({ email: '', answer: '' }));
 
     // Delete notifications
