@@ -340,12 +340,11 @@ async function onUserDelete(user) {
 
     // Anonymize reported-by
     const reportedEntryIds = reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId);
-    const entryRefs = [];
-    for (let i = 0; i < reportedEntryIds.length; i += 1) {
-      entryRefs.push(db.collection('ask-for-help').doc(reportedEntryIds[i]));
-      entryRefs.push(db.collection('solved-posts').doc(reportedEntryIds[i]));
-      entryRefs.push(db.collection('deleted').doc(reportedEntryIds[i]));
-    }
+    const entryRefs = reportedEntryIds.map((id) => [
+      db.collection('ask-for-help').doc(id),
+      db.collection('solved-posts').doc(id),
+      db.collection('deleted').doc(id),
+    ]).reduce((arr, elem) => arr.concat(elem), []);
 
     const reportedEntries = await db.getAll(...entryRefs);
     reportedEntries.forEach((doc) => {
