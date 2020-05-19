@@ -313,7 +313,7 @@
       "password": "Passwort",
       "confirmDeletion": "Löschen bestätigen",
       "repeatePassword": "Passwort erneut eingeben",
-      "deleteFinally": "Account unwiederuflich löschen",
+      "deleteFinally": "Account unwideruflich löschen",
       "abort": "Abbrechen",
       "wrongPassword": "Dein angegebenes Passwort ist leider inkorrekt"
     },
