@@ -75,7 +75,7 @@ async function deleteDocumentWithSubCollections(db, collectionName, documentId) 
 async function getEntriesOfUser(db, collection, key, uid, useCollectionGroup = false) {
   if (!useCollectionGroup) {
     return db.collection(collection).where(key, '==', uid).get();
-  } 
+  }
   return db.collectionGroup(collection).where(key, '==', uid).get();
 }
 module.exports = {
