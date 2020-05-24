@@ -32,7 +32,8 @@
     "reactjs-popup": "^1.5.0",
     "supercluster": "^7.0.0",
     "tailwindcss": "^1.2.0",
-    "use-supercluster": "^0.2.6"
+    "use-supercluster": "^0.2.6",
+    "react-super-responsive-table": "^5.1.1"
   },
   "scripts": {
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",

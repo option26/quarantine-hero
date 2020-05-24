@@ -21,6 +21,22 @@
     font-size: 24px;
 }
 
+.font-teaser-2 {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #222;
+    font-size: 22px;
+}
+
+.font-teaser-3 {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #222;
+    font-size: 20px;
+}
+
 .btn-main {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 16px;

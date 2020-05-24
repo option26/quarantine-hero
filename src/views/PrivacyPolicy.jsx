@@ -1,603 +1,436 @@
 import React from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
 export default function PrivacyPolicy() {
   return (
-    <div className="mt-4 p-4">
+    <div className="mt-4 p-4 text-justify hyphens-auto">
       <div className="impressum">
-        <h4 className="font-teaser my-4">Datenschutzerklärung</h4>
-
+        <h4 className="font-teaser my-4">Datenschutz auf einen Blick</h4>
+        <h5 className="font-teaser-2 my-4">Allgemeine Hinweise</h5>
         <p>
-          Wir freuen uns sehr über Ihr Interesse an unserem Unternehmen. Datenschutz hat einen besonders hohen Stellenwert für die Geschäftsleitung
-          der QuarantäneHelden. Eine Nutzung der Internetseiten der QuarantäneHelden ist grundsätzlich ohne jede Angabe personenbezogener Daten möglich. Sofern eine
-          betroffene Person besondere Services unseres Unternehmens über unsere Internetseite in Anspruch nehmen möchte, könnte jedoch eine
-          Verarbeitung personenbezogener Daten erforderlich werden. Ist die Verarbeitung personenbezogener Daten erforderlich und besteht für eine
-          solche Verarbeitung keine gesetzliche Grundlage, holen wir generell eine Einwilligung der betroffenen Person ein.
+          Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Deinen personenbezogenen Daten
+          passiert, wenn Du diese Website besuchst. Personenbezogene Daten sind all jene Daten, mit denen Du
+          persönlich identifiziert werden kannst. Ausführliche Informationen zum Thema Datenschutz entnimmst Du
+          unserer unter diesem Text aufgeführten Datenschutzerklärung.
         </p>
 
+        <h5 className="font-teaser-2 my-4">Datenerfassung auf dieser Website</h5>
+        <h6 className="font-teaser-3 my-4">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h6>
         <p>
-          Die Verarbeitung personenbezogener Daten, beispielsweise des Namens, der Anschrift, E-Mail-Adresse oder Telefonnummer einer betroffenen
-          Person, erfolgt stets im Einklang mit der Datenschutz-Grundverordnung und in Übereinstimmung mit den für die QuarantäneHelden geltenden
-          landesspezifischen Datenschutzbestimmungen. Mittels dieser Datenschutzerklärung möchte unser Unternehmen die Öffentlichkeit über Art, Umfang
-          und Zweck der von uns erhobenen, genutzten und verarbeiteten personenbezogenen Daten informieren. Ferner werden betroffene Personen mittels
-          dieser Datenschutzerklärung über die ihnen zustehenden Rechte aufgeklärt.
+          Die Datenverarbeitung auf dieser Website erfolgt durch die Websitebetreiber*innen. Deren Kontaktdaten
+          kannst Du dem Impressum dieser Website entnehmen.
         </p>
 
+        <h6 className="font-teaser-3 my-4">Wie erfassen wir Deine Daten?</h6>
         <p>
-          Die QuarantäneHelden hat als für die Verarbeitung Verantwortlicher zahlreiche technische und organisatorische Maßnahmen umgesetzt, um einen möglichst
-          lückenlosen Schutz der über diese Internetseite verarbeiteten personenbezogenen Daten sicherzustellen. Dennoch können Internetbasierte
-          Datenübertragungen grundsätzlich Sicherheitslücken aufweisen, sodass ein absoluter Schutz nicht gewährleistet werden kann. Aus diesem Grund
-          steht es jeder betroffenen Person frei, personenbezogene Daten auch auf alternativen Wegen, beispielsweise telefonisch, an uns zu
-          übermitteln.
+          Deine Daten werden zum einen dadurch erhoben, dass Du uns diese mitteilst. Hierbei handelt es sich z. B.
+          um Daten wie Deine E-Mail-Adresse.
+        </p>
+        <br />
+        <p>
+          Andere Daten werden automatisch oder nach Deiner Einwilligung beim Besuch der Website durch unsere
+          IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder
+          Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Du unsere
+          Website betrittst.
         </p>
 
-        <h4 className="font-teaser my-4">1. Begriffsbestimmungen</h4>
+        <h6 className="font-teaser-3 my-4">Aus welchem Grund verarbeiten wir Deine Daten?</h6>
         <p>
-          Die Datenschutzerklärung der QuarantäneHelden beruht auf den Begrifflichkeiten, die durch den Europäischen Richtlinien- und Verordnungsgeber beim
-          Erlass der Datenschutz-Grundverordnung (DS-GVO) verwendet wurden. Unsere Datenschutzerklärung soll sowohl für die Öffentlichkeit als auch
-          für unsere Kunden und Geschäftspartner einfach lesbar und verständlich sein. Um dies zu gewährleisten, möchten wir vorab die verwendeten
-          Begrifflichkeiten erläutern.
+          Vorrangig verarbeiten wir Deine Daten, um den Zweck unserer Website zu verfolgen, Menschen zu helfen.
+          Bspw. verwenden wir E-Mail-Adresse, um dich zu kontaktieren, sobald es relevante Neuigkeiten für Dich
+          gibt. Dies beinhaltet Hilfegesuche in Deiner Nähe oder Antworten auf ein Hilfsgesuch. Ein Teil der Daten
+          wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten und sie stetig zu verbessern.
         </p>
 
-        <p>Wir verwenden in dieser Datenschutzerklärung unter anderem die folgenden Begriffe:</p>
-
-        <ul className="list-none">
-          <li>
-            <h4 className="font-teaser my-4">a) personenbezogene Daten</h4>
-            <p>
-              Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person (im Folgenden
-              „betroffene Person“) beziehen. Als identifizierbar wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels
-              Zuordnung zu einer Kennung wie einem Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung oder zu einem oder mehreren
-              besonderen Merkmalen, die Ausdruck der physischen, physiologischen, genetischen, psychischen, wirtschaftlichen, kulturellen oder
-              sozialen Identität dieser natürlichen Person sind, identifiziert werden kann.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">b) betroffene Person</h4>
-            <p>
-              Betroffene Person ist jede identifizierte oder identifizierbare natürliche Person, deren personenbezogene Daten von dem für die
-              Verarbeitung Verantwortlichen verarbeitet werden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">c) Verarbeitung</h4>
-            <p>
-              Verarbeitung ist jeder mit oder ohne Hilfe automatisierter Verfahren ausgeführte Vorgang oder jede solche Vorgangsreihe im Zusammenhang
-              mit personenbezogenen Daten wie das Erheben, das Erfassen, die Organisation, das Ordnen, die Speicherung, die Anpassung oder
-              Veränderung, das Auslesen, das Abfragen, die Verwendung, die Offenlegung durch Übermittlung, Verbreitung oder eine andere Form der
-              Bereitstellung, den Abgleich oder die Verknüpfung, die Einschränkung, das Löschen oder die Vernichtung.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">d) Einschränkung der Verarbeitung</h4>
-            <p>
-              Einschränkung der Verarbeitung ist die Markierung gespeicherter personenbezogener Daten mit dem Ziel, ihre künftige Verarbeitung
-              einzuschränken.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">e) Profiling</h4>
-            <p>
-              Profiling ist jede Art der automatisierten Verarbeitung personenbezogener Daten, die darin besteht, dass diese personenbezogenen Daten
-              verwendet werden, um bestimmte persönliche Aspekte, die sich auf eine natürliche Person beziehen, zu bewerten, insbesondere, um Aspekte
-              bezüglich Arbeitsleistung, wirtschaftlicher Lage, Gesundheit, persönlicher Vorlieben, Interessen, Zuverlässigkeit, Verhalten,
-              Aufenthaltsort oder Ortswechsel dieser natürlichen Person zu analysieren oder vorherzusagen.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">f) Pseudonymisierung</h4>
-            <p>
-              Pseudonymisierung ist die Verarbeitung personenbezogener Daten in einer Weise, auf welche die personenbezogenen Daten ohne Hinzuziehung
-              zusätzlicher Informationen nicht mehr einer spezifischen betroffenen Person zugeordnet werden können, sofern diese zusätzlichen
-              Informationen gesondert aufbewahrt werden und technischen und organisatorischen Maßnahmen unterliegen, die gewährleisten, dass die
-              personenbezogenen Daten nicht einer identifizierten oder identifizierbaren natürlichen Person zugewiesen werden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">g) Verantwortlicher oder für die Verarbeitung Verantwortlicher</h4>
-            <p>
-              Verantwortlicher oder für die Verarbeitung Verantwortlicher ist die natürliche oder juristische Person, Behörde, Einrichtung oder
-              andere Stelle, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
-              entscheidet. Sind die Zwecke und Mittel dieser Verarbeitung durch das Unionsrecht oder das Recht der Mitgliedstaaten vorgegeben, so kann
-              der Verantwortliche beziehungsweise können die bestimmten Kriterien seiner Benennung nach dem Unionsrecht oder dem Recht der
-              Mitgliedstaaten vorgesehen werden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">h) Auftragsverarbeiter</h4>
-            <p>
-              Auftragsverarbeiter ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle, die personenbezogene Daten im
-              Auftrag des Verantwortlichen verarbeitet.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">i) Empfänger</h4>
-            <p>
-              Empfänger ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle, der personenbezogene Daten offengelegt
-              werden, unabhängig davon, ob es sich bei ihr um einen Dritten handelt oder nicht. Behörden, die im Rahmen eines bestimmten
-              Untersuchungsauftrags nach dem Unionsrecht oder dem Recht der Mitgliedstaaten möglicherweise personenbezogene Daten erhalten, gelten
-              jedoch nicht als Empfänger.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">j) Dritter</h4>
-            <p>
-              Dritter ist eine natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle außer der betroffenen Person, dem
-              Verantwortlichen, dem Auftragsverarbeiter und den Personen, die unter der unmittelbaren Verantwortung des Verantwortlichen oder des
-              Auftragsverarbeiters befugt sind, die personenbezogenen Daten zu verarbeiten.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">k) Einwilligung</h4>
-            <p>
-              Einwilligung ist jede von der betroffenen Person freiwillig für den bestimmten Fall in informierter Weise und unmissverständlich
-              abgegebene Willensbekundung in Form einer Erklärung oder einer sonstigen eindeutigen bestätigenden Handlung, mit der die betroffene
-              Person zu verstehen gibt, dass sie mit der Verarbeitung der sie betreffenden personenbezogenen Daten einverstanden ist.
-            </p>
-          </li>
-        </ul>
-
-        <h4 className="font-teaser my-4">2. Name und Anschrift des für die Verarbeitung Verantwortlichen</h4>
+        <h6 className="font-teaser-3 my-4">Welche Rechte hast Du bezüglich Deiner Daten?</h6>
         <p>
-          Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden
-          Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter ist die:
+          Du hast jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Deiner
+          gespeicherten personenbezogenen Daten zu erhalten. Du hast außerdem ein Recht, die Berichtigung
+          oder Löschung dieser Daten zu verlangen. Wenn Du eine Einwilligung zur Datenverarbeitung erteilt hast,
+          kannst Du diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem hast Du das Recht, unter
+          bestimmten Umständen die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.
+          Des Weiteren steht Dir ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
+        </p>
+        <br />
+        <p>
+          Hierzu, sowie zu weiteren Fragen zum Thema Datenschutz, kannst Du Dich jederzeit unter der im Impressum
+          angegebenen Adresse an uns wenden.
         </p>
 
-        <p>Georgenschwaigstraße, 16A</p>
-        <p>80807 München</p>
-        <p>Deutschland</p>
-        <p>Tel.: 08935627565</p>
-        <p>E-Mail: help@quarantaenehelden.org</p>
-        <p>Website: www.quarantaenehelden.org</p>
-
-        <h4 className="font-teaser my-4">3. Cookies</h4>
+        <h5 className="font-teaser-2 my-4">Analyse-Tools und Tools von Drittanbietern</h5>
         <p>
-          Die Internetseiten der QuarantäneHelden verwenden Cookies. Cookies sind Textdateien, welche über einen Internetbrowser auf einem Computersystem
-          abgelegt und gespeichert werden.
+          Sofern Du der Verwendung unserer Analyse Cookies zustimmst, werden wir statistisch auswerten, wie Du
+          unsere Website verwendest. Dabei verwenden wir die folgenden Tools unseres Infrastrukturanbieters:
+          Google Analytics und Firebase Analytics.
+        </p>
+        <br />
+        <p>
+          Detaillierte Informationen zu diesen Analyseprogrammen findest Du in der folgenden Datenschutzerklärung.
         </p>
 
+        <h4 className="font-teaser my-4">Externes Hosting und Drittanbieter*innen</h4>
         <p>
-          Zahlreiche Internetseiten und Server verwenden Cookies. Viele Cookies enthalten eine sogenannte Cookie-ID. Eine Cookie-ID ist eine eindeuti
-          ge Kennung des Cookies. Sie besteht aus einer Zeichenfolge, durch welche Internetseiten und Server dem konkreten Internetbrowser zugeordnet
-          werden können, in dem das Cookie gespeichert wurde. Dies ermöglicht es den besuchten Internetseiten und Servern, den individuellen Browser
-          der betroffenen Person von anderen Internetbrowsern, die andere Cookies enthalten, zu unterscheiden. Ein bestimmter Internetbrowser kann
-          über die eindeutige Cookie-ID wiedererkannt und identifiziert werden.
+          Diese Website wird bei Google Firebase und Github Pages gehostet (im Folgenden Hoster genannt).
+          Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters
+          gespeichert. Hierbei handelt es sich um IP-Adressen, Meta- und Kommunikationsdaten, Webseitenzugriffe
+          und E-Mail-Adresse, sofern Du Dich registrierst.
+        </p>
+        <br />
+        <p>
+          Der Einsatz des Hosters erfolgt im Interesse einer sicheren, schnellen und effizienten Bereitstellung
+          unseres Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+        <br />
+        <p>
+          Abschluss eines Vertrages über Auftragsverarbeitung: Um die datenschutzkonforme Verarbeitung zu
+          gewährleisten, haben wir einen Vertrag über Auftragsverarbeitung mit unserem Hoster und allen
+          Drittanbieter*innen geschlossen.
         </p>
 
+        <h4 className="font-teaser my-4 text-left">Allgemeine Hinweise und Pflichtinformationen Datenschutz</h4>
         <p>
-          Durch den Einsatz von Cookies kann die QuarantäneHelden den Nutzern dieser Internetseite nutzerfreundlichere Services bereitstellen, die ohne die
-          Cookie-Setzung nicht möglich wären.
+          Die Betreiber dieser Seiten nehmen den Schutz Deiner persönlichen Daten sehr ernst. Wir behandeln Deine
+          personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie
+          dieser Datenschutzerklärung.
+        </p>
+        <br />
+        <p>
+          Wenn Du diese Website benutzt, werden verschiedene personenbezogene Daten erhoben. Personenbezogene
+          Daten sind Daten, mit denen Du persönlich identifiziert werden kannst. Die vorliegende
+          Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert
+          auch, wie und zu welchem Zweck das geschieht.
+        </p>
+        <br />
+        <p>
+          Wir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail)
+          Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist
+          nicht möglich.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Hinweis zur verantwortlichen Stelle</h5>
         <p>
-          Mittels eines Cookies können die Informationen und Angebote auf unserer Internetseite im Sinne des Benutzers optimiert werden. Cookies
-          ermöglichen uns, wie bereits erwähnt, die Benutzer unserer Internetseite wiederzuerkennen. Zweck dieser Wiedererkennung ist es, den Nutzern
-          die Verwendung unserer Internetseite zu erleichtern. Der Benutzer einer Internetseite, die Cookies verwendet, muss beispielsweise nicht bei
-          jedem Besuch der Internetseite erneut seine Zugangsdaten eingeben, weil dies von der Internetseite und dem auf dem Computersystem des
-          Benutzers abgelegten Cookie übernommen wird. Ein weiteres Beispiel ist das Cookie eines Warenkorbes im Online-Shop. Der Online-Shop merkt
-          sich die Artikel, die ein Kunde in den virtuellen Warenkorb gelegt hat, über ein Cookie.
+          Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
+        </p>
+        <br />
+        <p>
+          Tom Graupner & Keno Dreßel
+        </p>
+        <p>
+          Andreas-Schubert-Str. 23 A-Gebäude
+        </p>
+        <p>
+          01069 Dresden
+        </p>
+        <br />
+        <p>
+          Telefon: 089-35627565
+        </p>
+        <p>
+          E-Mail: help@quarantaenehelden.org
+        </p>
+        <br />
+        <p>
+          Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit
+          anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
+          (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Widerruf Deiner Einwilligung zur Datenverarbeitung</h5>
         <p>
-          Die betroffene Person kann die Setzung von Cookies durch unsere Internetseite jederzeit mittels einer entsprechenden Einstellung des
-          genutzten Internetbrowsers verhindern und damit der Setzung von Cookies dauerhaft widersprechen. Ferner können bereits gesetzte Cookies
-          jederzeit über einen Internetbrowser oder andere Softwareprogramme gelöscht werden. Dies ist in allen gängigen Internetbrowsern möglich.
-          Deaktiviert die betroffene Person die Setzung von Cookies in dem genutzten Internetbrowser, sind unter Umständen nicht alle Funktionen
-          unserer Internetseite vollumfänglich nutzbar.
+          Viele Datenverarbeitungsvorgänge sind nur mit Deiner ausdrücklichen Einwilligung möglich. Du kannst
+          eine bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail
+          an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.
         </p>
 
-        <h4 className="font-teaser my-4">4. Erfassung von allgemeinen Daten und Informationen</h4>
+        <h5 className="font-teaser-2 my-4 text-left">
+          Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)
+        </h5>
         <p>
-          Die Internetseite der QuarantäneHelden erfasst mit jedem Aufruf der Internetseite durch eine betroffene Person oder ein automatisiertes System eine
-          Reihe von allgemeinen Daten und Informationen. Diese allgemeinen Daten und Informationen werden in den Logfiles des Servers gespeichert.
-          Erfasst werden können die (1) verwendeten Browsertypen und Versionen, (2) das vom zugreifenden System verwendete Betriebssystem, (3) die
-          Internetseite, von welcher ein zugreifendes System auf unsere Internetseite gelangt (sogenannte Referrer), (4) die Unterwebseiten, welche
-          über ein zugreifendes System auf unserer Internetseite angesteuert werden, (5) das Datum und die Uhrzeit eines Zugriffs auf die
-          Internetseite, (6) eine Internet-Protokoll-Adresse (IP-Adresse), (7) der Internet-Service-Provider des zugreifenden Systems und (8) sonstige
-          ähnliche Daten und Informationen, die der Gefahrenabwehr im Falle von Angriffen auf unsere informationstechnologischen Systeme dienen.
+          WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HAST DU
+          JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS DEINER BESONDEREN SITUATION ERGEBEN, GEGEN DIE
+          VERARBEITUNG DEINER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF
+          DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN EINE VERARBEITUNG
+          BERUHT, ENTNEHME DIESER DATENSCHUTZERKLÄRUNG. WENN DU WIDERSPRUCH EINLEGSTN, WERDEN WIR DEINE
+          BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE
+          SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE DEINE INTERESSEN, RECHTE UND FREIHEITEN
+          ÜBERWIEGEN ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON
+          RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).
+        </p>
+        <br />
+        <p>
+          WERDEN DEINE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HAST DU DAS RECHT,
+          JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG DICH BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE
+          DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG
+          IN VERBINDUNG STEHT. WENN DU WIDERSPRCIHST, WERDEN DEINE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT
+          MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Beschwerderecht bei der zuständigen Aufsichtsbehörde</h5>
         <p>
-          Bei der Nutzung dieser allgemeinen Daten und Informationen zieht die QuarantäneHelden keine Rückschlüsse auf die betroffene Person. Diese Informationen
-          werden vielmehr benötigt, um (1) die Inhalte unserer Internetseite korrekt auszuliefern, (2) die Inhalte unserer Internetseite sowie die
-          Werbung für diese zu optimieren, (3) die dauerhafte Funktionsfähigkeit unserer informationstechnologischen Systeme und der Technik unserer
-          Internetseite zu gewährleisten sowie (4) um Strafverfolgungsbehörden im Falle eines Cyberangriffes die zur Strafverfolgung notwendigen
-          Informationen bereitzustellen. Diese anonym erhobenen Daten und Informationen werden durch die QuarantäneHelden daher einerseits statistisch und ferner
-          mit dem Ziel ausgewertet, den Datenschutz und die Datensicherheit in unserem Unternehmen zu erhöhen, um letztlich ein optimales Schutzniveau
-          für die von uns verarbeiteten personenbezogenen Daten sicherzustellen. Die anonymen Daten der Server-Logfiles werden getrennt von allen
-          durch eine betroffene Person angegebenen personenbezoge
-          nen Daten gespeichert.
+          Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer
+          Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres
+          Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet
+          anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.
         </p>
 
-        <h4 className="font-teaser my-4">5. Registrierung auf unserer Internetseite</h4>
+        <h5 className="font-teaser-2 my-4 text-left">Recht auf Datenübertragbarkeit</h5>
         <p>
-          Die betroffene Person hat die Möglichkeit, sich auf der Internetseite des für die Verarbeitung Verantwortlichen unter Angabe von
-          personenbezogenen Daten zu registrieren. Welche personenbezogenen Daten dabei an den für die Verarbeitung Verantwortlichen übermittelt
-          werden, ergibt sich aus der jeweiligen Eingabemaske, die für die Registrierung verwendet wird. Die von der betroffenen Person eingegebenen
-          personenbezogenen Daten werden ausschließlich für die interne Verwendung bei dem für die Verarbeitung Verantwortlichen und für eigene Zwecke
-          erhoben und gespeichert. Der für die Verarbeitung Verantwortliche kann die Weitergabe an einen oder mehrere Auftragsverarbeiter,
-          beispielsweise einen Paketdienstleister, veranlassen, der die personenbezogenen Daten ebenfalls ausschließlich für eine interne Verwendung,
-          die dem für die Verarbeitung Verantwortlichen zuzurechnen ist, nutzt.
+          Du hast das Recht, Daten, die wir auf Grundlage Deiner Einwilligung oder in Erfüllung eines Vertrags
+          automatisiert verarbeiten, an sich oder an eine*n Dritte*n in einem gängigen, maschinenlesbaren
+          Format aushändigen zu lassen. Sofern Du die direkte Übertragung der Daten an einen anderen
+          Verantwortlichen verlangst, erfolgt dies nur, soweit es technisch machbar ist.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">SSL- bzw. TLS-Verschlüsselung</h5>
         <p>
-          Durch eine Registrierung auf der Internetseite des für die Verarbeitung Verantwortlichen wird ferner die vom Internet-Service-Provider
-          (ISP) der betroffenen Person vergebene IP-Adresse, das Datum sowie die Uhrzeit der Registrierung gespeichert. Die Speicherung dieser Daten
-          erfolgt vor dem Hintergrund, dass nur so der Missbrauch unserer Dienste verhindert werden kann, und diese Daten im Bedarfsfall ermöglichen,
-          begangene Straftaten aufzuklären. Insofern ist die Speicherung dieser Daten zur Absicherung des für die Verarbeitung Verantwortlichen
-          erforderlich. Eine Weitergabe dieser Daten an Dritte erfolgt grundsätzlich nicht, sofern keine gesetzliche Pflicht zur Weitergabe besteht
-          oder die Weitergabe der Strafverfolgung dient.
+          Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie
+          zum Beispiel Hilfsgesuche, die Du an uns als Seitenbetreiber sendest, eine SSL- bzw. TLS-Verschlüsselung.
+          Eine verschlüsselte Verbindung erkennst Du daran, dass die Adresszeile des Browsers von
+          „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Deiner Browserzeile.
+        </p>
+        <br />
+        <p>
+          Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Du an uns übermittelst,
+          nicht von Dritten mitgelesen werden.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Auskunft, Löschung und Berichtigung</h5>
         <p>
-          Die Registrierung der betroffenen Person unter freiwilliger Angabe personenbezogener Daten dient dem für die Verarbeitung Verantwortlichen
-          dazu, der betroffenen Person Inhalte oder Leistungen anzubieten, die aufgrund der Natur der Sache nur registrierten Benutzern angeboten
-          werden können. Registrierten Personen steht die Möglichkeit frei, die bei der Registrierung angegebenen personenbezogenen Daten jederzeit
-          abzuändern oder vollständig aus dem Datenbestand des für die Verarbeitung Verantwortlichen löschen zu lassen.
+          Du hast im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche
+          Auskunft über Deine gespeicherten personenbezogenen Daten, deren Herkunft,Empfänger*innen und den
+          Zweck der Datenverarbeitung sowie ggf. ein Recht auf Berichtigung oder Löschung dieser Daten.
+          Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten kannst Du Dich jederzeit unter
+          der im Impressum angegebenen Adresse an uns wenden.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Recht auf Einschränkung der Verarbeitung</h5>
         <p>
-          Der für die Verarbeitung Verantwortliche erteilt jeder betroffenen Person jederzeit auf Anfrage Auskunft darüber, welche personenbezogenen
-          Daten über die betroffene Person gespeichert sind. Ferner berichtigt oder löscht der für die Verarbeitung Verantwortliche personenbezogene
-          Daten auf Wunsch oder Hinweis der betroffenen Person, soweit dem keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Die Gesamtheit
-          der Mitarbeiter des für die Verarbeitung Verantwortlichen stehen der betroffenen Person in diesem Zusammenhang als Ansprechpartner zur
-          Verfügung.
+          Du hast das Recht, die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.
+          Hierzu kannst Du Dich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Das
+          Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:
+        </p>
+        <br />
+        <p>
+          Wenn Du die Richtigkeit Deiner bei uns gespeicherten personenbezogenen Daten bestreitest, benötigen
+          wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung hast Du das Recht, die
+          Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.
+        </p>
+        <br />
+        <p>
+          Wenn die Verarbeitung Deiner personenbezogenen Daten unrechtmäßig geschah/geschieht, kannst Du
+          statt der Löschung die Einschränkung der Datenverarbeitung verlangen.
+        </p>
+        <br />
+        <p>
+          Wenn wir Deine personenbezogenen Daten nicht mehr benötigen, Du diese jedoch zur Ausübung,
+          Verteidigung oder Geltendmachung von Rechtsansprüchen benötigst, hast Du das Recht, statt der
+          Löschung die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.
+        </p>
+        <br />
+        <p>
+          Wenn Du einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt hast, muss eine Abwägung zwischen
+          Deinen und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen
+          überwiegen, hast Du das Recht, die Einschränkung der Verarbeitung Deiner personenbezogenen
+          Daten zu verlangen.
+        </p>
+        <br />
+        <p>
+          Wenn Du die Verarbeitung Deiner personenbezogenen Daten eingeschränkt hast, dürfen diese Daten –
+          von ihrer Speicherung abgesehen – nur mit Deiner Einwilligung oder zur Geltendmachung, Ausübung
+          oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder
+          juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen
+          Union oder eines Mitgliedstaats verarbeitet werden.
         </p>
 
-        <h4 className="font-teaser my-4">6. Kontaktmöglichkeit über die Internetseite</h4>
+        <h4 className="font-teaser my-4 text-left">Datenverarbeitung auf dieser Website</h4>
+        <h5 className="font-teaser-2 my-4 text-left">Datenverarbeitung der Webseitenbetreiber*innen</h5>
         <p>
-          Die Internetseite der QuarantäneHelden enthält aufgrund von gesetzlichen Vorschriften Angaben, die eine schnelle elektronische Kontaktaufnahme zu
-          unserem Unternehmen sowie eine unmittelbare Kommunikation mit uns ermöglichen, was ebenfalls eine allgemeine Adresse der sogenannten
-          elektronischen Post (E-Mail-Adresse) umfasst. Sofern eine betroffene Person per E-Mail oder über ein Kontaktformular den Kontakt mit dem für
-          die Verarbeitung Verantwortlichen aufnimmt, werden die von der betroffenen Person übermittelten personenbezogenen Daten automatisch
-          gespeichert. Solche auf freiwilliger Basis von einer betroffenen Person an den für die Verarbeitung Verantwortlichen übermittelten
-          personenbezogenen Daten werden für Zwecke der Bearbeitung oder der Kontaktaufnahme zur betroffenen Person gespeichert. Es erfolgt keine
-          Weitergabe dieser personenbezogenen Daten an Dritte.
+          Zur Zweckerfüllung der Website verarbeiten wir als Webseitenbetreiber*innen direkt personenbezogene
+          Daten. Die folgende Tabelle listet Art der personenbezogenen Daten, Ort des Aufkommens, Grund der
+          Verarbeitung, Ort der Verarbeitung, Dauer der Verarbeitung und den Personenkreis mit Zugriff auf
+          die jeweiligen Daten.
+        </p>
+        <div>
+          <Table className="text-left">
+            <Thead>
+              <Tr>
+                <Th>Datum</Th>
+                <Th>Quelle</Th>
+                <Th>Verarbeitungsgrund</Th>
+                <Th>Verarbeitungsort</Th>
+                <Th>Verarbeitungsdauer</Th>
+                <Th>Zugriff</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>E-Mail-Adresse</Td>
+                <Td>Wird bei der Registrierung eingegeben</Td>
+                <Td>
+                  Die E-Mail-Adresse ist wirkt als zentraler Teil des User Accounts und wird zur Benachrichtigung
+                  bei Antworten auf Inserate oder neuen Inseraten verwendet
+                </Td>
+                <Td>Google Firebase und Sendrgrid</Td>
+                <Td>Vom Zeitpunkt der Registrierung bis zur Löschung des Accounts</Td>
+                <Td>IT-Team</Td>
+              </Tr>
+              <Tr>
+                <Td>Telefonnummer</Td>
+                <Td>Wird bei Registrierung über Hotline übermittelt</Td>
+                <Td>
+                  Werden Inserate über die Hotline eingetragen, speichern wir die Telefonnummer um den Kontakt
+                  zu Helfenden herstellen zu können
+                </Td>
+                <Td>Google Drive</Td>
+                <Td>Vom Zeitpunkt der Inseratserstellung bis zum Löschen des Inserats</Td>
+                <Td>IT-Team und Team- Hotline</Td>
+              </Tr>
+              <Tr>
+                <Td>Pb. Daten in Inseraten und Antworten</Td>
+                <Td>Erstellen des Inserats oder der Antwort</Td>
+                <Td>
+                  Wenn User der Website personenbezogene Daten in ihren Inseraten oder Antworten auf Inserate
+                  eingeben, werden diese automatisch gespeichert
+                </Td>
+                <Td>Google Firebase</Td>
+                <Td>Vom Zeitpunkt der Erstellung bis zur Löschung des Inserats oder der Antwort</Td>
+                <Td>IT-Team</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </div>
+
+        <h5 className="font-teaser-2 my-4 text-left">Cookies</h5>
+        <p>
+          Unsere Internetseite verwendet sogenannte „Cookies“. Cookies sind kleine Textdateien und richten
+          auf Deinem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer
+          Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Deinem Endgerät gespeichert.
+          Session-Cookies werden nach Ende Deines Besuchs automatisch gelöscht. Permanente Cookies bleiben
+          auf Deinem Endgerät gespeichert, bis Du diese selbst löscht oder eine automatische Löschung durch
+          Deinen Webbrowser erfolgt.
+        </p>
+        <br />
+        <p>
+          Teilweise können auch Cookies von Drittunternehmen auf Deinem Endgerät gespeichert werden, wenn
+          Du unsere Seite betrittst (Third-Party-Cookies). Diese ermöglichen uns oder Dir die Nutzung bestimmter
+          Dienstleistungen des Drittunternehmens.
+        </p>
+        <br />
+        <p>
+          Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte
+          Webseitenfunktionen ohne diese nicht funktionieren würden (z.B. die Login Funktion). Andere Cookies
+          dienen dazu, das Verhalten der Nutzer*innen auf der Website auszuwerten um sie zu verbessern.
+        </p>
+        <br />
+        <p>
+          Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs (notwendige Cookies) oder
+          zur Bereitstellung bestimmter, von Dir erwünschter Funktionen (funktionale Cookies, z. B. für den Login)
+          oder zur Optimierung der Webseite (z.B. Cookies zur Messung des Webpublikums) erforderlich sind,
+          werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage
+          angegeben wird. Wir haben ein berechtigtes Interesse an der Speicherung von Cookies zur technisch
+          fehlerfreien und optimierten Bereitstellung unseres Dienstes. Sofern eine Einwilligung zur Speicherung
+          von Cookies abgegeben wurde, erfolgt die Speicherung der betreffenden Cookies ausschließlich auf
+          Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO); die Einwilligung ist jederzeit widerrufbar.
+        </p>
+        <br />
+        <p>
+          Du kannst Deinen Browser so einstellen, dass Du über das Setzen von Cookies informiert wirst und
+          Cookies nur im Einzelfall erlaubt sind, die Annahme von Cookies für bestimmte Fälle oder generell
+          ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktiviert ist.
+          Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.
         </p>
 
-        <h4 className="font-teaser my-4">7. Routinemäßige Löschung und Sperrung von personenbezogenen Daten</h4>
+        <h5 className="font-teaser-2 my-4 text-left">Server-Log-Dateien</h5>
         <p>
-          Der für die Verarbeitung Verantwortliche verarbeitet und speichert personenbezogene Daten der betroffenen Person nur für den Zeitraum, der
-          zur Erreichung des Speicherungszwecks erforderlich ist oder sofern dies durch den Europäischen Richtlinien- und Verordnungsgeber oder einen
-          and
-          eren Gesetzgeber in Gesetzen oder Vorschriften, welchen der für die Verarbeitung Verantwortliche unterliegt, vorgesehen wurde.
+          Der Hoster der Seite erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien,
+          die Dein Browser automatisch an uns übermittelt. Dies sind:
+        </p>
+        <br />
+        <p>
+          Browsertyp und Browserversion, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden
+          Rechners, Uhrzeit der Serveranfrage und IP-Adresse.
+        </p>
+        <br />
+        <p>
+          Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
+        </p>
+        <br />
+        <p>
+          Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein
+          berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung unserer Website –
+          hierzu müssen die Server-Log-Files erfasst werden.
         </p>
 
+        <h5 className="font-teaser-2 my-4 text-left">Anfrage per E-Mail oder Telefon</h5>
         <p>
-          Entfällt der Speicherungszweck oder läuft eine vom Europäischen Richtlinien- und Verordnungsgeber oder einem anderen zuständigen
-          Gesetzgeber vorgeschriebene Speicherfrist ab, werden die personenbezogenen Daten routinemäßig und entsprechend den gesetzlichen Vorschriften
-          gesperrt oder gelöscht.
+          Wenn Du uns per E-Mail oder Telefon kontaktierst, wird Deine Anfrage inklusive aller daraus
+          hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Deines Anliegens bei
+          uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Deine Einwilligung weiter.
+        </p>
+        <br />
+        <p>
+          Die Verarbeitung dieser Daten erfolgt auf Grundlage unseres berechtigten Interesses an der
+          effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Deiner
+          Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde.
+        </p>
+        <br />
+        <p>
+          Die von Dir an uns per Kontaktanfragen übersandten Daten verbleiben bei uns, bis Du uns zur Löschung
+          aufforderst, Deine Einwilligung zur Speicherung widerrufst oder der Zweck für die Datenspeicherung
+          entfällt (z. B. nach abgeschlossener Bearbeitung Deines Anliegens). Zwingende gesetzliche Bestimmungen –
+          insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.
         </p>
 
-        <h4 className="font-teaser my-4">8. Rechte der betroffenen Person</h4>
-        <ul className="list-none">
-          <li>
-            <h4 className="font-teaser my-4">a) Recht auf Bestätigung</h4>
-            <p>
-              Jede betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber eingeräumte Recht, von dem für die Verarbeitung
-              Verantwortlichen eine Bestätigung darüber zu verlangen, ob sie betreffende personenbezogene Daten verarbeitet werden. Möchte eine
-              betroffene Person dieses Bestätigungsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die
-              Verarbeitung Verantwortlichen wenden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">b) Recht auf Auskunft</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, jederzeit von dem für die Verarbeitung Verantwortlichen unentgeltliche Auskunft über die zu seiner Person gespeicherten
-              personenbezogenen Daten und eine Kopie dieser Auskunft zu erhalten. Ferner hat der Europäische Richtlinien- und Verordnungsgeber der
-              betroffenen Person Auskunft über folgende Informationen zugestanden:
-            </p>
-
-            <ul className="list-none">
-              <li>die Verarbeitungszwecke</li>
-              <li>die Kategorien personenbezogener Daten, die verarbeitet werden</li>
-              <li>
-                die Empfänger oder Kategorien von Empfängern, gegenüber denen die personenbezogenen Daten offengelegt worden sind oder noch
-                offengelegt werden, insbesondere bei Empfängern in Drittländern oder bei internationalen Organisationen
-              </li>
-              <li>
-                falls möglich die geplante Dauer, für die die personenbezogenen Daten gespeichert werden, oder, falls dies nicht möglich ist, die
-                Kriterien für die Festlegung dieser Dauer
-              </li>
-              <li>
-                das Bestehen eines Rechts auf Berichtigung oder Löschung der sie betreffenden personenbezogenen Daten oder auf Einschränkung der
-                Verarbeitung durch den Verantwortlichen oder eines Widerspruchsrechts gegen diese Verarbeitung
-              </li>
-              <li>das Bestehen eines Beschwerderechts bei einer Aufsichtsbehörde</li>
-              <li>
-                wenn die personenbezogenen Daten nicht bei der betroffenen Person erhoben werden: Alle verfügbaren Informationen über die Herkunft
-                der Daten
-              </li>
-              <li>
-                das Bestehen einer automatisierten Entscheidungsfindung einschließlich Profiling gemäß Artikel 22 Abs.1 und 4 DS-GVO und — zumindest
-                in diesen Fällen — aussagekräftige Informationen über die involvierte Logik sowie die Tragweite und die angestrebten Auswirkungen
-                einer derartigen Verarbeitung für die betroffene Person
-              </li>
-
-            </ul>
-            <p>
-              Ferner steht der betroffenen Person ein Auskunftsrecht darüber zu, ob personenbezogene Daten an ein Drittland oder an eine
-              internationale Organisation übermittelt wurden. Sofern dies der Fall ist, so steht der betroffenen Person im Übrigen das Recht zu,
-              Auskunft über die geeigneten Garantien im Zusammenhang mit der Übermittlung zu erhalten.
-            </p>
-
-            <p>
-              Möchte eine betroffene Person dieses Auskunftsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die
-              Verarbeitung Verantwortlichen wenden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">c) Recht auf Berichtigung</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, die unverzügliche Berichtigung sie betreffender unrichtiger personenbezogener Daten zu verlangen. Ferner steht der betroffenen
-              Person das Recht zu, unter Berücksichtigung der Zwecke der Verarbeitung, die Vervollständigung unvollständiger personenbezogener Daten —
-              auch mittels einer ergänzenden Erklärung — zu verlangen.
-            </p>
-
-            <p>
-              Möchte eine betroffene Person dieses Berichtigungsrecht in Anspruch nehmen, kann sie sich hierzu jederzeit an einen Mitarbeiter des für
-              die Verarbeitung Verantwortlichen wenden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">
-              d)
-              Recht auf Löschung (Recht auf Vergessen werden)
-            </h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, von dem Verantwortlichen zu verlangen, dass die sie betreffenden personenbezogenen Daten unverzüglich gelöscht werden, sofern
-              einer der folgenden Gründe zutrifft und soweit die Verarbeitung nicht erforderlich ist:
-            </p>
-
-            <ul className="list-none">
-              <li>
-                Die personenbezogenen Daten wurden für solche Zwecke erhoben oder auf sonstige Weise verarbeitet, für welche sie nicht mehr
-                notwendig sind.
-              </li>
-              <li>
-                Die betroffene Person widerruft ihre Einwilligung, auf die sich die Verarbeitung gemäß Art. 6 Abs. 1 Buchstabe a DS-GVO oder Art. 9
-                Abs. 2 Buchstabe a DS-GVO stützte, und es fehlt an einer anderweitigen Rechtsgrundlage für die Verarbeitung.
-              </li>
-              <li>
-                Die betroffene Person legt gemäß Art. 21 Abs. 1 DS-GVO Widerspruch gegen die Verarbeitung ein, und es liegen keine vorrangigen
-                berechtigten Gründe für die Verarbeitung vor, oder die betroffene Person legt gemäß Art. 21 Abs. 2 DS-GVO Widerspruch gegen die
-                Verarbeitung ein.
-              </li>
-              <li>Die personenbezogenen Daten wurden unrechtmäßig verarbeitet.</li>
-              <li>
-                Die Löschung der personenbezogenen Daten ist zur Erfüllung einer rechtlichen Verpflichtung nach dem Unionsrecht oder dem Recht der
-                Mitgliedstaaten erforderlich, dem der Verantwortliche unterliegt.
-              </li>
-              <li>
-                Die personenbezogenen Daten wurden in Bezug auf angebotene Dienste der Informationsgesellschaft gemäß Art. 8 Abs. 1 DS-GVO
-                erhoben.
-              </li>
-
-            </ul>
-            <p>
-              Sofern einer der oben genannten Gründe zutrifft und eine betroffene Person die Löschung von personenbezogenen Daten, die bei der QuarantäneHelden
-              gespeichert sind, veranlassen möchte, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die Verarbeitung Verantwortlichen
-              wenden. Der Mitarbeiter der QuarantäneHelden wird veranlassen, dass dem Löschverlangen unverzüglich nachgekommen wird.
-            </p>
-
-            <p>
-              Wurden die personenbezogenen Daten von der QuarantäneHelden öffentlich gemacht und ist unser Unternehmen als Verantwortlicher gemäß Art. 17 Abs. 1
-              DS-GVO zur Löschung der personenbezogenen Daten verpflichtet, so trifft die QuarantäneHelden unter Berücksichtigung der verfügbaren Technologie und
-              der Implementierungskosten angemessene Maßnahmen, auch technischer Art, um andere für die Datenverarbeitung Verantwortliche, welche die
-              veröffentlichten personenbezogenen Daten verarbeiten, darüber in Kenntnis zu setzen, dass die betroffene Person von diesen anderen für
-              die Datenverarbeitung Verantwortlichen die Löschung sämtlicher Links zu diesen personenbezogenen Daten oder von Kopien oder
-              Replikationen dieser personenbezogenen Daten verlangt hat, soweit die Verarbeitung nicht erforderlich ist. Der Mitarbeiter der QuarantäneHelden wird
-              im Einzelfall das Notwendige veranlassen.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">e) Recht auf Einschränkung der Verarbeitung</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, von dem Verantwortlichen die Einschränkung der Verarbeitung zu verlangen, wenn eine der folgenden Voraussetzungen gegeben
-              ist:
-            </p>
-
-            <ul className="list-none">
-              <li>
-                Die Richtigkeit der personenbezogenen Daten wird von der betroffenen Person bestritten, und zwar für eine Dauer, die es dem
-                Verantwortlichen ermöglicht, die Richtigkeit der personenbezogenen Daten zu überprüfen.
-              </li>
-              <li>
-                Die Verarbeitung ist unrechtmäßig, die betroffene Person lehnt die Löschung der personenbezogenen Daten ab und verlangt stattdessen
-                die Einschränkung der Nutzung der personenbezogenen Daten.
-              </li>
-              <li>
-                Der Verantwortliche benötigt die personenbezogenen Daten für die Zwecke der Verarbeitung nicht länger, die betroffene Person
-                benötigt sie jedoch zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.
-              </li>
-              <li>
-                Die betroffene Person hat Widerspruch gegen die Verarbeitung gem. Art. 21 Abs. 1 DS-GVO eingelegt und es steht noch nicht fest, ob
-                die berechtigten Gründe des Verantwortlichen gegenüber denen der betroffenen Person überwiegen.
-              </li>
-
-            </ul>
-            <p>
-              Sofern eine der oben genannten Voraussetzu
-              ngen gegeben ist und eine betroffene Person die Einschränkung von personenbezogenen Daten, die bei der QuarantäneHelden gespeichert sind, verlangen
-              möchte, kann sie sich hierzu jederzeit an einen Mitarbeiter des für die Verarbeitung Verantwortlichen wenden. Der Mitarbeiter der QuarantäneHelden
-              wird die Einschränkung der Verarbeitung veranlassen.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">f) Recht auf Datenübertragbarkeit</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, die sie betreffenden personenbezogenen Daten, welche durch die betroffene Person einem Verantwortlichen bereitgestellt wurden, in
-              einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten. Sie hat außerdem das Recht, diese Daten einem anderen
-              Verantwortlichen ohne Behinderung durch den Verantwortlichen, dem die personenbezogenen Daten bereitgestellt wurden, zu übermitteln,
-              sofern die Verarbeitung auf der Einwilligung gemäß Art. 6 Abs. 1 Buchstabe a DS-GVO oder Art. 9 Abs. 2 Buchstabe a DS-GVO oder auf einem
-              Vertrag gemäß Art. 6 Abs. 1 Buchstabe b DS-GVO beruht und die Verarbeitung mithilfe automatisierter Verfahren erfolgt, sofern die
-              Verarbeitung nicht für die Wahrnehmung einer Aufgabe erforderlich ist, die im öffentlichen Interesse liegt oder in Ausübung öffentlicher
-              Gewalt erfolgt, welche dem Verantwortlichen übertragen wurde.
-            </p>
-
-            <p>
-              Ferner hat die betroffene Person bei der Ausübung ihres Rechts auf Datenübertragbarkeit gemäß Art. 20 Abs. 1 DS-GVO das Recht, zu
-              erwirken, dass die personenbezogenen Daten direkt von einem Verantwortlichen an einen anderen Verantwortlichen übermittelt werden,
-              soweit dies technisch machbar ist und sofern hiervon nicht die Rechte und Freiheiten anderer Personen beeinträchtigt werden.
-            </p>
-
-            <p>
-              Zur Geltendmachung des Rechts auf Datenübertragbarkeit kann sich die betroffene Person jederzeit an einen Mitarbeiter der QuarantäneHelden
-              wenden.
-            </p>
-
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">g) Recht auf Widerspruch</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, aus Gründen, die sich aus ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung sie betreffender personenbezogener
-              Daten, die aufgrund von Art. 6 Abs. 1 Buchstaben e oder f DS-GVO erfolgt, Widerspruch einzulegen. Dies gilt auch für ein auf diese
-              Bestimmungen gestütztes Profiling.
-            </p>
-
-            <p>
-              Die QuarantäneHelden verarbeitet die personenbezogenen Daten im Falle des Widerspruchs nicht mehr, es sei denn, wir können zwingende schutzwürdige
-              Gründe für die Verarbeitung nachweisen, die den Interessen, Rechten und Freiheiten der betroffenen Person überwiegen, oder die
-              Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.
-            </p>
-
-            <p>
-              Verarbeitet die QuarantäneHelden personenbezogene Daten, um Direktwerbung zu betreiben, so hat die betroffene Person das Recht, jederzeit
-              Widerspruch gegen die Verarbeitung der personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen. Dies gilt auch für das
-              Profiling, soweit es mit solcher Direktwerbung in Verbindung steht. Widerspricht die betroffene Person gegenüber der QuarantäneHelden der
-              Verarbeitung für Zwecke der Direktwerbung, so wird die QuarantäneHelden die personenbezogenen Daten nicht mehr für diese Zwecke verarbeiten.
-            </p>
-
-            <p>
-              Zudem hat die betroffene Person das Recht, aus Gründen, die sich aus ihrer besonderen Situation ergeben, gegen die sie betreffende
-              Verarbeitung personenbezogener Daten, die bei der QuarantäneHelden zu wissenschaftlichen oder historischen Forschungszwecken oder zu statistischen
-              Zwecken gemäß Art. 89 Abs. 1 DS-GVO erfolgen, Widerspruch einzulegen, es sei denn, eine solche Verarbeitung ist zur Erfüllung einer im
-              öffentlichen Interesse liegenden Aufgabe erforderlich.
-            </p>
-
-            <p>
-              Zur Ausübung des Rechts auf Widerspruch kann sich die betroffene Person direkt an jeden Mitarbeiter der QuarantäneHelden oder einen anderen
-              Mitarbeiter wenden. Der betroffenen Person steht es ferner frei, im Zusammenhang mit der Nutzung von Diensten der
-              Informationsgesellschaft, ungeachtet der Richtlinie 2002/58/EG, ihr Widerspruchsrecht mi
-              ttels automatisierter Verfahren auszuüben, bei denen technische Spezifikationen verwendet werden.
-            </p>
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">h) Automatisierte Entscheidungen im Einzelfall einschließlich Profiling</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung — einschließlich Profiling — beruhenden Entscheidung
-              unterworfen zu werden, die ihr gegenüber rechtliche Wirkung entfaltet oder sie in ähnlicher Weise erheblich beeinträchtigt, sofern die
-              Entscheidung (1) nicht für den Abschluss oder die Erfüllung eines Vertrags zwischen der betroffenen Person und dem Verantwortlichen
-              erforderlich ist, oder (2) aufgrund von Rechtsvorschriften der Union oder der Mitgliedstaaten, denen der Verantwortliche unterliegt,
-              zulässig ist und diese Rechtsvorschriften angemessene Maßnahmen zur Wahrung der Rechte und Freiheiten sowie der berechtigten Interessen
-              der betroffenen Person enthalten oder (3) mit ausdrücklicher Einwilligung der betroffenen Person erfolgt.
-            </p>
-
-            <p>
-              Ist die Entscheidung (1) für den Abschluss oder die Erfüllung eines Vertrags zwischen der betroffenen Person und dem Verantwortlichen
-              erforderlich oder (2) erfolgt sie mit ausdrücklicher Einwilligung der betroffenen Person, trifft die QuarantäneHelden angemessene Maßnahmen, um die
-              Rechte und Freiheiten sowie die berechtigten Interessen der betroffenen Person zu wahren, wozu mindestens das Recht auf Erwirkung des
-              Eingreifens einer Person seitens des Verantwortlichen, auf Darlegung des eigenen Standpunkts und auf Anfechtung der Entscheidung
-              gehört.
-            </p>
-
-            <p>
-              Möchte die betroffene Person Rechte mit Bezug auf automatisierte Entscheidungen geltend machen, kann sie sich hierzu jederzeit an einen
-              Mitarbeiter des für die Verarbeitung Verantwortlichen wenden.
-            </p>
-
-          </li>
-          <li>
-            <h4 className="font-teaser my-4">i) Recht auf Widerruf einer datenschutzrechtlichen Einwilligung</h4>
-            <p>
-              Jede von der Verarbeitung personenbezogener Daten betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber gewährte
-              Recht, eine Einwilligung zur Verarbeitung personenbezogener Daten jederzeit zu widerrufen.
-            </p>
-
-            <p>
-              Möchte die betroffene Person ihr Recht auf Widerruf einer Einwilligung geltend machen, kann sie sich hierzu jederzeit an einen
-              Mitarbeiter des für die Verarbeitung Verantwortlichen wenden.
-            </p>
-
-          </li>
-        </ul>
-        <h4 className="font-teaser my-4">9. Rechtsgrundlage der Verarbeitung</h4>
+        <h4 className="font-teaser my-4 text-left">Plugins und Tools</h4>
+        <h5 className="font-teaser-2 my-4 text-left">Google Web Fonts</h5>
         <p>
-          Art. 6 I lit. a DS-GVO dient unserem Unternehmen als Rechtsgrundlage für Verarbeitungsvorgänge, bei denen wir eine Einwilligung für einen
-          bestimmten Verarbeitungszweck einholen. Ist die Verarbeitung personenbezogener Daten zur Erfüllung eines Vertrags, dessen Vertragspartei die
-          betroffene Person ist, erforderlich, wie dies beispielsweise bei Verarbeitungsvorgängen der Fall ist, die für eine Lieferung von Waren oder
-          die Erbringung einer sonstigen Leistung oder Gegenleistung notwendig sind, so beruht die Verarbeitung auf Art. 6 I lit. b DS-GVO. Gleiches
-          gilt für solche Verarbeitungsvorgänge die zur Durchführung vorvertraglicher Maßnahmen erforderlich sind, etwa in Fällen von Anfragen zur
-          unseren Produkten oder Leistungen. Unterliegt unser Unternehmen einer rechtlichen Verpflichtung durch welche eine Verarbeitung von
-          personenbezogenen Daten erforderlich wird, wie beispielsweise zur Erfüllung steuerlicher Pflichten, so basiert die Verarbeitung auf Art. 6 I
-          lit. c DS-GVO. In seltenen Fällen könnte die Verarbeitung von personenbezogenen Daten erforderlich werden, um lebenswichtige Interessen der
-          betroffenen Person oder einer anderen natürlichen Person zu schützen. Dies wäre beispielsweise der Fall, wenn ein Besucher in unserem
-          Betrieb verletzt werden würde und daraufhin sein Name, sein Alter, seine Krankenkassendaten oder sonstige lebenswichtige Informationen an
-          einen Arzt, ein Krankenhaus oder sonstige Dritte weitergegeben werden müssten. Dann würde die Verarbeitung auf Art. 6 I lit. d DS-GVO
-          beruhen.
-          Letztlich könnten Verarbeitungsvorgänge auf Art. 6 I lit. f DS-GVO beruhen. Auf dieser Rechtsgrundlage basieren Verarbeitungsvorgän
-          ge, die von keiner der vorgenannten Rechtsgrundlagen erfasst werden, wenn die Verarbeitung zur Wahrung eines berechtigten Interesses unseres
-          Unternehmens oder eines Dritten erforderlich ist, sofern die Interessen, Grundrechte und Grundfreiheiten des Betroffenen nicht überwiegen.
-          Solche Verarbeitungsvorgänge sind uns insbesondere deshalb gestattet, weil sie durch den Europäischen Gesetzgeber besonders erwähnt wurden.
-          Er vertrat insoweit die Auffassung, dass ein berechtigtes Interesse anzunehmen sein könnte, wenn die betroffene Person ein Kunde des
-          Verantwortlichen ist (Erwägungsgrund 47 Satz 2 DS-GVO).
+          Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Web Fonts, die von Google
+          bereitgestellt werden. Beim Aufruf einer Seite lädt Dein Browser die benötigten Web Fonts in Deinen
+          Browsercache, um Texte und Schriftarten korrekt anzuzeigen.
+        </p>
+        <br />
+        <p>
+          Zu diesem Zweck muss der von Dir verwendete Browser Verbindung zu den Servern von Google aufnehmen.
+          Hierdurch erlangt Google Kenntnis darüber, dass über Deine IP-Adresse diese Website aufgerufen wurde.
+          Die Nutzung von Google WebFonts erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Die
+          Webseitenbetreiber*innen hat ein berechtigtes Interesse an der einheitlichen Darstellung des Schriftbildes
+          auf seiner Webseite. Sofern eine entsprechende Einwilligung abgefragt wurde (z. B. eine Einwilligung
+          zur Speicherung von Cookies), erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1
+          lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.
+        </p>
+        <br />
+        <p>
+          Wenn Dein Browser Web Fonts nicht unterstützt, wird eine Standardschrift von Deinem Computer genutzt.
+        </p>
+        <br />
+        <p>
+          Weitere Informationen zu Google Web Fonts findst Du unter https://developers.google.com/fonts/faq und
+          in der Datenschutzerklärung von Google:https://policies.google.com/privacy?hl=de.
         </p>
 
-        <h4 className="font-teaser my-4">10. Berechtigte Interessen an der Verarbeitung, die von dem Verantwortlichen oder einem Dritten verfolgt werden</h4>
+        <h5 className="font-teaser-2 my-4 text-left">Google Maps</h5>
         <p>
-          Basiert die Verarbeitung personenbezogener Daten auf Artikel 6 I lit. f DS-GVO ist unser berechtigtes Interesse die Durchführung unserer
-          Geschäftstätigkeit zugunsten des Wohlergehens all unserer Mitarbeiter und unserer Anteilseigner.
+          Diese Seite nutzt über eine API den Kartendienst Google Maps. Anbieter ist die Google Ireland
+          Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland.
         </p>
-
-        <h4 className="font-teaser my-4">11. Dauer, für die die personenbezogenen Daten gespeichert werden</h4>
+        <br />
         <p>
-          Das Kriterium für die Dauer der Speicherung von personenbezogenen Daten ist die jeweilige gesetzliche Aufbewahrungsfrist. Nach Ablauf der
-          Frist werden die entsprechenden Daten routinemäßig gelöscht, sofern sie nicht mehr zur Vertragserfüllung oder Vertragsanbahnung erforderlich
-          sind.
+          Zur Nutzung der Funktionen von Google Maps ist es notwendig, Deine IP Adresse zu speichern. Diese
+          Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.
+          Die Webseitenbetreiber*innen dieser Seite hat keinen Einfluss auf diese Datenübertragung.
         </p>
-
-        <h4 className="font-teaser my-4">
-          12. Gesetzliche oder vertragliche Vorschriften zur Bereitstellung der personenbezogenen Daten; Erforderlichkeit für den Vertragsabschluss;
-          Verpflichtung der betroffenen Person, die personenbezogenen Daten bereitzustellen; mögliche Folgen der Nichtbereitstellung
-        </h4>
+        <br />
         <p>
-          Wir klären Sie darüber auf, dass die Bereitstellung personenbezogener Daten zum Teil gesetzlich vorgeschrieben ist (z.B.
-          Steuervorschriften) oder sich auch aus vertraglichen Regelungen (z.B. Angaben zum Vertragspartner) ergeben kann.
-          Mitunter kann es zu einem Vertragsschluss erforderlich sein, dass eine betroffene Person uns personenbezogene Daten zur Verfügung stellt,
-          die in der Folge durch uns verarbeitet werden müssen. Die betroffene Person ist beispielsweise verpflichtet uns personenbezogene Daten
-          bereitzustellen, wenn unser Unternehmen mit ihr einen Vertrag abschließt. Eine Nichtbereitstellung der personenbezogenen Daten hätte zur
-          Folge, dass der Vertrag mit dem Betroffenen nicht geschlossen werden könnte.
-          Vor einer Bereitstellung personenbezogener Daten durch den Betroffenen muss sich der Betroffene an einen unserer Mitarbeiter wenden. Unser
-          Mitarbeiter klärt den Betroffenen einzelfallbezogen darüber auf, ob die Bereitstellung der personenbezogenen Daten gesetzlich oder
-          vertraglich vorgeschrieben oder für den Vertragsabschluss erforderlich ist, ob eine Verpflichtung besteht, die personenbezogenen Daten
-          bereitzustellen, und welche Folgen die Nichtbereitstellung der personenbezogenen Daten hätte.
+          Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote
+          und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein
+          berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende
+          Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1
+          lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.
         </p>
-
-        <h4 className="font-teaser my-4">13. Bestehen einer automatisierten Entscheidungsfindung</h4>
-        <p>Als verantwortungsbewusstes Unternehmen verzichten wir auf eine automatische Entscheidungsfindung oder ein Profiling.</p>
-
+        <br />
         <p>
-          Diese Datenschutzerklärung wurde durch den Datenschutzerklärungs-Generator der DGD Deutsche Gesellschaft für Datenschutz GmbH, die als
-          <a
-            href="https://dg-datenschutz.de/datenschutz-dienstleistungen/externer-datenschutzbeauftragter/"
-          >
-            Externer Datenschutzbeauftragter
-            Duisburg
-          </a>
-          {' '}
-          tätig ist, in Kooperation mit dem
-          <a href="https://www.wbs-law.de/it-recht/datenschutzrecht/">
-            Kölner IT- und Datenschutz Anwalt
-            Christian Solmecke
-          </a>
-          {' '}
-          erstellt.
+          Mehr Informationen zum Umgang mit Nutzerdaten findest Du in der Datenschutzerklärung von
+          Google: https://policies.google.com/privacy?hl=de.
         </p>
       </div>
     </div>
