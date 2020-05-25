@@ -323,7 +323,7 @@ async function onUserDelete(user) {
     const solvedPostEntries = await getEntriesOfUser(db, 'solved-posts', 'd.uid', user.uid);
     promises.push(solvedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'solved-posts', doc.id)));
 
-    // Delete delted post
+    // Delete deleted posts
     const deletedPostEntries = await getEntriesOfUser(db, 'deleted', 'd.uid', user.uid);
     promises.push(deletedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id)));
 
