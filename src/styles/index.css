@@ -364,6 +364,40 @@ input:checked + svg, input:checked + img {
     border: 2px solid #87a544;
 }
 
+.overflow-fade {
+    margin-left: -3rem;
+    margin-right: -3rem;
+}
+
+.overflow-fade > table {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.overflow-fade:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: -3rem;
+    pointer-events: none;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white 40%);
+    width: 4rem;
+}
+
+.overflow-fade:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: -3rem;
+    pointer-events: none;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0), white 40%);
+    width: 4rem;
+}
+
 @media only screen and (max-width: 834px) {
     .rwt__tab {
         background: transparent;
