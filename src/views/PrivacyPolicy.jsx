@@ -1,5 +1,4 @@
 import React from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
 export default function PrivacyPolicy() {
   return (
@@ -113,7 +112,7 @@ export default function PrivacyPolicy() {
         </p>
         <br />
         <p>
-          Tom Graupner & Keno Dreßel
+          Tom Graupner &amp; Keno Dreßel
         </p>
         <p>
           Andreas-Schubert-Str. 23 A-Gebäude
@@ -250,54 +249,56 @@ export default function PrivacyPolicy() {
           Verarbeitung, Ort der Verarbeitung, Dauer der Verarbeitung und den Personenkreis mit Zugriff auf
           die jeweiligen Daten.
         </p>
-        <div>
-          <Table className="text-left">
-            <Thead>
-              <Tr>
-                <Th>Datum</Th>
-                <Th>Quelle</Th>
-                <Th>Verarbeitungsgrund</Th>
-                <Th>Verarbeitungsort</Th>
-                <Th>Verarbeitungsdauer</Th>
-                <Th>Zugriff</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>E-Mail-Adresse</Td>
-                <Td>Wird bei der Registrierung eingegeben</Td>
-                <Td>
-                  Die E-Mail-Adresse ist wirkt als zentraler Teil des User Accounts und wird zur Benachrichtigung
-                  bei Antworten auf Inserate oder neuen Inseraten verwendet
-                </Td>
-                <Td>Google Firebase und Sendrgrid</Td>
-                <Td>Vom Zeitpunkt der Registrierung bis zur Löschung des Accounts</Td>
-                <Td>IT-Team</Td>
-              </Tr>
-              <Tr>
-                <Td>Telefonnummer</Td>
-                <Td>Wird bei Registrierung über Hotline übermittelt</Td>
-                <Td>
-                  Werden Inserate über die Hotline eingetragen, speichern wir die Telefonnummer um den Kontakt
-                  zu Helfenden herstellen zu können
-                </Td>
-                <Td>Google Drive</Td>
-                <Td>Vom Zeitpunkt der Inseratserstellung bis zum Löschen des Inserats</Td>
-                <Td>IT-Team und Team- Hotline</Td>
-              </Tr>
-              <Tr>
-                <Td>Pb. Daten in Inseraten und Antworten</Td>
-                <Td>Erstellen des Inserats oder der Antwort</Td>
-                <Td>
-                  Wenn User der Website personenbezogene Daten in ihren Inseraten oder Antworten auf Inserate
-                  eingeben, werden diese automatisch gespeichert
-                </Td>
-                <Td>Google Firebase</Td>
-                <Td>Vom Zeitpunkt der Erstellung bis zur Löschung des Inserats oder der Antwort</Td>
-                <Td>IT-Team</Td>
-              </Tr>
-            </Tbody>
-          </Table>
+        <div className="relative">
+          <div className="overflow-x-scroll overflow-fade">
+            <table style={{ width: '1800px' }} className="table-fixed">
+              <thead>
+                <tr>
+                  <th className="w-1/2 px-4 py-2">Datum</th>
+                  <th className="w-1/2 px-4 py-2">Quelle</th>
+                  <th className="w-1/2 px-4 py-2">Verarbeitungsgrund</th>
+                  <th className="w-1/2 px-4 py-2">Verarbeitungsort</th>
+                  <th className="w-1/2 px-4 py-2">Verarbeitungsdauer</th>
+                  <th className="w-1/2 px-4 py-2">Zugriff</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="px-4 py-2">E-Mail-Adresse</td>
+                  <td className="px-4 py-2">Wird bei der Registrierung eingegeben</td>
+                  <td className="px-4 py-2">
+                    Die E-Mail-Adresse ist wirkt als zentraler Teil des User Accounts und wird zur Benachrichtigung
+                    bei Antworten auf Inserate oder neuen Inseraten verwendet
+                  </td>
+                  <td className="px-4 py-2">Google Firebase und Sendrgrid</td>
+                  <td className="px-4 py-2">Vom Zeitpunkt der Registrierung bis zur Löschung des Accounts</td>
+                  <td className="px-4 py-2">IT-Team</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2">Telefonnummer</td>
+                  <td className="px-4 py-2">Wird bei Registrierung über Hotline übermittelt</td>
+                  <td className="px-4 py-2">
+                    Werden Inserate über die Hotline eingetragen, speichern wir die Telefonnummer um den Kontakt
+                    zu Helfenden herstellen zu können
+                  </td>
+                  <td className="px-4 py-2">Google Drive</td>
+                  <td className="px-4 py-2">Vom Zeitpunkt der Inseratserstellung bis zum Löschen des Inserats</td>
+                  <td className="px-4 py-2">IT-Team und Team-Hotline</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2">Pb. Daten in Inseraten und Antworten</td>
+                  <td className="px-4 py-2">Erstellen des Inserats oder der Antwort</td>
+                  <td className="px-4 py-2">
+                    Wenn User der Website personenbezogene Daten in ihren Inseraten oder Antworten auf Inserate
+                    eingeben, werden diese automatisch gespeichert
+                  </td>
+                  <td className="px-4 py-2">Google Firebase</td>
+                  <td className="px-4 py-2">Vom Zeitpunkt der Erstellung bis zur Löschung des Inserats oder der Antwort</td>
+                  <td className="px-4 py-2">IT-Team</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <h5 className="font-teaser-2 my-4 text-left">Cookies</h5>
