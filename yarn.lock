@@ -10787,11 +10787,6 @@ react-slider@^1.0.3:
   resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-1.0.3.tgz#89bd9cf0bb87f07ce27d8724efa584d9c6e6dca8"
   integrity sha512-6HSkzHeyPthoCuQseZ16KQePdj0VloHllXXXmtO1733wGhFa2v1kKjIuGpfHAgWshqB3F7Xn2s5FxTu3xvFXbg==
 
-react-super-responsive-table@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/react-super-responsive-table/-/react-super-responsive-table-5.1.1.tgz#ba557481a9a0fed4d6765457c111b872289f24d8"
-  integrity sha512-YKynBZSUA4QcN+CJgQYvb4RSv8eXHO/8J2cJPAycW5DwdENRd0KgtE7myclnjQeDMxafiFTDILV73DIX2fRRXw==
-
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
