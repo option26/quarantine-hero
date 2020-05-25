@@ -313,30 +313,31 @@ async function onDeleletedCreate(snap) {
 async function onUserDelete(user) {
   try {
     const db = admin.firestore();
+    const promises = [];
 
     // Delete ask for helps
     const askForHelpEntries = await getEntriesOfUser(db, 'ask-for-help', 'd.uid', user.uid);
-    askForHelpEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'ask-for-help', doc.id));
+    promises.push(askForHelpEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'ask-for-help', doc.id)));
 
     // Delete solved posts
     const solvedPostEntries = await getEntriesOfUser(db, 'solved-posts', 'd.uid', user.uid);
-    solvedPostEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'solved-posts', doc.id));
+    promises.push(solvedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'solved-posts', doc.id)));
 
     // Delete delted post
     const deletedPostEntries = await getEntriesOfUser(db, 'deleted', 'd.uid', user.uid);
-    deletedPostEntries.docs.forEach((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id));
+    promises.push(deletedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id)));
 
     // Delete help offers for all (ask-for-help, solved and deleted)
     const helpOfferEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
-    helpOfferEntries.docs.forEach((doc) => doc.ref.update({ email: '', answer: '' }));
+    promises.push(helpOfferEntries.docs.map((doc) => doc.ref.update({ email: '', answer: '' })));
 
     // Delete notifications
     const notificationEntries = await getEntriesOfUser(db, 'notifications', 'd.uid', user.uid);
-    notificationEntries.docs.forEach((doc) => doc.ref.delete());
+    promises.push(notificationEntries.docs.map((doc) => doc.ref.delete()));
 
     // Anonymize reported by
     const reportedPostsEntries = await getEntriesOfUser(db, 'reported-posts', 'uid', user.uid);
-    reportedPostsEntries.docs.forEach((doc) => doc.ref.update({ uid: 'ghost-user' }));
+    promises.push(reportedPostsEntries.docs.map((doc) => doc.ref.update({ uid: 'ghost-user' })));
 
     // Anonymize reported-by
     const reportedEntryIds = reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId);
@@ -350,11 +351,13 @@ async function onUserDelete(user) {
     reportedEntries.forEach((doc) => {
       if (!doc.exists) return;
 
-      doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) });
+      promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
       if (!doc.data().d.reportedBy.includes('ghost-user')) {
-        doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') });
+        promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
       }
     });
+
+    await Promise.all(promises);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
