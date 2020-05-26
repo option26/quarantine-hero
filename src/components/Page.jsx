@@ -62,25 +62,27 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   );
 }
 
-const MobileTopNavigation = ({ onMenuIconClick }) => (
-  <div className="w-full visible md:invisible">
-    <div
-      style={{ zIndex: 101 }}
-      className="h-16 w-full fixed top-0 bg-white flex flex-row justify-between items-center pr-5"
-    >
-      <Link
-        to="/"
-        className="font-main ml-4"
-        style={{ fontWeight: '600' }}
+function MobileTopNavigation({ onMenuIconClick }) {
+  return (
+    <div className="w-full visible md:invisible">
+      <div
+        style={{ zIndex: 101 }}
+        className="h-16 w-full fixed top-0 bg-white flex flex-row justify-between items-center pr-5"
       >
-        <img alt="logo" src={require('../assets/logo_invert.svg')} className="h-10" />
-      </Link>
-      <div>
-        <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} data-cy="mobile-menu-icon" />
+        <Link
+          to="/"
+          className="font-main ml-4"
+          style={{ fontWeight: '600' }}
+        >
+          <img alt="logo" src={require('../assets/logo_invert.svg')} className="h-10" />
+        </Link>
+        <div>
+          <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} data-cy="mobile-menu-icon" />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default function Page({ children }) {
   // always scroll page to top when changing the pathname
