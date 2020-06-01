@@ -73,6 +73,15 @@ export default function Main() {
             {t('views.main.hotline.number')}
           </a>
           <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
+          <div className="text-xs">
+            {t('views.main.hotline.notGermany')}
+            {': '}
+            <a
+              href={`tel:${t('views.main.hotline.externalNumber')}`}
+            >
+              {t('views.main.hotline.externalNumber')}
+            </a>
+          </div>
         </div>
 
         <div className="w-full flex justify-center mt-8">
