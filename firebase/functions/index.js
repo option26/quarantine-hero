@@ -111,6 +111,8 @@ async function searchAndSendNotificationEmails() {
       }
       const query = notificationsRef.near({ center: coordinates, radius: 30 });
       queryResult = (await query.get()).docs.map((doc) => doc.data());
+      // eslint-disable-next-line no-console
+      console.log(`Received ${queryResult.length} results for ${askForHelpId}`);
       if (queryResult.length >= EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK) {
         throw new Error(`Sanity check for ${askForHelpId} failed! Query result size: ${queryResult.length}`);
       }
