@@ -25,6 +25,7 @@ const MAPS_ENABLED = true;
 const MINIMUM_NOTIFICATION_DELAY = 20;
 const SEND_EMAILS = sgMailApiKey !== null;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
+const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35000;
 
 async function onOfferHelpCreate(snap) {
   try {
@@ -98,12 +99,23 @@ async function searchAndSendNotificationEmails() {
 
   const db = admin.firestore();
 
-  const getEligibleHelpOffers = async (askForHelpSnapData) => {
+  const getEligibleHelpOffers = async (askForHelpId, askForHelpSnapData) => {
     let queryResult = [];
     if (MAPS_ENABLED) {
       const notificationsRef = new GeoCollectionReference(db.collection('notifications'));
-      const query = notificationsRef.near({ center: askForHelpSnapData.coordinates, radius: 30 });
+      const { coordinates } = askForHelpSnapData.d;
+      if (!coordinates || !coordinates.latitude || !coordinates.longitude) {
+        // eslint-disable-next-line no-console
+        console.warn('Coordinates are not defined!', coordinates);
+        throw new Error(`Coordinates for entry ${askForHelpId} are not set!`);
+      }
+      const query = notificationsRef.near({ center: coordinates, radius: 30 });
       queryResult = (await query.get()).docs.map((doc) => doc.data());
+      // eslint-disable-next-line no-console
+      console.log(`Received ${queryResult.length} results for ${askForHelpId}`);
+      if (queryResult.length >= EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK) {
+        throw new Error(`Sanity check for ${askForHelpId} failed! Query result size: ${queryResult.length}`);
+      }
     } else {
       const notificationsRef = db.collection('notifications');
       if (!askForHelpSnapData || !askForHelpSnapData.d || !askForHelpSnapData.d.plz) {
@@ -196,7 +208,7 @@ async function searchAndSendNotificationEmails() {
     const asyncOperations = askForHelpSnaps.docs.map(async (askForHelpSnap) => {
       const askForHelpSnapData = askForHelpSnap.data();
       const askForHelpId = askForHelpSnap.id;
-      const eligibleHelpOffers = await getEligibleHelpOffers(askForHelpSnapData);
+      const eligibleHelpOffers = await getEligibleHelpOffers(askForHelpId, askForHelpSnapData);
       // eslint-disable-next-line no-console
       console.log('askForHelpId', askForHelpId);
       // eslint-disable-next-line no-console

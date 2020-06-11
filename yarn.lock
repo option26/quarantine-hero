@@ -5928,10 +5928,10 @@ gensync@^1.0.0-beta.1:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
   integrity sha512-r8EC6NO1sngH/zdD9fiRDLdcgnbayXah+mLgManTaIZJqEC1MZstmnox8KpnI2/fxQwrp5OpCOYWLp4rBl4Jcg==
 
-geofirestore@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/geofirestore/-/geofirestore-3.4.1.tgz#e8d6baf6217e7e93f09243796f4c62ccc407c84b"
-  integrity sha512-hSlRkFv+ECWo4VUP/33UXciiooucIxKvr1Zn3Cl9ROfs9DH1eZQT4Nr3utdPR3S2CizkZhrUN0DACqCURWyWDQ==
+geofirestore@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/geofirestore/-/geofirestore-3.6.0.tgz#79dd8983ee93fe457a6dda39dc0603a3e10d794c"
+  integrity sha512-hcUziV5L6YusVPFFzaYyPdvgKG7t6IvOH0Nons0iXxZhY+KX/ajlT86WfGcuUXzBf7y040iSCI1SUt/17a5IUg==
   optionalDependencies:
     "@google-cloud/firestore" ">= 2.0.0"
     "@types/node" ">= 8.0.0"
