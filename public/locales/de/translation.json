@@ -9,6 +9,13 @@
       "weAreHumans": "Wir sind Menschen.",
       "inTimesOfNeed": "In Zeiten der Not helfen wir uns.",
       "bePart": "Sei ein Teil davon.",
+      "hotline": {
+        "ourHotline": "UNSERE HOTLINE",
+        "number": "0800 8050850",
+        "notGermany": "Außerhalb Deutschlands",
+        "externalNumber": "+49 89 143770224",
+        "serviceHours": "Von 10:00 - 18:00 Uhr für Euch da!"
+      },
       "importantNotes": {
         "title": "WICHTIGER HINWEIS",
         "cautious": {
@@ -71,7 +78,7 @@
         "postBreak": "Drucke <1>diesen Aushang</1>."
       }
     },
-    "completeOfferHelp": {
+    "completeNotification": {
       "youAreHero": "Du bist eine Held*in!",
       "mailVerified": "Deine E-Mail-Adresse wurde verifiziert! Du wirst nun von uns per E-Mail benachrichtigt werden, wenn jemand in",
       "needsHelp": "Hilfe benötigt",
@@ -219,6 +226,10 @@
     },
     "signUp": {
       "headerText": "Registriere Dich mit Deiner E-Mail-Adresse und einem Passwort um {{reasonForSignup}}.",
+      "headerTextExtended": "Falls Du bereits einen Account bei QuarantäneHeld*innen hast, kannst Du Dich stattdessen auch direkt anmelden.",
+      "headerTextPartner": "Hier kannst Du in Deiner Nachbarschaft Hilfe erfragen!",
+      "whatIsQh": "Was ist QuarantäneHeld*innen?",
+      "welcomeAtQh": "Willkommen bei QuarantäneHeld*innen!",
       "reasonForSignupDefault": "eine Hilfe-Anfrage zu posten",
       "pwMismatch": "Die Passwörter stimmen nicht überein",
       "yourEmail": "Deine E-Mail-Adresse",
@@ -227,11 +238,14 @@
       "password": "Passwort",
       "passwordRepeat": "Passwort wiederholen",
       "confirmPassword": "Passwort erneut eingeben",
+      "acceptPrivacyPolicy": "Ich stimme den <1>Datenschutzbestimmungen</1> zu!",
       "registerNow": "Jetzt registrieren",
       "emailInUse": "Es existiert bereits ein Account mit dieser E-Mail-Adresse.",
       "pwTooShort": "Das Passwort muss mindestens sechs Zeichen lang sein.",
       "haveAnAccount": "Ich habe bereits einen Account",
-      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an."
+      "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
+      "partnerTextIntro": "Für heldenhafte Hilfe von {{helpers}} registrierten Helfenden:",
+      "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!"
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
@@ -289,6 +303,21 @@
   "components": {
     "statusIndicator": {
       "toHome": "ZUR STARTSEITE"
+    },
+    "responses": {
+      "answerDeleted": "Diese Antwort wurde gelöscht.",
+      "answer": "Antworten",
+      "answerFrom": "Antwort von",
+      "answersLoading": "Antworten werden geladen"
+    },
+    "deleteAccountButton": {
+      "deleteAccount": "Account löschen",
+      "password": "Passwort",
+      "confirmDeletion": "Löschen bestätigen",
+      "repeatePassword": "Passwort erneut eingeben",
+      "deleteFinally": "Account unwideruflich löschen",
+      "abort": "Abbrechen",
+      "wrongPassword": "Dein angegebenes Passwort ist leider inkorrekt"
     },
     "desktopMenu": {
       "myOverview": "Meine Übersicht",

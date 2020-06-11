@@ -54,7 +54,7 @@ export default function Sidebar(props) {
       <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
       <MenuItem to="/press">{t('components.sidebar.press')}</MenuItem>
       <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
-      <MenuItem to="/dsgvo">{t('components.sidebar.privacy')}</MenuItem>
+      <MenuItem to="/privacy-policy">{t('components.sidebar.privacy')}</MenuItem>
 
       {menuProps.isLoggedIn
         ? <MenuItem to="/" onClick={menuProps.signOut} data-cy="mobile-nav-sign-out">{t('components.sidebar.signOut')}</MenuItem>

@@ -4,7 +4,12 @@ const sgMail = require('@sendgrid/mail');
 const { GeoCollectionReference } = require('geofirestore');
 const slack = require('./slack');
 const { handleIncomingCall } = require('./hotline.js');
-const { userIdsMatch, migrateResponses, deleteDocumentWithSubCollections } = require('./utils');
+const {
+  userIdsMatch,
+  migrateResponses,
+  deleteDocumentWithSubCollections,
+  getEntriesOfUser,
+} = require('./utils');
 
 admin.initializeApp();
 const envVariables = functions.config();
@@ -96,11 +101,11 @@ async function searchAndSendNotificationEmails() {
   const getEligibleHelpOffers = async (askForHelpSnapData) => {
     let queryResult = [];
     if (MAPS_ENABLED) {
-      const offersRef = new GeoCollectionReference(db.collection('offer-help'));
-      const query = offersRef.near({ center: askForHelpSnapData.coordinates, radius: 30 });
+      const notificationsRef = new GeoCollectionReference(db.collection('notifications'));
+      const query = notificationsRef.near({ center: askForHelpSnapData.coordinates, radius: 30 });
       queryResult = (await query.get()).docs.map((doc) => doc.data());
     } else {
-      const offersRef = db.collection('offer-help');
+      const notificationsRef = db.collection('notifications');
       if (!askForHelpSnapData || !askForHelpSnapData.d || !askForHelpSnapData.d.plz) {
         // eslint-disable-next-line no-console
         console.warn('Failed to find plz for ask-for-help ', askForHelpSnapData);
@@ -108,7 +113,7 @@ async function searchAndSendNotificationEmails() {
         const search = askForHelpSnapData.d.plz;
         const start = `${search.slice(0, -3)}000`;
         const end = `${search.slice(0, -3)}999`;
-        const results = await offersRef.orderBy('d.plz').startAt(start).endAt(end).get();
+        const results = await notificationsRef.orderBy('d.plz').startAt(start).endAt(end).get();
         const allPossibleOffers = results.docs
           .map((doc) => ({ id: doc.id, ...doc.data().d }))
           .filter(({ plz }) => plz.length === search.length);
@@ -305,6 +310,60 @@ async function onDeleletedCreate(snap) {
   }
 }
 
+async function onUserDelete(user) {
+  try {
+    const db = admin.firestore();
+    const promises = [];
+
+    // Delete ask for helps
+    const askForHelpEntries = await getEntriesOfUser(db, 'ask-for-help', 'd.uid', user.uid);
+    promises.push(askForHelpEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'ask-for-help', doc.id)));
+
+    // Delete solved posts
+    const solvedPostEntries = await getEntriesOfUser(db, 'solved-posts', 'd.uid', user.uid);
+    promises.push(solvedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'solved-posts', doc.id)));
+
+    // Delete deleted posts
+    const deletedPostEntries = await getEntriesOfUser(db, 'deleted', 'd.uid', user.uid);
+    promises.push(deletedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, 'deleted', doc.id)));
+
+    // Delete help offers for all (ask-for-help, solved and deleted)
+    const helpOfferEntries = await getEntriesOfUser(db, 'offer-help', 'email', user.email, true);
+    promises.push(helpOfferEntries.docs.map((doc) => doc.ref.update({ email: '', answer: '' })));
+
+    // Delete notifications
+    const notificationEntries = await getEntriesOfUser(db, 'notifications', 'd.uid', user.uid);
+    promises.push(notificationEntries.docs.map((doc) => doc.ref.delete()));
+
+    // Anonymize reported by
+    const reportedPostsEntries = await getEntriesOfUser(db, 'reported-posts', 'uid', user.uid);
+    promises.push(reportedPostsEntries.docs.map((doc) => doc.ref.update({ uid: 'ghost-user' })));
+
+    // Anonymize reported-by
+    const reportedEntryIds = reportedPostsEntries.docs.map((doc) => doc.data().askForHelpId);
+    const entryRefs = reportedEntryIds.map((id) => [
+      db.collection('ask-for-help').doc(id),
+      db.collection('solved-posts').doc(id),
+      db.collection('deleted').doc(id),
+    ]).reduce((arr, elem) => arr.concat(elem), []);
+
+    const reportedEntries = await db.getAll(...entryRefs);
+    reportedEntries.forEach((doc) => {
+      if (!doc.exists) return;
+
+      promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
+      if (!doc.data().d.reportedBy.includes('ghost-user')) {
+        promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
+      }
+    });
+
+    await Promise.all(promises);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
+}
+
 exports.sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
@@ -321,7 +380,7 @@ exports.askForHelpCreate = functions
 exports.regionSubscribeCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/offer-help/{helperId}')
+  .document('/notifications/{helperId}')
   .onCreate(onSubscribeToBeNotifiedCreate);
 
 exports.reportedPostsCreate = functions
@@ -352,3 +411,9 @@ exports.handleIncomingCall = functions
   .region(REGION_EUROPE_WEST_1)
   .https
   .onRequest(handleIncomingCall);
+
+exports.deleteUserData = functions
+  .region(REGION_EUROPE_WEST_1)
+  .auth
+  .user()
+  .onDelete(onUserDelete);

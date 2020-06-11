@@ -26,11 +26,11 @@ import Success from './views/Success';
 import NotFound from './views/NotFound';
 import fb from './firebase';
 import SuccessOffer from './views/SuccessOffer';
-import DSGVO from './views/DSGVO';
+import PrivacyPolicy from './views/PrivacyPolicy';
 import Sidebar from './components/Sidebar';
 import DesktopLowerNavigation from './components/DesktopMenu';
 import VerifyEmail from './views/VerifyEmail';
-import CompleteOfferHelp from './views/CompleteOfferHelp';
+import CompleteNotification from './views/CompleteNotification';
 import NotifyMe from './views/NotifyMe';
 import useScrollToTop from './components/ScrollToTop';
 import ShareButtons from './components/ShareButtons';
@@ -270,9 +270,9 @@ export default function App() {
             <SuccessOffer />
           </Page>
         </Route>
-        <Route path="/dsgvo">
+        <Route path="/privacy-policy">
           <Page>
-            <DSGVO />
+            <PrivacyPolicy />
           </Page>
         </Route>
         <Route path={['/press', '/presse']}>
@@ -285,9 +285,9 @@ export default function App() {
             <NotifyMe />
           </Page>
         </Route>
-        <Route path="/complete-offer-help">
+        <Route path="/complete-notification">
           <Page>
-            <CompleteOfferHelp />
+            <CompleteNotification />
           </Page>
         </Route>
         <Route path="/handle-email-action">
