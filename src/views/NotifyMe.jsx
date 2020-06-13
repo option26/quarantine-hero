@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
@@ -8,8 +9,9 @@ import { baseUrl } from '../appConfig';
 
 export default function NotifyMe() {
   const { t } = useTranslation();
+  const [user] = useAuthState(fb.auth);
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(user && user.email ? user.email : '');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState('');
