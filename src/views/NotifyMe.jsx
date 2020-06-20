@@ -11,7 +11,7 @@ export default function NotifyMe() {
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
 
-  const [email, setEmail] = useState(user && user.email ? user.email : '');
+  const [email, setEmail] = useState((user && user.email) || '');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState('');

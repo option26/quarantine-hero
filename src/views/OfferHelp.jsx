@@ -13,7 +13,7 @@ export default function OfferHelp() {
   const [user] = useAuthState(fb.auth);
 
   const [answer, setAnswer] = useState('');
-  const [email, setEmail] = useState(user && user.email ? user.email : '');
+  const [email, setEmail] = useState((user && user.email) || '');
   const [deleted, setDeleted] = useState(false);
   const [report, setReport] = useState(false);
   const [entry, setEntry] = useState({
