@@ -1,12 +1,15 @@
+import * as admin from 'firebase-admin';
+import { CollectionName } from './types/enum/CollectionName';
 
-async function userIdsMatch(db, collectionName, documentId, uidFromRequest) {
+async function userIdsMatch(db: admin.firestore.Firestore, collectionName: CollectionName, documentId: string, uidFromRequest: string): Promise<boolean> {
   const docSnap = await db.collection(collectionName).doc(documentId).get();
   const docSnapData = docSnap.data();
+  if (!docSnapData) return false;
   const { uid } = docSnapData;
   return uid === uidFromRequest;
 }
 
-async function migrateResponses(db, collectionToMigrateFrom, documentId, collectionToMigrateTo) {
+async function migrateResponses(db: admin.firestore.Firestore, collectionToMigrateFrom: CollectionName, documentId: string, collectionToMigrateTo: CollectionName): Promise<void> {
   const responsesSnap = await db.collection(collectionToMigrateFrom)
     .doc(documentId)
     .collection('offer-help')
@@ -20,39 +23,41 @@ async function migrateResponses(db, collectionToMigrateFrom, documentId, collect
   await batch.commit();
 }
 
-async function deleteQueryBatch(db, query, resolve, reject) {
+async function deleteQueryBatch(db: admin.firestore.Firestore, query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>, resolve: any, reject: any): Promise<void> {
   // code taken from https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
-  return query.get()
-    .then((snapshot) => {
-      // When there are no documents left, we are done
-      if (snapshot.size === 0) {
-        return 0;
-      }
+  try {
 
-      // Delete documents in a batch
-      const batch = db.batch();
-      snapshot.docs.forEach((doc) => {
-        batch.delete(doc.ref);
+    const snapshot = await query.get()
+    // When there are no documents left, we are done
+    if (snapshot.size === 0) {
+      return;
+    }
+
+    // Delete documents in a batch
+    const batch = db.batch();
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    return batch.commit().then(() => snapshot.size)
+      .then((numDeleted) => {
+        if (numDeleted === 0) {
+          return resolve();
+        }
+
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(async () => {
+          await deleteQueryBatch(db, query, resolve, reject);
+        });
       });
 
-      return batch.commit().then(() => snapshot.size)
-        .then((numDeleted) => {
-          if (numDeleted === 0) {
-            resolve();
-            return;
-          }
-
-          // Recurse on the next process tick, to avoid
-          // exploding the stack.
-          process.nextTick(() => {
-            deleteQueryBatch(db, query, resolve, reject);
-          });
-        });
-    })
-    .catch(reject);
+  } catch (error) {
+    return reject(error);
+  }
 }
 
-async function deleteCollection(db, collectionPath, batchSize) {
+async function deleteCollection(db: admin.firestore.Firestore, collectionPath: string, batchSize: number): Promise<void> {
   // code taken from https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
   const collectionRef = db.collection(collectionPath);
   const query = collectionRef.orderBy('__name__').limit(batchSize);
@@ -63,7 +68,7 @@ async function deleteCollection(db, collectionPath, batchSize) {
 // db-admins API does not support recursive deletion yet,
 // which is necessary to delete subcollections of a document
 // https://github.com/firebase/firebase-admin-node/issues/361
-async function deleteDocumentWithSubCollections(db, collectionName, documentId) {
+async function deleteDocumentWithSubCollections(db: admin.firestore.Firestore, collectionName: CollectionName, documentId: string): Promise<void> {
   // delete document from collection
   await db.collection(collectionName).doc(documentId).delete();
   // recursive delete to remove the sub collections (e.g. responses) as well
@@ -72,13 +77,14 @@ async function deleteDocumentWithSubCollections(db, collectionName, documentId) 
   return deleteCollection(db, collectionPath, batchSize);
 }
 
-async function getEntriesOfUser(db, collection, key, uid, useCollectionGroup = false) {
+async function getEntriesOfUser(db: admin.firestore.Firestore, collection: CollectionName, key: string, uid: string, useCollectionGroup = false): Promise<FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>> {
   if (!useCollectionGroup) {
     return db.collection(collection).where(key, '==', uid).get();
   }
   return db.collectionGroup(collection).where(key, '==', uid).get();
 }
-module.exports = {
+
+export {
   userIdsMatch,
   migrateResponses,
   deleteDocumentWithSubCollections,
