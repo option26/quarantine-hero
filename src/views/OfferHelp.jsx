@@ -2,6 +2,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import fb from '../firebase';
 
 import Entry from '../components/entry/Entry';
@@ -9,9 +10,10 @@ import MailInput from '../components/MailInput';
 
 export default function OfferHelp() {
   const { t } = useTranslation();
+  const [user] = useAuthState(fb.auth);
 
   const [answer, setAnswer] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState((user && user.email) || '');
   const [deleted, setDeleted] = useState(false);
   const [report, setReport] = useState(false);
   const [entry, setEntry] = useState({
