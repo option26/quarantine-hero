@@ -13,7 +13,6 @@ import {
   getEntriesOfUser,
 } from './utils';
 
-
 import { AskForHelpCollectionEntry } from './types/collections/AskForHelpCollectionEntry';
 import { OfferHelpCollectionEntry } from './types/collections/OfferHelpCollectionEntry';
 import { NotificationsCollectionEntry } from './types/collections/NotificationsCollectionEntry';
