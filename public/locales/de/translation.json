@@ -126,7 +126,6 @@
         "howHelpPeopleWithoutInternet": "Wie kann ich Menschen helfen, die kein Internet haben?",
         "whoAreYou": "Wer seid ihr?",
         "dataUse": "Wie werden Daten verwendet?",
-        "howIsDataUsed": "Wie werden Daten verwendet?",
         "howToDeleteMyRequest": "Wie kann ich meine Anfrage löschen?",
         "iGetNoAnswers": "Ich erhalte keine Antworten auf meine Anfrage, obwohl die Website anzeigt jemand hätte geantwortet?"
       },
@@ -167,7 +166,6 @@
         },
         "whoAreYou": "Wir sind Alisa, Andi, Christina, Denise, Domenic, Florian, Henrike, Jakob, Janik, Julia, Keno, Lizzie, Maurice, Milena, Nicolai, Philipp, Sophie und Tom, eine Gruppe von Freund*innen, die mit diesem Projekt ihren kleinen Beitrag leisten und Menschen helfen möchten.",
         "dataUse": "Als Hilfesuchende*r wird Deine Anfrage öffentlich allen Nutzer*innen der Plattform angezeigt. Deine E-Mail-Adresse halten wir zur Identifizierung Deines Accounts vor. Letztere wird zu keinem Zeitpunkt veröffentlicht. \n\nAntwortest Du auf eine Hilfsanfrage, leiten wir Deine E-Mail-Adresse an die hilfesuchende Person weiter. Ebenso speichern wir Deine E-Mail-Adresse intern zur Identifizierung Deines Accounts.\n\nStellst Du Deine telefonische Anfrage, speichern wir Deine Telefonnummer und geben diese an freiwillige Helfende raus, bis Du die Anfrage als gelöst markierst.",
-        "howIsDataUsed": "Als Hilfesuchende*r wird Deine Anfrage öffentlich allen Nutzer*innen der Plattform angezeigt. Deine E-Mail-Adresse halten wir zur Identifizierung Deines Accounts vor. Letztere wird zu keinem Zeitpunkt veröffentlicht. Antwortest Du auf eine Anfrage, leiten wir Deine E-Mail-Adresse an die hilfesuchende Person weiter. Ebenso speichern wir Deine E-Mail-Adresse intern zur Identifizierung Deines Accounts.",
         "howToDeleteMyRequest": {
           "preLink": "Du kannst Dich mit Deiner E-Mail-Adresse und Passwort auf Deinem ",
           "link": "Dashboard",
