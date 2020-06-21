@@ -1,7 +1,7 @@
 export interface NotificationsCollectionEntry {
   d: {
     uid: string
-    timestamp: string
+    timestamp: number
     email: string
     location: string
     plz: string
