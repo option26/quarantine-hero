@@ -3,7 +3,7 @@
 # Development
 
 * [Setting up a Node.js development environment](https://cloud.google.com/nodejs/docs/setup)
-* Firebase uses Node.js version [8.15.10](https://cloud.google.com/functions/docs/concepts/nodejs-8-runtime), so please make sure that you run on the correct Node version (e.g. using `nvm`)
+* Firebase uses Node.js version [10.18.1](https://cloud.google.com/functions/docs/concepts/nodejs-10-runtime), so please make sure that you run on the correct Node version (e.g. using `nvm`)
 *
 
 ## Linting
