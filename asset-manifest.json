@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.50c36939.chunk.css",
-    "main.js": "/static/js/main.bbbc1e63.chunk.js",
-    "main.js.map": "/static/js/main.bbbc1e63.chunk.js.map",
+    "main.js": "/static/js/main.8f3e871c.chunk.js",
+    "main.js.map": "/static/js/main.8f3e871c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.72723b1f.chunk.js": "/static/js/2.72723b1f.chunk.js",
-    "static/js/2.72723b1f.chunk.js.map": "/static/js/2.72723b1f.chunk.js.map",
+    "static/js/2.d70d9d11.chunk.js": "/static/js/2.d70d9d11.chunk.js",
+    "static/js/2.d70d9d11.chunk.js.map": "/static/js/2.d70d9d11.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.dcb307fc3b33418f1477c99c73c54be8.js": "/precache-manifest.dcb307fc3b33418f1477c99c73c54be8.js",
+    "precache-manifest.bb80e2b4b618e4d209a65b0122e75d07.js": "/precache-manifest.bb80e2b4b618e4d209a65b0122e75d07.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
     "static/css/main.50c36939.chunk.css.map": "/static/css/main.50c36939.chunk.css.map",
-    "static/js/2.72723b1f.chunk.js.LICENSE.txt": "/static/js/2.72723b1f.chunk.js.LICENSE.txt",
+    "static/js/2.d70d9d11.chunk.js.LICENSE.txt": "/static/js/2.d70d9d11.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -60,8 +60,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.72723b1f.chunk.js",
+    "static/js/2.d70d9d11.chunk.js",
     "static/css/main.50c36939.chunk.css",
-    "static/js/main.bbbc1e63.chunk.js"
+    "static/js/main.8f3e871c.chunk.js"
   ]
 }
