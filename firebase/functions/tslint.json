@@ -44,7 +44,9 @@
     "no-floating-promises": true,
     // Do not allow any imports for modules that are not in package.json. These will almost certainly fail when
     // deployed.
-    "no-implicit-dependencies": true,
+    // Set this rule to false as tsconfig-paths are falsely picked up by the linter
+    // https://github.com/palantir/tslint/issues/4083
+    "no-implicit-dependencies": false,
     // The 'this' keyword can only be used inside of classes.
     "no-invalid-this": true,
     // Do not allow strings to be thrown because they will not include stack traces. Throw Errors instead.
