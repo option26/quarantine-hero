@@ -4,7 +4,7 @@ import { getEligibleHelpOffers } from '@utilities/email/getEligibleHelpOffers';
 import { sendNotificationEmailsForOffers } from '@utilities/email/sendNotificationEmailsForOffers';
 
 import {
-  MINIMUM_NOTIFICATION_DELAY_INITIAL_CONTACT_WITH_OPEN_ENTRIES_MINUTES,
+  MINIMUM_NOTIFICATION_DELAY_INITIAL_ENGAGEMENT_WITH_OPEN_ENTRIES_MINUTES,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
 } from '@config';
@@ -17,7 +17,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
   try {
     const db = admin.firestore();
     const askForHelpSnaps = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_INITIAL_CONTACT_WITH_OPEN_ENTRIES_MINUTES * 60 * 1000)
+      .where('d.timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_INITIAL_ENGAGEMENT_WITH_OPEN_ENTRIES_MINUTES * 60 * 1000)
       .where('d.notificationCounter', '==', 0)
       .limit(3)
       .get();

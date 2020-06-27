@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 
 import {
-  MINIMUM_NOTIFICATION_DELAY_FURTHER_CONTACT_WITH_OPEN_ENTRIES_DAYS,
-  MAXIMUM_ALLOWED_AGE_FOR_FURTHER_CONTACT_DAYS,
+  MINIMUM_NOTIFICATION_DELAY_UNTIL_FURTHER_ENGAGEMENT_WITH_OPEN_ENTRIES_DAYS,
+  MAXIMUM_ALLOWED_AGE_FOR_ENTRY_TO_BE_ASK_FOR_RE_ENGAGEMENT_DAYS,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
 } from '@config';
@@ -17,8 +17,8 @@ export async function searchAndSendNotificationEmailsForOpenOffersWithoutAnswers
   try {
     const db = admin.firestore();
     const askForHelpSnapsWithoutAnswers = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '<=', Date.now() - MAXIMUM_ALLOWED_AGE_FOR_FURTHER_CONTACT_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_FURTHER_CONTACT_WITH_OPEN_ENTRIES_DAYS * 24 * 60 * 60 * 1000)
+      .where('d.timestamp', '<=', Date.now() - MAXIMUM_ALLOWED_AGE_FOR_ENTRY_TO_BE_ASK_FOR_RE_ENGAGEMENT_DAYS * 24 * 60 * 60 * 1000)
+      .where('d.timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_UNTIL_FURTHER_ENGAGEMENT_WITH_OPEN_ENTRIES_DAYS * 24 * 60 * 60 * 1000)
       .where('d.responses', '==', 0)
       .limit(3)
       .get();
