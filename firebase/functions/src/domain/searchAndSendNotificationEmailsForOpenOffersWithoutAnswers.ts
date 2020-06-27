@@ -33,13 +33,12 @@ export async function searchAndSendNotificationEmailsForOpenOffersWithoutAnswers
       console.log('askForHelpId', askForHelpId);
       // eslint-disable-next-line no-console
       if (SEND_EMAILS) {
-        const templateId = 'TODO: create new template';
+        const templateId = 'd-46ce2fad54b84395abd2d615c01c69cb';
         const templateData: SendgridTemplateData = {
           subject: 'QuarantäneHeld*innen - Benötigst du weiterhin Hilfe?',
           request: askForHelpSnapData.d.request,
           location: askForHelpSnapData.d.location,
           link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-          // TODO: need UI feature for this
           requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?more-help`,
           deleteLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?deleteLink`,
         };
