@@ -39,8 +39,8 @@ export async function searchAndSendNotificationEmailsForOpenOffersWithoutAnswers
           request: askForHelpSnapData.d.request,
           location: askForHelpSnapData.d.location,
           link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?more-help`,
-          deleteLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?deleteLink`,
+          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&moreHelp=true`,
+          deleteLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&delete=true`,
         };
         const email = await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData);
         return email;
