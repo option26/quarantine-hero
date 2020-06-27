@@ -29,7 +29,7 @@ async function deleteQueryBatch(db: admin.firestore.Firestore, query: FirebaseFi
   // code taken from https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
   try {
 
-    const snapshot = await query.get()
+    const snapshot = await query.get();
     // When there are no documents left, we are done
     if (snapshot.size === 0) {
       return;

@@ -24,4 +24,4 @@ export {
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
   EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK,
-}
+};

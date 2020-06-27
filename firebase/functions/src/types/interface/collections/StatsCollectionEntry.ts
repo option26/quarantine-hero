@@ -1,5 +1,5 @@
 export interface StatsCollectionEntry {
-  askForHelp: number
-  offerHelp: number
-  regionSubscribed: number
+  askForHelp: number;
+  offerHelp: number;
+  regionSubscribed: number;
 }

@@ -50,7 +50,7 @@ export async function onUserDelete(user: UserRecord): Promise<void> {
       if (!doc.exists) return;
 
       promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
-      const data = doc && doc.data()
+      const data = doc && doc.data();
       if (data && !data.d.reportedBy.includes('ghost-user')) {
         promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
       }

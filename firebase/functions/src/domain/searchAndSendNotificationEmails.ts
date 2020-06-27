@@ -97,7 +97,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
             reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
           },
           hideWarnings: true, // removes triple bracket warning
-        }
+        };
         // without "any" casting, sendgrid complains about sendgridOptions typing
         await sgMail.send(sendgridOptions as any);
 

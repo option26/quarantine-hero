@@ -7,7 +7,7 @@ export interface NotificationsCollectionEntry {
     plz: string
     coordinates: FirebaseFirestore.GeoPoint
     distance?: number // set on searchAndSendNotificationEmails
-  }
-  g: string
-  l: string[]
+  };
+  g: string;
+  l: string[];
 }

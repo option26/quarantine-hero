@@ -14,7 +14,7 @@ export async function onDeletedCreate(snap: admin.firestore.DocumentSnapshot): P
     const db = admin.firestore();
     const snapValue = snap.data() as DeletedCollectionEntry;
     // collectionName can be either "ask-for-help" or "solved-posts"
-    const { collectionName } = snapValue
+    const { collectionName } = snapValue;
     const { uid } = snapValue.d;
 
     if (!userIdsMatch(db, collectionName, snap.id, uid)) return;

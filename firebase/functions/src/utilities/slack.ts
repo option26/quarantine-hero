@@ -15,6 +15,6 @@ async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry):
       text: `https://www.quarantaenehelden.org/#/offer-help/${snapId}\n${plz} - ${location}\n>${request.replace('\n', '\n>')}`,
     },
   });
-};
+}
 
 export { postToSlack };

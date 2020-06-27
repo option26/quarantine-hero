@@ -30,14 +30,14 @@ export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot):
       return;
     }
 
-    const askRecordData = askRecord && askRecord.data() as AskForHelpCollectionEntry
+    const askRecordData = askRecord && askRecord.data() as AskForHelpCollectionEntry;
     const { request, uid } = askRecordData.d;
 
     const data = await admin.auth().getUser(uid);
     const { email: receiver } = data.toJSON() as UserRecord;
 
     const offerRecordData = offer.data() as OfferHelpCollectionEntry;
-    const { answer, email } = offerRecordData
+    const { answer, email } = offerRecordData;
 
     const sendgridOptions = {
       to: receiver,
