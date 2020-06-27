@@ -1,6 +1,8 @@
-const { google } = require('googleapis');
-const functions = require('firebase-functions');
-const moment = require('moment-timezone');
+import { google } from 'googleapis';
+import * as functions from 'firebase-functions';
+import * as moment from 'moment-timezone';
+
+import { Parameters } from './types/hotline/Parameters'
 
 const {
   sheet_id: SPREADSHEET_ID,
@@ -12,7 +14,7 @@ const {
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
-const weekdayIndex = {
+const weekdayIndex: { [key: string]: number } = {
   'Monday Morning': 0,
   'Monday Afternoon': 1,
   'Tuesday Morning': 2,
@@ -39,7 +41,7 @@ const days = [
   'Saturday',
 ];
 
-function getCurrentShift() {
+function getCurrentShift(): string {
   const day = days[moment().tz('Europe/Berlin').get('day')];
   const hour = moment().tz('Europe/Berlin').get('hour');
 
@@ -64,12 +66,12 @@ function getCurrentShift() {
   return `${day} ${partOfDay}`;
 }
 
-async function getValues(params) {
-  const auth = new google.auth.JWT(SERVICE_ACCOUNT_EMAIL, null, PRIVATE_KEY, SCOPES);
+async function getValues(params: Parameters): Promise<{ data: { values: string[][] } }> {
+  const auth = new google.auth.JWT(SERVICE_ACCOUNT_EMAIL, undefined, PRIVATE_KEY, SCOPES);
   const sheets = google.sheets({ version: 'v4', auth });
 
   return new Promise((resolve, reject) => {
-    sheets.spreadsheets.values.get(params, (err, res) => {
+    sheets.spreadsheets.values.get(params, (err: any, res: any) => {
       if (err) {
         reject(err);
       } else {
@@ -79,32 +81,32 @@ async function getValues(params) {
   });
 }
 
-async function getPeopleForShift(shift) {
-  const params = {
+async function getPeopleForShift(shift: string): Promise<(null | string)[]> {
+  const params: Parameters = {
     spreadsheetId: SPREADSHEET_ID,
     range: RANGE,
   };
 
   const res = await getValues(params);
-  const rows = res.data.values;
+  const rows: string[][] = res.data.values;
 
-  if (!rows.length) {
+  if (!rows || !rows.length) {
     throw new Error('No data found');
   }
 
   return rows
-    .map((row) => {
-      const number = row[1];
-      const availability = row.slice(2, row.length);
+    .map((row: string[]) => {
+      const number: string = row[1];
+      const availability: string[] = row.slice(2, row.length);
 
-      const colIdx = weekdayIndex[shift];
+      const colIdx: number = weekdayIndex[shift];
 
       return availability[colIdx] === 'ja' ? number : null;
     })
-    .filter(Boolean);
+    .filter(entry => entry !== null);
 }
 
-async function handleIncomingCall(req, res) {
+async function handleIncomingCall(req: any, res: any): Promise<void> {
   const { apikey } = req.query;
 
   if (!apikey || apikey !== API_KEY) {
@@ -129,6 +131,4 @@ async function handleIncomingCall(req, res) {
   }
 }
 
-module.exports = {
-  handleIncomingCall,
-};
+export { handleIncomingCall };

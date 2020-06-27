@@ -1,10 +1,11 @@
-const axios = require('axios');
-const functions = require('firebase-functions');
+import axios from 'axios';
+import * as functions from 'firebase-functions';
+import { AskForHelpCollectionEntry } from './types/collections/AskForHelpCollectionEntry';
 
-exports.postToSlack = function postToSlack(snapId, snapData) {
+async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry): Promise<void> {
   const { request, plz, location } = snapData.d;
 
-  axios({
+  await axios({
     method: 'POST',
     url: functions.config().slack.url,
     headers: {
@@ -15,3 +16,5 @@ exports.postToSlack = function postToSlack(snapId, snapData) {
     },
   });
 };
+
+export { postToSlack };
