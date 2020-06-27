@@ -20,6 +20,7 @@ import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
 import checkMark from '../assets/check.svg';
+import weakPasswords from '../assets/password-top500.json';
 
 export default () => (
   <div className="p-4">
@@ -158,6 +159,12 @@ function SignupBody() {
 
     try {
       const userSource = source || 'direct';
+
+      if (weakPasswords.includes(password)) {
+        // eslint-disable-next-line no-throw-literal
+        throw { code: 'weak-password', message: 'No default passwords allowed' };
+      }
+
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
       await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
@@ -167,6 +174,7 @@ function SignupBody() {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
+        case 'weak-password': setError(t('views.signUp.weakPassword')); break;
         default: {
           setError(err.message);
           Sentry.captureException(err);
@@ -209,6 +217,7 @@ function SignupBody() {
             placeholder={t('views.signUp.yourPw')}
             value={password}
             required="required"
+            minLength="12"
             autoComplete="new-password"
             onChange={(e) => {
               comparePasswords();
