@@ -104,10 +104,10 @@ async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot): Promis
       }
     }
 
-    await db.collection('/ask-for-help').doc(askRecord.id).update({
+    await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
       'd.responses': admin.firestore.FieldValue.increment(1),
     });
-    await db.collection('/stats').doc('external').update({
+    await db.collection(CollectionName.Stats).doc('external').update({
       offerHelp: admin.firestore.FieldValue.increment(1),
     });
   } catch (e) {
@@ -141,7 +141,7 @@ async function searchAndSendNotificationEmails(): Promise<void> {
         throw new Error(`Sanity check for ${askForHelpId} failed! Query result size: ${queryResult.length}`);
       }
     } else {
-      const notificationsRef = db.collection('notifications');
+      const notificationsRef = db.collection(CollectionName.Notifications);
       if (!askForHelpSnapData || !askForHelpSnapData.d || !askForHelpSnapData.d.plz) {
         // eslint-disable-next-line no-console
         console.warn('Failed to find plz for ask-for-help ', askForHelpSnapData);
