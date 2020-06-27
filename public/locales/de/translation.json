@@ -181,10 +181,13 @@
       }
     },
     "notifyMe": {
+      "finalizeNotification": "Du hast Dich erfolgreich registriert! Nur noch ein Schritt...",
       "beNotified": "Lass Dich benachrichtigen, wenn Jemand in Deiner Umgebung Hilfe braucht.",
-      "emailSent": "Wir haben Dir eine E-Mail gesendet! Bitte überprüfe Dein Postfach und klicke auf den Link in unserer E-Mail! Wir werden Dich dann benachrichtigen, wenn Leute in {{location}} Hilfe benötigen.",
+      "emailSent": "Wir haben Dir eine E-Mail gesendet! Bitte überprüfe Dein Postfach und klicke auf den Link in unserer E-Mail!",
+      "willNotify": "Wir werden Dich benachrichtigen, wenn Hilfe benötigt wird in:",
       "yourMail": "Deine E-Mail-Adresse",
-      "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!"
+      "notifyMe": "Benachrichtige mich wenn jemand in {{location}} Hilfe braucht!",
+      "findRequests": "Finde weitere Hilfegesuche"
     },
     "offerHelp": {
       "replyToRequest": "Antworte auf die Anfrage und beschreibe wie und wann Du helfen kannst.",
