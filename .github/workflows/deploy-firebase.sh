@@ -12,3 +12,4 @@ FIREBASE_PROJECT="quarantine-hero"
 FIREBASE_MESSAGE="QH $GIT_REV deployment to firebase"
 # deploy here because npm does not resolve environment variables in npm run
 npx firebase-tools deploy --only functions --project "$FIREBASE_PROJECT" -m "$FIREBASE_MESSAGE" --non-interactive
+npx firebase-tools deploy --only firestore:rules --project "$FIREBASE_PROJECT" -m "$FIREBASE_MESSAGE" --non-interactive
