@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.73126405.chunk.css",
-    "main.js": "/static/js/main.37676646.chunk.js",
-    "main.js.map": "/static/js/main.37676646.chunk.js.map",
+    "main.css": "/static/css/main.50c36939.chunk.css",
+    "main.js": "/static/js/main.10e40bfc.chunk.js",
+    "main.js.map": "/static/js/main.10e40bfc.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.a01eb802.chunk.js": "/static/js/2.a01eb802.chunk.js",
-    "static/js/2.a01eb802.chunk.js.map": "/static/js/2.a01eb802.chunk.js.map",
+    "static/js/2.a6f2481b.chunk.js": "/static/js/2.a6f2481b.chunk.js",
+    "static/js/2.a6f2481b.chunk.js.map": "/static/js/2.a6f2481b.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.35d24a96751cccdb1c8e4a58efb1e6a7.js": "/precache-manifest.35d24a96751cccdb1c8e4a58efb1e6a7.js",
+    "precache-manifest.ab1b333d2717b711953a2ef8f33968f4.js": "/precache-manifest.ab1b333d2717b711953a2ef8f33968f4.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
-    "static/css/main.73126405.chunk.css.map": "/static/css/main.73126405.chunk.css.map",
-    "static/js/2.a01eb802.chunk.js.LICENSE.txt": "/static/js/2.a01eb802.chunk.js.LICENSE.txt",
+    "static/css/main.50c36939.chunk.css.map": "/static/css/main.50c36939.chunk.css.map",
+    "static/js/2.a6f2481b.chunk.js.LICENSE.txt": "/static/js/2.a6f2481b.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -32,6 +32,7 @@
     "static/media/flag_white.svg": "/static/media/flag_white.6be2712d.svg",
     "static/media/gh.svg": "/static/media/gh.031ea242.svg",
     "static/media/greenpeace_magazin.jpg": "/static/media/greenpeace_magazin.8a4f3c7a.jpg",
+    "static/media/help_needed.svg": "/static/media/help_needed.db97b2de.svg",
     "static/media/help_white.svg": "/static/media/help_white.e61d068c.svg",
     "static/media/hero_white.svg": "/static/media/hero_white.a9dfa56a.svg",
     "static/media/icon_baby.svg": "/static/media/icon_baby.5b89a18b.svg",
@@ -59,8 +60,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.a01eb802.chunk.js",
-    "static/css/main.73126405.chunk.css",
-    "static/js/main.37676646.chunk.js"
+    "static/js/2.a6f2481b.chunk.js",
+    "static/css/main.50c36939.chunk.css",
+    "static/js/main.10e40bfc.chunk.js"
   ]
 }
