@@ -12,6 +12,7 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
+import { updateGeoDB } from './geoData';
 
 import { CollectionName } from '@enum/CollectionName';
 
@@ -70,3 +71,11 @@ export const deleteUserData = functions
   .auth
   .user()
   .onDelete(onUserDelete);
+
+export const updateGeoDBFunction = functions
+    .runWith({timeoutSeconds: 540})
+    .region(REGION_EUROPE_WEST_1)
+    .pubsub
+    .schedule('0 0 1 */6 *') // At every 3rd minute past every hour from 9 through 23.
+    .timeZone('Europe/Berlin')
+    .onRun(updateGeoDB);
