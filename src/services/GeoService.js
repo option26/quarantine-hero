@@ -1,55 +1,49 @@
-// eslint-disable-next-line no-undef
-const geocoder = new google.maps.Geocoder();
-// eslint-disable-next-line no-undef
-const autocomplete = new google.maps.places.AutocompleteService();
+import fb from '../firebase';
 
-export async function getSuggestions(searchString, searchOptions) {
-  const request = {
-    ...searchOptions,
-    input: searchString,
-  };
-  return new Promise((resolve, reject) => autocomplete.getPlacePredictions(request, (result, status) => {
-    switch (status) {
-      case 'OK':
-        return resolve(result);
-      case 'ZERO_RESULTS':
-        return resolve([]);
-      default:
-        return reject(status);
-    }
-  }));
+const numericRegex = /\d{3,}/;
+const stringRegex = /\D+/;
+
+function enrichEntry(entry) {
+  return { ...entry, description: `${entry.plz} ${entry.name}` };
 }
 
-export async function getGeodataForString(searchString, searchOptions) {
-  const request = {
-    ...searchOptions,
-    address: searchString,
-  };
-  return new Promise((resolve, reject) => {
-    geocoder.geocode(request, (results, status) => {
-      if (status === 'OK') {
-        return resolve(results);
-      }
-      return reject(status);
-    });
-  });
+export async function getSuggestions(searchString) {
+  const plzMatch = searchString.match(numericRegex);
+  const locationMatch = searchString.match(stringRegex);
+  const location = locationMatch !== null ? locationMatch[0].trim() : '';
+
+  let preResults;
+  if (plzMatch !== null) {
+    const plz = plzMatch[0];
+    const query = fb.store.collection('geo-data').orderBy('plz').startAt(plz).endAt(`${plz}\uf8ff`);
+
+    const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
+    preResults = entries.filter((e) => e.name.includes(location));
+  } else {
+    const query = fb.store.collection('geo-data').orderBy('name').startAt(searchString).endAt(`${searchString}\uf8ff`);
+    preResults = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+
+  const existingLocationIds = new Set();
+  return preResults
+    .filter((d) => {
+      const contained = existingLocationIds.has(d.locId);
+      existingLocationIds.add(d.locId);
+      return !contained;
+    })
+    .map(enrichEntry);
 }
 
-export async function getGeodataForPlace(placeId, searchOptions) {
-  const request = {
-    ...searchOptions,
-    placeId,
-  };
-  return new Promise((resolve, reject) => {
-    geocoder.geocode(request, (results, status) => {
-      if (status === 'OK') {
-        return resolve(results);
-      }
-      return reject(status);
-    });
-  });
+export async function getGeodataForString(searchString) {
+  const result = await getSuggestions(searchString);
+  return result[0];
+}
+
+export async function getGeodataForPlace(placeId) {
+  const snapshot = await fb.store.collection('geo-data').doc(placeId).get();
+  return enrichEntry(snapshot.data());
 }
 
 export function getLatLng(geoResult) {
-  return { lat: geoResult.geometry.location.lat(), lng: geoResult.geometry.location.lng() };
+  return { lat: Number.parseFloat(geoResult.lat), lng: Number.parseFloat(geoResult.lon) };
 }
