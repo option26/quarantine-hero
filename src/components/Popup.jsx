@@ -43,6 +43,9 @@ export default function PopupOnEntryAction(props) {
     handleNewAskForHelp,
     cancelDelete,
     handleDelete,
+    attemptingToRequestMoreHelp,
+    cancelAttemptingToRequestMoreHelp,
+    handleRequestMoreHelp,
     backToOverview,
   } = props;
 
@@ -82,6 +85,14 @@ export default function PopupOnEntryAction(props) {
     </>
   );
 
+  const textBodyAskForMoreHelp = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelp.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelp.secondSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelp.thirdSentence')}</p>
+    </>
+  );
+
   const HeroFoundButton = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.heroFound'),
@@ -99,6 +110,14 @@ export default function PopupOnEntryAction(props) {
     'btn-popup-ask-for-help',
   );
 
+  const AskForMoreHelpButton = getButtonForPopup(
+    positiveActionButtonClasses,
+    t('components.entry.popup.requestMoreHelp.heading'),
+    handleRequestMoreHelp,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-ask-for-help',
+  );
+
   const CancelButtonPositiveClass = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.cancel'),
@@ -111,6 +130,14 @@ export default function PopupOnEntryAction(props) {
     negativeActionButtonClasses,
     t('components.entry.popup.cancel'),
     cancelDelete,
+    null,
+    'btn-popup-cancel-negative',
+  );
+
+  const CancelAskForMoreHelpButtonClass = getButtonForPopup(
+    negativeActionButtonClasses,
+    t('components.entry.popup.cancel'),
+    cancelAttemptingToRequestMoreHelp,
     null,
     'btn-popup-cancel-negative',
   );
@@ -145,6 +172,13 @@ export default function PopupOnEntryAction(props) {
     <DeleteTerminallyButton />,
   );
 
+  const RequestMoreHelpReassure = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelp.heading'),
+    <AskForMoreHelpButton />,
+    <CancelAskForMoreHelpButtonClass />,
+    textBodyAskForMoreHelp,
+  );
+
   const PopupContentSolveReassure = getPopupContentComponent(
     t('components.entry.popup.solveReassure.heading'),
     <HeroFoundButton />,
@@ -171,6 +205,7 @@ export default function PopupOnEntryAction(props) {
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
+  if (attemptingToRequestMoreHelp) popupContent = <RequestMoreHelpReassure />;
 
   return (
     <Popup

@@ -35,6 +35,7 @@ export default function Entry(props) {
     uid = '',
     showSolveHint = false,
     showDeleteHint = false,
+    showMoreHelpHint = false,
   } = props;
 
   const history = useHistory();
@@ -50,7 +51,8 @@ export default function Entry(props) {
   const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
   const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
-  const [popupVisible, setPopupVisible] = useState(showSolveHint || showDeleteHint);
+  const [attemptingToRequestMoreHelp, setAttemptingToRequestMoreHelp] = useState(showMoreHelpHint);
+  const [popupVisible, setPopupVisible] = useState(showSolveHint || showDeleteHint || showMoreHelpHint);
 
   const userIsLoggedIn = !!user && !!user.uid;
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
@@ -90,6 +92,14 @@ export default function Entry(props) {
     setPopupVisible(false);
   };
 
+  const handleRequestMoreHelp = async (e) => {
+    e.preventDefault();
+    await fb.store.collection('ask-for-help').doc(id).update({ 'd.requestingMoreHelp': true });
+    fb.analytics.logEvent('more_help_requested');
+    setAttemptingToRequestMoreHelp(false);
+    setPopupVisible(false);
+  };
+
   const handleNewAskForHelp = async (e) => {
     e.preventDefault();
     setPopupVisible(false);
@@ -111,6 +121,12 @@ export default function Entry(props) {
   const cancelDelete = async (e) => {
     e.preventDefault();
     setAttemptingToDelete(false);
+    setPopupVisible(false);
+  };
+
+  const cancelAttemptingToRequestMoreHelp = async (e) => {
+    e.preventDefault();
+    setAttemptingToRequestMoreHelp(false);
     setPopupVisible(false);
   };
 
@@ -183,6 +199,9 @@ export default function Entry(props) {
       handleNewAskForHelp={handleNewAskForHelp}
       cancelDelete={cancelDelete}
       handleDelete={handleDelete}
+      attemptingToRequestMoreHelp={attemptingToRequestMoreHelp}
+      cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
+      handleRequestMoreHelp={handleRequestMoreHelp}
       backToOverview={backToOverview}
     />
   );

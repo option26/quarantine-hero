@@ -52,7 +52,7 @@ function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
 
-  const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl } = useQuery();
+  const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl, moreHelp: attemptingToRequestMoreHelp } = useQuery();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
@@ -75,7 +75,6 @@ function Dashboard(props) {
   const solvedPosts = (solvedPostsDocs || [])
     .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
-
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
@@ -105,8 +104,9 @@ function Dashboard(props) {
             responses={entry.responses}
             reportedBy={entry.reportedBy}
             uid={entry.uid}
-            showSolveHint={attemptingToSolve && !attemptingToDelete && entry.responses > 0 && entryIdFromUrl === entry.id}
-            showDeleteHint={!attemptingToSolve && attemptingToDelete && entryIdFromUrl === entry.id}
+            showSolveHint={attemptingToSolve && !attemptingToDelete && !attemptingToRequestMoreHelp && entry.responses > 0 && entryIdFromUrl === entry.id}
+            showDeleteHint={!attemptingToSolve && attemptingToDelete && !attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
+            showMoreHelpHint={!attemptingToSolve && !attemptingToDelete && attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
             owner
           />
         ))}
