@@ -33,16 +33,15 @@ export async function searchAndSendNotificationEmailsForOpenOffersWithAnswers():
       console.log('askForHelpId', askForHelpId);
       // eslint-disable-next-line no-console
       if (SEND_EMAILS) {
-        const templateId = 'TODO: create new template';
+        const templateId = 'd-7f2169b45d11468997a187778a6cde1f';
         const templateData: SendgridTemplateData = {
           subject: 'QuarantäneHeld*innen - Wurde Dir geholfen?',
           request: askForHelpSnapData.d.request,
           location: askForHelpSnapData.d.location,
           link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-          solveLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?solve`,
-          // TODO: need UI feature for this
-          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?more-help`,
-          deleteLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?deleteLink`,
+          solveLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&solve=true`,
+          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&moreHelp=true`,
+          deleteLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&delete=true`,
         };
         const email = await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData);
         return email;
