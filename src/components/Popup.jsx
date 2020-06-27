@@ -46,6 +46,7 @@ export default function PopupOnEntryAction(props) {
     attemptingToRequestMoreHelp,
     cancelAttemptingToRequestMoreHelp,
     handleRequestMoreHelp,
+    moreHelpRequested,
     backToOverview,
   } = props;
 
@@ -93,6 +94,14 @@ export default function PopupOnEntryAction(props) {
     </>
   );
 
+  const textBodyAskForMoreHelpSuccessful = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelpSuccessful.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelpSuccessful.secondSentence')}</p>
+      {strongerTogetherHashtag}
+    </>
+  );
+
   const HeroFoundButton = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.heroFound'),
@@ -112,7 +121,7 @@ export default function PopupOnEntryAction(props) {
 
   const AskForMoreHelpButton = getButtonForPopup(
     positiveActionButtonClasses,
-    t('components.entry.popup.requestMoreHelp.heading'),
+    t('components.entry.popup.requestMoreHelpButton'),
     handleRequestMoreHelp,
     <ArrowForwardIosIcon className="ml-2 mb-1" />,
     'btn-popup-ask-for-help',
@@ -200,12 +209,20 @@ export default function PopupOnEntryAction(props) {
     textBodyYourRequestWasDeleted,
   );
 
+  const RequestMoreHelpSuccess = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelpSuccessful.heading'),
+    <NewAskForHelpButton />,
+    <BackToOverviewButton />,
+    textBodyAskForMoreHelpSuccessful,
+  );
+
   let popupContent = <></>;
   if (attemptingToSolve && !showAsSolved) popupContent = <PopupContentSolveReassure />;
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
   if (attemptingToRequestMoreHelp) popupContent = <RequestMoreHelpReassure />;
+  if (moreHelpRequested) popupContent = <RequestMoreHelpSuccess />;
 
   return (
     <Popup

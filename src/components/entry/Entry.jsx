@@ -48,6 +48,7 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState(false);
   const [solved, setSolved] = useState(false);
+  const [moreHelpRequested, setMoreHelpRequested] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
   const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
@@ -94,10 +95,11 @@ export default function Entry(props) {
 
   const handleRequestMoreHelp = async (e) => {
     e.preventDefault();
-    await fb.store.collection('ask-for-help').doc(id).update({ 'd.requestingMoreHelp': true });
+    // await fb.store.collection('ask-for-help').doc(id).update({ 'd.requestingMoreHelp': true });
     fb.analytics.logEvent('more_help_requested');
     setAttemptingToRequestMoreHelp(false);
-    setPopupVisible(false);
+    setMoreHelpRequested(true);
+    setPopupVisible(true);
   };
 
   const handleNewAskForHelp = async (e) => {
@@ -202,11 +204,12 @@ export default function Entry(props) {
       attemptingToRequestMoreHelp={attemptingToRequestMoreHelp}
       cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
       handleRequestMoreHelp={handleRequestMoreHelp}
+      moreHelpRequested={moreHelpRequested}
       backToOverview={backToOverview}
     />
   );
 
-  if (deleted || solved) {
+  if (deleted || solved || moreHelpRequested) {
     // make popup component available to show the success hint, if the entry was previously deleted
     return <>{popupOnEntryAction}</>;
   }
