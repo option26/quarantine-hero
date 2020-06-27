@@ -375,6 +375,7 @@
         "cancel": "Abbrechen",
         "deleteTerminally": "Endgültig löschen",
         "createNewRequest": "Neue Anfrage Erstellen",
+        "requestMoreHelpButton": "Weitere Hilfe beantragen",
         "solveReassure": {
           "heading": "War Dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
@@ -395,7 +396,12 @@
           "heading": "Benötigst du weiterhin Hilfe?",
           "firstSentence": "Falls du weiterhin Hilfe benötigst, werden wir für Dich neue potentielle Helfer kontaktieren, die sich in Deinem Umkreis befinden.",
           "secondSentence": "Bitte beachte, dass Dir diese Funktion nur begrenzt zur Verfügung steht, um potentiellen Spam zu vermeiden.",
-          "thirdSentence": "Falls du keine Hilfe mehr benötigst, kannst du dein Hilfegesuch jerderzeit löschen."
+          "thirdSentence": "Falls du keine Hilfe mehr benötigst, kannst du dein Hilfegesuch jederzeit löschen."
+        },
+        "requestMoreHelpSuccessful": {
+          "heading": "Deine Anfrage für weitere Hilfe war erfoglreich!",
+          "firstSentence": "Bitte beachte, dass es einen Augenblick dauern kann, bis sich potentieller Helfer bei Dir melden.",
+          "secondSentence": "Wir hoffen, dass dir schon bald geholfen wird. Bleibe gesund!"
         }
       }
     },
