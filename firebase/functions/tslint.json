@@ -104,7 +104,8 @@
     // Multi-line object literals and function calls should have a trailing comma. This helps avoid merge conflicts.
     "trailing-comma": {
       "severity": "warning"
-    }
+    },
+    "semicolon": true
   },
   "defaultSeverity": "error"
 }
