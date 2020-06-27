@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CookieConsentContext } from '../util/CookieConsent';
+
 
 export default function Footer() {
   const { t } = useTranslation();
+  const cookiesConsented = useContext(CookieConsentContext);
+
   return (
-    <div className="mb-3">
+    <div className={cookiesConsented === null ? 'mb-64' : 'mb-3'}>
       <div className="flex justify-center text-sm text-gray-700 mb-1 mt-8 w-full">
         <Link to="/faq">{t('components.footer.FAQs')}</Link>
         <div className="mx-1">|</div>

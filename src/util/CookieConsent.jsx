@@ -9,12 +9,13 @@ function CookieConsentBanner({ accept, reject }) {
   function goToLink() {
     window.location.href = `/#${t('App.usesCookies.url')}`;
   }
+
   return (
     <div
       style={{ zIndex: 501 }}
-      className="fixed left-0 bottom-0 w-full bg-gray-900 p-4 text-white font-exo2 flex flex-no-wrap items-center space-between flex-row"
+      className="fixed left-0 bottom-0 w-full bg-gray-900 md:pb-0 pb-4 px-4 text-white font-exo2 flex flex-wrap md:flex-no-wrap items-center space-between justify-end flex-row"
     >
-      <div className="flex-grow">
+      <div className="flex-grow mt-4 md:my-4">
         {t('App.usesCookies.preLink')}
         <button type="button" onClick={goToLink} className="text-secondary hover:underline">
           {' '}
@@ -22,21 +23,22 @@ function CookieConsentBanner({ accept, reject }) {
         </button>
         {t('App.usesCookies.postLink')}
       </div>
-      <button
-        type="button"
-        className="bg-primary p-2 rounded ml-2 font-open-sans flex items-center justify-center"
-        onClick={reject}
-      >
-        {t('App.rejectCookies')}
-      </button>
-      <button
-        type="button"
-        className="bg-secondary p-2 rounded ml-2 font-open-sans flex items-center justify-center"
-        onClick={accept}
-      >
-        {t('App.acceptCookies')}
-      </button>
-
+      <div className="flex my-2">
+        <button
+          type="button"
+          className="bg-primary p-2 rounded font-open-sans flex items-center justify-center"
+          onClick={reject}
+        >
+          {t('App.rejectCookies')}
+        </button>
+        <button
+          type="button"
+          className="bg-secondary p-2 rounded ml-2 font-open-sans flex items-center justify-center"
+          onClick={accept}
+        >
+          {t('App.acceptCookies')}
+        </button>
+      </div>
     </div>
   );
 }
