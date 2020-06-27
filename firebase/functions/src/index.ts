@@ -5,7 +5,7 @@ import * as sgMail from '@sendgrid/mail';
 import { GeoCollectionReference, GeoQuery } from 'geofirestore';
 
 import { postToSlack } from './slack';
-import { handleIncomingCall } from './hotline';
+import { handleIncomingCall as handleIncomingCallFromHotline } from './hotline';
 import {
   userIdsMatch,
   migrateResponses,
@@ -447,10 +447,10 @@ const offerHelpCreate = functions
   .document('/ask-for-help/{requestId}/offer-help/{offerId}')
   .onCreate(onOfferHelpCreate);
 
-const handleIncomingCallFromHotline = functions
+const handleIncomingCall = functions
   .region(REGION_EUROPE_WEST_1)
   .https
-  .onRequest(handleIncomingCall);
+  .onRequest(handleIncomingCallFromHotline);
 
 const deleteUserData = functions
   .region(REGION_EUROPE_WEST_1)
@@ -466,6 +466,6 @@ export {
   solvedPostsCreate,
   deletedCreate,
   offerHelpCreate,
-  handleIncomingCallFromHotline,
+  handleIncomingCall,
   deleteUserData,
 }
