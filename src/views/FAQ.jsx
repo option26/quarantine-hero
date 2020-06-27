@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import StyledMarkdown from '../util/StyledMarkdown';
 import useCms from '../util/useCms';
 import Loader from '../components/loader/Loader';
@@ -7,13 +10,6 @@ import Loader from '../components/loader/Loader';
 export default function FAQ() {
   const { t } = useTranslation();
   const [faqs] = useCms('faq');
-
-  const QA = ({ question, children }) => (
-    <>
-      <h2 className="text-xl font-teaser mt-8">{question}</h2>
-      <StyledMarkdown className="text-justify">{children}</StyledMarkdown>
-    </>
-  );
 
   return (
     <div className="mb-10 p-4">
@@ -48,29 +44,9 @@ function QA({ question, children }) {
       </button>
       <Collapse in={isOpen}>
         <div className="p-4 bg-kaki">
-          {children}
+          <StyledMarkdown className="text-justify">{children}</StyledMarkdown>
         </div>
       </Collapse>
     </>
-  );
-}
-
-function QAwithLink({ translationKey }) {
-  const { t, i18n } = useTranslation();
-
-  const hasPostLink = i18n.exists(`views.faq.answers.${translationKey}.postLink`);
-  const postLinkText = t(`views.faq.answers.${translationKey}.postLink`);
-  const postLinkIsNotEmptyOrFullStop = postLinkText !== '' && postLinkText !== '.';
-
-  return (
-    <QA key={translationKey} question={t(`views.faq.questions.${translationKey}`)}>
-      {t(`views.faq.answers.${translationKey}.preLink`)}
-      <Link to={t(`views.faq.answers.${translationKey}.url`)} className="text-secondary hover:underline">
-        {' '}
-        {t(`views.faq.answers.${translationKey}.link`)}
-        {hasPostLink && postLinkIsNotEmptyOrFullStop ? ' ' : ''}
-      </Link>
-      {postLinkText}
-    </QA>
   );
 }
