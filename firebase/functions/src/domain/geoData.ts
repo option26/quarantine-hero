@@ -1,6 +1,6 @@
 import * as admin from "firebase-admin";
-import {CollectionName} from "./types/enum/CollectionName";
-import {Location} from "./types/geoDB/Location";
+import {CollectionName} from "@enum/CollectionName";
+import {Location} from "../types/geoDB/Location";
 import axios, {AxiosResponse} from 'axios';
 import {createHash} from 'crypto';
 
@@ -44,10 +44,10 @@ export async function updateGeoDB(): Promise<void> {
             const expandedResults = resultsWithPlz.map((result: Location) => {
                 if (result.plz.includes(',')) {
                     const allPlz = result.plz.split(',');
-                    return allPlz.map((plz) => ({...result, plz}))
+                    return allPlz.map((plz) => ({...result, plz}));
                 }
                 return result;
-            }).reduce((acc: Location[], result: Location | Location[]) => Array.isArray(result) ? [...acc, ...result] : [...acc, result], [])
+            }).reduce((acc: Location[], result: Location | Location[]) => Array.isArray(result) ? [...acc, ...result] : [...acc, result], []);
 
             // Hash map plz+name+land
             // on collision typ ort > typ gemeinde
@@ -74,20 +74,20 @@ export async function updateGeoDB(): Promise<void> {
                 } else {
                     hashMap[dataHash] = result;
                 }
-            })
+            });
 
             const filteredResults = Object.keys(hashMap).map((key) => ({...hashMap[key], hash: key}));
 
             const locationCollection = db.collection(CollectionName.GeoData);
             const chunk = 400;
-            const batchPromises = []
+            const batchPromises = [];
             for (let i = 0, j = filteredResults.length; i < j; i += chunk) {
                 const batch = db.batch();
                 const tempArray = filteredResults.slice(i, i + chunk);
                 tempArray.map((loc: Location) => {
-                    if (!loc.locId) throw Error('Could not find locId for' + JSON.stringify(loc))
-                    batch.set(locationCollection.doc(loc.hash), loc)
-                })
+                    if (!loc.locId) throw Error('Could not find locId for' + JSON.stringify(loc));
+                    batch.set(locationCollection.doc(loc.hash), loc);
+                });
                 batchPromises.push(batch.commit());
             }
             await Promise.all(batchPromises);

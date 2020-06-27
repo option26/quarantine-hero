@@ -12,7 +12,7 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
-import { updateGeoDB } from './geoData';
+import { updateGeoDB } from './domain/geoData';
 
 import { CollectionName } from '@enum/CollectionName';
 
