@@ -13,9 +13,11 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     const askForHelpSnap = await db.collection(parentPath).doc(askForHelpId).get();
     const askForHelpSnapData = askForHelpSnap.data() as AskForHelpCollectionEntry;
 
-    // Enforce field to 0
+    // Enforce server-side defaults
     await snap.ref.update({
       'd.notificationCounter': 0,
+      'd.timeStampLastHelpRequest': Date.now(),
+      'd.requestingMoreHelp': false
     });
 
     await db.collection(CollectionName.Stats).doc('external').update({
