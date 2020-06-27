@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.73126405.chunk.css",
-    "main.js": "/static/js/main.4e3e8d0b.chunk.js",
-    "main.js.map": "/static/js/main.4e3e8d0b.chunk.js.map",
+    "main.js": "/static/js/main.76969cad.chunk.js",
+    "main.js.map": "/static/js/main.76969cad.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.802d04fe.chunk.js": "/static/js/2.802d04fe.chunk.js",
-    "static/js/2.802d04fe.chunk.js.map": "/static/js/2.802d04fe.chunk.js.map",
+    "static/js/2.224068d1.chunk.js": "/static/js/2.224068d1.chunk.js",
+    "static/js/2.224068d1.chunk.js.map": "/static/js/2.224068d1.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.ee647587ca1fb83c6ff58f39e81db70e.js": "/precache-manifest.ee647587ca1fb83c6ff58f39e81db70e.js",
+    "precache-manifest.a57b90e7f1f643661f66d81cfa08ee4f.js": "/precache-manifest.a57b90e7f1f643661f66d81cfa08ee4f.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
     "static/css/main.73126405.chunk.css.map": "/static/css/main.73126405.chunk.css.map",
-    "static/js/2.802d04fe.chunk.js.LICENSE.txt": "/static/js/2.802d04fe.chunk.js.LICENSE.txt",
+    "static/js/2.224068d1.chunk.js.LICENSE.txt": "/static/js/2.224068d1.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -59,8 +59,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.802d04fe.chunk.js",
+    "static/js/2.224068d1.chunk.js",
     "static/css/main.73126405.chunk.css",
-    "static/js/main.4e3e8d0b.chunk.js"
+    "static/js/main.76969cad.chunk.js"
   ]
 }
