@@ -21,6 +21,8 @@ import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
 import checkMark from '../assets/check.svg';
 import weakPasswords from '../assets/password-top500.json';
+import useCms from '../util/useCms';
+import useFirebaseDownload from '../util/useFirebaseDownload';
 
 export default () => (
   <div className="p-4">
@@ -29,24 +31,18 @@ export default () => (
   </div>
 );
 
-// We use an array to be able to manage this via the CMS in the future
-const partners = [
-  { key: 'nachbarhilft', name: 'In Quarantäne? Nachbar hilft!', imgSource: require('../assets/nachbar_hilft.png') },
-  { key: 'wittweiden', name: 'WITT WEIDEN', imgSource: require('../assets/witt_weiden.png') },
-  { key: 'siehan', name: 'Sieh an!', imgSource: require('../assets/sieh_an.png') },
-];
-
 function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
   const { source, fullExplanation } = useQuery();
   const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
+  const [partners] = useCms('whitelabeling');
 
   const location = useLocation();
   const [user] = useAuthState(firebase.auth());
 
-  const { name: partnerName, imgSource: partnerImg } = partners.find((p) => p.key === source) || {};
-  const showPartner = !!(partnerName && partnerImg);
+  const { name: partnerName, logo: logoSource } = partners.find((p) => p.key === source) || {};
+  const showPartner = !!(partnerName && logoSource);
 
   const reasonForSignup = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
@@ -72,7 +68,7 @@ function SignupHeader() {
       <div className="font-teaser">
         {(showPartner || fullExplanation) ? t('views.signUp.welcomeAtQh') : headerText}
       </div>
-      {showPartner && <Partner partnerName={partnerName} partnerImg={partnerImg} />}
+      {showPartner && <Partner partnerName={partnerName} logoSource={logoSource} />}
       {fullExplanation && <Explanation />}
       {(showPartner || fullExplanation) && (
         <p className="mt-4">
@@ -85,13 +81,14 @@ function SignupHeader() {
   );
 }
 
-function Partner({ partnerName, partnerImg }) {
+function Partner({ partnerName, logoSource }) {
   const { t } = useTranslation();
   const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+  const [logoLink] = useFirebaseDownload(logoSource);
 
   return (
     <div className="mt-4 flex flex-row items-center">
-      <img className="rounded-full w-24 h-24" src={partnerImg} alt="" />
+      <img className="rounded-full w-24 h-24" src={logoLink} alt="" />
       <div className="mx-4 my-2" />
       <p className="text-sm sm:text-base">
         {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
