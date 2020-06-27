@@ -5,12 +5,23 @@ export const CookieConsentContext = React.createContext(null);
 
 function CookieConsentBanner({ accept, reject }) {
   const { t } = useTranslation();
+
+  function goToLink() {
+    window.location.href = `/#${t('App.usesCookies.url')}`;
+  }
   return (
     <div
       style={{ zIndex: 501 }}
       className="fixed left-0 bottom-0 w-full bg-gray-900 p-4 text-white font-exo2 flex flex-no-wrap items-center space-between flex-row"
     >
-      <div className="flex-grow">{t('App.usesCookies')}</div>
+      <div className="flex-grow">
+        {t('App.usesCookies.preLink')}
+        <button type="button" onClick={goToLink} className="text-secondary hover:underline">
+          {' '}
+          {t('App.usesCookies.link')}
+        </button>
+        {t('App.usesCookies.postLink')}
+      </div>
       <button
         type="button"
         className="bg-primary p-2 rounded ml-2 font-open-sans flex items-center justify-center"

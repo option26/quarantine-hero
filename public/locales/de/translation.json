@@ -2,7 +2,12 @@
   "App": {
     "login": "Login",
     "press": "Presse",
-    "usesCookies": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern.",
+    "usesCookies": {
+      "preLink": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern. Weitere Informationen: ",
+      "link": "Datenschutzerklärung",
+      "postLink": ".",
+      "url": "/privacy-policy"
+    },
     "acceptCookies": "Akzeptieren",
     "rejectCookies": "Ablehnen"
   },
