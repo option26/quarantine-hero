@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as functions from 'firebase-functions';
-import { AskForHelpCollectionEntry } from './types/collections/AskForHelpCollectionEntry';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 
 async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry): Promise<void> {
   const { request, plz, location } = snapData.d;
@@ -15,6 +15,6 @@ async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry):
       text: `https://www.quarantaenehelden.org/#/offer-help/${snapId}\n${plz} - ${location}\n>${request.replace('\n', '\n>')}`,
     },
   });
-};
+}
 
 export { postToSlack };

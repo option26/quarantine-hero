@@ -1,4 +1,4 @@
 export interface OfferHelpCollectionEntry {
-  answer: string
-  email: string
+  answer: string;
+  email: string;
 }

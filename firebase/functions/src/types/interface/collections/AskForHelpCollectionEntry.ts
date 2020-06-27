@@ -10,7 +10,7 @@ export interface AskForHelpCollectionEntry {
     notificationCounter: number
     notificationReceiver: string[]
     reportedBy: string[]
-  }
-  g: string
-  l: string[]
+  };
+  g: string;
+  l: string[];
 }

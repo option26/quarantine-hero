@@ -7,7 +7,22 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "allowJs": true
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "@interface/*": [
+        "src/types/interface/*"
+      ],
+      "@enum/*": [
+        "src/types/enum/*"
+      ],
+      "@config": [
+        "src/config"
+      ],
+      "@utilities/*": [
+        "src/utilities/*"
+      ]
+    },
   },
   "compileOnSave": true,
   "include": [

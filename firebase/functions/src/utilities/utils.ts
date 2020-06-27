@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
-import { CollectionName } from './types/enum/CollectionName';
-import { AskForHelpCollectionEntry } from './types/collections/AskForHelpCollectionEntry';
-import { SolvedPostsCollectionEntry } from './types/collections/SolvedPostsCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { SolvedPostsCollectionEntry } from '../types/interface/collections/SolvedPostsCollectionEntry';
 
 async function userIdsMatch(db: admin.firestore.Firestore, collectionName: CollectionName, documentId: string, uidFromRequest: string): Promise<boolean> {
   const docSnap = await db.collection(collectionName).doc(documentId).get();
@@ -29,7 +29,7 @@ async function deleteQueryBatch(db: admin.firestore.Firestore, query: FirebaseFi
   // code taken from https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
   try {
 
-    const snapshot = await query.get()
+    const snapshot = await query.get();
     // When there are no documents left, we are done
     if (snapshot.size === 0) {
       return;
