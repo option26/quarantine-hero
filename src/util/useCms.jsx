@@ -10,10 +10,10 @@ export default function useCms(collectionName) {
   useEffect(() => {
     const getContent = async (collName, lang) => (
       new Promise((resolve, reject) => {
-        const contentRef = firebase.database().ref(`${collName}/${lang}`);
+        const contentRef = firebase.database().ref(`cmsContent/${collName}/${lang}`);
 
         contentRef.once('value', (snapshot) => {
-          if (snapshot.val() === null) {
+          if (!snapshot.exists()) {
             return reject(new Error(`No content for lang ${lang} in ${collName}`));
           }
           return resolve(contentRef);
@@ -37,7 +37,9 @@ export default function useCms(collectionName) {
       }
     };
 
-    getInternationalizedContent();
+    if (languages) {
+      getInternationalizedContent();
+    }
   }, [collectionName, languages]);
 
   return [content];
