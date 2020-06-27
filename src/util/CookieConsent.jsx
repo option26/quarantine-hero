@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const CookieConsentContext = React.createContext(false);
+export const CookieConsentContext = React.createContext(null);
 
-function CookieConsentBanner({ onClick }) {
+function CookieConsentBanner({ accept, reject }) {
   const { t } = useTranslation();
   return (
     <div
@@ -14,31 +14,43 @@ function CookieConsentBanner({ onClick }) {
       <button
         type="button"
         className="bg-primary p-2 rounded ml-2 font-open-sans flex items-center justify-center"
-        onClick={onClick}
+        onClick={reject}
       >
-        Okay
+        {t('App.rejectCookies')}
       </button>
+      <button
+        type="button"
+        className="bg-secondary p-2 rounded ml-2 font-open-sans flex items-center justify-center"
+        onClick={accept}
+      >
+        {t('App.acceptCookies')}
+      </button>
+
     </div>
   );
 }
 
 export default function CookieConsent({ children }) {
-  const [cookiesConsented, setCookiesConsented] = useState(false);
+  const [cookiesConsented, setCookiesConsented] = useState(null);
 
   const acceptCookies = () => {
     window.localStorage.setItem('qh-cookies-accepted', 'true');
     setCookiesConsented(true);
   };
+  const rejectCookies = () => {
+    window.localStorage.setItem('qh-cookies-accepted', 'false');
+    setCookiesConsented(false);
+  };
 
   useEffect(() => {
     const value = window.localStorage.getItem('qh-cookies-accepted');
-    const isAccepted = value === 'true';
+    const isAccepted = typeof value === 'string' ? value === 'true' : null;
     setCookiesConsented(isAccepted);
   }, []);
 
   return (
     <CookieConsentContext.Provider value={cookiesConsented}>
-      {!cookiesConsented && <CookieConsentBanner onClick={acceptCookies} />}
+      {cookiesConsented === null && <CookieConsentBanner accept={acceptCookies} reject={rejectCookies} />}
       {children}
     </CookieConsentContext.Provider>
   );
