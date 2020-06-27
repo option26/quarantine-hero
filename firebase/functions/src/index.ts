@@ -414,37 +414,37 @@ const sendNotificationEmails = functions
 const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/ask-for-help/{requestId}')
+  .document(`/${CollectionName.AskForHelp}/{requestId}`)
   .onCreate(onAskForHelpCreate);
 
 const regionSubscribeCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/notifications/{helperId}')
+  .document(`/${CollectionName.Notifications}/{helperId}`)
   .onCreate(onSubscribeToBeNotifiedCreate);
 
 const reportedPostsCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/reported-posts/{reportRequestId}')
+  .document(`/${CollectionName.ReportedPosts}/{reportRequestId}`)
   .onCreate(onReportedPostsCreate);
 
 const solvedPostsCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/solved-posts/{reportRequestId}')
+  .document(`/${CollectionName.SolvedPosts}/{reportRequestId}`)
   .onCreate(onSolvedPostsCreate);
 
 const deletedCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/deleted/{reportRequestId}')
+  .document(`/${CollectionName.Deleted}/{reportRequestId}`)
   .onCreate(onDeletedCreate);
 
 const offerHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
-  .document('/ask-for-help/{requestId}/offer-help/{offerId}')
+  .document(`/${CollectionName.AskForHelp}/{requestId}/offer-help/{offerId}`)
   .onCreate(onOfferHelpCreate);
 
 const handleIncomingCall = functions
