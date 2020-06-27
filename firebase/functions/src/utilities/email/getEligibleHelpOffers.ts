@@ -66,5 +66,8 @@ export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, ask
   } else {
     offersToContact = queryResult;
   }
-  return offersToContact;
+
+  const { notificationReceiver: previouslyContacted } = askForHelpSnapData.d;
+  if (!previouslyContacted || !previouslyContacted.length) return offersToContact;
+  return offersToContact.filter(entry => !previouslyContacted.includes(entry.uid));
 }
