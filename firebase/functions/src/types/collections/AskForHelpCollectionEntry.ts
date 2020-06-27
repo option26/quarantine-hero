@@ -1,5 +1,4 @@
 export interface AskForHelpCollectionEntry {
-  uid: string // TODO: check if also available outside of d
   d: {
     uid: string
     timestamp: string
