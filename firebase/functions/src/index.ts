@@ -15,8 +15,6 @@ import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificat
 
 import { CollectionName } from '@enum/CollectionName';
 
-const sch = wwt'
-
 admin.initializeApp();
 
 export const sendNotificationEmails = functions
