@@ -5,7 +5,7 @@ import { getEligibleHelpOffers } from '@utilities/email/getEligibleHelpOffers';
 import { sendNotificationEmailsForOffers } from '@utilities/email/sendNotificationEmailsForOffers';
 
 import {
-  MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS_DAYS,
+  MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS,
   MINIMUM_NOTIFICATION_DELAY_UNTIL_FURTHER_ENGAGEMENT_WITH_OPEN_ENTRIES_DAYS,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage
@@ -26,7 +26,7 @@ export async function onAskForHelpUpdate(change: Change<firestore.QueryDocumentS
 
     // early return if the user does not request help or is not eligible for more help
     if (!requestingMoreHelp) return;
-    if (notificationCounter > MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS_DAYS) {
+    if (notificationCounter > MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS) {
       console.log('Maximum amount of allowed request reached for user', notificationCounter, uid, snap.id);
       return;
     }
