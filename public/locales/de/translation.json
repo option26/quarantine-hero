@@ -200,6 +200,10 @@
       "resendEmail": "E-Mail erneut senden",
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
     },
+    "partners": {
+      "title": "Unterstützenswerte Projekte",
+      "explanation": "Neben Quarantäneheld*innen gibt es noch viele weitere soziale und gesellschaftliche Projekte, die sich über Deine Unterstützung freuen. Schau doch gerne mal vorbei, wenn Du Dich für die gute Sache engagieren möchtest!"
+    },
     "emailActions": {
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Link abgelaufen ist. Bitte versuche es erneut.",
       "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist. Bitte versuche es erneut. Falls der Fehler weiter besteht, kannst Du Dich gerne unter help@quarantaenehelden.org bei uns melden.",
