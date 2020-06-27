@@ -1,6 +1,6 @@
 export interface ReportedPostsCollectionEntry {
   uid: string
-  timestamp: string
+  timestamp: number
   askForHelpId: string
   request: number
 }
