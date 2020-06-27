@@ -13,10 +13,17 @@ import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
 import { updateGeoDB } from './domain/geoData';
+import { onContentUpdate } from './domain/onContentUpdate';
 
 import { CollectionName } from './types/enum/CollectionName';
 
 admin.initializeApp();
+
+export const contentUpdated = functions
+  .region(REGION_EUROPE_WEST_1)
+  .database
+  .ref('/cmsContent')
+  .onUpdate(onContentUpdate);
 
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
