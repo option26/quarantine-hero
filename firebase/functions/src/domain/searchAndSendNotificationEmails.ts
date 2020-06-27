@@ -10,6 +10,7 @@ import {
 } from '@config';
 
 import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
+import { SendgridTemplateData } from '@interface/email/SendgridTemplateData';
 import { CollectionName } from '@enum/CollectionName';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
@@ -33,7 +34,15 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       // eslint-disable-next-line no-console
       console.log('eligibleHelpOffers', eligibleHelpOffers.length);
       if (SEND_EMAILS) {
-        return sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpSnapData, askForHelpId);
+        const templateId = 'd-9e0d0ec8eda04c9a98e6cb1edffdac71';
+        const templateData: SendgridTemplateData = {
+          subject: 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!',
+          request: askForHelpSnapData.d.request,
+          location: askForHelpSnapData.d.location,
+          link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
+          reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
+        };
+        return sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData);
       }
       // eslint-disable-next-line no-console
       console.log(sendingMailsDisabledLogMessage);
