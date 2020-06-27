@@ -390,6 +390,12 @@
           "heading": "Dein Hilfegesuch wurde gelöscht!",
           "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
           "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine Held*in um Hilfe bitten."
+        },
+        "requestMoreHelp": {
+          "heading": "Benötigst du weiterhin Hilfe?",
+          "firstSentence": "Falls du weiterhin Hilfe benötigst, werden wir für Dich neue potentielle Helfer kontaktieren, die sich in Deinem Umkreis befinden.",
+          "secondSentence": "Bitte beachte, dass Dir diese Funktion nur begrenzt zur Verfügung steht, um potentiellen Spam zu vermeiden.",
+          "thirdSentence": "Falls du keine Hilfe mehr benötigst, kannst du dein Hilfegesuch jerderzeit löschen."
         }
       }
     },
