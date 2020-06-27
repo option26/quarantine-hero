@@ -1,7 +1,7 @@
 export interface AskForHelpCollectionEntry {
   d: {
     uid: string
-    timestamp: string
+    timestamp: number
     request: string
     response: number
     location: string
