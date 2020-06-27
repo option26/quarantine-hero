@@ -5,6 +5,7 @@ import { REGION_EUROPE_WEST_1 } from '@config';
 
 import { handleIncomingCall as handleIncomingCallFromHotline } from './domain/handleIncomingCall';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
+import { onAskForHelpUpdate } from './domain/onAskForHelpUpdate';
 import { onDeletedCreate } from './domain/onDeletedCreate';
 import { onUserDelete } from './domain/onUserDelete';
 import { onOfferHelpCreate } from './domain/onOfferHelpCreate';
@@ -12,6 +13,8 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
+import { searchAndSendNotificationEmailsForOpenOffersWithAnswers } from './domain/searchAndSendNotificationEmailsForOpenOffersWithAnswers';
+import { searchAndSendNotificationEmailsForOpenOffersWithoutAnswers } from './domain/searchAndSendNotificationEmailsForOpenOffersWithoutAnswers';
 
 import { CollectionName } from '@enum/CollectionName';
 
@@ -24,11 +27,32 @@ export const sendNotificationEmails = functions
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
 
+export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .timeZone('Europe/Berlin')
+  .onRun(searchAndSendNotificationEmailsForOpenOffersWithoutAnswers);
+
+export const sendNotificationEmailsForOpenOffersWithAnswers = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .timeZone('Europe/Berlin')
+  .onRun(searchAndSendNotificationEmailsForOpenOffersWithAnswers);
+
+
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
   .document(`/${CollectionName.AskForHelp}/{requestId}`)
   .onCreate(onAskForHelpCreate);
+
+  export const askForHelpUpdate = functions
+  .region(REGION_EUROPE_WEST_1)
+  .firestore
+  .document(`/${CollectionName.AskForHelp}/{requestId}`)
+  .onUpdate(onAskForHelpUpdate);
 
 export const regionSubscribeCreate = functions
   .region(REGION_EUROPE_WEST_1)
