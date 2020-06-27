@@ -314,7 +314,7 @@ async function onSolvedPostsCreate(snap: admin.firestore.DocumentSnapshot): Prom
   try {
     const db = admin.firestore();
     const snapValue = snap.data() as SolvedPostsCollectionEntry;
-    const { uid } = snapValue;
+    const { uid } = snapValue.d;
 
     if (!userIdsMatch(db, CollectionName.AskForHelp, snap.id, uid)) return;
 
@@ -333,7 +333,8 @@ async function onDeletedCreate(snap: admin.firestore.DocumentSnapshot): Promise<
     const db = admin.firestore();
     const snapValue = snap.data() as DeletedCollectionEntry;
     // collectionName can be either "ask-for-help" or "solved-posts"
-    const { uid, collectionName } = snapValue;
+    const { collectionName } = snapValue
+    const { uid } = snapValue.d;
 
     if (!userIdsMatch(db, collectionName, snap.id, uid)) return;
 

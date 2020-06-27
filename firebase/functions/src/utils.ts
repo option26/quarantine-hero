@@ -1,11 +1,13 @@
 import * as admin from 'firebase-admin';
 import { CollectionName } from './types/enum/CollectionName';
+import { AskForHelpCollectionEntry } from './types/collections/AskForHelpCollectionEntry';
+import { SolvedPostsCollectionEntry } from './types/collections/SolvedPostsCollectionEntry';
 
 async function userIdsMatch(db: admin.firestore.Firestore, collectionName: CollectionName, documentId: string, uidFromRequest: string): Promise<boolean> {
   const docSnap = await db.collection(collectionName).doc(documentId).get();
-  const docSnapData = docSnap.data();
+  const docSnapData = docSnap.data() as AskForHelpCollectionEntry | SolvedPostsCollectionEntry;
   if (!docSnapData) return false;
-  const { uid } = docSnapData;
+  const { uid } = docSnapData.d;
   return uid === uidFromRequest;
 }
 
