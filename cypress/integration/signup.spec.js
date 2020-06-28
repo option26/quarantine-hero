@@ -1,7 +1,7 @@
 const blacklistedEmail = 'example@byom.de';
 const verifiedEmailAddress = 'verified@example.com';
 const notVerifiedEmailAddress = 'not.verified@example.com';
-const password = 'test1234';
+const password = 'hvskdjghawjrgif7vnjwzgfowbfka';
 
 function randomString() {
   const first = Math.random()
