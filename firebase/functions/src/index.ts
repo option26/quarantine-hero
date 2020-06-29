@@ -12,6 +12,7 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
+import { updateGeoDB } from './domain/geoData';
 
 import { CollectionName } from '@enum/CollectionName';
 
@@ -70,3 +71,14 @@ export const deleteUserData = functions
   .auth
   .user()
   .onDelete(onUserDelete);
+
+export const updateGeoDBFunction = functions
+    .runWith({
+        timeoutSeconds: 540,
+        memory: '1GB'
+    })
+    .region(REGION_EUROPE_WEST_1)
+    .pubsub
+    .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
+    .timeZone('Europe/Berlin')
+    .onRun(updateGeoDB);
