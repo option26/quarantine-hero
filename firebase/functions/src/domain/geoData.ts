@@ -42,12 +42,9 @@ export async function updateGeoDB(): Promise<void> {
 
             //explode dataset with multiple plzs
             const expandedResults = resultsWithPlz.map((result: Location) => {
-                if (result.plz.includes(',')) {
-                    const allPlz = result.plz.split(',');
-                    return allPlz.map((plz) => ({...result, plz}));
-                }
-                return result;
-            }).reduce((acc: Location[], result: Location | Location[]) => Array.isArray(result) ? [...acc, ...result] : [...acc, result], []);
+                const allPlz = result.plz.split(',');
+                return allPlz.map((plz) => ({...result, plz}));
+            }).reduce((acc: Location[], result: Location[]) => [...acc, ...result], []);
 
             // Hash map plz+name+land
             // on collision typ ort > typ gemeinde
