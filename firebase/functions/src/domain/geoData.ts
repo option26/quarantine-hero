@@ -8,15 +8,15 @@ export async function updateGeoDB(): Promise<void> {
 
     try {
         async function urlToObject(url: string, country: string) {
-            const request: AxiosResponse = await axios.get(url);
-            const rows = request.data.split('\n');
+            const response: AxiosResponse = await axios.get(url);
+            const rows = response.data.split('\n');
             if (typeof rows === 'undefined' || rows.length === 0) throw Error('Could not split result in rows');
             let keyRow = rows.shift();
+            if (!keyRow) throw Error('Could not find key row');
             keyRow = keyRow.replace('#loc_id', 'locId');
             keyRow = keyRow.replace('vorwahl', 'telephonePrefix');
             keyRow = keyRow.replace('einwohner', 'inhabitants');
             keyRow = keyRow.replace('flaeche', 'area');
-            if (!keyRow) throw Error('Could not find key row');
             const keys = keyRow.split('\t');
             return rows.map((row: string) => {
                 return row.split('\t')
@@ -48,22 +48,22 @@ export async function updateGeoDB(): Promise<void> {
 
             // Hash map plz+name+land
             // on collision typ ort > typ gemeinde
-            const hashMap:{[key: string]: Location} = {};
+            const hashMap: { [key: string]: Location } = {};
             expandedResults.map((result: Location) => {
                 const dataHash = createHash('sha1').update(`${result.plz}${result.name}${result.country}`).digest('hex');
-                if(hashMap.hasOwnProperty(dataHash)) {
+                if (hashMap.hasOwnProperty(dataHash)) {
                     const existingEntry = hashMap[dataHash];
-                    if(existingEntry.typ === 'Gemeinde' && result.typ === 'Ort') {
+                    if (existingEntry.typ === 'Gemeinde' && result.typ === 'Ort') {
                         hashMap[dataHash] = result;
-                    } else if(
-                        existingEntry.typ === 'Gemeinde' && result.typ === 'Gemeinde' ||
-                        existingEntry.typ === 'Ort' && result.typ === 'Ort') {
-                        if(existingEntry.locId >= result.locId) {
-                            hashMap[dataHash] = result;
-                        }
-                    } else if(result.typ !== 'Gemeinde') {
+                    } else if (
+                        (existingEntry.typ === 'Gemeinde' && result.typ === 'Gemeinde' || existingEntry.typ === 'Ort' && result.typ === 'Ort') &&
+                        existingEntry.locId >= result.locId) {
                         hashMap[dataHash] = result;
-                    } else if(existingEntry.typ === 'Ort' && result.typ === 'Gemeinde') {
+                    } else if (result.typ !== 'Gemeinde') {
+                        // we never want to overwrite anything with gemeinde per se
+                        // this is here so we encounter any unknown types
+                        hashMap[dataHash] = result;
+                    } else if (existingEntry.typ === 'Ort' && result.typ === 'Gemeinde') {
                         // DO NOTHING
                     } else {
                         console.log("collision", JSON.stringify(existingEntry), JSON.stringify(result));
