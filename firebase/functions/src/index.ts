@@ -79,6 +79,6 @@ export const updateGeoDBFunction = functions
     })
     .region(REGION_EUROPE_WEST_1)
     .pubsub
-    .schedule('0 0 1 */6 *') // At every 3rd minute past every hour from 9 through 23.
+    .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
     .timeZone('Europe/Berlin')
     .onRun(updateGeoDB);
