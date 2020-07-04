@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-import { REGION_EUROPE_WEST_1 } from '@config';
+import { REGION_EUROPE_WEST_1 } from './config';
 
 import { handleIncomingCall as handleIncomingCallFromHotline } from './domain/handleIncomingCall';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
@@ -14,7 +14,7 @@ import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedC
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
 import { updateGeoDB } from './domain/geoData';
 
-import { CollectionName } from '@enum/CollectionName';
+import { CollectionName } from './types/enum/CollectionName';
 
 admin.initializeApp();
 
@@ -73,12 +73,12 @@ export const deleteUserData = functions
   .onDelete(onUserDelete);
 
 export const updateGeoDBFunction = functions
-    .runWith({
-        timeoutSeconds: 540,
-        memory: '1GB'
-    })
-    .region(REGION_EUROPE_WEST_1)
-    .pubsub
-    .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
-    .timeZone('Europe/Berlin')
-    .onRun(updateGeoDB);
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '1GB'
+  })
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
+  .timeZone('Europe/Berlin')
+  .onRun(updateGeoDB);

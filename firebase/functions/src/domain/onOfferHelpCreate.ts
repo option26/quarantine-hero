@@ -1,12 +1,12 @@
 import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
-import { sendingMailsDisabledLogMessage, SEND_EMAILS } from '@config';
+import { sendingMailsDisabledLogMessage, SEND_EMAILS } from '../config';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { OfferHelpCollectionEntry } from '@interface/collections/OfferHelpCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
