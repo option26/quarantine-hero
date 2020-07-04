@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.50c36939.chunk.css",
-    "main.js": "/static/js/main.fc50dd2f.chunk.js",
-    "main.js.map": "/static/js/main.fc50dd2f.chunk.js.map",
+    "main.js": "/static/js/main.95eefc48.chunk.js",
+    "main.js.map": "/static/js/main.95eefc48.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.71a99137.chunk.js": "/static/js/2.71a99137.chunk.js",
-    "static/js/2.71a99137.chunk.js.map": "/static/js/2.71a99137.chunk.js.map",
+    "static/js/2.e8e16c37.chunk.js": "/static/js/2.e8e16c37.chunk.js",
+    "static/js/2.e8e16c37.chunk.js.map": "/static/js/2.e8e16c37.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.e7ce1bf087ce75437f604ccf683345ba.js": "/precache-manifest.e7ce1bf087ce75437f604ccf683345ba.js",
+    "precache-manifest.0fd55ee163a2499ff2b25c4940c5efd2.js": "/precache-manifest.0fd55ee163a2499ff2b25c4940c5efd2.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
     "static/css/main.50c36939.chunk.css.map": "/static/css/main.50c36939.chunk.css.map",
-    "static/js/2.71a99137.chunk.js.LICENSE.txt": "/static/js/2.71a99137.chunk.js.LICENSE.txt",
+    "static/js/2.e8e16c37.chunk.js.LICENSE.txt": "/static/js/2.e8e16c37.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -48,20 +48,17 @@
     "static/media/logo_mark.svg": "/static/media/logo_mark.1949a558.svg",
     "static/media/logo_white.svg": "/static/media/logo_white.9006c11e.svg",
     "static/media/lokal.svg": "/static/media/lokal.2b286f77.svg",
-    "static/media/nachbar_hilft.png": "/static/media/nachbar_hilft.1af739f7.png",
     "static/media/questionmark.653b6547.svg": "/static/media/questionmark.653b6547.svg",
-    "static/media/sieh_an.png": "/static/media/sieh_an.17438689.png",
     "static/media/success.svg": "/static/media/success.ceaaf435.svg",
     "static/media/sueddeutsche_zeitung.jpg": "/static/media/sueddeutsche_zeitung.4c374a4c.jpg",
     "static/media/tw.svg": "/static/media/tw.b76bad5a.svg",
-    "static/media/witt_weiden.png": "/static/media/witt_weiden.db6af9cf.png",
     "static/media/x.1adc23eb.svg": "/static/media/x.1adc23eb.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.71a99137.chunk.js",
+    "static/js/2.e8e16c37.chunk.js",
     "static/css/main.50c36939.chunk.css",
-    "static/js/main.fc50dd2f.chunk.js"
+    "static/js/main.95eefc48.chunk.js"
   ]
 }
