@@ -4,7 +4,7 @@ import * as sgMail from '@sendgrid/mail';
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { SendgridTemplateData } from '@interface/email/SendgridTemplateData';
 
-export async function sendEmailToUser(uid: string, templateId: string, templateData: SendgridTemplateData): Promise<string> {
+export async function sendEmailToUser(uid: string, templateId: string, templateData: SendgridTemplateData): Promise<void> {
   const offeringUser = await admin.auth().getUser(uid);
   const { email } = offeringUser.toJSON() as UserRecord;
   const sendgridOptions = {
@@ -16,5 +16,4 @@ export async function sendEmailToUser(uid: string, templateId: string, templateD
   };
   // without "any" casting, sendgrid complains about sendgridOptions typing
   await sgMail.send(sendgridOptions as any);
-  return email as string;
 }
