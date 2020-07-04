@@ -49,7 +49,7 @@ export async function getSuggestions(searchString) {
 
 export async function getGeodataForString(searchString) {
   const result = await getSuggestions(searchString);
-  return result[0];
+  return [result];
 }
 
 export async function getGeodataForPlace(placeId) {
