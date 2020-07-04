@@ -9,8 +9,8 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "test": "echo 'TODO'",
-    "lint": "./node_modules/.bin/tslint --project tsconfig.json -r tsconfig-paths/register",
-    "build": "./node_modules/.bin/tslint --project tsconfig.json -r tsconfig-paths/register && ./node_modules/.bin/tsc"
+    "lint": "./node_modules/.bin/tslint --project tsconfig.json",
+    "build": "./node_modules/.bin/tslint --project tsconfig.json && ./node_modules/.bin/tsc"
   },
   "engines": {
     "node": "10"
@@ -27,12 +27,7 @@
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/firebase": "^3.2.1",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.1",
     "firebase-functions-test": "^0.1.6",
-    "tsconfig-paths": "^3.9.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
   },

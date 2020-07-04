@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 
-import { ReportedPostsCollectionEntry } from '@interface/collections/ReportedPostsCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { ReportedPostsCollectionEntry } from '../types/interface/collections/ReportedPostsCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onReportedPostsCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {

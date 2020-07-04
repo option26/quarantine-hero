@@ -1,8 +1,9 @@
-import * as admin from "firebase-admin";
-import {CollectionName} from "@enum/CollectionName";
-import {Location} from "../types/geoDB/Location";
-import axios, {AxiosResponse} from 'axios';
-import {createHash} from 'crypto';
+import * as admin from 'firebase-admin';
+import axios, { AxiosResponse } from 'axios';
+import { createHash } from 'crypto';
+
+import { CollectionName } from '../types/enum/CollectionName';
+import { Location } from '../types/interface/geoDB/Location';
 
 export async function updateGeoDB(): Promise<void> {
 
@@ -22,11 +23,11 @@ export async function updateGeoDB(): Promise<void> {
                 return row.split('\t')
                     .map((entry: string, index: number): [string, number] => [entry, index])
                     .reduce<Location>((acc: Location, [entry, index]): Location => {
-                            acc[keys[index]] = entry;
-                            return acc;
-                        }, <Location>{},
+                        acc[keys[index]] = entry;
+                        return acc;
+                    }, <Location>{},
                     );
-            }).map((place: Location) => ({...place, country}));
+            }).map((place: Location) => ({ ...place, country }));
         }
 
         const countries = [
@@ -43,7 +44,7 @@ export async function updateGeoDB(): Promise<void> {
             //explode dataset with multiple plzs
             const expandedResults = resultsWithPlz.map((result: Location) => {
                 const allPlz = result.plz.split(',');
-                return allPlz.map((plz) => ({...result, plz}));
+                return allPlz.map((plz) => ({ ...result, plz }));
             }).reduce((acc: Location[], result: Location[]) => [...acc, ...result], []);
 
             // Hash map plz+name+land
@@ -73,7 +74,7 @@ export async function updateGeoDB(): Promise<void> {
                 }
             });
 
-            const filteredResults = Object.keys(hashMap).map((key) => ({...hashMap[key], hash: key}));
+            const filteredResults = Object.keys(hashMap).map((key) => ({ ...hashMap[key], hash: key }));
 
             const locationCollection = db.collection(CollectionName.GeoData);
             const chunk = 400;

@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-import { CollectionName } from '@enum/CollectionName';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onSubscribeToBeNotifiedCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {

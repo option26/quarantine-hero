@@ -3,10 +3,10 @@ import * as admin from 'firebase-admin';
 import {
   deleteDocumentWithSubCollections,
   getEntriesOfUser,
-} from '@utilities/utils';
+} from '../utilities/utils';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { CollectionName } from '@enum/CollectionName';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onUserDelete(user: UserRecord): Promise<void> {
   try {

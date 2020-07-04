@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin';
 
-import { postToSlack } from '@utilities/slack';
+import { postToSlack } from '../utilities/slack';
 
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {

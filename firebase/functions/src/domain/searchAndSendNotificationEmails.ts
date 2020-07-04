@@ -10,12 +10,12 @@ import {
   MINIMUM_NOTIFICATION_DELAY,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
-} from '@config';
+} from '../config';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { NotificationsCollectionEntry } from '@interface/collections/NotificationsCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { NotificationsCollectionEntry } from '../types/interface/collections/NotificationsCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   const dist = (search: string, doc: NotificationsCollectionEntry['d']) => Math.abs(Number(search) - Number(doc.plz));

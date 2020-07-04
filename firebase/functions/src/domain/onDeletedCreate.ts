@@ -4,10 +4,10 @@ import {
   userIdsMatch,
   migrateResponses,
   deleteDocumentWithSubCollections,
-} from '@utilities/utils';
+} from '../utilities/utils';
 
-import { DeletedCollectionEntry } from '@interface/collections/DeletedCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { DeletedCollectionEntry } from '../types/interface/collections/DeletedCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onDeletedCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
