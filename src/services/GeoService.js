@@ -4,7 +4,7 @@ const numericRegex = /\d{3,}/;
 const stringRegex = /\D+/;
 
 function enrichEntry(entry) {
-  return { ...entry, description: `${entry.plz || ''}${entry.plz ? ' ' : ''}${entry.name}` };
+  return { ...entry, description: `${entry.plz ? `${entry.plz} ` : ''}${entry.name}` };
 }
 
 function average(numberArray) {
