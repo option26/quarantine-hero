@@ -18,14 +18,18 @@ export async function getSuggestions(searchString) {
   const location = locationMatch !== null ? locationMatch[0].trim() : '';
 
   if (plzMatch !== null) {
-    const [ plz ] = plzMatch;
+    const [plz] = plzMatch;
     const query = fb.store.collection('geo-data').orderBy('plz').startAt(plz).endAt(`${plz}\uf8ff`);
 
     const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
-    return entries.filter((e) => e.name.includes(location)).map(enrichEntry);
+    return entries.filter((e) => {
+      const needle = location.toLowerCase();
+      const haystack = e.name.toLowerCase();
+      return haystack.includes(needle) || needle.includes(haystack);
+    }).map(enrichEntry);
   }
 
-  const query = fb.store.collection('geo-data').orderBy('name').startAt(searchString).endAt(`${searchString}\uf8ff`);
+  const query = fb.store.collection('geo-data').orderBy('name_lowercase').startAt(searchString.toLowerCase()).endAt(`${searchString.toLowerCase()}\uf8ff`);
   const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
 
   const aggregated = entries
@@ -48,8 +52,8 @@ export async function getSuggestions(searchString) {
 }
 
 export async function getGeodataForString(searchString) {
-  const result = await getSuggestions(searchString);
-  return [result];
+  const [result] = await getSuggestions(searchString);
+  return result;
 }
 
 export async function getGeodataForPlace(placeId) {
