@@ -2,6 +2,8 @@ import * as app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
 import 'firebase/firestore';
+import 'firebase/database';
+import 'firebase/storage';
 import config from './firebaseConfig';
 
 class Firebase {
