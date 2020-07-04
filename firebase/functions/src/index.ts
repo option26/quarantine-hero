@@ -13,8 +13,8 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
-import { searchAndSendNotificationEmailsForOpenOffersWithAnswers } from './domain/searchAndSendNotificationEmailsForOpenOffersWithAnswers';
-import { searchAndSendNotificationEmailsForOpenOffersWithoutAnswers } from './domain/searchAndSendNotificationEmailsForOpenOffersWithoutAnswers';
+import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
+import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
 
 import { CollectionName } from '@enum/CollectionName';
 
@@ -32,14 +32,14 @@ export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
   .pubsub
   .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
   .timeZone('Europe/Berlin')
-  .onRun(searchAndSendNotificationEmailsForOpenOffersWithoutAnswers);
+  .onRun(sendEmailsForOpenOffersWithoutAnswers);
 
 export const sendNotificationEmailsForOpenOffersWithAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
   .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
   .timeZone('Europe/Berlin')
-  .onRun(searchAndSendNotificationEmailsForOpenOffersWithAnswers);
+  .onRun(sendEmailsForOpenOffersWithAnswers);
 
 
 export const askForHelpCreate = functions
