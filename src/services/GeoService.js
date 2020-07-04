@@ -18,7 +18,7 @@ export async function getSuggestions(searchString) {
   const location = locationMatch !== null ? locationMatch[0].trim() : '';
 
   if (plzMatch !== null) {
-    const plz = plzMatch[0];
+    const [ plz ] = plzMatch;
     const query = fb.store.collection('geo-data').orderBy('plz').startAt(plz).endAt(`${plz}\uf8ff`);
 
     const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
