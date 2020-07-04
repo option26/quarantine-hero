@@ -1,0 +1,42 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "ask-for-help",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "d.notificationCounter",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "d.timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "offer-help",
+      "fieldPath": "email",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "arrayConfig": "CONTAINS",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}
