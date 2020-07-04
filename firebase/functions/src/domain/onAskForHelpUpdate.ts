@@ -5,8 +5,8 @@ import { getEligibleHelpOffers } from '@utilities/email/getEligibleHelpOffers';
 import { sendNotificationEmailsForOffers } from '@utilities/email/sendNotificationEmailsForOffers';
 
 import {
-  MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS,
-  MINIMUM_NOTIFICATION_DELAY_UNTIL_FURTHER_ENGAGEMENT_WITH_OPEN_ENTRIES_DAYS,
+  MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
+  MINIMUM_FOLLOWUP_DELAY_DAYS,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage
 } from '@config';
@@ -26,11 +26,11 @@ export async function onAskForHelpUpdate(change: Change<firestore.QueryDocumentS
 
     // early return if the user does not request help or is not eligible for more help
     if (!requestingMoreHelp) return;
-    if (notificationCounter > MAXIMUM_ALLOWED_ASK_FOR_MORE_HELP_REQUESTS) {
+    if (notificationCounter > MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
       console.log('Maximum amount of allowed request reached for user', notificationCounter, uid, snap.id);
       return;
     }
-    if (timeStampLastHelpRequest <= MINIMUM_NOTIFICATION_DELAY_UNTIL_FURTHER_ENGAGEMENT_WITH_OPEN_ENTRIES_DAYS * 24 * 60 * 60 * 1000) {
+    if (timeStampLastHelpRequest <= Date.now() - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000) {
       console.log('User is attempting to request help again within the cool down period', timeStampLastHelpRequest, uid, snap.id);
       return;
     }
