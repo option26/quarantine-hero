@@ -1,6 +1,7 @@
 const blacklistedEmail = 'example@byom.de';
 const verifiedEmailAddress = 'verified@example.com';
 const notVerifiedEmailAddress = 'not.verified@example.com';
+const passwordForRegistration = 'hvskdjghawjrgif7vnjwzgfowbfka';
 const password = 'test1234';
 
 function randomString() {
@@ -29,8 +30,8 @@ context('SignUp', () => {
 
     it('signup with blacklisted email', () => {
       cy.get('form input[type="email"]').type(`${blacklistedEmail}`);
-      cy.get('#password').type(password);
-      cy.get('#password_repeat').type(password);
+      cy.get('#password').type(passwordForRegistration);
+      cy.get('#password_repeat').type(passwordForRegistration);
       cy.get('#privacy_policy').check();
 
       cy.get('[data-cy=btn-submit-signup]').click();
@@ -40,8 +41,8 @@ context('SignUp', () => {
 
     it('signup with existing email', () => {
       cy.get('form input[type="email"]').type(`${verifiedEmailAddress}`);
-      cy.get('#password').type(password);
-      cy.get('#password_repeat').type(password);
+      cy.get('#password').type(passwordForRegistration);
+      cy.get('#password_repeat').type(passwordForRegistration);
       cy.get('#privacy_policy').check();
 
       cy.get('[data-cy=btn-submit-signup]').click();
@@ -51,8 +52,8 @@ context('SignUp', () => {
 
     it('signup with password mismatch', () => {
       cy.get('form input[type="email"]').type('doesnt-matter@example.com');
-      cy.get('#password').type(password);
-      cy.get('#password_repeat').type('test5678');
+      cy.get('#password').type(passwordForRegistration);
+      cy.get('#password_repeat').type('test123456789');
       cy.get('#privacy_policy').check();
 
       cy.get('[data-cy=btn-submit-signup]').click();
@@ -62,8 +63,8 @@ context('SignUp', () => {
 
     it('signup without privacy-policy consent', () => {
       cy.get('form input[type="email"]').type('doesnt-matter@example.com');
-      cy.get('#password').type(password);
-      cy.get('#password_repeat').type(password);
+      cy.get('#password').type(passwordForRegistration);
+      cy.get('#password_repeat').type(passwordForRegistration);
 
       cy.get('[data-cy=btn-submit-signup]').click();
       cy.get('#privacy_policy:invalid').should('have.length', 1);
@@ -75,8 +76,8 @@ context('SignUp', () => {
       cy.route('POST', 'https://www.googleapis.com/**').as('registerUser');
 
       cy.get('form input[type="email"]').type(`${randomString()}@qh.de`);
-      cy.get('#password').type(password);
-      cy.get('#password_repeat').type(password);
+      cy.get('#password').type(passwordForRegistration);
+      cy.get('#password_repeat').type(passwordForRegistration);
       cy.get('#privacy_policy').check();
 
       cy.get('[data-cy=btn-submit-signup]').click();

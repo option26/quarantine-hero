@@ -255,7 +255,8 @@
       "haveAnAccount": "Ich habe bereits einen Account",
       "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
       "partnerTextIntro": "Für heldenhafte Hilfe von {{helpers}} registrierten Helfenden:",
-      "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!"
+      "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!",
+      "weakPassword": "Das angegebene Passwort ist leicht zu erraten. Bitte wähle ein stärkeres."
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
