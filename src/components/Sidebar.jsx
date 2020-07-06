@@ -53,6 +53,7 @@ export default function Sidebar(props) {
       <MenuItem to="/security-tips">{t('components.sidebar.safety')}</MenuItem>
       <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
       <MenuItem to="/press">{t('components.sidebar.press')}</MenuItem>
+      <MenuItem to="/partners">{t('components.sidebar.partners')}</MenuItem>
       <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
       <MenuItem to="/privacy-policy">{t('components.sidebar.privacy')}</MenuItem>
 
