@@ -1,86 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 
-import TafelhilfeLogo from '../assets/tafelhilfe.svg';
-import ZusammengegenCoronaLogo from '../assets/bmg_logo.svg';
-
-const partners = [
-  {
-    title: 'Gesundheit',
-    logo: '',
-    children: [
-      {
-        name: 'Zusammengegencorona',
-        link: 'https://www.zusammengegencorona.de/',
-        description: 'Für aktuelle Informationen und um weitere Initiativen zu finden.',
-        logo: ZusammengegenCoronaLogo,
-      },
-      {
-        name: 'Corona Helfer',
-        link: 'https://corona-helfer.com/',
-        description: 'Für aktuelle Informationen und um weitere Initiativen zu finden.',
-        logo: ZusammengegenCoronaLogo,
-      },
-    ],
-  },
-  {
-    title: 'Gesellschaft & Soziales',
-    children: [
-      {
-        name: 'Tafelhilfe',
-        link: 'https://tafelhilfe.de',
-        description: 'Die Tafelhilfe vermittelt Helfer*innen an Tafeln in ganz Deutschland.',
-        logo: TafelhilfeLogo,
-      },
-    ],
-  },
-  {
-    title: 'Wirtschaft',
-    children: [],
-  },
-  {
-    title: 'Unterstützer',
-    children: [],
-  },
-];
+import useCms from '../util/useCms';
+import useFirebaseDownload from '../util/useFirebaseDownload';
+import Loader from '../components/loader/Loader';
 
 export default function Partners() {
   const { t } = useTranslation();
+  const [partnerCategories] = useCms('partner-categories');
+  const [partners] = useCms('partners');
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (partnerCategories.length === 0 || partners.length === 0) {
+      return;
+    }
+
+    const combined = partnerCategories.map((c) => ({
+      ...c,
+      children: partners.filter((p) => p.categoryId === c.identifier),
+    }));
+
+    setCategories(combined);
+  }, [partnerCategories, partners]);
 
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.partners.title')}</h1>
 
-      <p>{t('views.partners.explanation')}</p>
+      <p className="mb-4">{t('views.partners.explanation')}</p>
 
-      {partners.map((category) => (
-        <Category logo={category.logo} title={category.title}>
-          {category.children.map((partner) => (
-            <Partner name={partner.name} description={partner.description} link={partner.link} logo={partner.logo} />
-          ))}
-        </Category>
-      ))}
+      <Loader waitOn={categories.length > 0}>
+        {categories.map((category) => (
+          <Category
+            key={category.identifier}
+            logoSource={category.logo}
+            title={category.title}
+          >
+            {category.children.map((partner) => (
+              <Partner
+                key={`${category.name}${partner.name}`}
+                name={partner.name}
+                description={partner.description}
+                link={partner.link}
+                logoSource={partner.logo}
+              />
+            ))}
+          </Category>
+        ))}
+      </Loader>
     </div>
   );
 }
 
-function Category({ children, title, logo }) {
+function Category({ children, title, logoSource }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [logoLink] = useFirebaseDownload(logoSource);
 
   return (
-    <>
+    <div className="mb-2">
       <button
         type="button"
-        className="mt-4 mb-1 px-4 py-2 flex justify-start items-center bg-kaki w-full focus:outline-none"
+        className="mb-1 px-4 py-2 flex justify-start items-center bg-kaki w-full focus:outline-none"
         onClick={() => {
           setIsOpen((current) => !current);
         }}
       >
         <div>
-          <img className="w-30 h-10 md:h-16 mr-4" src={logo} alt="" />
+          <img className="w-30 h-10 md:h-16 mr-4" src={logoLink} alt="" />
         </div>
 
         <div className="font-semibold text-lg">{title}</div>
@@ -95,19 +87,36 @@ function Category({ children, title, logo }) {
       <Collapse in={isOpen}>
         {children}
       </Collapse>
-    </>
+    </div>
   );
 }
 
-function Partner({ name, description, link, logo }) {
-  return (
-    <a href={link} target="_blank" rel="noopener noreferrer" className="flex bg-gray-custom p-2 items-center">
-      {/* eslint-disable-next-line import/no-dynamic-require */}
-      <img className="w-16" src={logo} alt="" />
-      <div className="ml-4 flex flex-col">
-        <h3 className="text-md font-semibold">{name}</h3>
-        <p>{description}</p>
+function Partner({ name, description, link, logoSource }) {
+  const [logoLink, logoError] = useFirebaseDownload(logoSource);
+
+  return React.createElement(link ? 'a' : 'div', {
+    className: 'mb-1 flex bg-gray-custom p-2 items-center',
+    ...(link ? {
+      href: link,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    } : {}),
+  }, (
+    <>
+      <div className="flex flex-grow">
+        {!logoError && (
+          <img className="h-16 w-16" src={logoLink} alt="" />
+        )}
+        <div className="ml-4 flex flex-col">
+          <h3 className="text-md font-semibold">{name}</h3>
+          <p>{description}</p>
+        </div>
       </div>
-    </a>
-  );
+      {link && (
+        <div className="ml-2">
+          <ArrowForwardIcon />
+        </div>
+      )}
+    </>
+  ));
 }
