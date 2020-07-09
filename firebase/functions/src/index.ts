@@ -23,7 +23,7 @@ export const contentUpdated = functions
   .region(REGION_EUROPE_WEST_1)
   .database
   .ref('/cmsContent')
-  .onUpdate(onContentUpdate);
+  .onWrite(onContentUpdate);
 
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
