@@ -1,16 +1,12 @@
 import { de, enUS } from 'date-fns/locale';
 import i18next from 'i18next';
 
-const locales = { 'de': de, 'en': enUS };
+const locales = { de, en: enUS };
 
-const cutOffFromChar = (string, char) => string.indexOf(char) === -1 ? string : string.substring(0, string.indexOf(char));
-
-const getDateFnsLocaleObject = () => {
+export default function getDateFnsLocaleObject() {
   const { languages } = i18next;
   const selectedLanguage = languages[0];
-  const fallbackLanguage = languages[languages.length-1];
+  const fallbackLanguage = languages[languages.length - 1];
 
-  return locales[cutOffFromChar(selectedLanguage, '-')] || locales[cutOffFromChar(fallbackLanguage, '-')];
+  return locales[selectedLanguage.split('-')[0]] || locales[fallbackLanguage.split('-')[0]];
 }
-
-export default getDateFnsLocaleObject;
