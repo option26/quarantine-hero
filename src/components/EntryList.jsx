@@ -55,13 +55,13 @@ export default function EntryList({ pageSize = 0 }) {
 
     if (isMapsApiEnabled) {
       try {
-        let results;
+        let result;
         if (placeId) {
-          results = await getGeodataForPlace(placeId);
+          result = await getGeodataForPlace(placeId);
         } else {
-          results = await getGeodataForString(searchAttr);
+          result = await getGeodataForString(searchAttr);
         }
-        const coordinates = getLatLng(results[0]);
+        const coordinates = getLatLng(result);
         return geoCollection.near({
           center: new fb.app.firestore.GeoPoint(
             coordinates.lat,

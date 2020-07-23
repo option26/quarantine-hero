@@ -93,12 +93,7 @@ function Autocomplete(props) {
   const loadSuggestions = async (searchValue) => {
     if (searchValue && searchValue.length >= minSearchInput) {
       try {
-        const results = await getSuggestions(searchValue, {
-          types: ['(regions)'],
-          componentRestrictions: {
-            country: ['de', 'at', 'ch', 'it'],
-          },
-        });
+        const results = await getSuggestions(searchValue);
 
         setSuggestions(results);
       } catch (err) {
@@ -148,7 +143,7 @@ function Autocomplete(props) {
       setValidity(true);
       inputRef.current.value = suggestion.description;
       setSuggestions([]);
-      onSelect(suggestion.description, suggestion.place_id);
+      onSelect(suggestion.description, suggestion.id);
     }
   };
 
@@ -209,7 +204,7 @@ function Autocomplete(props) {
       <div id="suggestion-box" className="absolute w-full bg-white shadow-xl z-10">
         {suggestions.map((s, i) => (
           <AutocompleteSuggestion
-            key={s.description}
+            key={s.id}
             data-cy="autocomplete-suggestion"
             index={i}
             selectionIndex={selectionIndex}

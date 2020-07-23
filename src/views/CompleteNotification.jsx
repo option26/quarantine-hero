@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import { isMapsApiEnabled } from '../featureFlags';
-import { getGeodataForPlace, getGeodataForString, getLatLng } from '../services/GeoService';
+import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
 import buildSha1Hash from '../util/buildHash';
 import useQuery from '../util/useQuery';
@@ -29,16 +29,16 @@ export default function CompleteNotification() {
     let lat = 0;
     let lng = 0;
     let plz = loc;
+
     if (isMapsApiEnabled) {
-      let results;
-      if (placeId) {
-        results = await getGeodataForPlace(placeId);
-      } else {
-        results = await getGeodataForString(loc);
+      if (!placeId) {
+        throw new Error('PlaceId was undefined in complete-notification');
       }
-      const plzComponent = results[0].address_components.find((c) => c.types.includes('postal_code'));
-      if (plzComponent) plz = plzComponent.short_name;
-      const coordinates = getLatLng(results[0]);
+
+      const result = await getGeodataForPlace(placeId);
+
+      plz = result.plz;
+      const coordinates = getLatLng(result);
       lat = coordinates.lat;
       lng = coordinates.lng;
     }

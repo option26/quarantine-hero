@@ -84,6 +84,8 @@ export async function updateGeoDB(): Promise<void> {
                 const tempArray = filteredResults.slice(i, i + chunk);
                 tempArray.map((loc: Location) => {
                     if (!loc.locId) throw Error('Could not find locId for' + JSON.stringify(loc));
+
+                    loc.name_lowercase = loc.name.toLowerCase();
                     batch.set(locationCollection.doc(loc.hash), loc);
                 });
                 batchPromises.push(batch.commit());
