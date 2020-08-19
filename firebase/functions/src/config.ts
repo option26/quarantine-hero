@@ -9,7 +9,7 @@ const sgMailApiKey = envVariables && envVariables.sendgrid && envVariables.sendg
 sgMail.setApiKey(sgMailApiKey);
 
 const REGION_EUROPE_WEST_1 = 'europe-west1';
-const MAX_RESULTS = 30;
+const MAX_RESULTS = 100;
 const MAPS_ENABLED = true;
 const MINIMUM_NOTIFICATION_DELAY = 20;
 const SEND_EMAILS = sgMailApiKey !== null;
