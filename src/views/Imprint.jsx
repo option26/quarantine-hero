@@ -9,13 +9,11 @@ export default function Imprint() {
           <p>Angaben gemäß § 5 TMG</p>
           <br />
           <p>
-            Tom Graupner &amp; Keno Dreßel
+            Option 26
             <br />
-            Andreas-Schubert-Str. 23
+            Lohrtalweg 100
             <br />
-            A-Gebäude
-            <br />
-            01069 Dresden
+            74821 Mosbach
           </p>
           <br />
           <p>
@@ -23,9 +21,9 @@ export default function Imprint() {
             <br />
             Keno Dreßel
             <br />
-            Henrike von Zimmermann
+            Maurice Ackel
             <br />
-            Florian Schmidt
+            Milena Gaede
             <br />
           </p>
           <br />
