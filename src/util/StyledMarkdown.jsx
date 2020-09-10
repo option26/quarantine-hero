@@ -11,9 +11,27 @@ export default function StyledMarkdown(props) {
         a: {
           component: ({ href, className, children: title }) => {
             if (href.startsWith('http') && !href.startsWith(baseUrl)) {
-              return <a href={href} className={className} target="_blank" rel="noopener noreferrer">{title}</a>;
+              return (
+                <a
+                  href={href}
+                  className={className}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => props.stopPropagation && e.stopPropagation()}
+                >
+                  {title}
+                </a>
+              );
             }
-            return <a href={href} className={className}>{title}</a>;
+            return (
+              <a
+                href={href}
+                className={className}
+                onClick={(e) => props.stopPropagation && e.stopPropagation()}
+              >
+                {title}
+              </a>
+            );
           },
           props: {
             className: 'text-secondary hover:underline',

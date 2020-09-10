@@ -8,6 +8,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
 import Loader from '../components/loader/Loader';
+import StyledMarkdown from '../util/StyledMarkdown';
 
 export default function Partners() {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ export default function Partners() {
 
 function Category({ children, title, logoSource }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [logoLink] = useFirebaseDownload(logoSource);
+  const [logoLink, logoError] = useFirebaseDownload(logoSource);
 
   return (
     <div className="mb-2">
@@ -71,9 +72,9 @@ function Category({ children, title, logoSource }) {
           setIsOpen((current) => !current);
         }}
       >
-        <div>
-          <img className="w-30 h-10 md:h-16 mr-4" src={logoLink} alt="" />
-        </div>
+        {!logoError && (
+          <img className="w-6 md:w-8 py-2 mr-4" src={logoLink} alt="" />
+        )}
 
         <div className="font-semibold text-lg">{title}</div>
         <div className="flex-1" />
@@ -94,12 +95,10 @@ function Category({ children, title, logoSource }) {
 function Partner({ name, description, link, logoSource }) {
   const [logoLink, logoError] = useFirebaseDownload(logoSource);
 
-  return React.createElement(link ? 'a' : 'div', {
-    className: 'mb-1 flex bg-gray-custom p-2 items-center',
+  return React.createElement(link ? 'button' : 'div', {
+    className: 'mb-1 flex bg-gray-custom p-2 items-center text-left',
     ...(link ? {
-      href: link,
-      target: '_blank',
-      rel: 'noopener noreferrer',
+      onClick: () => window.open(link, '_blank', 'noopener noreferrer'),
     } : {}),
   }, (
     <>
@@ -108,8 +107,8 @@ function Partner({ name, description, link, logoSource }) {
           <img className="h-16 w-16" src={logoLink} alt="" />
         )}
         <div className="ml-4 flex flex-col">
-          <h3 className="text-md font-semibold">{name}</h3>
-          <p>{description}</p>
+          <h3 className="text-lg font-semibold">{name}</h3>
+          <StyledMarkdown className="mt-2" stopPropagation>{description}</StyledMarkdown>
         </div>
       </div>
       {link && (
