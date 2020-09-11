@@ -2,6 +2,7 @@
   "App": {
     "login": "Login",
     "press": "Presse",
+    "partners": "Unterstützenswertes",
     "usesCookies": {
       "preLink": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern. Weitere Informationen: ",
       "link": "Datenschutzerklärung",
@@ -200,6 +201,10 @@
       "resendEmail": "E-Mail erneut senden",
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
     },
+    "partners": {
+      "title": "Unterstützenswerte Projekte",
+      "explanation": "Covid-19 hat in den vergangenen Monaten viele Lebensbereiche beeinflusst und eingeschränkt. Glücklicherweise gibt es viele Initiativen, die gerade in dieser Zeit auf unterschiedliche Arten Mitmenschen unterstützen möchten. Auf dieser Seite findet Ihr Organisationen, die wir unterstützenswert finden, die uns unterstützen und/oder mit denen wir zusammenarbeiten."
+    },
     "emailActions": {
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Link abgelaufen ist. Bitte versuche es erneut.",
       "unknownAction": "Leider kann die gewünschte Aktion nicht ausgeführt werden, da sie uns unbekannt ist. Bitte versuche es erneut. Falls der Fehler weiter besteht, kannst Du Dich gerne unter help@quarantaenehelden.org bei uns melden.",
@@ -286,6 +291,7 @@
       "myOverview": "Meine Übersicht",
       "FAQs": "FAQs",
       "press": "Presse",
+      "partners": "Unterstützenswertes",
       "legal": "Impressum",
       "privacy": "Datenschutz",
       "login": "Login",
