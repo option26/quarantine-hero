@@ -26,7 +26,7 @@ import { CookieConsentContext } from '../util/CookieConsent';
 import HandleEmailAction from '../views/HandleEmailAction';
 import PrivacyPolicy from '../views/PrivacyPolicy';
 import Imprint from '../views/Imprint';
-
+import Partners from '../views/Partners';
 
 function usePageViews() {
   const cookiesConsented = useContext(CookieConsentContext);
@@ -127,6 +127,11 @@ export default function Routes() {
       <Route path={['/press', '/presse']}>
         <Page>
           <Press />
+        </Page>
+      </Route>
+      <Route path="/partners">
+        <Page>
+          <Partners />
         </Page>
       </Route>
       <Route path="/notify-me">

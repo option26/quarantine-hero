@@ -17,47 +17,57 @@ function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
 
   // Depending on the user auth status, show different elements in the top navigation
   return (
-    <div className="hidden md:flex justify-end md:mt-12 w-full phone-width items-center">
-      {isAuthLoading || !user
-        ? (
-          <Link
-            className="mr-4 font-open-sans text-gray-700"
-            to="/signin/dashboard"
-          >
-            {t('App.login')}
-          </Link>
-        ) : (
-          <>
+    <div className="hidden md:flex md:mt-12 w-full phone-width flex-col items-end">
+      <div className="mb-2">
+        <ShareButtons />
+      </div>
+      <div className="flex justify-end items-center">
+        {isAuthLoading || !user
+          ? (
             <Link
-              data-cy="nav-my-overview"
               className="mr-4 font-open-sans text-gray-700"
-              to="/dashboard"
+              to="/signin/dashboard"
             >
-              {t('components.desktopMenu.myOverview')}
+              {t('App.login')}
             </Link>
-            <button
-              type="button"
-              data-cy="btn-sign-out"
-              className="mr-4 font-open-sans text-gray-700"
-              onClick={signOut}
-            >
-              {t('components.desktopMenu.signOut')}
-            </button>
-          </>
-        )}
-      <Link
-        className="mr-4 font-open-sans text-gray-700"
-        to="/faq"
-      >
-        {t('components.desktopMenu.FAQs')}
-      </Link>
-      <Link
-        className="mr-4 font-open-sans text-gray-700"
-        to="/press"
-      >
-        {t('App.press')}
-      </Link>
-      <ShareButtons />
+          ) : (
+            <>
+              <Link
+                data-cy="nav-my-overview"
+                className="mr-4 font-open-sans text-gray-700"
+                to="/dashboard"
+              >
+                {t('components.desktopMenu.myOverview')}
+              </Link>
+              <button
+                type="button"
+                data-cy="btn-sign-out"
+                className="mr-4 font-open-sans text-gray-700"
+                onClick={signOut}
+              >
+                {t('components.desktopMenu.signOut')}
+              </button>
+            </>
+          )}
+        <Link
+          className="mr-4 font-open-sans text-gray-700"
+          to="/faq"
+        >
+          {t('components.desktopMenu.FAQs')}
+        </Link>
+        <Link
+          className="mr-4 font-open-sans text-gray-700"
+          to="/press"
+        >
+          {t('App.press')}
+        </Link>
+        <Link
+          className="mr-2 font-open-sans text-gray-700"
+          to="/partners"
+        >
+          {t('App.partners')}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -100,7 +110,7 @@ export default function Page({ children }) {
         <DesktopTopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
         <MobileTopNavigation onMenuIconClick={() => setMenuOpen(true)} />
 
-        <div className="phone-width bg-white shadow-xl min-h-screen md:mt-6">
+        <div className="phone-width bg-white shadow-xl min-h-screen md:mt-2">
           <DesktopLowerNavigation />
           <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
             {children}
