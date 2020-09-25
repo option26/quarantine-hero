@@ -9,7 +9,7 @@ export default function Imprint() {
           <p>Angaben gemäß § 5 TMG</p>
           <br />
           <p>
-            Option 26
+            Option 26 e.V.
             <br />
             Lohrtalweg 100
             <br />
@@ -25,6 +25,12 @@ export default function Imprint() {
             <br />
             Milena Gaede
             <br />
+          </p>
+          <br />
+          <p>
+            <strong>Information:</strong>
+            <br />
+            Option 26 e.V. ist ein gemeinnütziger Verein und ist beim Registergericht Mannheim unter der Nummer VR 702942 eingetragen.
           </p>
           <br />
           <p>
