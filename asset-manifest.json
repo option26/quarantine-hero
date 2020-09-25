@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.50c36939.chunk.css",
-    "main.js": "/static/js/main.1abddbad.chunk.js",
-    "main.js.map": "/static/js/main.1abddbad.chunk.js.map",
+    "main.js": "/static/js/main.742cf199.chunk.js",
+    "main.js.map": "/static/js/main.742cf199.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.c46ce1ed.chunk.js": "/static/js/2.c46ce1ed.chunk.js",
-    "static/js/2.c46ce1ed.chunk.js.map": "/static/js/2.c46ce1ed.chunk.js.map",
+    "static/js/2.5b53215f.chunk.js": "/static/js/2.5b53215f.chunk.js",
+    "static/js/2.5b53215f.chunk.js.map": "/static/js/2.5b53215f.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.65e3e1c811e21ecea19f159ce16e21e7.js": "/precache-manifest.65e3e1c811e21ecea19f159ce16e21e7.js",
+    "precache-manifest.9d36b46fb42913c10eb9c9d48813e94b.js": "/precache-manifest.9d36b46fb42913c10eb9c9d48813e94b.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
     "static/css/main.50c36939.chunk.css.map": "/static/css/main.50c36939.chunk.css.map",
-    "static/js/2.c46ce1ed.chunk.js.LICENSE.txt": "/static/js/2.c46ce1ed.chunk.js.LICENSE.txt",
+    "static/js/2.5b53215f.chunk.js.LICENSE.txt": "/static/js/2.5b53215f.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -57,8 +57,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.c46ce1ed.chunk.js",
+    "static/js/2.5b53215f.chunk.js",
     "static/css/main.50c36939.chunk.css",
-    "static/js/main.1abddbad.chunk.js"
+    "static/js/main.742cf199.chunk.js"
   ]
 }
