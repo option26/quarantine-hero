@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import fb from '../firebase';
 
 export const CookieConsentContext = React.createContext(null);
 
@@ -46,19 +47,24 @@ function CookieConsentBanner({ accept, reject }) {
 export default function CookieConsent({ children }) {
   const [cookiesConsented, setCookiesConsented] = useState(null);
 
+  const setCookiesConsentAndAnalytics = (state) => {
+    setCookiesConsented(state);
+    fb.setAnalytics(state);
+  };
+
   const acceptCookies = () => {
     window.localStorage.setItem('qh-cookies-accepted', 'true');
-    setCookiesConsented(true);
+    setCookiesConsentAndAnalytics(true);
   };
   const rejectCookies = () => {
     window.localStorage.setItem('qh-cookies-accepted', 'false');
-    setCookiesConsented(false);
+    setCookiesConsentAndAnalytics(false);
   };
 
   useEffect(() => {
     const value = window.localStorage.getItem('qh-cookies-accepted');
     const isAccepted = typeof value === 'string' ? value === 'true' : null;
-    setCookiesConsented(isAccepted);
+    setCookiesConsentAndAnalytics(isAccepted);
   }, []);
 
   return (
