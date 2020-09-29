@@ -47,6 +47,11 @@ function CookieConsentBanner({ accept, reject }) {
 export default function CookieConsent({ children }) {
   const [cookiesConsented, setCookiesConsented] = useState(null);
 
+  const setCookiesConsentAndAnalytics = (state) => {
+    setCookiesConsented(state);
+    fb.setAnalytics(state);
+  };
+
   const acceptCookies = () => {
     window.localStorage.setItem('qh-cookies-accepted', 'true');
     setCookiesConsentAndAnalytics(true);
@@ -55,11 +60,6 @@ export default function CookieConsent({ children }) {
     window.localStorage.setItem('qh-cookies-accepted', 'false');
     setCookiesConsentAndAnalytics(false);
   };
-
-  const setCookiesConsentAndAnalytics = (state) => {
-    setCookiesConsented(state);
-    fb.setAnalytics(state);
-  }
 
   useEffect(() => {
     const value = window.localStorage.getItem('qh-cookies-accepted');
