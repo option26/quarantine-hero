@@ -17,8 +17,8 @@ export async function onReportedPostsCreate(snap: admin.firestore.DocumentSnapsh
         .collection(CollectionName.AskForHelp)
         .doc(askForHelpId)
         .get()
-        .then(snap => {
-          return (snap.data() as AskForHelpCollectionEntry | undefined)?.d.slackMessageRef
+        .then(snapshot => {
+          return (snapshot.data() as AskForHelpCollectionEntry | undefined)?.d.slackMessageRef;
         });
         await postReplyToSlack(slackMessageRef, 'Diese Anfrage wurde gemeldet', true);
     } catch (err) { }

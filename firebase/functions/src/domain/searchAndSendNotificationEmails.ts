@@ -145,7 +145,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       
       try {
         const message = `Potentielle Helfende: ${initalSize}\n` + (SEND_EMAILS ? `Gesendete Emails: ${eligibleHelpOffers.length}` : 'Emails deaktiviert!');
-        postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
+        await postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
       } catch (err) { }
       // eslint-disable-next-line no-console
       console.log(sendingMailsDisabledLogMessage);
