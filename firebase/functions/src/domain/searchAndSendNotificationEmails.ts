@@ -16,6 +16,7 @@ import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { NotificationsCollectionEntry } from '../types/interface/collections/NotificationsCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
+import { postReplyToSlack } from 'src/utilities/slack';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   const dist = (search: string, doc: NotificationsCollectionEntry['d']) => Math.abs(Number(search) - Number(doc.plz));
@@ -64,7 +65,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       }
     }
 
-    let offersToContact: NotificationsCollectionEntry['d'][] = [];
+    let eligibleHelpOffers: NotificationsCollectionEntry['d'][] = [];
     if (queryResult.length > MAX_RESULTS) {
       for (let i = queryResult.length - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * i);
@@ -72,11 +73,11 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
         queryResult[i] = queryResult[j];
         queryResult[j] = temp;
       }
-      offersToContact = queryResult.slice(0, MAX_RESULTS);
+      eligibleHelpOffers = queryResult.slice(0, MAX_RESULTS);
     } else {
-      offersToContact = queryResult;
+      eligibleHelpOffers = queryResult;
     }
-    return offersToContact;
+    return { initalSize: queryResult.length, eligibleHelpOffers };
   };
 
   const sendNotificationEmailsForOffers = async (eligibleHelpOffers: NotificationsCollectionEntry['d'][], askForHelpSnapData: AskForHelpCollectionEntry, askForHelpId: string) => {
@@ -133,7 +134,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
     const asyncOperations = askForHelpSnaps.docs.map(async (askForHelpSnap) => {
       const askForHelpSnapData = askForHelpSnap.data() as AskForHelpCollectionEntry;
       const askForHelpId = askForHelpSnap.id;
-      const eligibleHelpOffers = await getEligibleHelpOffers(askForHelpId, askForHelpSnapData);
+      const { initalSize, eligibleHelpOffers } = await getEligibleHelpOffers(askForHelpId, askForHelpSnapData);
       // eslint-disable-next-line no-console
       console.log('askForHelpId', askForHelpId);
       // eslint-disable-next-line no-console
@@ -141,6 +142,11 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       if (SEND_EMAILS) {
         return sendNotificationEmailsForOffers(eligibleHelpOffers, askForHelpSnapData, askForHelpId);
       }
+      
+      try {
+        const message = `Potentielle Helfende: ${initalSize}\n` + (SEND_EMAILS ? `Gesendete Emails: ${eligibleHelpOffers.length}` : 'Emails deaktiviert!');
+        postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
+      } catch (err) { }
       // eslint-disable-next-line no-console
       console.log(sendingMailsDisabledLogMessage);
     });
