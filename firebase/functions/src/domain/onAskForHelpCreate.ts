@@ -17,7 +17,9 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     try {
       //Don't let message sending break everything
       messageRef = await postToSlack(askForHelpId, askForHelpSnapData);
-    } catch (err) { }
+    } catch (err) {
+      console.log('Error posting to slack', err);
+    }
 
     // Enforce field to 0
     await snap.ref.update({
