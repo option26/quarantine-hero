@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.50c36939.chunk.css",
-    "main.js": "/static/js/main.17a88b87.chunk.js",
-    "main.js.map": "/static/js/main.17a88b87.chunk.js.map",
+    "main.js": "/static/js/main.442aff07.chunk.js",
+    "main.js.map": "/static/js/main.442aff07.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f899e961.js",
     "runtime-main.js.map": "/static/js/runtime-main.f899e961.js.map",
     "static/css/2.750b42cb.chunk.css": "/static/css/2.750b42cb.chunk.css",
-    "static/js/2.bdc54dfb.chunk.js": "/static/js/2.bdc54dfb.chunk.js",
-    "static/js/2.bdc54dfb.chunk.js.map": "/static/js/2.bdc54dfb.chunk.js.map",
+    "static/js/2.928e4d68.chunk.js": "/static/js/2.928e4d68.chunk.js",
+    "static/js/2.928e4d68.chunk.js.map": "/static/js/2.928e4d68.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6ee578b3608c2816ec6095eddcad0745.js": "/precache-manifest.6ee578b3608c2816ec6095eddcad0745.js",
+    "precache-manifest.3b335cb64af3cb13fa7e0fbe8e7d7cfb.js": "/precache-manifest.3b335cb64af3cb13fa7e0fbe8e7d7cfb.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.750b42cb.chunk.css.map": "/static/css/2.750b42cb.chunk.css.map",
     "static/css/main.50c36939.chunk.css.map": "/static/css/main.50c36939.chunk.css.map",
-    "static/js/2.bdc54dfb.chunk.js.LICENSE.txt": "/static/js/2.bdc54dfb.chunk.js.LICENSE.txt",
+    "static/js/2.928e4d68.chunk.js.LICENSE.txt": "/static/js/2.928e4d68.chunk.js.LICENSE.txt",
     "static/media/arrow_down.svg": "/static/media/arrow_down.ec7a02d9.svg",
     "static/media/arrows_up.svg": "/static/media/arrows_up.9876397c.svg",
     "static/media/aushang.svg": "/static/media/aushang.685ae993.svg",
@@ -57,8 +57,8 @@
   "entrypoints": [
     "static/js/runtime-main.f899e961.js",
     "static/css/2.750b42cb.chunk.css",
-    "static/js/2.bdc54dfb.chunk.js",
+    "static/js/2.928e4d68.chunk.js",
     "static/css/main.50c36939.chunk.css",
-    "static/js/main.17a88b87.chunk.js"
+    "static/js/main.442aff07.chunk.js"
   ]
 }
