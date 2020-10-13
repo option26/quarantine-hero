@@ -16,7 +16,7 @@ import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { NotificationsCollectionEntry } from '../types/interface/collections/NotificationsCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { postReplyToSlack } from 'src/utilities/slack';
+import { postReplyToSlack } from '../utilities/slack';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   const dist = (search: string, doc: NotificationsCollectionEntry['d']) => Math.abs(Number(search) - Number(doc.plz));

@@ -2,8 +2,8 @@ import * as admin from 'firebase-admin';
 
 import { ReportedPostsCollectionEntry } from '../types/interface/collections/ReportedPostsCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { AskForHelpCollectionEntry } from 'src/types/interface/collections/AskForHelpCollectionEntry';
-import { postReplyToSlack } from 'src/utilities/slack';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { postReplyToSlack } from '../utilities/slack';
 
 export async function onReportedPostsCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
