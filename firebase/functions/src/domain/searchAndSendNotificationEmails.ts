@@ -140,15 +140,23 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       // eslint-disable-next-line no-console
       console.log('eligibleHelpOffers', eligibleHelpOffers.length);
       if (SEND_EMAILS) {
+        try {
+          const message = `Potentielle Helfende: ${initalSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
+          await postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
+        } catch (err) {
+          console.log('Error posting to slack', err);
+        }
+
         return sendNotificationEmailsForOffers(eligibleHelpOffers, askForHelpSnapData, askForHelpId);
       }
 
       try {
-        const message = `Potentielle Helfende: ${initalSize}\n` + (SEND_EMAILS ? `Gesendete Emails: ${eligibleHelpOffers.length}` : 'Emails deaktiviert!');
+        const message = `Potentielle Helfende: ${initalSize}\nEmails deaktiviert!`;
         await postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
       } catch (err) {
         console.log('Error posting to slack', err);
       }
+
       // eslint-disable-next-line no-console
       console.log(sendingMailsDisabledLogMessage);
     });
