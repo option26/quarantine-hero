@@ -202,7 +202,67 @@ export default function Entry(props) {
 
   const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
 
-  const buttonBar = (() => {
+  const topRightButtonBar = (() => {
+    if (showAsSolved && !entryBelongsToCurrentUser) {
+      return (
+        <div className={`flex justify-center items-center bg-secondary text-white text-xs font-medium rounded px-2`}>
+          {t('components.entry.heroFound')}
+          <DoneIcon className="ml-1 inline-block" />
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        {!entryBelongsToCurrentUser
+          ? (
+            <button
+              type="button"
+              className={`btn-round ${!reported && 'hover:opacity-75'} my-2 ml-2 flex items-center justify-center ${buttonClass} z-10 relative`}
+              disabled={reported}
+              onClick={(e) => {
+                e.preventDefault();
+                const prevValue = attemptingToReport;
+                setAttemptingToReport((curr) => !curr);
+                if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
+              }}
+            >
+              {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}
+              {!reported && !attemptingToReport ? <FlagRedSvg className="flag" alt="" /> : null}
+              {!reported && attemptingToReport ? <XSymbolSvg className="cross" alt="" /> : null}
+            </button>
+          ) : null}
+        {attemptingToReport
+          ? (
+            <div
+              role="button"
+              tabIndex="0"
+              className="absolute inset-0 bg-white-75"
+              onClick={(e) => {
+                e.preventDefault();
+                setAttemptingToReport((curr) => !curr);
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  setAttemptingToReport((curr) => !curr);
+                }
+              }}
+            >
+              <button
+                type="button"
+                className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry z-10 absolute"
+                onClick={reportEntry}
+              >
+                Post melden?
+                  <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
+              </button>
+            </div>
+          ) : null}
+      </div >
+    )
+  })();
+
+  const bottomButtonBar = (() => {
     if (!mayDeleteEntryAndSeeResponses) {
       return <></>;
     }
@@ -270,58 +330,14 @@ export default function Entry(props) {
             {' '}
             {t('components.entry.needsHelp')}
           </span>
-
-          {!entryBelongsToCurrentUser ? (
-            <button
-              type="button"
-              className={`btn-round ${!reported && 'hover:opacity-75'} my-2 ml-2 flex items-center justify-center ${buttonClass} z-10 relative`}
-              disabled={reported}
-              onClick={(e) => {
-                e.preventDefault();
-                const prevValue = attemptingToReport;
-                setAttemptingToReport((curr) => !curr);
-                if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
-              }}
-            >
-              {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}
-              {!reported && !attemptingToReport ? <FlagRedSvg className="flag" alt="" /> : null}
-              {!reported && attemptingToReport ? <XSymbolSvg className="cross" alt="" /> : null}
-            </button>
-          ) : null}
-          {attemptingToReport
-            ? (
-              <div
-                role="button"
-                tabIndex="0"
-                className="absolute inset-0 bg-white-75"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setAttemptingToReport((curr) => !curr);
-                }}
-                onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
-                    setAttemptingToReport((curr) => !curr);
-                  }
-                }}
-              >
-                <button
-                  type="button"
-                  className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry z-10 absolute"
-                  onClick={reportEntry}
-                >
-                  Post melden?
-                  <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
-                </button>
-              </div>
-            ) : null}
-
+          {topRightButtonBar}
         </div>
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <div className="flex flex-row justify-between items-center mt-4 mb-2">
           <div className="text-xs text-secondary mr-1 font-bold">{mayDeleteEntryAndSeeResponses ? '' : numberOfResponsesText}</div>
           <span className="text-gray-500 inline-block text-right text-xs font-open-sans">{date}</span>
         </div>
-        {buttonBar}
+        {bottomButtonBar}
       </Link>
       {popupOnEntryAction}
     </>
