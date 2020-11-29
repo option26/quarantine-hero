@@ -28,15 +28,17 @@ export default function EntryList({ pageSize = 0 }) {
   const [sliderVisible, setSliderVisible] = useState(false);
   const [entries, setEntries] = useState([]);
 
-  const collection = fb.store.collection('ask-for-help');
-  const geoCollection = new GeoFirestore(fb.store).collection('ask-for-help');
+  const askForHelpCollection = fb.store.collection('ask-for-help');
+  const solvedPostsCollection = fb.store.collection('solved-posts');
+  const geoCollectionAskForHelp = new GeoFirestore(fb.store).collection('ask-for-help');
+  const geoCollectionSolvedPosts = new GeoFirestore(fb.store).collection('solved-posts');
 
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
   const { address: addressFromUrl } = useQuery();
 
-  const buildQuery = async (lastLoaded = undefined) => {
+  const buildQuery = async (collection, lastLoaded = undefined) => {
     let query = collection.orderBy('d.timestamp', 'desc');
 
     if (lastLoaded !== undefined) {
@@ -49,9 +51,9 @@ export default function EntryList({ pageSize = 0 }) {
     return query;
   };
 
-  const buildFilteredQuery = async (searchAttr, placeId = undefined) => {
+  const buildFilteredQuery = async (collection, geoCollection, searchAttr, placeId = undefined) => {
     // Fallback
-    if (!searchAttr) return buildQuery();
+    if (!searchAttr) return buildQuery(collection);
 
     if (isMapsApiEnabled) {
       try {
@@ -91,17 +93,25 @@ export default function EntryList({ pageSize = 0 }) {
     setEntries((e) => [...e, ...newEntries]);
   };
 
-  const loadDocuments = async (queryPromise, searchActive) => {
-    const query = await queryPromise;
-    const results = await query.get();
+  const loadDocuments = async (askForHelpQueryPromise, solvedPostsQueryPromise, searchActive) => {
+    const askForHelpQuery = await askForHelpQueryPromise;
+    const solvedPostsQuery = await solvedPostsQueryPromise;
+    const askForHelpResults = await askForHelpQuery.get();
+    const solvedPostsResults = await solvedPostsQuery.get();
     setEntries([]);
 
-    let documents = results.docs;
+    const solvedPostsResultsAnnotated = solvedPostsResults.docs.map((entry) => {
+      entry.solved = true;
+      return entry;
+    })
+
+    let documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
 
     // we need to perform client-side sorting since the location filter is applied
     // https://github.com/quarantine-hero/quarantine-hero/issues/89
     if (searchActive) {
       if (isMapsApiEnabled) {
+        // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
         documents = documents.sort(
           (doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp,
         );
@@ -110,25 +120,58 @@ export default function EntryList({ pageSize = 0 }) {
           (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
         );
       }
+    } else {
+      documents = documents.sort(
+        (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
+      );
     }
     appendDocuments(documents);
   };
 
   const loadMoreDocuments = async () => {
-    const query = await buildQuery(lastEntry);
-    const results = await query.get();
-    if (results.docs.length > 0) {
-      appendDocuments(results.docs);
+    const askForHelpQuery = await buildQuery(askForHelpCollection, lastEntry);
+    const solvedPostsQuery = await buildQuery(solvedPostsCollection, lastEntry);
+    const askForHelpResults = await askForHelpQuery.get();
+    const solvedPostsResults = await solvedPostsQuery.get();
+    const { length: askForHelpResultsLength } = askForHelpResults.docs
+    const { length: solvedPostsResultsLength } = solvedPostsResults.docs
+
+    if (!askForHelpResultsLength && !solvedPostsResultsLength) {
+      return
     }
+
+    if (!solvedPostsResultsLength) {
+      appendDocuments(askForHelpResults.docs);
+      return;
+    }
+
+    if (!askForHelpResultsLength) {
+      appendDocuments(solvedPostsResults.docs);
+      return;
+    }
+
+    const solvedPostsResultsAnnotated = solvedPostsResults.docs.map((entry) => {
+      entry.solved = true;
+      return entry;
+    })
+    const documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
+    const sortedDocs = documents.sort(
+      (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
+    );
+    appendDocuments(sortedDocs);
   };
 
   useEffect(() => {
     if (addressFromUrl) {
       setLocation(addressFromUrl);
-      loadDocuments(buildFilteredQuery(addressFromUrl), true);
+      loadDocuments(
+        buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, addressFromUrl),
+        buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, addressFromUrl),
+        true
+      );
     } else {
       setLocation('');
-      loadDocuments(buildQuery());
+      loadDocuments(buildQuery(askForHelpCollection), buildQuery(solvedPostsCollection));
     }
   }, [addressFromUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -136,7 +179,10 @@ export default function EntryList({ pageSize = 0 }) {
     setLocation(address);
     if (!address) {
       setSearching(false);
-      loadDocuments(buildQuery());
+      loadDocuments(
+        buildQuery(askForHelpCollection),
+        buildQuery(solvedPostsCollection)
+      );
     }
 
     // Prevent searching on input change if maps api enabled
@@ -151,7 +197,10 @@ export default function EntryList({ pageSize = 0 }) {
         setSearching(true);
         setScheduledSearch(
           setTimeout(() => {
-            loadDocuments(buildFilteredQuery(address), true);
+            loadDocuments(
+              buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address),
+              buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, address),
+              true);
           }, 500),
         );
       }
@@ -165,10 +214,17 @@ export default function EntryList({ pageSize = 0 }) {
       // If address is non-empty search for it
       if (address) {
         setSearching(true);
-        loadDocuments(buildFilteredQuery(address, placeId), true);
+        loadDocuments(
+          buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address, placeId),
+          buildFilteredQuery(solvedPostsCollection, geoCollectionAskForHelp, address, placeId),
+          true
+        );
       } else {
         setSearching(false);
-        loadDocuments(buildQuery());
+        loadDocuments(
+          buildQuery(askForHelpCollection),
+          buildQuery(solvedPostsCollection)
+        );
       }
     }
   };
@@ -216,7 +272,11 @@ export default function EntryList({ pageSize = 0 }) {
             onChange={(v) => setRadius(v)}
             onAfterChange={() => {
               setSliderVisible(false);
-              loadDocuments(buildFilteredQuery(location), searching);
+              loadDocuments(
+                buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, location),
+                buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, location),
+                searching
+              );
             }}
           />
         </div>
@@ -229,20 +289,21 @@ export default function EntryList({ pageSize = 0 }) {
           })}
         </div>
       ) : (
-        entries.map((entry) => (
-          <Entry
-            key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
-            onAddressClick={handleAddressClick}
-          />
-        ))
-      )}
+          entries.map((entry) => (
+            <Entry
+              key={entry.id}
+              location={entry.location}
+              id={entry.id}
+              request={entry.request}
+              timestamp={entry.timestamp}
+              responses={entry.responses}
+              reportedBy={entry.reportedBy}
+              uid={entry.uid}
+              onAddressClick={handleAddressClick}
+              showAsSolved={entry.solved}
+            />
+          ))
+        )}
       {pageSize > 0 && !searching ? (
         <div className="flex justify-center pt-3">
           <button
