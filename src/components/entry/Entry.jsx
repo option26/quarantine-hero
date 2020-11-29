@@ -202,14 +202,19 @@ export default function Entry(props) {
 
   const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
 
+  const clearReportAttempt = (e) => {
+    if (!link.current.contains(e.target)) setAttemptingToReport(false);
+    document.body.removeEventListener('click', clearReportAttempt);
+  };
+
   const topRightButtonBar = (() => {
     if (showAsSolved && !entryBelongsToCurrentUser) {
       return (
-        <div className={`flex justify-center items-center bg-secondary text-white text-xs font-medium rounded px-2`}>
+        <div className="flex justify-center items-center bg-secondary text-white text-xs font-medium rounded px-2">
           {t('components.entry.heroFound')}
           <DoneIcon className="ml-1 inline-block" />
         </div>
-      )
+      );
     }
 
     return (
@@ -254,12 +259,12 @@ export default function Entry(props) {
                 onClick={reportEntry}
               >
                 Post melden?
-                  <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
+                <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
               </button>
             </div>
           ) : null}
-      </div >
-    )
+      </div>
+    );
   })();
 
   const bottomButtonBar = (() => {
@@ -300,11 +305,6 @@ export default function Entry(props) {
       </div>
     );
   })();
-
-  const clearReportAttempt = (e) => {
-    if (!link.current.contains(e.target)) setAttemptingToReport(false);
-    document.body.removeEventListener('click', clearReportAttempt);
-  };
 
   const requestCard = (
     <>
