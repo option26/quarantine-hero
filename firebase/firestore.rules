@@ -8,15 +8,15 @@ service cloud.firestore {
   	function isAdmin() {
   	  return request.auth.uid == "gwPMgUwQyNWMI8LpMBIaJcDvXPc2"
   	}
-    
+
     function emailVerified() {
     	return request.auth.token.email_verified;
     }
-    
+
     function matchesRequestUserId(userId) {
     	return request.auth.uid == userId;
     }
-  	
+
     match /ask-for-help/{askForHelpId} {
       // Everyone can read the help requests
       allow get, list: if true;
@@ -24,12 +24,12 @@ service cloud.firestore {
       allow delete: if matchesRequestUserId(resource.data.d.uid) || isAdmin();
       // Posts can only be created if the email is verfied and the user creates a post for himself
       allow create: if emailVerified() && matchesRequestUserId(request.resource.data.d.uid);
-      
+
       // Function to get parent entry
       function askForHelpData() {
         return get(/databases/$(database)/documents/ask-for-help/$(askForHelpId)).data
       }
-      
+
       match /offer-help/{offerHelpId} {
       	// Everyone can answer a request
         allow create: if true;
@@ -64,18 +64,18 @@ service cloud.firestore {
       allow create: if matchesRequestUserId(request.resource.data.uid);
     }
     match /solved-posts/{solvedPostId} {
-      // Users can only see their own completed requests
-      allow get, list: if matchesRequestUserId(resource.data.d.uid);
+      // Everyone can read the solved requests
+      allow get, list: if true;
       // Users can only move their own requests to the solved collection
       allow create: if matchesRequestUserId(request.resource.data.d.uid);
       // Users can only delete their own solved requests
       allow delete: if matchesRequestUserId(resource.data.d.uid);
-      
+
       // Function to get the parent entry
       function solvedPostData() {
         return get(/databases/$(database)/documents/solved-posts/$(solvedPostId)).data
       }
-      
+
       match /offer-help/{offerHelpId} {
         // Users can only see responses to their solved requests
         allow create: if matchesRequestUserId(solvedPostData().d.uid);
