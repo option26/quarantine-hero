@@ -84,6 +84,11 @@ export default function EntryList({ pageSize = 0 }) {
     }
   };
 
+  // we cannot use destructuring syntax here because it will break the firebase document entries
+  const getAnnotatedSolvedPosts = (solvedPostsResults) => solvedPostsResults.docs.map((entry) => {
+    entry.solved = true; // eslint-disable-line no-param-reassign
+    return entry;
+  });
 
   const appendDocuments = (documents) => {
     setLastEntry(documents[documents.length - 1]);
@@ -100,10 +105,7 @@ export default function EntryList({ pageSize = 0 }) {
     const solvedPostsResults = await solvedPostsQuery.get();
     setEntries([]);
 
-    const solvedPostsResultsAnnotated = solvedPostsResults.docs.map((entry) => {
-      entry.solved = true;
-      return entry;
-    })
+    const solvedPostsResultsAnnotated = getAnnotatedSolvedPosts(solvedPostsResults);
 
     let documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
 
@@ -133,11 +135,11 @@ export default function EntryList({ pageSize = 0 }) {
     const solvedPostsQuery = await buildQuery(solvedPostsCollection, lastEntry);
     const askForHelpResults = await askForHelpQuery.get();
     const solvedPostsResults = await solvedPostsQuery.get();
-    const { length: askForHelpResultsLength } = askForHelpResults.docs
-    const { length: solvedPostsResultsLength } = solvedPostsResults.docs
+    const { length: askForHelpResultsLength } = askForHelpResults.docs;
+    const { length: solvedPostsResultsLength } = solvedPostsResults.docs;
 
     if (!askForHelpResultsLength && !solvedPostsResultsLength) {
-      return
+      return;
     }
 
     if (!solvedPostsResultsLength) {
@@ -150,10 +152,7 @@ export default function EntryList({ pageSize = 0 }) {
       return;
     }
 
-    const solvedPostsResultsAnnotated = solvedPostsResults.docs.map((entry) => {
-      entry.solved = true;
-      return entry;
-    })
+    const solvedPostsResultsAnnotated = getAnnotatedSolvedPosts(solvedPostsResults);
     const documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
     const sortedDocs = documents.sort(
       (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
@@ -167,7 +166,7 @@ export default function EntryList({ pageSize = 0 }) {
       loadDocuments(
         buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, addressFromUrl),
         buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, addressFromUrl),
-        true
+        true,
       );
     } else {
       setLocation('');
@@ -181,7 +180,7 @@ export default function EntryList({ pageSize = 0 }) {
       setSearching(false);
       loadDocuments(
         buildQuery(askForHelpCollection),
-        buildQuery(solvedPostsCollection)
+        buildQuery(solvedPostsCollection),
       );
     }
 
@@ -200,7 +199,8 @@ export default function EntryList({ pageSize = 0 }) {
             loadDocuments(
               buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address),
               buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, address),
-              true);
+              true,
+            );
           }, 500),
         );
       }
@@ -217,13 +217,13 @@ export default function EntryList({ pageSize = 0 }) {
         loadDocuments(
           buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address, placeId),
           buildFilteredQuery(solvedPostsCollection, geoCollectionAskForHelp, address, placeId),
-          true
+          true,
         );
       } else {
         setSearching(false);
         loadDocuments(
           buildQuery(askForHelpCollection),
-          buildQuery(solvedPostsCollection)
+          buildQuery(solvedPostsCollection),
         );
       }
     }
@@ -275,7 +275,7 @@ export default function EntryList({ pageSize = 0 }) {
               loadDocuments(
                 buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, location),
                 buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, location),
-                searching
+                searching,
               );
             }}
           />
