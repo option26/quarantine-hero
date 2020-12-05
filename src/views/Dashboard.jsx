@@ -142,8 +142,6 @@ function Dashboard(props) {
     </div>
   );
 
-  const tabButtonClass = 'text-black font-bold w-1/2 btn-bottom-border-black';
-
   return (
     <div className="pt-0 md:pt-4">
       <div className="w-full flex justify-center mt-4">
@@ -159,8 +157,8 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(true);
             }}
-            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-3 btn-main ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'
-              } hover:opacity-75`}
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-3 btn-main
+            ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.open')}
           </button>
@@ -169,8 +167,8 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(false);
             }}
-            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-3 btn-main ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'
-              } hover:opacity-75`}
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-3 btn-main
+             ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.solved')}
           </button>
@@ -179,8 +177,8 @@ function Dashboard(props) {
         {isOpenEntriesView ? (
           <OpenRequests />
         ) : (
-            <ResolvedRequests />
-          )}
+          <ResolvedRequests />
+        )}
       </div>
 
       <div className="w-full flex justify-center mt-10">
@@ -200,7 +198,7 @@ function Dashboard(props) {
                 <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
                 {' '}
                 {t('views.dashboard.register')}
-            .
+                .
               </div>
             )
             : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)
@@ -210,7 +208,7 @@ function Dashboard(props) {
       <div className="mt-12">
         <DeleteAccountButton className="rounded text-white p-3  mr-4 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
-    </div >
+    </div>
   );
 }
 
