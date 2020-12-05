@@ -4,9 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import Popup from 'reactjs-popup';
-import {
-  Tabs, Tab, TabPanel, TabList,
-} from 'react-web-tabs';
 import * as firebase from 'firebase/app';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
@@ -51,6 +48,8 @@ function Notification(props) {
 function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
+
+  const [isOpenEntriesView, setIsOpenEntriesView] = useState(true);
 
   const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl } = useQuery();
 
@@ -153,28 +152,44 @@ function Dashboard(props) {
         </div>
       </div>
       <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
-        <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
-        <Tabs defaultTab="open">
-          <TabList>
-            <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
-            <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
-          </TabList>
-          <TabPanel tabId="open" data-cy="tabs-open-content">
-            <OpenRequests />
-          </TabPanel>
-          <TabPanel tabId="solved" data-cy="tabs-solved-content">
+        <h1 className="font-teaser py-4 pt-0 md:pt-4">{t('views.dashboard.yourRequests')}</h1>
+        <div className="flex flex-row justify-center py-4">
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpenEntriesView(true);
+            }}
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-3 btn-main ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'
+              } hover:opacity-75`}
+          >
+            {t('views.dashboard.tabs.open')}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpenEntriesView(false);
+            }}
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-3 btn-main ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'
+              } hover:opacity-75`}
+          >
+            {t('views.dashboard.tabs.solved')}
+          </button>
+        </div>
+
+        {isOpenEntriesView ? (
+          <OpenRequests />
+        ) : (
             <ResolvedRequests />
-          </TabPanel>
-        </Tabs>
+          )}
       </div>
 
-      <div className="w-full flex justify-center mt-8">
+      <div className="w-full flex justify-center mt-10">
         <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
           {t('views.dashboard.doYouWantToHelp')}
         </div>
       </div>
       <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
-        <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourNotifications')}</h1>
+        <h1 className="font-teaser py-4 pt-0 md:pt-4">{t('views.dashboard.yourNotifications')}</h1>
 
         {
           offers.length === 0
