@@ -146,40 +146,56 @@ function Dashboard(props) {
   const tabButtonClass = 'text-black font-bold w-1/2 btn-bottom-border-black';
 
   return (
-    <div className="p-4 pt-0 md:pt-4">
-      <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
-      <Tabs defaultTab="open">
-        <TabList>
-          <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
-          <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
-        </TabList>
-        <TabPanel tabId="open" data-cy="tabs-open-content">
-          <OpenRequests />
-        </TabPanel>
-        <TabPanel tabId="solved" data-cy="tabs-solved-content">
-          <ResolvedRequests />
-        </TabPanel>
-      </Tabs>
+    <div className="pt-0 md:pt-4">
+      <div className="w-full flex justify-center mt-4">
+        <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+          {t('views.dashboard.doYouNeedHelp')}
+        </div>
+      </div>
+      <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
+        <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
+        <Tabs defaultTab="open">
+          <TabList>
+            <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
+            <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
+          </TabList>
+          <TabPanel tabId="open" data-cy="tabs-open-content">
+            <OpenRequests />
+          </TabPanel>
+          <TabPanel tabId="solved" data-cy="tabs-solved-content">
+            <ResolvedRequests />
+          </TabPanel>
+        </Tabs>
+      </div>
 
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
+      <div className="w-full flex justify-center mt-8">
+        <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+          {t('views.dashboard.doYouWantToHelp')}
+        </div>
+      </div>
+      <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
+        <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourNotifications')}</h1>
 
-      {offers.length === 0
-        ? (
-          <div className="font-open-sans">
-            {t('views.dashboard.noNotificationsSubscribed')}
-            {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
-            {' '}
-            {t('views.dashboard.register')}
+        {
+          offers.length === 0
+            ? (
+              <div className="font-open-sans">
+                {t('views.dashboard.noNotificationsSubscribed')}
+                {' '}
+                <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
+                {' '}
+                {t('views.dashboard.register')}
             .
-          </div>
-        )
-        : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
+              </div>
+            )
+            : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)
+        }
+      </div>
 
       <div className="mt-12">
-        <DeleteAccountButton className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" user={user} />
+        <DeleteAccountButton className="rounded text-white p-3  mr-4 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
-    </div>
+    </div >
   );
 }
 
