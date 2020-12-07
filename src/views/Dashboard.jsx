@@ -150,14 +150,14 @@ function Dashboard(props) {
         </div>
       </div>
       <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
-        <h1 className="font-teaser py-4 pt-0 md:pt-4">{t('views.dashboard.yourRequests')}</h1>
+        <h1 className="font-teaser">{t('views.dashboard.yourRequests')}</h1>
         <div className="flex flex-row justify-center py-4">
           <button
             type="button"
             onClick={() => {
               setIsOpenEntriesView(true);
             }}
-            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-3 btn-main
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main
             ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.open')}
@@ -167,7 +167,7 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(false);
             }}
-            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-3 btn-main
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main
              ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.solved')}
@@ -187,7 +187,7 @@ function Dashboard(props) {
         </div>
       </div>
       <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
-        <h1 className="font-teaser py-4 pt-0 md:pt-4">{t('views.dashboard.yourNotifications')}</h1>
+        <h1 className="font-teaser py-4 pt-0">{t('views.dashboard.yourNotifications')}</h1>
 
         {
           offers.length === 0
@@ -206,7 +206,7 @@ function Dashboard(props) {
       </div>
 
       <div className="mt-12">
-        <DeleteAccountButton className="rounded text-white p-3  mr-4 btn-main bg-primary hover:opacity-75 float-right" user={user} />
+        <DeleteAccountButton className="rounded text-white p-3 mr-4 md:mr-0 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
     </div>
   );
