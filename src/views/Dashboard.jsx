@@ -154,6 +154,7 @@ function Dashboard(props) {
         <div className="flex flex-row justify-center py-4">
           <button
             type="button"
+            data-cy="tabs-open"
             onClick={() => {
               setIsOpenEntriesView(true);
             }}
@@ -164,6 +165,7 @@ function Dashboard(props) {
           </button>
           <button
             type="button"
+            data-cy="tabs-solved"
             onClick={() => {
               setIsOpenEntriesView(false);
             }}
@@ -175,9 +177,9 @@ function Dashboard(props) {
         </div>
 
         {isOpenEntriesView ? (
-          <OpenRequests />
+          <OpenRequests data-cy="tabs-open-content"/>
         ) : (
-          <ResolvedRequests />
+          <ResolvedRequests data-cy="tabs-solved-content"/>
         )}
       </div>
 
