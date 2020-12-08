@@ -333,25 +333,6 @@
     color: #87a544
 }
 
-/* the following classes are necessary to overwrite the default border of the tab bar */
-.btn-bottom-border-black::after {
-    border-bottom: 3px solid #222222;
-}
-
-.rwt__tablist:not([aria-orientation="vertical"]) .rwt__tab[aria-selected="true"]:after {
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    border-bottom: 3px solid #222222;
-}
-
-.rwt__tablist[aria-orientation="vertical"] .rwt__tab[aria-selected="true"]:after {
-    right: -1px;
-    top: 0;
-    height: 100%;
-    border-bottom: 3px solid #222222;
-}
-
 .hyphens-auto {
     hyphens: auto;
 }
@@ -396,15 +377,4 @@ input:checked + svg, input:checked + img {
     pointer-events: none;
     background-image: linear-gradient(to left, rgba(255, 255, 255, 0), white 40%);
     width: 4rem;
-}
-
-@media only screen and (max-width: 834px) {
-    .rwt__tab {
-        background: transparent;
-        border: 0;
-        font-family: inherit;
-        font-size: .875rem;
-        transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-        padding-left: 1rem;
-    }
 }
