@@ -177,9 +177,9 @@ function Dashboard(props) {
         </div>
 
         {isOpenEntriesView ? (
-          <OpenRequests data-cy="tabs-open-content"/>
+          <OpenRequests data-cy="tabs-open-content" />
         ) : (
-          <ResolvedRequests data-cy="tabs-solved-content"/>
+          <ResolvedRequests data-cy="tabs-solved-content" />
         )}
       </div>
 
