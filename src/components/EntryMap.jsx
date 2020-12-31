@@ -80,7 +80,7 @@ export default function EntryMap() {
           bootstrapURLKeys={{
             language: 'de',
             region: 'de',
-            key: 'AIzaSyDFCKxZqlzYTZ2MDnDrKnfe00jU8vJd4Yg',
+            key: process.env.REACT_GOOGLE_MAPS_KEY,
           }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map }) => {

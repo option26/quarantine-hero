@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 import * as firebase from 'firebase/app';
+import { useTranslation } from 'react-i18next';
 import Loader from '../components/loader/Loader';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
@@ -8,6 +9,7 @@ import useFirebaseDownload from '../util/useFirebaseDownload';
 export default function Press() {
   const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
   const [articles] = useCms('press');
+  const { t } = useTranslation();
 
   if (errorGeneratingPressLink) {
     Sentry.captureException(errorGeneratingPressLink);
@@ -37,12 +39,10 @@ export default function Press() {
     <div>
       <div className="mt-4 p-4">
         <div className="font-teaser">
-          Aktuelle Pressemeldungen und ein Pressekit
+          {t('views.press.newsAndPressKit')}
         </div>
         <div className="font-open-sans mt-4">
-          Neben vielen lokalen Held*innen haben unter anderem diese Medien geholfen, die QuarantäneHeld*innen bekannt zu machen, um noch mehr Hilfesuchende zu
-          unterstützen.
-          Hier findet Ihr aktuelle Artikel und Nachrichten.
+          {t('views.press.manyMediaOutletsReported')}
         </div>
         <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex">
           <div>
@@ -50,9 +50,9 @@ export default function Press() {
           </div>
           <div>
             <div className="font-bold">
-              Presse Informationen
+              {t('views.press.pressInformation')}
             </div>
-            Pressekit (Logos, Pressetext, Grafiken):
+            {t('views.press.pressKit')}
             <br className="sm:hidden" />
             {' '}
             <a
@@ -61,13 +61,13 @@ export default function Press() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              QuarantaeneHeld*innen.zip
+              {t('views.press.pressKitFilename')}
             </a>
             <div>
-              Pressekontakt:
+              {t('views.press.pressContact')}
               <br className="sm:hidden" />
               {' '}
-              <a href="mailto:presse@quarantaenehelden.org" className="text-secondary hover:underline">presse@quarantaenehelden.org</a>
+              <a href={`mailto:${t('views.press.pressMail')}`} className="text-secondary hover:underline">{t('views.press.pressMail')}</a>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function Press() {
           ))}
         </Loader>
         <div className="bg-kaki p-4 mb-4 mt-4 font-open-sans w-full text-center">
-          <div className="font-bold">Und viele mehr!</div>
+          <div className="font-bold">{t('views.press.andManyMore')}</div>
         </div>
       </div>
     </div>

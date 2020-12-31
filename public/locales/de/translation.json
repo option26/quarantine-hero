@@ -63,6 +63,16 @@
       },
       "enterYourPostalCode": "Gib Deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in Deinem Umkreis zu finden."
     },
+    "press": {
+      "newsAndPressKit": "Aktuelle Pressemeldungen und ein Pressekit",
+      "manyMediaOutletsReported": "Neben vielen lokalen Held*innen haben unter anderem diese Medien geholfen, die QuarantäneHeld*innen bekannt zu machen, um noch mehr Hilfesuchende zu unterstützen. Hier findet Ihr aktuelle Artikel und Nachrichten.",
+      "pressInformation": "Presse Informationen",
+      "pressKit": "Pressekit (Logos, Pressetext, Grafiken):",
+      "pressKitFileName": "QuarantaeneHeld*innen.zip",
+      "pressContact": "Pressekontakt:",
+      "pressMail": "presse@quarantaenehelden.org",
+      "andManyMore": "Und viele mehr!"
+    },
     "filteredListFrame": {
       "description": "<strong>Nachbarschaftshilfe</strong> im <br/> deutschsprachigen Raum mit <br/> über 37.000 registrierten Helfenden",
       "searchCurrent": "Aktuelle Anfragen durchsuchen"
@@ -99,10 +109,12 @@
       "isLoading": "Daten werden geladen …",
       "youWillBeNotified": "Du wirst benachrichtigt, wenn jemand in der Nähe von",
       "needsHelp": "Hilfe benötigt",
+      "doYouNeedHelp": "BENÖTIGST DU HILFE?",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
       "noResolvedRequests": "Du hast noch keine Held*innen für Deine Gesuche gefunden. Du kannst ein neues Gesuch",
       "create": "erstellen",
+      "doYouWantToHelp": "DU WILLST HELFEN?",
       "yourNotifications": "Deine Benachrichtigungen",
       "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
       "here": "hier",
@@ -187,7 +199,10 @@
       "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
       "partnerTextIntro": "Für heldenhafte Hilfe von {{helpers}} registrierten Helfenden:",
       "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!",
-      "weakPassword": "Das angegebene Passwort ist leicht zu erraten. Bitte wähle ein stärkeres."
+      "weakPassword": "Das angegebene Passwort ist leicht zu erraten. Bitte wähle ein stärkeres.",
+      "conveyHelp": "Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!",
+      "youNeedHelp": "Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.",
+      "wantOfferHelp": "Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen."
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",

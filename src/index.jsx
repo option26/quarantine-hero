@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 // we ignore this check here.
 // eslint-disable-next-line import/no-unresolved
 import './styles/tailwind.css';
-import 'react-web-tabs/dist/react-web-tabs.css';
 
 import './styles/index.css';
 import './styles/App.css';

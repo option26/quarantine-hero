@@ -124,13 +124,13 @@ function Explanation() {
       </button>
       <Collapse in={isOpen}>
         <div className="p-4 bg-kaki">
-          Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!
+          {t('views.signUp.conveyHelp')}
           <br />
           <br />
-          Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.
+          {t('views.signUp.youNeedHelp')}
           <br />
           <br />
-          Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen.
+          {t('views.signUp.wantOfferHelp')}
         </div>
       </Collapse>
     </>

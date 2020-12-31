@@ -4,9 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import Popup from 'reactjs-popup';
-import {
-  Tabs, Tab, TabPanel, TabList,
-} from 'react-web-tabs';
 import * as firebase from 'firebase/app';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
@@ -51,6 +48,8 @@ function Notification(props) {
 function Dashboard(props) {
   const { user } = props;
   const { t } = useTranslation();
+
+  const [isOpenEntriesView, setIsOpenEntriesView] = useState(true);
 
   const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl } = useQuery();
 
@@ -143,41 +142,73 @@ function Dashboard(props) {
     </div>
   );
 
-  const tabButtonClass = 'text-black font-bold w-1/2 btn-bottom-border-black';
-
   return (
-    <div className="p-4 pt-0 md:pt-4">
-      <h1 className="font-teaser py-4 pt-0 md:pt-10">{t('views.dashboard.yourRequests')}</h1>
-      <Tabs defaultTab="open">
-        <TabList>
-          <Tab tabFor="open" data-cy="tabs-open" className={tabButtonClass}>{t('views.dashboard.tabs.open')}</Tab>
-          <Tab tabFor="solved" data-cy="tabs-solved" className={tabButtonClass}>{t('views.dashboard.tabs.solved')}</Tab>
-        </TabList>
-        <TabPanel tabId="open" data-cy="tabs-open-content">
-          <OpenRequests />
-        </TabPanel>
-        <TabPanel tabId="solved" data-cy="tabs-solved-content">
-          <ResolvedRequests />
-        </TabPanel>
-      </Tabs>
+    <div className="pt-0 md:pt-4">
+      <div className="w-full flex justify-center mt-4">
+        <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+          {t('views.dashboard.doYouNeedHelp')}
+        </div>
+      </div>
+      <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
+        <h1 className="font-teaser">{t('views.dashboard.yourRequests')}</h1>
+        <div className="flex flex-row justify-center py-4">
+          <button
+            type="button"
+            data-cy="tabs-open"
+            onClick={() => {
+              setIsOpenEntriesView(true);
+            }}
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main
+            ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'} hover:opacity-75`}
+          >
+            {t('views.dashboard.tabs.open')}
+          </button>
+          <button
+            type="button"
+            data-cy="tabs-solved"
+            onClick={() => {
+              setIsOpenEntriesView(false);
+            }}
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main
+             ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'} hover:opacity-75`}
+          >
+            {t('views.dashboard.tabs.solved')}
+          </button>
+        </div>
 
-      <h1 className="font-teaser py-4 pt-10">{t('views.dashboard.yourNotifications')}</h1>
+        {isOpenEntriesView ? (
+          <OpenRequests data-cy="tabs-open-content" />
+        ) : (
+          <ResolvedRequests data-cy="tabs-solved-content" />
+        )}
+      </div>
 
-      {offers.length === 0
-        ? (
-          <div className="font-open-sans">
-            {t('views.dashboard.noNotificationsSubscribed')}
-            {' '}
-            <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
-            {' '}
-            {t('views.dashboard.register')}
-            .
-          </div>
-        )
-        : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)}
+      <div className="w-full flex justify-center mt-10">
+        <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+          {t('views.dashboard.doYouWantToHelp')}
+        </div>
+      </div>
+      <div className="bg-kaki p-4 mt-3 pt-8 md:mx-0">
+        <h1 className="font-teaser py-4 pt-0">{t('views.dashboard.yourNotifications')}</h1>
+
+        {
+          offers.length === 0
+            ? (
+              <div className="font-open-sans">
+                {t('views.dashboard.noNotificationsSubscribed')}
+                {' '}
+                <Link className="text-secondary hover:underline" to="/notify-me" onClick={() => fb.analytics.logEvent('button_subscribe_region')}>{t('views.dashboard.here')}</Link>
+                {' '}
+                {t('views.dashboard.register')}
+                .
+              </div>
+            )
+            : offers.map((offer) => <Notification location={offer.location} id={offer.id} key={offer.id} />)
+        }
+      </div>
 
       <div className="mt-12">
-        <DeleteAccountButton className="rounded text-white p-3 btn-main bg-primary hover:opacity-75 float-right" user={user} />
+        <DeleteAccountButton className="rounded text-white p-3 mr-4 md:mr-0 btn-main bg-primary hover:opacity-75 float-right" user={user} />
       </div>
     </div>
   );
