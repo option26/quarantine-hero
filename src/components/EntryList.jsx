@@ -102,7 +102,7 @@ export default function EntryList({ pageSize = 0 }) {
 
   const getSortedOpenDocuments = (documents) => {
     if (isMapsApiEnabled) {
-      // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
+      // if maps api is enabled, we retrieve documents from the geo collection, resulting in different structure
       return sortDocumentsByTimestamp(documents);
     }
     return sortDocumentsByTimestampOnDataProperty(documents);
