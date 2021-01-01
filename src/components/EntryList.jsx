@@ -138,17 +138,14 @@ export default function EntryList({ pageSize = 0 }) {
   const loadMoreDocuments = async () => {
     const askForHelpQuery = await buildQuery(askForHelpCollection, lastEntry);
     const askForHelpResults = await askForHelpQuery.get();
-    const { length: askForHelpResultsLength } = askForHelpResults.docs;
 
-    if (!askForHelpResultsLength) {
+    if (!askForHelpResults.docs.length) {
       return;
     }
 
     const documents = [...askForHelpResults.docs];
-    const sortedDocs = documents.sort(
-      (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
-    );
-    appendDocuments(sortedDocs);
+    const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
+    appendDocuments(sortedDocuments);
   };
 
   useEffect(() => {
