@@ -31,7 +31,6 @@ export default function EntryList({ pageSize = 0 }) {
   const askForHelpCollection = fb.store.collection('ask-for-help');
   const solvedPostsCollection = fb.store.collection('solved-posts');
   const geoCollectionAskForHelp = new GeoFirestore(fb.store).collection('ask-for-help');
-  const geoCollectionSolvedPosts = new GeoFirestore(fb.store).collection('solved-posts');
 
   const [lastEntry, setLastEntry] = useState(undefined);
   const [scheduledSearch, setScheduledSearch] = useState(undefined);
@@ -98,7 +97,37 @@ export default function EntryList({ pageSize = 0 }) {
     setEntries((e) => [...e, ...newEntries]);
   };
 
-  const loadDocuments = async (askForHelpQueryPromise, solvedPostsQueryPromise, searchActive) => {
+  const sortDocumentsByTimestamp = (documents) => documents.sort((doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp);
+  const sortDocumentsByTimestampOnDataProperty = (documents) => documents.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
+
+  const getSortedDocuments = (documents, searchActive) => {
+    // we need to perform client-side sorting since the location filter is applied
+    // https://github.com/quarantine-hero/quarantine-hero/issues/89
+    if (searchActive) {
+      if (isMapsApiEnabled) {
+        // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
+        const sortedDocuments = sortDocumentsByTimestamp(documents);
+        return sortedDocuments;
+      }
+      const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
+      return sortedDocuments;
+    }
+
+    const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
+    return sortedDocuments;
+  };
+
+  const loadOpenDocuments = async (queryPromise, searchActive) => {
+    const query = await queryPromise;
+    const results = await query.get();
+    setEntries([]);
+
+    const documents = results.docs;
+    const sortedDocuments = getSortedDocuments(documents, searchActive);
+    appendDocuments(sortedDocuments);
+  };
+
+  const loadOpenAndSolvedDocuments = async (askForHelpQueryPromise, solvedPostsQueryPromise, searchActive) => {
     const askForHelpQuery = await askForHelpQueryPromise;
     const solvedPostsQuery = await solvedPostsQueryPromise;
     const askForHelpResults = await askForHelpQuery.get();
@@ -107,53 +136,21 @@ export default function EntryList({ pageSize = 0 }) {
 
     const solvedPostsResultsAnnotated = getAnnotatedSolvedPosts(solvedPostsResults);
 
-    let documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
-
-    // we need to perform client-side sorting since the location filter is applied
-    // https://github.com/quarantine-hero/quarantine-hero/issues/89
-    if (searchActive) {
-      if (isMapsApiEnabled) {
-        // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
-        documents = documents.sort(
-          (doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp,
-        );
-      } else {
-        documents = documents.sort(
-          (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
-        );
-      }
-    } else {
-      documents = documents.sort(
-        (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
-      );
-    }
-    appendDocuments(documents);
+    const documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
+    const sortedDocuments = getSortedDocuments(documents, searchActive);
+    appendDocuments(sortedDocuments);
   };
 
   const loadMoreDocuments = async () => {
     const askForHelpQuery = await buildQuery(askForHelpCollection, lastEntry);
-    const solvedPostsQuery = await buildQuery(solvedPostsCollection, lastEntry);
     const askForHelpResults = await askForHelpQuery.get();
-    const solvedPostsResults = await solvedPostsQuery.get();
     const { length: askForHelpResultsLength } = askForHelpResults.docs;
-    const { length: solvedPostsResultsLength } = solvedPostsResults.docs;
-
-    if (!askForHelpResultsLength && !solvedPostsResultsLength) {
-      return;
-    }
-
-    if (!solvedPostsResultsLength) {
-      appendDocuments(askForHelpResults.docs);
-      return;
-    }
 
     if (!askForHelpResultsLength) {
-      appendDocuments(solvedPostsResults.docs);
       return;
     }
 
-    const solvedPostsResultsAnnotated = getAnnotatedSolvedPosts(solvedPostsResults);
-    const documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
+    const documents = [...askForHelpResults.docs];
     const sortedDocs = documents.sort(
       (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
     );
@@ -163,14 +160,13 @@ export default function EntryList({ pageSize = 0 }) {
   useEffect(() => {
     if (addressFromUrl) {
       setLocation(addressFromUrl);
-      loadDocuments(
+      loadOpenDocuments(
         buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, addressFromUrl),
-        buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, addressFromUrl),
         true,
       );
     } else {
       setLocation('');
-      loadDocuments(buildQuery(askForHelpCollection), buildQuery(solvedPostsCollection));
+      loadOpenAndSolvedDocuments(buildQuery(askForHelpCollection), buildQuery(solvedPostsCollection));
     }
   }, [addressFromUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -178,7 +174,7 @@ export default function EntryList({ pageSize = 0 }) {
     setLocation(address);
     if (!address) {
       setSearching(false);
-      loadDocuments(
+      loadOpenAndSolvedDocuments(
         buildQuery(askForHelpCollection),
         buildQuery(solvedPostsCollection),
       );
@@ -196,9 +192,8 @@ export default function EntryList({ pageSize = 0 }) {
         setSearching(true);
         setScheduledSearch(
           setTimeout(() => {
-            loadDocuments(
+            loadOpenDocuments(
               buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address),
-              buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, address),
               true,
             );
           }, 500),
@@ -214,14 +209,13 @@ export default function EntryList({ pageSize = 0 }) {
       // If address is non-empty search for it
       if (address) {
         setSearching(true);
-        loadDocuments(
+        loadOpenDocuments(
           buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, address, placeId),
-          buildFilteredQuery(solvedPostsCollection, geoCollectionAskForHelp, address, placeId),
           true,
         );
       } else {
         setSearching(false);
-        loadDocuments(
+        loadOpenAndSolvedDocuments(
           buildQuery(askForHelpCollection),
           buildQuery(solvedPostsCollection),
         );
@@ -272,9 +266,8 @@ export default function EntryList({ pageSize = 0 }) {
             onChange={(v) => setRadius(v)}
             onAfterChange={() => {
               setSliderVisible(false);
-              loadDocuments(
+              loadOpenDocuments(
                 buildFilteredQuery(askForHelpCollection, geoCollectionAskForHelp, location),
-                buildFilteredQuery(solvedPostsCollection, geoCollectionSolvedPosts, location),
                 searching,
               );
             }}
