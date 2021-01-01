@@ -133,7 +133,7 @@ export default function Main() {
 
         <div className="md:hidden p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
           <p className="hyphens-auto md:leading-7 text-justify flex-1">
-            <Trans i18nKey="views.main.explanations.needHelp" />
+            <Trans i18nKey="views.main.explanations.combined" />
           </p>
         </div>
       </div>
