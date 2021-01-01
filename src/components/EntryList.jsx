@@ -138,14 +138,10 @@ export default function EntryList({ pageSize = 0 }) {
   const loadMoreDocuments = async () => {
     const askForHelpQuery = await buildQuery(askForHelpCollection, lastEntry);
     const askForHelpResults = await askForHelpQuery.get();
-
     if (!askForHelpResults.docs.length) {
       return;
     }
-
-    const documents = [...askForHelpResults.docs];
-    const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
-    appendDocuments(sortedDocuments);
+    appendDocuments(askForHelpResults.docs);
   };
 
   useEffect(() => {
