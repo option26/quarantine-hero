@@ -106,15 +106,11 @@ export default function EntryList({ pageSize = 0 }) {
     if (searchActive) {
       if (isMapsApiEnabled) {
         // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
-        const sortedDocuments = sortDocumentsByTimestamp(documents);
-        return sortedDocuments;
+        return sortDocumentsByTimestamp(documents);
       }
-      const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
-      return sortedDocuments;
+      return sortDocumentsByTimestampOnDataProperty(documents);
     }
-
-    const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
-    return sortedDocuments;
+    return sortDocumentsByTimestampOnDataProperty(documents);
   };
 
   const loadOpenDocuments = async (queryPromise, searchActive) => {
