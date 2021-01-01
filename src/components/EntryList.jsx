@@ -100,15 +100,10 @@ export default function EntryList({ pageSize = 0 }) {
   const sortDocumentsByTimestamp = (documents) => documents.sort((doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp);
   const sortDocumentsByTimestampOnDataProperty = (documents) => documents.sort((doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp);
 
-  const getSortedDocuments = (documents, searchActive) => {
-    // we need to perform client-side sorting since the location filter is applied
-    // https://github.com/quarantine-hero/quarantine-hero/issues/89
-    if (searchActive) {
-      if (isMapsApiEnabled) {
-        // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
-        return sortDocumentsByTimestamp(documents);
-      }
-      return sortDocumentsByTimestampOnDataProperty(documents);
+  const getSortedOpenDocuments = (documents) => {
+    if (isMapsApiEnabled) {
+      // if maps api is enabled, we retrieve documents from the geo collections, resulting in different structure
+      return sortDocumentsByTimestamp(documents);
     }
     return sortDocumentsByTimestampOnDataProperty(documents);
   };
@@ -119,11 +114,13 @@ export default function EntryList({ pageSize = 0 }) {
     setEntries([]);
 
     const documents = results.docs;
-    const sortedDocuments = getSortedDocuments(documents, searchActive);
+    // we need to perform client-side sorting if the location filter is applied
+    // https://github.com/quarantine-hero/quarantine-hero/issues/89
+    const sortedDocuments = searchActive ? getSortedOpenDocuments(documents) : documents;
     appendDocuments(sortedDocuments);
   };
 
-  const loadOpenAndSolvedDocuments = async (askForHelpQueryPromise, solvedPostsQueryPromise, searchActive) => {
+  const loadOpenAndSolvedDocuments = async (askForHelpQueryPromise, solvedPostsQueryPromise) => {
     const askForHelpQuery = await askForHelpQueryPromise;
     const solvedPostsQuery = await solvedPostsQueryPromise;
     const askForHelpResults = await askForHelpQuery.get();
@@ -133,7 +130,8 @@ export default function EntryList({ pageSize = 0 }) {
     const solvedPostsResultsAnnotated = getAnnotatedSolvedPosts(solvedPostsResults);
 
     const documents = [...askForHelpResults.docs, ...solvedPostsResultsAnnotated];
-    const sortedDocuments = getSortedDocuments(documents, searchActive);
+    // we always need to perform client-side sorting if we need to display open and solved documents
+    const sortedDocuments = sortDocumentsByTimestampOnDataProperty(documents);
     appendDocuments(sortedDocuments);
   };
 
