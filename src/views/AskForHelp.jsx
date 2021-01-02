@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
-import { isMapsApiEnabled } from '../featureFlags';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import { useEmailVerified } from '../util/emailVerified';
 
@@ -24,21 +23,13 @@ export default function AskForHelp() {
     // Prevent page reload
     e.preventDefault();
 
-    let lat = 0;
-    let lng = 0;
-    let plz = location;
-
-    if (isMapsApiEnabled) {
-      if (!placeId) {
-        throw new Error('PlaceId was undefined in ask-for-help');
-      }
-      const result = await getGeodataForPlace(placeId);
-
-      plz = result.plz;
-      const coordinates = getLatLng(result);
-      lat = coordinates.lat;
-      lng = coordinates.lng;
+    if (!placeId) {
+      throw new Error('PlaceId was undefined in ask-for-help');
     }
+
+    const geoData = await getGeodataForPlace(placeId);
+    const { plz } = geoData;
+    const { lat, lng } = getLatLng(geoData);
 
     // Create a GeoFirestore reference
     const geofirestore = new GeoFirestore(fb.store);
