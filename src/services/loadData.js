@@ -20,6 +20,8 @@ export async function getInitialDocuments(pageSize = 20) {
   const askForHelpDocuments = await askForHelpQuery.get().then((snap) => snap.docs.map(parseDoc).filter(Boolean));
   const solvedPostsDocuments = await solvedPostsQuery.get().then((snap) => snap.docs.map(markSolved).map(parseDoc).filter(Boolean));
 
+  // We want to filter out all solved posts that are older than the last ask-for-help we loaded
+  // If we would not do this, it could be the case that the global time sorting is wrong if more documents are loaded
   const oldestAskForHelpTimestamp = Math.min(...askForHelpDocuments.map((d) => d.timestamp));
   const youngerSolvedPostsDocuments = solvedPostsDocuments.filter((d) => d.timestamp >= oldestAskForHelpTimestamp);
 

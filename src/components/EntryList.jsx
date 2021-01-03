@@ -33,7 +33,11 @@ export default function EntryList({ pageSize }) {
       return;
     }
 
-    const oldestEntry = documents.filter((d) => !d.solved).reduce((oldest, doc) => (doc.timestamp < oldest.timestamp ? doc : oldest), documents[0]);
+    // We need to filter oout the solved posts here as we want to load the next documents based on the timestamp of the last ask-for-help document
+    const oldestEntry = documents
+      .filter((d) => !d.solved)
+      .reduce((oldest, doc) => (doc.timestamp < oldest.timestamp ? doc : oldest), documents[0]);
+
     setLastEntry(oldestEntry);
 
     if (clear) {
@@ -44,6 +48,9 @@ export default function EntryList({ pageSize }) {
   };
 
   const loadMore = async () => {
+    if (lastEntry === undefined) {
+      return;
+    }
     const documents = await loadMoreDocuments(lastEntry.timestamp, pageSize);
     appendDocuments(documents);
   };
@@ -52,6 +59,9 @@ export default function EntryList({ pageSize }) {
     async function init() {
       if (addressFromUrl) {
         const geoData = await getGeodataForString(addressFromUrl);
+        if (geoData === undefined) {
+          return;
+        }
         setLocation(geoData.name);
         setPlaceId(geoData.id);
         const documents = await searchDocuments(geoData, radius);
