@@ -33,7 +33,7 @@ export default function EntryList({ pageSize }) {
       return;
     }
 
-    // We need to filter oout the solved posts here as we want to load the next documents based on the timestamp of the last ask-for-help document
+    // We need to filter out the solved posts here as we want to load the next documents based on the timestamp of the last ask-for-help document
     const oldestEntry = documents
       .filter((d) => !d.solved)
       .reduce((oldest, doc) => (doc.timestamp < oldest.timestamp ? doc : oldest), documents[0]);
