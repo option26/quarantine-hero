@@ -1,176 +1,105 @@
 import React, { useState, useEffect } from 'react';
-import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
-import fb from '../firebase';
 import NotifyMe from './NotifyMe';
 import Entry from './entry/Entry';
 import Slider from './Slider';
 import LocationInput from './LocationInput';
-import { isMapsApiEnabled } from '../featureFlags';
-import {
-  getGeodataForPlace,
-  getGeodataForString,
-  getLatLng,
-} from '../services/GeoService';
-import parseDoc from '../util/parseDoc';
+import { getGeodataForPlace, getGeodataForString } from '../services/GeoService';
 import useQuery from '../util/useQuery';
+import { getInitialDocuments, searchDocuments, loadMoreDocuments } from '../services/loadData';
 
-export default function EntryList({ pageSize = 0 }) {
+export default function EntryList({ pageSize }) {
   const { t } = useTranslation();
   const history = useHistory();
   const windowLocation = useLocation();
 
   const [searching, setSearching] = useState(false);
   const [location, setLocation] = useState('');
+  const [placeId, setPlaceId] = useState();
   const [radius, setRadius] = useState(10); // In KM
   const [sliderVisible, setSliderVisible] = useState(false);
   const [entries, setEntries] = useState([]);
 
-  const collection = fb.store.collection('ask-for-help');
-  const geoCollection = new GeoFirestore(fb.store).collection('ask-for-help');
-
   const [lastEntry, setLastEntry] = useState(undefined);
-  const [scheduledSearch, setScheduledSearch] = useState(undefined);
 
   const { address: addressFromUrl } = useQuery();
 
-  const buildQuery = async (lastLoaded = undefined) => {
-    let query = collection.orderBy('d.timestamp', 'desc');
-
-    if (lastLoaded !== undefined) {
-      query = query.startAfter(lastLoaded);
-    }
-    if (pageSize > 0) {
-      query = query.limit(pageSize);
-    }
-
-    return query;
-  };
-
-  const buildFilteredQuery = async (searchAttr, placeId = undefined) => {
-    // Fallback
-    if (!searchAttr) return buildQuery();
-
-    if (isMapsApiEnabled) {
-      try {
-        let result;
-        if (placeId) {
-          result = await getGeodataForPlace(placeId);
-        } else {
-          result = await getGeodataForString(searchAttr);
-        }
-        const coordinates = getLatLng(result);
-        return geoCollection.near({
-          center: new fb.app.firestore.GeoPoint(
-            coordinates.lat,
-            coordinates.lng,
-          ),
-          radius,
-        });
-      } catch (error) {
-        // Fallback, return mock query
-        Sentry.captureException(error);
-        return { get: () => ({ docs: [] }) };
+  const appendDocuments = (documents, clear = false) => {
+    if (documents.length === 0) {
+      if (clear) {
+        setEntries([]);
       }
+      return;
+    }
+
+    // We need to filter out the solved posts here as we want to load the next documents based on the timestamp of the last ask-for-help document
+    const oldestEntry = documents
+      .filter((d) => !d.solved)
+      .reduce((oldest, doc) => (doc.timestamp < oldest.timestamp ? doc : oldest), documents[0]);
+
+    setLastEntry(oldestEntry);
+
+    if (clear) {
+      setEntries(documents);
     } else {
-      return collection
-        .orderBy('d.plz', 'asc')
-        .startAt(searchAttr)
-        .endAt(`${searchAttr}\uf8ff`);
+      setEntries((e) => [...e, ...documents]);
     }
   };
 
-
-  const appendDocuments = (documents) => {
-    setLastEntry(documents[documents.length - 1]);
-    const newEntries = documents
-      .map(parseDoc)
-      .filter(Boolean); // filter entries that we weren't able to parse and are therefore null
-    setEntries((e) => [...e, ...newEntries]);
-  };
-
-  const loadDocuments = async (queryPromise, searchActive) => {
-    const query = await queryPromise;
-    const results = await query.get();
-    setEntries([]);
-
-    let documents = results.docs;
-
-    // we need to perform client-side sorting since the location filter is applied
-    // https://github.com/quarantine-hero/quarantine-hero/issues/89
-    if (searchActive) {
-      if (isMapsApiEnabled) {
-        documents = documents.sort(
-          (doc1, doc2) => doc2.data().timestamp - doc1.data().timestamp,
-        );
-      } else {
-        documents = documents.sort(
-          (doc1, doc2) => doc2.data().d.timestamp - doc1.data().d.timestamp,
-        );
-      }
+  const loadMore = async () => {
+    if (lastEntry === undefined) {
+      return;
     }
+    const documents = await loadMoreDocuments(lastEntry.timestamp, pageSize);
     appendDocuments(documents);
   };
 
-  const loadMoreDocuments = async () => {
-    const query = await buildQuery(lastEntry);
-    const results = await query.get();
-    if (results.docs.length > 0) {
-      appendDocuments(results.docs);
-    }
-  };
-
   useEffect(() => {
-    if (addressFromUrl) {
-      setLocation(addressFromUrl);
-      loadDocuments(buildFilteredQuery(addressFromUrl), true);
-    } else {
-      setLocation('');
-      loadDocuments(buildQuery());
+    async function init() {
+      if (addressFromUrl) {
+        const geoData = await getGeodataForString(addressFromUrl);
+        if (geoData === undefined) {
+          Sentry.captureException(new Error(`No geoData for url-address: ${addressFromUrl}`));
+          return;
+        }
+        setLocation(geoData.name);
+        setPlaceId(geoData.id);
+        const documents = await searchDocuments(geoData, radius);
+        appendDocuments(documents, true);
+      } else {
+        setLocation('');
+        const documents = await getInitialDocuments(pageSize);
+        appendDocuments(documents, true);
+      }
     }
+
+    init();
   }, [addressFromUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleChange = (address) => {
+  const resetSearch = async () => {
+    setSearching(false);
+    const documents = await getInitialDocuments(pageSize);
+    appendDocuments(documents, true);
+  };
+
+  const handleChange = async (address) => {
     setLocation(address);
+
     if (!address) {
-      setSearching(false);
-      loadDocuments(buildQuery());
-    }
-
-    // Prevent searching on input change if maps api enabled
-    if (!isMapsApiEnabled) {
-      // Stop any scheduled search task
-      if (scheduledSearch) {
-        clearTimeout(scheduledSearch);
-      }
-
-      // If address is non-empty, schedule new search task to only start searching after user stopped typing
-      if (address) {
-        setSearching(true);
-        setScheduledSearch(
-          setTimeout(() => {
-            loadDocuments(buildFilteredQuery(address), true);
-          }, 500),
-        );
-      }
+      resetSearch();
     }
   };
 
-  const handleSelect = (address, placeId) => {
+  const handleSelect = async (address, selectedPlaceId) => {
     setLocation(address);
-    // Prevent action on select if maps api disabled
-    if (isMapsApiEnabled) {
-      // If address is non-empty search for it
-      if (address) {
-        setSearching(true);
-        loadDocuments(buildFilteredQuery(address, placeId), true);
-      } else {
-        setSearching(false);
-        loadDocuments(buildQuery());
-      }
-    }
+    setPlaceId(selectedPlaceId);
+
+    setSearching(true);
+    const geoData = await (selectedPlaceId !== undefined ? getGeodataForPlace(selectedPlaceId) : getGeodataForString(address));
+    const documents = await searchDocuments(geoData, radius);
+    setEntries(documents);
   };
 
   const handleAddressClick = (address) => {
@@ -181,6 +110,16 @@ export default function EntryList({ pageSize = 0 }) {
       };
       history.push(newLocation);
     }
+  };
+
+  const handleRadiusChange = async () => {
+    if (!searching) {
+      return;
+    }
+
+    const geoData = await (placeId !== undefined ? getGeodataForPlace(placeId) : getGeodataForString(location));
+    const documents = await searchDocuments(geoData, radius);
+    setEntries(documents);
   };
 
   return (
@@ -194,18 +133,16 @@ export default function EntryList({ pageSize = 0 }) {
             onSelect={handleSelect}
           />
         </div>
-        {isMapsApiEnabled ? (
-          <div className="px-1 flex">
-            <button
-              type="button"
-              className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
-              onClick={() => setSliderVisible((current) => !current)}
-            >
-              {radius}
-              km
-            </button>
-          </div>
-        ) : null}
+        <div className="px-1 flex">
+          <button
+            type="button"
+            className="outline-none px-2 btn-light btn-main rounded items-center hover:opacity-75"
+            onClick={() => setSliderVisible((current) => !current)}
+          >
+            {radius}
+            km
+          </button>
+        </div>
       </div>
       {sliderVisible ? (
         <div className="pt-5 w-full">
@@ -216,7 +153,7 @@ export default function EntryList({ pageSize = 0 }) {
             onChange={(v) => setRadius(v)}
             onAfterChange={() => {
               setSliderVisible(false);
-              loadDocuments(buildFilteredQuery(location), searching);
+              handleRadiusChange();
             }}
           />
         </div>
@@ -240,6 +177,7 @@ export default function EntryList({ pageSize = 0 }) {
             reportedBy={entry.reportedBy}
             uid={entry.uid}
             onAddressClick={handleAddressClick}
+            showAsSolved={entry.solved}
           />
         ))
       )}
@@ -247,7 +185,7 @@ export default function EntryList({ pageSize = 0 }) {
         <div className="flex justify-center pt-3">
           <button
             type="button"
-            onClick={loadMoreDocuments}
+            onClick={loadMore}
             className="items-center rounded py-3 px-6 btn-main btn-gray md:flex-1 hover:opacity-75"
           >
             {t('components.filteredList.showMore')}

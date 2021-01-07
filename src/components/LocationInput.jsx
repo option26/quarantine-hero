@@ -1,75 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/browser';
-import { isMapsApiEnabled } from '../featureFlags';
 import { getSuggestions } from '../services/GeoService';
 
 export default function LocationInput(props) {
-  const {
-    fullText,
-    required,
-    value,
-    onChange,
-    onSelect,
-  } = props;
-
-  if (isMapsApiEnabled) {
-    return <Autocomplete required={required} value={value} onChange={onChange} onSelect={onSelect} fullText={fullText} />;
-  }
-
-  return <ZipCodeInput required={required} value={value} onChange={onChange} onSelect={onSelect} />;
-}
-
-function ZipCodeInput(props) {
-  const {
-    required = true,
-    value = '',
-    onChange = () => { },
-    onChangeDebounced = () => { },
-    debounce = 200,
-  } = props;
-
-  const { t } = useTranslation();
-
-  const [scheduledChange, setScheduledChange] = useState(undefined);
-
-  const handleChange = (e) => {
-    if (scheduledChange) {
-      clearTimeout(scheduledChange);
-    }
-
-    const val = e.target.value;
-    if (val.length >= 4 && val.length <= 5) {
-      e.target.setCustomValidity('');
-    } else {
-      e.target.setCustomValidity(t('components.locationInput.invalidPlz'));
-    }
-
-    setScheduledChange(setTimeout(() => {
-      onChangeDebounced(val);
-    }, debounce));
-    onChange(val);
-  };
-
-  return (
-    <div className="w-full">
-      <input
-        required={required}
-        value={value}
-        type="number"
-        className="input-focus"
-        min={0}
-        max={99999}
-        minLength={4}
-        maxLength={5}
-        placeholder={t('components.locationInput.yourPostalCode')}
-        onChange={handleChange}
-      />
-    </div>
-  );
-}
-
-function Autocomplete(props) {
   const {
     required = true,
     value = '',
@@ -115,9 +49,7 @@ function Autocomplete(props) {
   };
 
   const setInvalidNoSelect = () => {
-    if (isMapsApiEnabled) {
-      setValidity(false, t('components.locationInput.invalidNoSelect'));
-    }
+    setValidity(false, t('components.locationInput.invalidNoSelect'));
   };
 
   const handleDebouncedChange = (val) => {

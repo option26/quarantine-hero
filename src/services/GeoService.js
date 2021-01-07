@@ -42,6 +42,7 @@ export async function getSuggestions(searchString) {
     .map((key) => {
       const aggregatedEntries = aggregated[key];
 
+      // We don't need to return a placeId here as we will enforce to have a zip code whenever the placeId matters
       return {
         name: key,
         lat: average(aggregatedEntries.map((e) => Number.parseFloat(e.lat))),
