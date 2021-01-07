@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import NotifyMe from './NotifyMe';
 import Entry from './entry/Entry';
 import Slider from './Slider';
@@ -60,6 +61,7 @@ export default function EntryList({ pageSize }) {
       if (addressFromUrl) {
         const geoData = await getGeodataForString(addressFromUrl);
         if (geoData === undefined) {
+          Sentry.captureException(new Error(`No geoData for url-address: ${addressFromUrl}`));
           return;
         }
         setLocation(geoData.name);
