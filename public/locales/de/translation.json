@@ -86,6 +86,7 @@
       "thisFunction": "diese Funktion",
       "whereAreYou": "Wo bist Du?",
       "whatCanWeDo": "Wobei kann man Dir helfen?",
+      "describeRequest": "Beschriebe hier, bei was Du Hilfe benötigst. Dieser Text wird potentiellen Helfenden angezeigt.",
       "requestIsPublic": "Sobald Du Deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht sichtbar.",
       "askNow": "Jetzt um Hilfe bitten"
     },
