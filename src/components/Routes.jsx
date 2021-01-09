@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
-import * as firebase from 'firebase';
-import 'firebase/analytics';
+import fb from '../firebase';
 
 import FilteredListFrame from '../views/FilteredListFrame';
 import OfferHelp from '../views/OfferHelp';
@@ -22,21 +21,17 @@ import CompleteNotification from '../views/CompleteNotification';
 import Main from '../views/Main';
 import NotFound from '../views/NotFound';
 import Page from './Page';
-import { CookieConsentContext } from '../util/CookieConsent';
 import HandleEmailAction from '../views/HandleEmailAction';
 import PrivacyPolicy from '../views/PrivacyPolicy';
 import Imprint from '../views/Imprint';
-
+import Partners from '../views/Partners';
 
 function usePageViews() {
-  const cookiesConsented = useContext(CookieConsentContext);
   const location = useLocation();
 
   useEffect(() => {
-    if (cookiesConsented) {
-      firebase.analytics().logEvent('page_view', { page_path: location.pathname });
-    }
-  }, [location, cookiesConsented]);
+    fb.analytics.logEvent('page_view', { page_path: location.pathname });
+  }, [location]);
 }
 
 export default function Routes() {
@@ -127,6 +122,11 @@ export default function Routes() {
       <Route path={['/press', '/presse']}>
         <Page>
           <Press />
+        </Page>
+      </Route>
+      <Route path="/partners">
+        <Page>
+          <Partners />
         </Page>
       </Route>
       <Route path="/notify-me">

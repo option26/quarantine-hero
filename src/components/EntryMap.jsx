@@ -34,7 +34,9 @@ export default function EntryMap() {
 
   useEffect(() => {
     const fetchEntries = async () => {
-      const queryResult = await fb.store.collection('ask-for-help').get();
+      const threeMonthAgo = new Date();
+      threeMonthAgo.setMonth(threeMonthAgo.getMonth() - 3);
+      const queryResult = await fb.store.collection('ask-for-help').orderBy('d.timestamp').startAt(threeMonthAgo.getTime()).get();
 
       const entriesFromQuery = queryResult.docs
         .map(parseDoc)
@@ -78,7 +80,7 @@ export default function EntryMap() {
           bootstrapURLKeys={{
             language: 'de',
             region: 'de',
-            key: 'AIzaSyDFCKxZqlzYTZ2MDnDrKnfe00jU8vJd4Yg',
+            key: process.env.REACT_GOOGLE_MAPS_KEY,
           }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map }) => {

@@ -112,13 +112,13 @@ export default function PrivacyPolicy() {
         </p>
         <br />
         <p>
-          Tom Graupner &amp; Keno Dreßel
+          Option 26 e.V.
         </p>
         <p>
-          Andreas-Schubert-Str. 23 A-Gebäude
+          Lohrtalweg 100
         </p>
         <p>
-          01069 Dresden
+          74821 Mosbach
         </p>
         <br />
         <p>

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-import { REGION_EUROPE_WEST_1 } from '@config';
+import { REGION_EUROPE_WEST_1 } from './config';
 
 import { handleIncomingCall as handleIncomingCallFromHotline } from './domain/handleIncomingCall';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
@@ -13,12 +13,20 @@ import { onReportedPostsCreate } from './domain/onReportedPostsCreate';
 import { onSolvedPostsCreate } from './domain/onSolvedPostsCreate';
 import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedCreate';
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
+import { updateGeoDB } from './domain/geoData';
+import { onContentUpdate } from './domain/onContentUpdate';
 import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
 import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
 
-import { CollectionName } from '@enum/CollectionName';
+import { CollectionName } from './types/enum/CollectionName';
 
 admin.initializeApp();
+
+export const contentUpdated = functions
+  .region(REGION_EUROPE_WEST_1)
+  .database
+  .ref('/cmsContent')
+  .onWrite(onContentUpdate);
 
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
@@ -94,3 +102,14 @@ export const deleteUserData = functions
   .auth
   .user()
   .onDelete(onUserDelete);
+
+export const updateGeoDBFunction = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '1GB'
+  })
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
+  .timeZone('Europe/Berlin')
+  .onRun(updateGeoDB);

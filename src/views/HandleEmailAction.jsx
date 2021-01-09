@@ -288,6 +288,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
               placeholder={t('views.emailActions.resetPassword.yourPw')}
               value={password}
               required="required"
+              minLength="12"
               autoComplete="new-password"
               onChange={(e) => {
                 comparePasswords();

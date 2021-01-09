@@ -3,10 +3,10 @@ import * as admin from 'firebase-admin';
 import {
   deleteDocumentWithSubCollections,
   getEntriesOfUser,
-} from '@utilities/utils';
+} from '../utilities/utils';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { CollectionName } from '@enum/CollectionName';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onUserDelete(user: UserRecord): Promise<void> {
   try {
@@ -45,16 +45,18 @@ export async function onUserDelete(user: UserRecord): Promise<void> {
       db.collection(CollectionName.Deleted).doc(id),
     ]).reduce((arr, elem) => arr.concat(elem), []);
 
-    const reportedEntries = await db.getAll(...entryRefs);
-    reportedEntries.forEach((doc) => {
-      if (!doc.exists) return;
-
-      promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
-      const data = doc && doc.data();
-      if (data && !data.d.reportedBy.includes('ghost-user')) {
-        promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
-      }
-    });
+    if(entryRefs.length > 0) {
+      const reportedEntries = await db.getAll(...entryRefs);
+      reportedEntries.forEach((doc) => {
+        if (!doc.exists) return;
+  
+        promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
+        const data = doc && doc.data();
+        if (data && !data.d.reportedBy.includes('ghost-user')) {
+          promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
+        }
+      });
+    }
 
     await Promise.all(promises);
   } catch (e) {

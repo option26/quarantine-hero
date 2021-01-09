@@ -2,6 +2,7 @@
   "App": {
     "login": "Login",
     "press": "Presse",
+    "partners": "Unterstützenswertes",
     "usesCookies": {
       "preLink": "Diese Webseite verwendet Cookies, um das Nutzererlebnis zu verbessern. Weitere Informationen: ",
       "link": "Datenschutzerklärung",
@@ -51,8 +52,9 @@
         "needHelp": "ICH BRAUCHE HILFE"
       },
       "explanations": {
-        "wantToHelp": "Viele Menschen bleiben gerade zuhause, weil sie beispielsweise zu einer Risikogruppe gehören und tragen damit aktiv dazu bei, die Verbreitung von Corona zu verlangsamen. Dabei sind diese Menschen auf <strong>Hilfe</strong> von außerhalb angewiesen. Wollt auch Ihr <strong>Held*innen</strong> sein? Dann könnt Ihr hier sehen, wobei Ihr Mitmenschen in Eurer Nachbarschaft <strong>unterstützen</strong> könnt!",
-        "needHelp": "Ihr solltet gerade besser nicht das Haus verlassen, weil Ihr zu einer <strong>Risikogruppe</strong> gehört oder vielleicht selbst eine Ansteckungsgefahr darstellen könntet? Seid <strong>Held*innen</strong> und <strong>bleibt zuhause</strong>, um die Verbreitung von Corona aktiv zu verlangsamen. Schreibt einfach eine Hilfsanfrage und lasst Euch zum Beispiel bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> unterstützen."
+        "wantToHelp": "Viele Menschen bleiben gerade zuhause, weil sie in Quarantäne sind oder beispielsweise zu einer Risikogruppe gehören und tragen damit aktiv dazu bei, die Verbreitung von Corona zu verlangsamen. Dabei sind diese Menschen auf <strong>Hilfe</strong> von außerhalb angewiesen. Wollt auch Ihr <strong>Held*innen</strong> sein? Dann könnt Ihr hier sehen, wobei Ihr Mitmenschen in Eurer Nachbarschaft <strong>unterstützen</strong> könnt!",
+        "needHelp": "Ihr seid in Quarantäne oder solltet gerade besser nicht das Haus verlassen, weil Ihr zu einer <strong>Risikogruppe</strong> gehört? Seid <strong>Held*innen</strong> und <strong>bleibt zuhause</strong>, um die Verbreitung von Corona aktiv zu verlangsamen. Schreibt einfach eine Hilfsanfrage und lasst Euch zum Beispiel bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> unterstützen.",
+        "combined": "Aktuell tragen alle ihren Teil zur <strong>Eindämmung</strong> der Pandemie bei, indem sie ihre Kontakte so gut es geht einschränken. Wer in Quarantäne ist, zu einer Risikogruppe gehört oder vielleicht selbst eine Ansteckungsgefahr darstellen könnte ist jedoch auf <strong>Unterstützung</strong> von außerhalb angewiesen und nicht jede*r hat Menschen in der Nähe, die einem helfen können. Über unsere Plattform vermitteln wir Hilfesuchende an Helfende - sodass diese Unterstützung für <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> finden können."
       },
       "recentRequests": {
         "title": "Aktuelle Anfragen",
@@ -61,6 +63,16 @@
         "messages": "NACHRICHTEN"
       },
       "enterYourPostalCode": "Gib Deine Postleitzahl ein oder nutze die Kartenansicht, um hilfesuchende Menschen in Deinem Umkreis zu finden."
+    },
+    "press": {
+      "newsAndPressKit": "Aktuelle Pressemeldungen und ein Pressekit",
+      "manyMediaOutletsReported": "Neben vielen lokalen Held*innen haben unter anderem diese Medien geholfen, die QuarantäneHeld*innen bekannt zu machen, um noch mehr Hilfesuchende zu unterstützen. Hier findet Ihr aktuelle Artikel und Nachrichten.",
+      "pressInformation": "Presse Informationen",
+      "pressKit": "Pressekit (Logos, Pressetext, Grafiken):",
+      "pressKitFileName": "QuarantaeneHeld*innen.zip",
+      "pressContact": "Pressekontakt:",
+      "pressMail": "presse@quarantaenehelden.org",
+      "andManyMore": "Und viele mehr!"
     },
     "filteredListFrame": {
       "description": "<strong>Nachbarschaftshilfe</strong> im <br/> deutschsprachigen Raum mit <br/> über 37.000 registrierten Helfenden",
@@ -74,6 +86,7 @@
       "thisFunction": "diese Funktion",
       "whereAreYou": "Wo bist Du?",
       "whatCanWeDo": "Wobei kann man Dir helfen?",
+      "describeRequest": "Beschriebe hier, bei was Du Hilfe benötigst. Dieser Text wird potentiellen Helfenden angezeigt.",
       "requestIsPublic": "Sobald Du Deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht sichtbar.",
       "askNow": "Jetzt um Hilfe bitten"
     },
@@ -98,10 +111,12 @@
       "isLoading": "Daten werden geladen …",
       "youWillBeNotified": "Du wirst benachrichtigt, wenn jemand in der Nähe von",
       "needsHelp": "Hilfe benötigt",
+      "doYouNeedHelp": "BENÖTIGST DU HILFE?",
       "yourRequests": "Deine Hilfegesuche",
       "noRequests": "Du hast noch keine Hilfegesuche eingestellt. Du kannst ein neues Gesuch",
       "noResolvedRequests": "Du hast noch keine Held*innen für Deine Gesuche gefunden. Du kannst ein neues Gesuch",
       "create": "erstellen",
+      "doYouWantToHelp": "DU WILLST HELFEN?",
       "yourNotifications": "Deine Benachrichtigungen",
       "noNotificationsSubscribed": "Du hast noch keine Benachrichtigungen aktiviert. Du kannst neue Benachrichtigungen",
       "here": "hier",
@@ -115,77 +130,7 @@
       "title": "Datenschutzerklärung"
     },
     "faq": {
-      "title": "Hier werden die häufigsten Fragen beantwortet!",
-      "questions": {
-        "howDoesItWork": "Wie funktioniert die Plattform QuarantäneHeld*innen?",
-        "whereDoesItWork": "Wo funktioniert die Plattform QuarantäneHeld*innen?",
-        "whichKindOfRequests": "Welche Art von Anfragen kann ich stellen?",
-        "canICreateRequestsForOthers": "Kann ich auch Anfragen für andere stellen?",
-        "howToPay": "Wie wird für den Einkauf bezahlt?",
-        "howToBeSafe": "Wer übernimmt die Verantwortung für einen korrekten Ablauf?",
-        "whoCanSeeRequests": "Wer kann meine Hilfeanfrage sehen?",
-        "howToContact": "Wie nehmen Helfende Kontakt zu mir auf?",
-        "whatToKeepInMind": "Worauf muss ich achten, wenn ich meine Hilfe anbiete?",
-        "whatToConsider": "Was ist bei einer Übergabe z.B. von Einkäufen zu beachten?",
-        "doIGetPaid": "Werde ich dafür bezahlt?",
-        "whatAboutSafety": "Was ist mit meiner Sicherheit?",
-        "howCanISupportQhero": "Wie kann ich QuarantäneHeld*innen unterstützen?",
-        "howHelpPeopleWithoutInternet": "Wie kann ich Menschen helfen, die kein Internet haben?",
-        "whoAreYou": "Wer seid ihr?",
-        "dataUse": "Wie werden Daten verwendet?",
-        "howToDeleteMyRequest": "Wie kann ich meine Anfrage löschen?",
-        "iGetNoAnswers": "Ich erhalte keine Antworten auf meine Anfrage, obwohl die Website anzeigt jemand hätte geantwortet?"
-      },
-      "answers": {
-        "howDoesItWork": "Auf der Plattform QuarantäneHeld*innen kommen Menschen zusammen, die sich gegenseitig unterstützen. Hier findest Du Anfragen von Personen, die etwas benötigen, aber selbst ihr Zuhause oder ihren Quarantäne-Ort nicht verlassen können. Als Hilfesuchende*r kannst Du hier Anfragen einstellen und Menschen in Deiner Nähe werden informiert.\n\nAls Helfende*r kannst Du Dir Anfragen in Deiner Nähe anzeigen lassen und diese beantworten. Wenn Du Dich mit Deiner E-Mail Adresse anmeldest und angibst, in welchem Umkreis Du Deine Hilfe anbieten möchtest, wirst Du von uns automatisch per Mail benachrichtigt, sobald jemand Hilfe benötigt. Wir leiten Deine Nachricht an Hilfesuchende weiter, die dann zu Dir Kontakt aufnehmen können. Alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) werden dann direkt und persönlich geklärt. Alternativ können Anfragen auch telefonisch über die Hotline angenommen werden, wenn zum Beispiels keine E-Mail Adresse vorhanden ist.",
-        "whereDoesItWork": "QuarantäneHeld*innen ist im gesamten DACH-Raum und in Süd-Tirol verfügbar. Du kannst also Hilfegesuche in Deutschland, Österreich und der Schweiz aufgeben und beantworten.",
-        "whichKindOfRequests": "Prinzipiell können alle Anfragen gestellt werden, bei denen Hilfe von außen benötigt wird. Das kann ein Einkauf der nötigsten Lebensmittel, ein Botengang oder eine Erledigung sein.",
-        "canICreateRequestsForOthers": "Ja, Du kannst auch Anfragen stellvertretend für jemand anderen stellen. Viele Nutzer*innen von QuarantäneHeld*innen stellen beispielsweise Anfragen für ihre Großeltern, die weiter weg wohnen. Die initiale Kontaktaufnahme läuft in diesem Fall über die angegebene E-Mail-Adresse, danach können Helfende direkt mit den Hilfesuchenden Kontakt aufnehmen.",
-        "howToPay": "Handelt es sich bei der Anfrage um einen Einkauf, könnt Ihr selbst absprechen, wie Ihr die Bezahlung des Einkaufs handhabt. Gleichwohl solltet Ihr im Vorhinein absprechen, wie die Übergabe kontaktlos ablaufen kann.",
-        "howToBeSafe": "Diese Plattform funktioniert auf Vertrauensbasis. QuarantäneHeld*innen kann für die eingestellten Anfragen keine Haftung übernehmen. Darüber hinaus hat QuarantäneHeld*innen keine Möglichkeit, die beteiligten Personen zu überprüfen. Bitte sprecht Euch daher gut ab und entscheidet selbst, ob Ihr eine Anfrage beantworten wollt, oder wie Übergaben ablaufen sollen. Solltet Ihr Euch zu einem Zeitpunkt unwohl fühlen, sagt das vereinbarte Treffen im Zweifel ab und nehmt bitte Kontakt zu Vertrauenspersonen auf.",
-        "whoCanSeeRequests": "Deine Anfrage und ein ungefährer Ort sind öffentlich einsehbar. Dein Name und Deine E-Mail-Adresse sind nicht öffentlich sichtbar.",
-        "howToContact": "Helfende werden per E-Mail informiert, sobald jemand in ihrer Nähe Hilfe benötigt oder können auf QuarantäneHeld*innen nach Anfragen in ihrer Nähe suchen. Über ein Formular schicken sie dann eine Email an Dich. Du kannst dann entscheiden, ob und mit wem Du Kontakt aufnehmen möchtest. Alle weiteren Details zur Anfrage (was wird benötigt, wann und wo?) werden dann direkt und persönlich geklärt.",
-        "whatToKeepInMind": {
-          "preLink": "Um Dich selbst und andere zu schützen haben wir vier Grundregeln ausgearbeitet, die Du unbedingt beachten solltest. Diese und weitere Verweise zu regelmäßig aktualisierten Quellen findest Du ",
-          "link": "hier",
-          "postLink": ".",
-          "url": "/security-tips"
-        },
-        "whatToConsider": {
-          "preLink": "Bitte achtet bei einer Übergabe darauf, dass es keinen direkten Kontakt zwischen den beteiligten Personen gibt. Ihr könnt zum Beispiel die Einkäufe vor die Tür legen und dann anrufen, dass es da ist. Weitere Sicherheitshinweise findet Ihr ",
-          "link": "hier",
-          "postLink": ".",
-          "url": "/security-tips"
-        },
-        "doIGetPaid": "Nein. Das Helfen findet auf freiwilliger Basis statt.",
-        "whatAboutSafety": "Bitte stelle stets Deine eigene Sicherheit an erste Stelle und vermeide direkten Kontakt. Solltest Du Dich zu einem Zeitpunkt unwohl fühlen, sag das vereinbarte Treffen im Zweifel ab und nimm bitte Kontakt zu einer Vertrauenspersonen auf.",
-        "howCanISupportQhero": {
-          "preLink": "Melde Dich einfach mit Deiner E-Mail-Adresse an, sodass Du mitbekommst, wenn Menschen in Deinem Umfeld Hilfe benötigen! Des Weiteren kannst Du QuarantäneHeld*innen unterstützen, indem Du Freund*innen und Verwandten von der Plattform erzählst und unsere Aushänge an geeigneten Stellen platzierst. Diese findest Du in mehreren Sprachen ",
-          "link": "hier",
-          "postLink": ".",
-          "url": "/"
-        },
-        "howHelpPeopleWithoutInternet": {
-          "preLink": "Menschen, die kein Internet haben, können auch über unsere kostenlose Hotline Hilfsanfragen stellen. Diese sind dann analog wie die anderen Anfragen auf der Plattform einsehbar. Zusätzlich kannst Du unseren Aushang zum Beispiel im Treppenhaus Deines Wohnhauses aufhängen, auf dem ist auch die Telefonhotline vermerkt, für Menschen ohne Internet. Vorlagen in mehreren Sprachen haben wir  ",
-          "link": "auf der Startseite",
-          "postLink": " bereitgestellt.",
-          "url": "/"
-        },
-        "whoAreYou": "Wir sind Alisa, Andi, Christina, Denise, Domenic, Florian, Henrike, Jakob, Janik, Julia, Keno, Lizzie, Maurice, Milena, Nicolai, Philipp, Sophie und Tom, eine Gruppe von Freund*innen, die mit diesem Projekt ihren kleinen Beitrag leisten und Menschen helfen möchten.",
-        "dataUse": "Als Hilfesuchende*r wird Deine Anfrage öffentlich allen Nutzer*innen der Plattform angezeigt. Deine E-Mail-Adresse halten wir zur Identifizierung Deines Accounts vor. Letztere wird zu keinem Zeitpunkt veröffentlicht. \n\nAntwortest Du auf eine Hilfsanfrage, leiten wir Deine E-Mail-Adresse an die hilfesuchende Person weiter. Ebenso speichern wir Deine E-Mail-Adresse intern zur Identifizierung Deines Accounts.\n\nStellst Du Deine telefonische Anfrage, speichern wir Deine Telefonnummer und geben diese an freiwillige Helfende raus, bis Du die Anfrage als gelöst markierst.",
-        "howToDeleteMyRequest": {
-          "preLink": "Du kannst Dich mit Deiner E-Mail-Adresse und Passwort auf Deinem ",
-          "link": "Dashboard",
-          "postLink": " einloggen und Deine Anfragen löschen. Solltest Du bisher kein Passwort festgelegt haben, klicke einfach auf Passwort zurücksetzen.",
-          "url": "/signup/dashboard"
-        },
-        "iGetNoAnswers": {
-          "preLink": "Du kannst Deine erhaltenen Nachrichten auch auf der Website in Deinem ",
-          "link": "Dashboard",
-          "postLink": " anschauen. Solltest Du bisher kein Passwort festgelegt haben, klicke einfach auf Passwort zurücksetzen.",
-          "url": "/signup/dashboard"
-        }
-      }
+      "title": "Hier werden die häufigsten Fragen beantwortet!"
     },
     "notifyMe": {
       "finalizeNotification": "Du hast Dich erfolgreich registriert! Nur noch ein Schritt...",
@@ -225,7 +170,7 @@
       "yourPw": "Dein Passwort",
       "email": "E-Mail",
       "password": "Passwort",
-      "resetPw": "Passwort zurücksetzen",
+      "resetPw": "Passwort noch nicht gesetzt oder vergessen? – Jetzt zurücksetzen!",
       "loginNow": "Jetzt anmelden",
       "registerNow": "Neu registrieren",
       "pwResetConfirmation": "Eine E-Mail mit Anleitung zum Zurücksetzen Deines Passworts wurde Dir zugesendet!",
@@ -255,7 +200,11 @@
       "haveAnAccount": "Ich habe bereits einen Account",
       "emailInvalid": "Bitte gib Deine korrekte E-Mail-Adresse an.",
       "partnerTextIntro": "Für heldenhafte Hilfe von {{helpers}} registrierten Helfenden:",
-      "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!"
+      "partnerTextOutro": "in Kooperation mit QuaranäneHeld*innen!",
+      "weakPassword": "Das angegebene Passwort ist leicht zu erraten. Bitte wähle ein stärkeres.",
+      "conveyHelp": "Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!",
+      "youNeedHelp": "Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.",
+      "wantOfferHelp": "Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen."
     },
     "notFound": {
       "ooopsTitle": "Uuups, da ist wohl etwas schief gelaufen.",
@@ -268,6 +217,10 @@
       "recheckEmail": "Bestätigung überprüfen",
       "resendEmail": "E-Mail erneut senden",
       "resendSuccess": "Eine E-Mail mit Bestätigungs-Link wurde Dir zugesendet!"
+    },
+    "partners": {
+      "title": "Unterstützenswerte Projekte",
+      "explanation": "Covid-19 hat in den vergangenen Monaten viele Lebensbereiche beeinflusst und eingeschränkt. Glücklicherweise gibt es viele Initiativen, die gerade in dieser Zeit auf unterschiedliche Arten Mitmenschen unterstützen möchten. Auf dieser Seite findet Ihr Organisationen, die wir unterstützenswert finden, die uns unterstützen und/oder mit denen wir zusammenarbeiten."
     },
     "emailActions": {
       "invalidToken": "Diese Aktion ist leider nicht mehr verfügbar, da Dein Link abgelaufen ist. Bitte versuche es erneut.",
@@ -308,6 +261,17 @@
         "pwResetSent": "Wir haben Dir eine E-Mail mit Link zum Zurücksetzen Deines Passworts gesendet",
         "resetPassword": "Ja, sende mir einen Link zum Zurücksetzen"
       }
+    },
+    "security": {
+      "securityNotices": "Sicherheitshinweise",
+      "helpSafeHashtag": "#sicherhelfen",
+      "stickToAuthorities": "Haltet Euch an aktuelle Aufforderungen der Behörden!",
+      "stickToMeasures": "Neue Informationen zum Virus und der Lage vor Ort erfordern schnelle Maßnahmen zu unserem Schutz. Nur wenn sie von jeder/jedem umgesetzt werden, ist ihre Wirksamkeit gewährleistet!",
+      "recentLinks": "Aktuelle Links",
+      "goldenRules": "Die vier Grundregeln",
+      "whereGetInformation": "Wo informiere ich mich am besten?",
+      "note": "Hinweis",
+      "disclaimer": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Aktualität und Korrektheit der Informationen auf dieser Seite und der Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber*innen verantwortlich."
     }
   },
   "components": {
@@ -344,6 +308,7 @@
       "myOverview": "Meine Übersicht",
       "FAQs": "FAQs",
       "press": "Presse",
+      "partners": "Unterstützenswertes",
       "legal": "Impressum",
       "privacy": "Datenschutz",
       "login": "Login",

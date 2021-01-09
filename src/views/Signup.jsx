@@ -20,6 +20,9 @@ import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
 import checkMark from '../assets/check.svg';
+import weakPasswords from '../assets/password-top500.json';
+import useCms from '../util/useCms';
+import useFirebaseDownload from '../util/useFirebaseDownload';
 
 export default () => (
   <div className="p-4">
@@ -28,24 +31,18 @@ export default () => (
   </div>
 );
 
-// We use an array to be able to manage this via the CMS in the future
-const partners = [
-  { key: 'nachbarhilft', name: 'In Quarantäne? Nachbar hilft!', imgSource: require('../assets/nachbar_hilft.png') },
-  { key: 'wittweiden', name: 'WITT WEIDEN', imgSource: require('../assets/witt_weiden.png') },
-  { key: 'siehan', name: 'Sieh an!', imgSource: require('../assets/sieh_an.png') },
-];
-
 function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
   const { source, fullExplanation } = useQuery();
   const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
+  const [partners] = useCms('whitelabeling');
 
   const location = useLocation();
   const [user] = useAuthState(firebase.auth());
 
-  const { name: partnerName, imgSource: partnerImg } = partners.find((p) => p.key === source) || {};
-  const showPartner = !!(partnerName && partnerImg);
+  const { name: partnerName, logo: logoSource } = partners.find((p) => p.key === source) || {};
+  const showPartner = !!(partnerName && logoSource);
 
   const reasonForSignup = location && location.state && location.state.reason_for_registration
     ? location.state.reason_for_registration
@@ -71,7 +68,7 @@ function SignupHeader() {
       <div className="font-teaser">
         {(showPartner || fullExplanation) ? t('views.signUp.welcomeAtQh') : headerText}
       </div>
-      {showPartner && <Partner partnerName={partnerName} partnerImg={partnerImg} />}
+      {showPartner && <Partner partnerName={partnerName} logoSource={logoSource} />}
       {fullExplanation && <Explanation />}
       {(showPartner || fullExplanation) && (
         <p className="mt-4">
@@ -84,13 +81,14 @@ function SignupHeader() {
   );
 }
 
-function Partner({ partnerName, partnerImg }) {
+function Partner({ partnerName, logoSource }) {
   const { t } = useTranslation();
   const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+  const [logoLink] = useFirebaseDownload(logoSource);
 
   return (
     <div className="mt-4 flex flex-row items-center">
-      <img className="rounded-full w-24 h-24" src={partnerImg} alt="" />
+      <img className="rounded-full w-24 h-24" src={logoLink} alt="" />
       <div className="mx-4 my-2" />
       <p className="text-sm sm:text-base">
         {t('views.signUp.partnerTextIntro', { helpers: externalStats && externalStats.regionSubscribed })}
@@ -126,13 +124,13 @@ function Explanation() {
       </button>
       <Collapse in={isOpen}>
         <div className="p-4 bg-kaki">
-          Wir vermitteln Hilfe für Menschen, die aufgrund der Corona-Krise auf Unterstützung bei Besorgungen angewiesen sind!
+          {t('views.signUp.conveyHelp')}
           <br />
           <br />
-          Du benötigst aktuell Hilfe bei Besorgungen oder kennst Menschen, die gerade Unterstützung gebrauchen können? Finde jetzt unkompliziert freiwillige helfende Hände auf QuarantäneHeld*innen. Inseriere Dein Gesuch ganz unkompliziert über unsere Plattform oder unsere Rufnummer und finde Helfende in Deiner Umgebung.
+          {t('views.signUp.youNeedHelp')}
           <br />
           <br />
-          Wenn Du selbst Hilfe anbieten möchtest, kannst Du Dich auch als Helfende*r melden und wirst benachrichtigt, wenn Menschen in Deiner Umgebung Hilfe benötigen.
+          {t('views.signUp.wantOfferHelp')}
         </div>
       </Collapse>
     </>
@@ -158,6 +156,12 @@ function SignupBody() {
 
     try {
       const userSource = source || 'direct';
+
+      if (weakPasswords.includes(password)) {
+        // eslint-disable-next-line no-throw-literal
+        throw { code: 'weak-password', message: 'No default passwords allowed' };
+      }
+
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
       await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
@@ -167,6 +171,7 @@ function SignupBody() {
         case 'auth/email-already-in-use': setError(t('views.signUp.emailInUse')); break;
         case 'auth/weak-password': setError(t('views.signUp.pwTooShort')); break;
         case 'auth/invalid-email': setError(t('views.signUp.emailInvalid')); break;
+        case 'weak-password': setError(t('views.signUp.weakPassword')); break;
         default: {
           setError(err.message);
           Sentry.captureException(err);
@@ -209,6 +214,7 @@ function SignupBody() {
             placeholder={t('views.signUp.yourPw')}
             value={password}
             required="required"
+            minLength="12"
             autoComplete="new-password"
             onChange={(e) => {
               comparePasswords();

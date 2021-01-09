@@ -4,10 +4,10 @@ import {
   userIdsMatch,
   migrateResponses,
   deleteDocumentWithSubCollections,
-} from '@utilities/utils';
+} from '../utilities/utils';
 
-import { SolvedPostsCollectionEntry } from '@interface/collections/SolvedPostsCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { SolvedPostsCollectionEntry } from '../types/interface/collections/SolvedPostsCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onSolvedPostsCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {

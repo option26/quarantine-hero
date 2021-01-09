@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import formatDistance from 'date-fns/formatDistance';
-import { de } from 'date-fns/locale';
 import loadResponses from '../services/loadResponses';
+import getDateFnsLocaleObject from '../util/getDateFnsLocaleObject';
 
 const Response = ({ response }) => {
-  const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: de, addSuffix: true });
+  const date = formatDistance(new Date(response.timestamp), Date.now(), { locale: getDateFnsLocaleObject(), addSuffix: true });
+
   const { t } = useTranslation();
 
   if (!response.email && !response.answer) {

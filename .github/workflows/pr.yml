@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Test frontend mobile
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           env: NODE_ENV=prod
           start: yarn start
@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Test frontend desktop
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           env: NODE_ENV=prod
           start: yarn start

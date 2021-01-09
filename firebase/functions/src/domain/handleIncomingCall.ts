@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import * as functions from 'firebase-functions';
 import * as moment from 'moment-timezone';
 
-import { Parameters } from '@interface/hotline/Parameters';
+import { Parameters } from '../types/interface/hotline/Parameters';
 
 const {
   sheet_id: SPREADSHEET_ID,

@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import StyledMarkdown from '../util/StyledMarkdown';
+import useCms from '../util/useCms';
+import Loader from '../components/loader/Loader';
 
 export default function FAQ() {
-  const { t, i18n } = useTranslation();
-
-  function buildFAQ(translationString) {
-    return (i18n.exists(`views.faq.answers.${translationString}.preLink`))
-      ? <QAwithLink key={translationString} translationKey={translationString} />
-      : <QA key={translationString} question={t(`views.faq.questions.${translationString}`)}>{t(`views.faq.answers.${translationString}`)}</QA>;
-  }
-
-  function buildFAQs(arrayOfKeys) {
-    return arrayOfKeys.map((translationString) => buildFAQ(translationString));
-  }
+  const { t } = useTranslation();
+  const [faqs] = useCms('faq');
 
   return (
     <div className="mb-10 p-4">
       <h1 className="text-2xl font-main mt-8">{t('views.faq.title')}</h1>
-      {buildFAQs(Object.keys(t('views.faq.questions', { returnObjects: true })))}
+      <Loader waitOn={faqs.length > 0}>
+        {faqs.map((faq) => <QA key={faq.question} question={faq.question}>{faq.answer}</QA>)}
+      </Loader>
     </div>
   );
 }
@@ -49,29 +44,9 @@ function QA({ question, children }) {
       </button>
       <Collapse in={isOpen}>
         <div className="p-4 bg-kaki">
-          {children}
+          <StyledMarkdown className="text-justify">{children}</StyledMarkdown>
         </div>
       </Collapse>
     </>
-  );
-}
-
-function QAwithLink({ translationKey }) {
-  const { t, i18n } = useTranslation();
-
-  const hasPostLink = i18n.exists(`views.faq.answers.${translationKey}.postLink`);
-  const postLinkText = t(`views.faq.answers.${translationKey}.postLink`);
-  const postLinkIsNotEmptyOrFullStop = postLinkText !== '' && postLinkText !== '.';
-
-  return (
-    <QA key={translationKey} question={t(`views.faq.questions.${translationKey}`)}>
-      {t(`views.faq.answers.${translationKey}.preLink`)}
-      <Link to={t(`views.faq.answers.${translationKey}.url`)} className="text-secondary hover:underline">
-        {' '}
-        {t(`views.faq.answers.${translationKey}.link`)}
-        {hasPostLink && postLinkIsNotEmptyOrFullStop ? ' ' : ''}
-      </Link>
-      {postLinkText}
-    </QA>
   );
 }

@@ -9,7 +9,7 @@ const sgMailApiKey = envVariables && envVariables.sendgrid && envVariables.sendg
 sgMail.setApiKey(sgMailApiKey);
 
 const REGION_EUROPE_WEST_1 = 'europe-west1';
-const MAX_RESULTS = 30;
+const MAX_RESULTS = 100;
 const MAPS_ENABLED = true;
 // How long we wait before we send email notifications after a person posted a help request.
 const MINIMUM_NOTIFICATION_DELAY_MINUTES = 20;

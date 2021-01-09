@@ -14,7 +14,7 @@ QuarantineHeros is maintained by the following group of people:
 - Mail [keno.dressel@quarantaenehelden.org](mailto:keno.dressel@quarantaenehelden.org) 
 
 **Maurice**
-- GitHub [@Maurice22](https://github.com/Maurice22)
+- GitHub [@mauriceackel](https://github.com/mauriceackel)
 - Mail [maurice.ackel@quarantaenehelden.org](mailto:maurice.ackel@quarantaenehelden.org) 
 
 **Tom**

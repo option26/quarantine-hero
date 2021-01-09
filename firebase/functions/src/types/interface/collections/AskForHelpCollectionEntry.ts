@@ -12,6 +12,7 @@ export interface AskForHelpCollectionEntry {
     notificationCounter: number
     notificationReceiver: string[]
     reportedBy: string[]
+    slackMessageRef?: string
   };
   g: string;
   l: string[];

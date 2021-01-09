@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin';
 
-import { postToSlack } from '@utilities/slack';
+import { postToSlack } from '../utilities/slack';
 
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
@@ -13,18 +13,25 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     const askForHelpSnap = await db.collection(parentPath).doc(askForHelpId).get();
     const askForHelpSnapData = askForHelpSnap.data() as AskForHelpCollectionEntry;
 
+    let messageRef = '';
+    try {
+      //Don't let message sending break everything
+      messageRef = await postToSlack(askForHelpId, askForHelpSnapData);
+    } catch (err) {
+      console.log('Error posting to slack', err);
+    }
+
     // Enforce server-side defaults
     await snap.ref.update({
       'd.notificationCounter': 0,
       'd.timeStampLastHelpRequest': Date.now(),
-      'd.requestingMoreHelp': false
+      'd.requestingMoreHelp': false,
+      'd.slackMessageRef': messageRef,
     });
 
     await db.collection(CollectionName.Stats).doc('external').update({
       askForHelp: admin.firestore.FieldValue.increment(1),
     });
-
-    await postToSlack(askForHelpId, askForHelpSnapData);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

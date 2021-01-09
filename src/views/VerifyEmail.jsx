@@ -7,7 +7,6 @@ import 'firebase/auth';
 import { baseUrl } from '../appConfig';
 import { useEmailVerified } from '../util/emailVerified';
 
-
 export default () => {
   const [sendVerificationSuccess, setSendVerificationSuccess] = React.useState(false);
   const [user, isAuthLoading] = useAuthState(firebase.auth());
@@ -42,7 +41,7 @@ export default () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       <h1 className="font-teaser py-4 pt-10">{t('views.verifyEmail.confirmEmail')}</h1>
       <div className="font-open-sans">
         {t('views.verifyEmail.explanation')}
