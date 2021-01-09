@@ -2,9 +2,9 @@ import * as admin from 'firebase-admin';
 
 import { sendEmailToUser } from './sendEmailToUser';
 
-import { NotificationsCollectionEntry } from '@interface/collections/NotificationsCollectionEntry';
-import { SendgridTemplateData } from '@interface/email/SendgridTemplateData';
-import { CollectionName } from '@enum/CollectionName';
+import { NotificationsCollectionEntry } from '../../types/interface/collections/NotificationsCollectionEntry';
+import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
+import { CollectionName } from '../../types/enum/CollectionName';
 
 export async function sendNotificationEmailsForOffers(
   db: FirebaseFirestore.Firestore,

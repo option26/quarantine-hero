@@ -1,17 +1,17 @@
 import * as admin from 'firebase-admin';
 import { Change, firestore } from 'firebase-functions';
 
-import { getEligibleHelpOffers } from '@utilities/email/getEligibleHelpOffers';
-import { sendNotificationEmailsForOffers } from '@utilities/email/sendNotificationEmailsForOffers';
+import { getEligibleHelpOffers } from '../utilities/email/getEligibleHelpOffers';
+import { sendNotificationEmailsForOffers } from '../utilities/email/sendNotificationEmailsForOffers';
 
 import {
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
   MINIMUM_FOLLOWUP_DELAY_DAYS,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage
-} from '@config';
+} from '../config';
 
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 
 export async function onAskForHelpUpdate(change: Change<firestore.QueryDocumentSnapshot>): Promise<void> {
   try {

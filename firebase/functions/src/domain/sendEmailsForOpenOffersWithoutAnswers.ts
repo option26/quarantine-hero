@@ -3,11 +3,12 @@ import * as admin from 'firebase-admin';
 import {
   MINIMUM_FOLLOWUP_DELAY_DAYS,
   MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS,
-} from '@config';
+} from '../config';
 
-import { CollectionName } from '@enum/CollectionName';
-import { sendEmailForAskForHelpEntries } from '@utilities/email/sendEmailForAskForHelpEntries';
-import { SendgridTemplateId } from '@enum/SendgridTemplateId';
+import { sendEmailForAskForHelpEntries } from '../utilities/email/sendEmailForAskForHelpEntries';
+
+import { CollectionName } from '../types/enum/CollectionName';
+import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
 
 /*
   * With this function, we send emails to the authors of open help entries who have not received any answers yet, and ask whether they are still in need for help

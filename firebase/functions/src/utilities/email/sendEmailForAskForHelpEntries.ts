@@ -1,13 +1,13 @@
 import {
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
-} from '@config';
+} from '../../config';
 
-import { sendEmailToUser } from '@utilities/email/sendEmailToUser';
+import { sendEmailToUser } from './sendEmailToUser';
 
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { SendgridTemplateData } from '@interface/email/SendgridTemplateData';
-import { SendgridTemplateId } from '@enum/SendgridTemplateId';
+import { AskForHelpCollectionEntry } from '../../types/interface/collections/AskForHelpCollectionEntry';
+import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
+import { SendgridTemplateId } from '../../types/enum/SendgridTemplateId';
 
 
 export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>, templateId: SendgridTemplateId) {

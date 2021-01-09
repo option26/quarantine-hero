@@ -4,14 +4,18 @@ import {
   MAX_RESULTS,
   MAPS_ENABLED,
   EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK,
-} from '@config';
+} from '../../config';
 
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
-import { NotificationsCollectionEntry } from '@interface/collections/NotificationsCollectionEntry';
-import { CollectionName } from '@enum/CollectionName';
+import { AskForHelpCollectionEntry } from '../../types/interface/collections/AskForHelpCollectionEntry';
+import { NotificationsCollectionEntry } from '../../types/interface/collections/NotificationsCollectionEntry';
+import { CollectionName } from '../../types/enum/CollectionName';
 
+interface Result {
+  initialSize: number;
+  eligibleHelpOffers: NotificationsCollectionEntry['d'][];
+}
 
-export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, askForHelpId: string, askForHelpSnapData: AskForHelpCollectionEntry): Promise<NotificationsCollectionEntry['d'][]> {
+export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, askForHelpId: string, askForHelpSnapData: AskForHelpCollectionEntry): Promise<Result> {
   const dist = (search: string, doc: NotificationsCollectionEntry['d']) => Math.abs(Number(search) - Number(doc.plz));
   let queryResult: NotificationsCollectionEntry['d'][] = [];
   if (MAPS_ENABLED) {
@@ -54,7 +58,7 @@ export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, ask
     }
   }
 
-  let offersToContact: NotificationsCollectionEntry['d'][] = [];
+  let eligibleHelpOffers: NotificationsCollectionEntry['d'][] = [];
   if (queryResult.length > MAX_RESULTS) {
     for (let i = queryResult.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * i);
@@ -62,12 +66,13 @@ export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, ask
       queryResult[i] = queryResult[j];
       queryResult[j] = temp;
     }
-    offersToContact = queryResult.slice(0, MAX_RESULTS);
+    eligibleHelpOffers = queryResult.slice(0, MAX_RESULTS);
   } else {
-    offersToContact = queryResult;
+    eligibleHelpOffers = queryResult;
   }
 
   const { notificationReceiver: previouslyContacted } = askForHelpSnapData.d;
-  if (!previouslyContacted || !previouslyContacted.length) return offersToContact;
-  return offersToContact.filter(entry => !previouslyContacted.includes(entry.uid));
+  if (!previouslyContacted || !previouslyContacted.length) return { eligibleHelpOffers, initialSize: queryResult.length };
+  const eligibleHelpOffersNotContacted = eligibleHelpOffers.filter(entry => !previouslyContacted.includes(entry.uid));
+  return { eligibleHelpOffers: eligibleHelpOffersNotContacted, initialSize: queryResult.length };
 }

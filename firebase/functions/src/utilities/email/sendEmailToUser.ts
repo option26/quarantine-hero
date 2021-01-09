@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { SendgridTemplateData } from '@interface/email/SendgridTemplateData';
+import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
 
 export async function sendEmailToUser(uid: string, templateId: string, templateData: SendgridTemplateData): Promise<void> {
   const offeringUser = await admin.auth().getUser(uid);
