@@ -90,12 +90,14 @@ export default function Signin() {
   };
 
   return (
-    <div className="p-4 mt-8">
+    <div className="p-4">
+      <div className="mt-8 mb-6">
+        <div className="font-teaser mb-6">
+          {headerText}
+        </div>
+      </div>
       <form onSubmit={signIn}>
         <div className="mb-4">
-          <div className="font-teaser mb-6">
-            {headerText}
-          </div>
           <label className="block text-gray-700 text-sm font-bold mb-1 font-open-sans" htmlFor="username">
             {t('views.signIn.email')}
           </label>
@@ -106,7 +108,7 @@ export default function Signin() {
             defaultValue={email}
           />
         </div>
-        <div className="mb-8">
+        <div className="flex flex-col items-start">
           <label className="block text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="password">
             {t('views.signIn.password')}
           </label>
@@ -120,7 +122,7 @@ export default function Signin() {
             required="required"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="button" className="float-right text-secondary hover:underline" data-cy="btn-pw-reset" onClick={sendPasswordResetMail}>
+          <button type="button" className="self-end text-secondary hover:underline" data-cy="btn-pw-reset" onClick={sendPasswordResetMail}>
             <small>{t('views.signIn.resetPw')}</small>
           </button>
         </div>

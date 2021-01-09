@@ -101,7 +101,7 @@ export default function AskForHelp() {
             className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
             data-cy="ask-for-help-text-input"
             required="required"
-            placeholder={t('views.askForHelp.whatCanWeDo')}
+            placeholder={t('views.askForHelp.describeRequest')}
             onChange={(e) => setRequest(e.target.value)}
           />
         </div>
