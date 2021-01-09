@@ -86,6 +86,7 @@
       "thisFunction": "diese Funktion",
       "whereAreYou": "Wo bist Du?",
       "whatCanWeDo": "Wobei kann man Dir helfen?",
+      "describeRequest": "Beschriebe hier, bei was Du Hilfe benötigst. Dieser Text wird potentiellen Helfenden angezeigt.",
       "requestIsPublic": "Sobald Du Deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht sichtbar.",
       "askNow": "Jetzt um Hilfe bitten"
     },
@@ -169,7 +170,7 @@
       "yourPw": "Dein Passwort",
       "email": "E-Mail",
       "password": "Passwort",
-      "resetPw": "Passwort zurücksetzen",
+      "resetPw": "Passwort noch nicht gesetzt oder vergessen? – Jetzt zurücksetzen!",
       "loginNow": "Jetzt anmelden",
       "registerNow": "Neu registrieren",
       "pwResetConfirmation": "Eine E-Mail mit Anleitung zum Zurücksetzen Deines Passworts wurde Dir zugesendet!",
