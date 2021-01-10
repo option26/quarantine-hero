@@ -169,15 +169,8 @@ export default function EntryList({ pageSize }) {
         entries.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
+            entry={entry}
             onAddressClick={handleAddressClick}
-            showAsSolved={entry.solved}
           />
         ))
       )}
