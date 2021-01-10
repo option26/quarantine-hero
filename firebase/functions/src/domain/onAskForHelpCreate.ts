@@ -22,9 +22,11 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     }
 
     // Enforce server-side defaults
+    const now = Date.now();
     await snap.ref.update({
       'd.notificationCounter': 0,
-      'd.timeStampLastHelpRequest': Date.now(),
+      'd.timeStampLastHelpRequest': now,
+      'd.timestamp': now,
       'd.slackMessageRef': messageRef,
     });
 
