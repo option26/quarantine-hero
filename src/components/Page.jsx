@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ScrollUpButton from 'react-scroll-up-button';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import * as firebase from 'firebase';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import ShareButtons from './ShareButtons';
@@ -11,6 +10,7 @@ import DesktopLowerNavigation from './DesktopMenu';
 import Footer from './Footer';
 import arrowUpIcon from '../assets/arrows_up.svg';
 import Sidebar from './Sidebar';
+import fb from '../firebase';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
@@ -98,10 +98,10 @@ export default function Page({ children }) {
   // always scroll page to top when changing the pathname
   useScrollToTop();
 
-  const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const [user, isAuthLoading] = useAuthState(fb.auth);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const signOut = () => firebase.auth().signOut();
+  const signOut = () => fb.auth.signOut();
 
   return (
     <>
