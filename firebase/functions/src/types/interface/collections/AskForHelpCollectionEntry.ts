@@ -3,7 +3,6 @@ export interface AskForHelpCollectionEntry {
     uid: string
     timestamp: number
     timeStampLastHelpRequest: number
-    requestingMoreHelp: boolean
     request: string
     response: number
     location: string
