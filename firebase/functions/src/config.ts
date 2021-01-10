@@ -20,7 +20,7 @@ const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35_000;
 const MINIMUM_FOLLOWUP_DELAY_DAYS = 3;
 // do not attempt to engage with open entries that are older that this value
 const MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS = 10;
-const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 10;
+const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 3;
 
 export {
   REGION_EUROPE_WEST_1,
