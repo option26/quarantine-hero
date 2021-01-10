@@ -2,6 +2,7 @@ import * as app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
 import 'firebase/firestore';
+import 'firebase/functions';
 import 'firebase/database';
 import 'firebase/storage';
 import config from './firebaseConfig';
@@ -23,6 +24,11 @@ class Firebase {
     this.analytics = {
       logEvent: () => { },
     };
+  }
+
+  askForMoreHelp(askForHelpId) {
+    const handleAskForMoreHelp = this.app.functions().httpsCallable('handleAskForMoreHelp');
+    return handleAskForMoreHelp(askForHelpId);
   }
 }
 export default new Firebase();
