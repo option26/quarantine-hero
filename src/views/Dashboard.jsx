@@ -96,13 +96,7 @@ function Dashboard(props) {
         : requestsForHelp.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
+            entry={entry}
             showSolveHint={attemptingToSolve && !attemptingToDelete && !attemptingToRequestMoreHelp && entry.responses > 0 && entryIdFromUrl === entry.id}
             showDeleteHint={!attemptingToSolve && attemptingToDelete && !attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
             showMoreHelpHint={!attemptingToSolve && !attemptingToDelete && attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
@@ -128,13 +122,7 @@ function Dashboard(props) {
         : solvedPosts.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
+            entry={entry}
             showAsSolved
             owner
           />

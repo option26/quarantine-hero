@@ -74,13 +74,7 @@ export default function OfferHelp() {
         </div>
         <Entry
           key={entry.id}
-          location={entry.location}
-          id={entry.id}
-          request={entry.request}
-          timestamp={entry.timestamp}
-          responses={entry.responses}
-          reportedBy={entry.reportedBy}
-          uid={entry.uid}
+          enter={entry}
           report={report}
           showFullText
           highlightLeft
