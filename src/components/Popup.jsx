@@ -38,6 +38,8 @@ export default function PopupOnEntryAction(props) {
     popupVisible,
     setPopupVisible,
     setAttemptingToDelete,
+    setMoreHelpRequestFailed,
+    setMoreHelpRequested,
     handleSolved,
     showAsSolved,
     handleNewAskForHelp,
@@ -47,6 +49,7 @@ export default function PopupOnEntryAction(props) {
     cancelAttemptingToRequestMoreHelp,
     handleRequestMoreHelp,
     moreHelpRequested,
+    moreHelpRequestFailed,
     backToOverview,
   } = props;
 
@@ -98,6 +101,14 @@ export default function PopupOnEntryAction(props) {
     <>
       <p>{t('components.entry.popup.requestMoreHelpSuccessful.firstSentence')}</p>
       <p>{t('components.entry.popup.requestMoreHelpSuccessful.secondSentence')}</p>
+      {strongerTogetherHashtag}
+    </>
+  );
+
+  const textBodyAskForMoreHelpFailed = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelpFailed.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelpFailed.secondSentence')}</p>
       {strongerTogetherHashtag}
     </>
   );
@@ -216,6 +227,13 @@ export default function PopupOnEntryAction(props) {
     textBodyAskForMoreHelpSuccessful,
   );
 
+  const RequestMoreHelpFailed = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelpFailed.heading'),
+    <></>,
+    <BackToOverviewButton />,
+    textBodyAskForMoreHelpFailed,
+  );
+
   let popupContent = <></>;
   if (attemptingToSolve && !showAsSolved) popupContent = <PopupContentSolveReassure />;
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
@@ -223,6 +241,7 @@ export default function PopupOnEntryAction(props) {
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
   if (attemptingToRequestMoreHelp) popupContent = <RequestMoreHelpReassure />;
   if (moreHelpRequested) popupContent = <RequestMoreHelpSuccess />;
+  if (moreHelpRequestFailed) popupContent = <RequestMoreHelpFailed />;
 
   return (
     <Popup
@@ -232,6 +251,8 @@ export default function PopupOnEntryAction(props) {
       onClose={() => {
         setAttemptingToDelete(false);
         setPopupVisible(false);
+        setMoreHelpRequestFailed(false);
+        setMoreHelpRequested(false);
       }}
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
       contentStyle={
