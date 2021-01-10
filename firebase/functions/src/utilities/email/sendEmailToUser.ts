@@ -1,12 +1,14 @@
 import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
-import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
 
 export async function sendEmailToUser(uid: string, templateId: string, templateData: SendgridTemplateData): Promise<void> {
-  const offeringUser = await admin.auth().getUser(uid);
-  const { email } = offeringUser.toJSON() as UserRecord;
+  const { email } = await admin.auth().getUser(uid);
+  if (email === undefined) {
+    console.log(`No email address found for user ${uid}`);
+    return;
+  }
   const sendgridOptions = {
     to: email,
     from: 'help@quarantaenehelden.org',
