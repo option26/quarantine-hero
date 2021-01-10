@@ -1,4 +1,4 @@
-import { AskForHelpCollectionEntry } from '@interface/collections/AskForHelpCollectionEntry';
+import { AskForHelpCollectionEntry } from '../../interface/collections/AskForHelpCollectionEntry';
 
 export interface SendgridTemplateData {
   subject: string;
