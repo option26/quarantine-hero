@@ -13,17 +13,16 @@ export async function sendNotificationEmailsForOffers(
   templateId: string,
   templateData: SendgridTemplateData
 ): Promise<void> {
-  const result = await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry['d']) => {
+  await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry['d']) => {
     try {
       const { uid } = offerDoc;
 
-      const email = await sendEmailToUser(uid, templateId, templateData);
+      await sendEmailToUser(uid, templateId, templateData);
 
       await db.collection(CollectionName.AskForHelp).doc(askForHelpId).update({
         'd.notificationCounter': admin.firestore.FieldValue.increment(1),
         'd.notificationReceiver': admin.firestore.FieldValue.arrayUnion(uid),
       });
-      return { askForHelpId, email };
     } catch (err) {
       // eslint-disable-next-line no-console
       console.warn(err);
@@ -31,9 +30,6 @@ export async function sendNotificationEmailsForOffers(
         // eslint-disable-next-line no-console
         console.warn(err.response.body.errors);
       }
-      return null;
     }
   }));
-  // eslint-disable-next-line no-console
-  console.log(result);
 }
