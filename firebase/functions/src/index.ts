@@ -4,8 +4,8 @@ import * as admin from 'firebase-admin';
 import { REGION_EUROPE_WEST_1 } from './config';
 
 import { handleIncomingCall as handleIncomingCallFromHotline } from './domain/handleIncomingCall';
+import { handleAskForMoreHelp as handleAskForMoreHelpFunction } from './domain/handleAskForMoreHelp';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
-import { onAskForHelpUpdate } from './domain/onAskForHelpUpdate';
 import { onDeletedCreate } from './domain/onDeletedCreate';
 import { onUserDelete } from './domain/onUserDelete';
 import { onOfferHelpCreate } from './domain/onOfferHelpCreate';
@@ -38,29 +38,22 @@ export const sendNotificationEmails = functions
 export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .schedule('00 09 * * *') // Every day at 09:00 in the morning.
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithoutAnswers);
 
 export const sendNotificationEmailsForOpenOffersWithAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .schedule('00 09 * * *') // Every day at 09:00 in the morning.
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithAnswers);
-
 
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
   .firestore
   .document(`/${CollectionName.AskForHelp}/{requestId}`)
   .onCreate(onAskForHelpCreate);
-
-  export const askForHelpUpdate = functions
-  .region(REGION_EUROPE_WEST_1)
-  .firestore
-  .document(`/${CollectionName.AskForHelp}/{requestId}`)
-  .onUpdate(onAskForHelpUpdate);
 
 export const regionSubscribeCreate = functions
   .region(REGION_EUROPE_WEST_1)
@@ -96,6 +89,11 @@ export const handleIncomingCall = functions
   .region(REGION_EUROPE_WEST_1)
   .https
   .onRequest(handleIncomingCallFromHotline);
+
+export const handleAskForMoreHelp = functions
+  .region(REGION_EUROPE_WEST_1)
+  .https
+  .onCall(handleAskForMoreHelpFunction);
 
 export const deleteUserData = functions
   .region(REGION_EUROPE_WEST_1)
