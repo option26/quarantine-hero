@@ -17,26 +17,33 @@ import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg
 import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
+import { maxAllowedRequestForHelp, minFollowupDelayDays } from '../../appConfig';
 import './Entry.css';
 
 export default function Entry(props) {
   const {
     showFullText = false,
     showAsSolved = false,
-    location = '',
-    id = '',
-    request = '',
-    timestamp = Date.now(),
     onAddressClick,
-    responses = 0,
     highlightLeft = false,
-    reportedBy = [],
     report = false,
-    uid = '',
+    entry = undefined,
     showSolveHint = false,
     showDeleteHint = false,
     showMoreHelpHint = false,
   } = props;
+
+  const {
+    location = '',
+    id = '',
+    request = '',
+    timestamp = Date.now(),
+    responses = 0,
+    uid = '',
+    timeStampLastHelpRequest = undefined,
+    notificationCounter = undefined,
+    reportedBy = [],
+  } = entry;
 
   const history = useHistory();
   const { t } = useTranslation();
@@ -49,6 +56,7 @@ export default function Entry(props) {
   const [deleted, setDeleted] = useState(false);
   const [solved, setSolved] = useState(false);
   const [moreHelpRequested, setMoreHelpRequested] = useState(false);
+  const [moreHelpRequestFailed, setMoreHelpRequestFailed] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
   const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
@@ -95,10 +103,14 @@ export default function Entry(props) {
 
   const handleRequestMoreHelp = async (e) => {
     e.preventDefault();
-    // await fb.store.collection('ask-for-help').doc(id).update({ 'd.requestingMoreHelp': true });
+    try {
+      await fb.askForMoreHelp(id);
+      setMoreHelpRequested(true);
+    } catch (err) {
+      setMoreHelpRequestFailed(true);
+    }
     fb.analytics.logEvent('more_help_requested');
     setAttemptingToRequestMoreHelp(false);
-    setMoreHelpRequested(true);
     setPopupVisible(true);
   };
 
@@ -117,6 +129,12 @@ export default function Entry(props) {
   const initializeSolve = async (e) => {
     e.preventDefault();
     setAttemptingToSolve(true);
+    setPopupVisible(true);
+  };
+
+  const initializeMoreHelp = async (e) => {
+    e.preventDefault();
+    setAttemptingToRequestMoreHelp(true);
     setPopupVisible(true);
   };
 
@@ -205,6 +223,9 @@ export default function Entry(props) {
       cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
       handleRequestMoreHelp={handleRequestMoreHelp}
       moreHelpRequested={moreHelpRequested}
+      setMoreHelpRequestFailed={setMoreHelpRequestFailed}
+      setMoreHelpRequested={setMoreHelpRequested}
+      moreHelpRequestFailed={moreHelpRequestFailed}
       backToOverview={backToOverview}
     />
   );
@@ -229,7 +250,7 @@ export default function Entry(props) {
     document.body.removeEventListener('click', clearReportAttempt);
   };
 
-  const topRightButtonBar = (() => {
+  const TopRightButtonBar = (() => {
     if (showAsSolved && !entryBelongsToCurrentUser) {
       return (
         <div className="flex justify-center items-center bg-secondary text-white text-xs font-medium rounded px-2">
@@ -280,16 +301,16 @@ export default function Entry(props) {
                 className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry z-10 absolute"
                 onClick={reportEntry}
               >
-                Post melden?
+                {t('components.entry.reportPost')}
                 <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
               </button>
             </div>
           ) : null}
       </div>
     );
-  })();
+  });
 
-  const bottomButtonBar = (() => {
+  const BottomButtonBar = (() => {
     if (!mayDeleteEntryAndSeeResponses) {
       return <></>;
     }
@@ -298,13 +319,28 @@ export default function Entry(props) {
       ? 'bg-secondary text-white btn-common'
       : 'bg-tertiary text-secondary hover:bg-secondary hover:text-white btn-common';
 
+    const moreHelpEligible = notificationCounter < maxAllowedRequestForHelp && timeStampLastHelpRequest < Date.now() - minFollowupDelayDays * 24 * 60 * 60 * 1000;
+
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
           ? (
-            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-grow mr-px btn-common">
-              <div>{numberOfResponsesText}</div>
-            </div>
+            <>
+              <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-1 btn-common">
+                <div>{numberOfResponsesText}</div>
+              </div>
+              {moreHelpEligible && (
+                <button
+                  type="button"
+                  data-cy="btn-entry-more-help"
+                  className="flex items-center justify-center flex-1 sm:flex-grow px-2 ml-px bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white btn-common"
+                  onClick={initializeMoreHelp}
+                >
+                  <div>{t('components.entry.increaseReach')}</div>
+                  <QuestionMarkSvg className="ml-1 inline-block h-4" />
+                </button>
+              )}
+            </>
           ) : (
             <>
               <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row items-center justify-center" onClick={toggleResponsesVisible}>
@@ -312,7 +348,7 @@ export default function Entry(props) {
                 <MailOutlineIcon className="ml-2 inline-block" />
                 <div className="block xs:hidden font-open-sans font-bold ml-1">{responses}</div>
               </button>
-              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
+              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center flex-1 ml-px sm:flex-grow ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
                 <div>{t('components.entry.heroFound')}</div>
                 {showAsSolved
                   ? <DoneIcon className="ml-1 inline-block" />
@@ -320,13 +356,13 @@ export default function Entry(props) {
               </button>
             </>
           )}
-        <button type="button" data-cy="btn-entry-delete" className="bg-red-200 text-primary hover:text-white hover:bg-primary flex flex-row item-center md:justify-around max-w-5 md:max-w-full btn-common pl-2 pr-8 md:px-6" onClick={initializeDelete}>
+        <button type="button" data-cy="btn-entry-delete" className="bg-red-200 text-primary hover:text-white hover:bg-primary ml-px flex flex-row item-center md:justify-around max-w-5 md:max-w-full btn-common pl-2 pr-8 md:px-6" onClick={initializeDelete}>
           <div className="hidden md:block">{t('components.entry.deleteRequestForHelp')}</div>
           <DeleteOutlineIcon className="pb-1" />
         </button>
       </div>
     );
-  })();
+  });
 
   const requestCard = (
     <>
@@ -352,14 +388,14 @@ export default function Entry(props) {
             {' '}
             {t('components.entry.needsHelp')}
           </span>
-          {topRightButtonBar}
+          <TopRightButtonBar />
         </div>
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <div className="flex flex-row justify-between items-center mt-4 mb-2">
           <div className="text-xs text-secondary mr-1 font-bold">{mayDeleteEntryAndSeeResponses ? '' : numberOfResponsesText}</div>
           <span className="text-gray-500 inline-block text-right text-xs font-open-sans">{date}</span>
         </div>
-        {bottomButtonBar}
+        <BottomButtonBar />
       </Link>
       {popupOnEntryAction}
     </>
