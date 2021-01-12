@@ -9,9 +9,8 @@ import { AskForHelpCollectionEntry } from '../../types/interface/collections/Ask
 import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
 import { SendgridTemplateId } from '../../types/enum/SendgridTemplateId';
 
-
-export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>, templateId: SendgridTemplateId) {
-  const asyncEmails = askForHelpEntries.docs.map(async (askForHelpSnap) => {
+export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseFirestore.DocumentData[], templateId: SendgridTemplateId) {
+  const asyncEmails = askForHelpEntries.map(async (askForHelpSnap) => {
     const askForHelpSnapData = askForHelpSnap.data() as AskForHelpCollectionEntry;
     const askForHelpId = askForHelpSnap.id;
     // eslint-disable-next-line no-console
