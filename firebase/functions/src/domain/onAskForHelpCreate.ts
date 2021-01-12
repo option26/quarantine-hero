@@ -25,7 +25,7 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     const now = Date.now();
     await snap.ref.update({
       'd.notificationCounter': 0,
-      'd.timeStampLastHelpRequest': now,
+      'd.lastHelpRequestTimestamps': [now],
       'd.timestamp': now,
       'd.slackMessageRef': messageRef,
     });
