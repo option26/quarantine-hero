@@ -31,21 +31,21 @@ export const contentUpdated = functions
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23. https://crontab.guru/#*/3_9-23_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
 
 export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('00 09 * * *') // Every day at 09:00 in the morning.
+  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithoutAnswers);
 
 export const sendNotificationEmailsForOpenOffersWithAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('00 09 * * *') // Every day at 09:00 in the morning.
+  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithAnswers);
 
@@ -108,6 +108,6 @@ export const updateGeoDBFunction = functions
   })
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
+  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year https://crontab.guru/#0_0_1_*/6_*
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
