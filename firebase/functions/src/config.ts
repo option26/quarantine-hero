@@ -17,9 +17,11 @@ const SEND_EMAILS = sgMailApiKey !== null;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
 const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35_000;
 // We only follow up with a user as long as his request is open
-const MINIMUM_FOLLOWUP_DELAY_DAYS = 3;
+const MINIMUM_FOLLOWUP_DELAY_DAYS = 1;
+// The cooldown before a user can request more help again
+const MORE_HELP_REQUEST_COOLDOWN_DAYS = 1;
 // do not attempt to engage with open entries that are older that this value
-const MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS = 10;
+const MAXIMUM_FOLLOWUP_DELAY_DAYS = 10;
 const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 3;
 
 export {
@@ -28,7 +30,8 @@ export {
   MAPS_ENABLED,
   MINIMUM_NOTIFICATION_DELAY_MINUTES,
   MINIMUM_FOLLOWUP_DELAY_DAYS,
-  MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS,
+  MAXIMUM_FOLLOWUP_DELAY_DAYS,
+  MORE_HELP_REQUEST_COOLDOWN_DAYS,
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
