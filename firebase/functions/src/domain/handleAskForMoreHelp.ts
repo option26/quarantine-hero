@@ -6,7 +6,7 @@ import { postReplyToSlack } from '../utilities/slack';
 
 import {
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
-  MINIMUM_FOLLOWUP_DELAY_DAYS,
+  MORE_HELP_REQUEST_COOLDOWN_DAYS,
   SEND_EMAILS,
   sendingMailsDisabledLogMessage
 } from '../config';
@@ -14,7 +14,6 @@ import {
 import { CallableContext } from 'firebase-functions/lib/providers/https';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-
 
 export async function handleAskForMoreHelp(askForHelpId: string, context: CallableContext): Promise<void> {
   if (askForHelpId !== undefined || context.auth === undefined || context.auth === null) {
@@ -47,14 +46,15 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       throw new Error('Unauthorized');
     }
 
-    const { uid, timeStampLastHelpRequest, notificationCounter } = askForHelpData.d;
+    const { uid, lastHelpRequestTimestamps, notificationCounter } = askForHelpData.d;
+    const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
 
     // early return if the user does not request help or is not eligible for more help
     if (notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
       console.log('Maximum amount of allowed request reached for user', notificationCounter, uid, askForHelpId);
       throw new Error('Maximum amount of allowed request reached');
     }
-    if (timeStampLastHelpRequest >= Date.now() - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000) {
+    if (timeStampLastHelpRequest >= Date.now() - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000) {
       console.log('User is attempting to request help again within the cool down period', timeStampLastHelpRequest, uid, askForHelpId);
       throw new Error('Cool down active, please wait');
     }
@@ -96,7 +96,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
 
     return transaction.update(askForHelpDoc, {
       'd.notificationCounter': admin.firestore.FieldValue.increment(1),
-      'd.timeStampLastHelpRequest': Date.now(),
+      'd.lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(new Date()),
     });
   };
 }

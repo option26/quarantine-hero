@@ -2,7 +2,7 @@ export interface AskForHelpCollectionEntry {
   d: {
     uid: string
     timestamp: number
-    timeStampLastHelpRequest: number
+    lastHelpRequestTimestamps: number[]
     request: string
     response: number
     location: string
