@@ -2,11 +2,14 @@ import * as admin from 'firebase-admin';
 
 import {
   MINIMUM_FOLLOWUP_DELAY_DAYS,
-  MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS,
+  MAXIMUM_FOLLOWUP_DELAY_DAYS,
+  MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
+  MORE_HELP_REQUEST_COOLDOWN_DAYS
 } from '../config';
 
 import { sendEmailForAskForHelpEntries } from '../utilities/email/sendEmailForAskForHelpEntries';
 
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
 import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
 
@@ -21,17 +24,31 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
 export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
   try {
     const db = admin.firestore();
-    const askForHelpSnapsWithoutAnswers = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '>=', Date.now() - MAXIMUM_AGE_FOR_RE_ENGAGEMENT_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.timestamp', '<=', Date.now() - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+    const now = Date.now();
+    const askForHelpSnapsWithoutAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
+      .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('d.notificationCounter', '<', MAXIMUM_ALLOWED_REQUESTS_FOR_HELP)
       .where('d.responses', '==', 0)
-      .limit(3)
       .get();
 
+    const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
+      const data = snap.data() as AskForHelpCollectionEntry;
+      const [lastHelpRequested] = data.d.lastHelpRequestTimestamps.slice(-1);
+      return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
+    });
+
+    // TODO: request more help slack message should tag @anfragencops
+
+    // TODO: idea: put solved posts functionality in top right corner on dashboard, make ask for more help always visible
+
+    // TODO: handling for button in UI?
+    // TODO: Disable button in frontend as long as in cooldown (possibly with tooltip or countdown in button)
+
     // eslint-disable-next-line no-console
-    console.log('askForHelpSnapsWithoutAnswers: Requests to execute', askForHelpSnapsWithoutAnswers.docs.length);
+    console.log('askForHelpSnapsWithoutAnswers: Requests to execute', eligibleAskForHelpSnapsWithoutAnswers.length);
     const templateId = SendgridTemplateId.HaveYouReceivedHelp;
-    await sendEmailForAskForHelpEntries(askForHelpSnapsWithoutAnswers, templateId);
+    await sendEmailForAskForHelpEntries(eligibleAskForHelpSnapsWithoutAnswers, templateId);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
