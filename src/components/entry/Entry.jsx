@@ -17,7 +17,7 @@ import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg
 import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
-import { maxAllowedRequestForHelp, minFollowupDelayDays } from '../../appConfig';
+import { maxAllowedRequestForHelp, moreHelpRequestCooldownDays } from '../../appConfig';
 import './Entry.css';
 
 export default function Entry(props) {
@@ -40,7 +40,7 @@ export default function Entry(props) {
     timestamp = Date.now(),
     responses = 0,
     uid = '',
-    timeStampLastHelpRequest = undefined,
+    lastHelpRequestTimestamps = undefined,
     notificationCounter = undefined,
     reportedBy = [],
   } = entry;
@@ -319,7 +319,8 @@ export default function Entry(props) {
       ? 'bg-secondary text-white btn-common'
       : 'bg-tertiary text-secondary hover:bg-secondary hover:text-white btn-common';
 
-    const moreHelpEligible = notificationCounter < maxAllowedRequestForHelp && timeStampLastHelpRequest < Date.now() - minFollowupDelayDays * 24 * 60 * 60 * 1000;
+    const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
+    const moreHelpEligible = notificationCounter < maxAllowedRequestForHelp && timeStampLastHelpRequest < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000;
 
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
