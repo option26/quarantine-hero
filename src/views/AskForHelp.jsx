@@ -7,6 +7,7 @@ import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import { useEmailVerified } from '../util/emailVerified';
+import { hotlineId } from '../appConfig';
 
 export default function AskForHelp() {
   const { t } = useTranslation();
@@ -54,7 +55,7 @@ export default function AskForHelp() {
     });
 
     if (isHotline) {
-      docRef.collection('hotline').add({
+      docRef.native.collection('hotline').add({
         phoneNr,
         response,
       });
@@ -141,7 +142,6 @@ export default function AskForHelp() {
               <textarea
                 id="hotline_text"
                 className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
-                required="required"
                 placeholder="Response Text"
                 value={response}
                 onChange={(e) => setResponse(e.target.value)}
