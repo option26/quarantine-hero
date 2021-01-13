@@ -77,14 +77,15 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
 
   const version = 'v0';
   const body = request.rawBody.toString('utf-8');
-  const timestamp = request.headers['X-Slack-Request-Timestamp'];
+  const timestamp = request.headers['x-slack-request-timestamp'];
   const signBasestring = `${version}:${timestamp}:${body}`;
 
   const hash = hmac.update(signBasestring).digest('hex');
   const mySignature = `${version}=${hash}`;
-  const slackSignature = request.headers['X-Slack-Signature'];
+  const slackSignature = request.headers['x-slack-signature'];
   
-  if(mySignature !== slackSignature) {
+  if(slackSignature === undefined || mySignature !== slackSignature) {
+    console.warn("Slack message signatures did not match");
     response.status(401).send();
     return;
   }
