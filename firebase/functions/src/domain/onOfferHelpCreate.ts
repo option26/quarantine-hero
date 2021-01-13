@@ -71,6 +71,12 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
         if (SEND_EMAILS) {
           // without "any" casting, sendgrid complains about sendgridOptions typing
           await sgMail.send(sendgridResponseOptions as any);
+          try {
+            const message = 'Automatische Antwort für Hotline-Inserat gesendet.';
+            await postReplyToSlack(askRecordData.d.slackMessageRef, message);
+          } catch (err) {
+            console.log('Error posting to slack', err);
+          }
         } else {
           // eslint-disable-next-line no-console
           console.log(sendingMailsDisabledLogMessage);
