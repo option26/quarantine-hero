@@ -11,6 +11,7 @@ export interface AskForHelpCollectionEntry {
     notificationReceiver: string[]
     reportedBy: string[]
     slackMessageRef?: string
+    isHotline?: boolean
   };
   g: string;
   l: string[];

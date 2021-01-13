@@ -7,13 +7,12 @@ import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
+import { postReplyToSlack } from 'src/utilities/slack';
 
-export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot): Promise<void> {
+export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
-    const parentPath = snap.ref.parent.path; // get the id
-    const offerId = snap.id; // get the id
     const db = admin.firestore();
-    const askForHelp = snap.ref.parent.parent;
+    const askForHelp = offer.ref.parent.parent;
 
     if (!askForHelp) {
       // eslint-disable-next-line no-console
@@ -21,7 +20,6 @@ export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot):
       return;
     }
 
-    const offer = await db.collection(parentPath).doc(offerId).get();
     const askRecord = await askForHelp.get();
 
     if (!askRecord || !askRecord.exists) {
@@ -39,40 +37,90 @@ export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot):
     const offerRecordData = offer.data() as OfferHelpCollectionEntry;
     const { answer, email } = offerRecordData;
 
-    const sendgridOptions = {
-      to: receiver,
-      from: 'help@quarantaenehelden.org',
-      templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-      replyTo: { email },
-      hideWarnings: true, // removes triple bracket warning
-      dynamic_template_data: {
-        subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
-        answer,
-        email,
-        request,
-        askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
+    if (askRecordData.d.isHotline) {
+      // Send direct response to help offeree with hotline contact data
+      const hotlineDoc = await askForHelp.collection('hotline').get().then(snap => snap.docs.length > 0 ? snap.docs[0].data() : undefined);
+      if (!hotlineDoc) {
+        try {
+          const message = 'Fehler! Antwort für Hotline-Inserat erhalten aber keine Kontaktinformationen für Hilfesuchende*n gefunden.';
+          await postReplyToSlack(askRecordData.d.slackMessageRef, message, true);
+        } catch (err) {
+          console.log('Error posting to slack', err);
+        }
+        return;
       }
-    };
 
-    // eslint-disable-next-line no-console
-    console.log(sendgridOptions);
-
-    try {
-      if (SEND_EMAILS) {
-        // without "any" casting, sendgrid complains about sendgridOptions typing
-        await sgMail.send(sendgridOptions as any);
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(sendingMailsDisabledLogMessage);
+      const sendgridResponseOptions = {
+        to: email,
+        from: 'help@quarantaenehelden.org',
+        templateId: 'd-486c10fbe4e645a39be22f266dea5523',
+        hideWarnings: true, // removes triple bracket warning
+        dynamic_template_data: {
+          subject: 'QuarantäneHeld*innen - Telefonisch kontaktieren!',
+          answer,
+          email,
+          request,
+          askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
+        }
       }
-    } catch (err) {
+
       // eslint-disable-next-line no-console
-      console.warn(err);
-      if (err.response && err.response.body && err.response.body.errors) {
+      console.log(sendgridResponseOptions);
+
+      try {
+        if (SEND_EMAILS) {
+          // without "any" casting, sendgrid complains about sendgridOptions typing
+          await sgMail.send(sendgridResponseOptions as any);
+        } else {
+          // eslint-disable-next-line no-console
+          console.log(sendingMailsDisabledLogMessage);
+        }
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn(err.response.body.errors);
+        console.warn(err);
+        if (err.response && err.response.body && err.response.body.errors) {
+          // eslint-disable-next-line no-console
+          console.warn(err.response.body.errors);
+        }
+      }
+    } else {
+      // Send email to ask-for-help creator
+      const sendgridOptions = {
+        to: receiver,
+        from: 'help@quarantaenehelden.org',
+        templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+        replyTo: { email },
+        hideWarnings: true, // removes triple bracket warning
+        dynamic_template_data: {
+          subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
+          answer,
+          email,
+          request,
+          askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
+        }
+      };
+
+      // eslint-disable-next-line no-console
+      console.log(sendgridOptions);
+
+      try {
+        if (SEND_EMAILS) {
+          // without "any" casting, sendgrid complains about sendgridOptions typing
+          await sgMail.send(sendgridOptions as any);
+        } else {
+          // eslint-disable-next-line no-console
+          console.log(sendingMailsDisabledLogMessage);
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(err);
+        if (err.response && err.response.body && err.response.body.errors) {
+          // eslint-disable-next-line no-console
+          console.warn(err.response.body.errors);
+        }
       }
     }
+
 
     await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
       'd.responses': admin.firestore.FieldValue.increment(1),
@@ -84,6 +132,6 @@ export async function onOfferHelpCreate(snap: admin.firestore.DocumentSnapshot):
     // eslint-disable-next-line no-console
     console.error(e);
     // eslint-disable-next-line no-console
-    console.log('ID', snap.id);
+    console.log('ID', offer.id);
   }
 }
