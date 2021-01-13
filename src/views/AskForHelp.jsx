@@ -123,26 +123,26 @@ export default function AskForHelp() {
           <>
             <div className="w-full">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-                Hotline Nr
+                {t('views.askForHelp.phoneNr')}
               </label>
               <input
                 id="phone"
                 type="text"
                 className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
                 required="required"
-                placeholder="Phone"
+                placeholder={t('views.askForHelp.phoneNr')}
                 value={phoneNr}
                 onChange={(e) => setPhoneNr(e.target.value)}
               />
             </div>
             <div className="w-full mt-1">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="hotline_text">
-                Hotline Text
+                {t('views.askForHelp.autoResponseComment')}
               </label>
               <textarea
                 id="hotline_text"
                 className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
-                placeholder="Response Text"
+                placeholder={t('views.askForHelp.autoResponseComment')}
                 value={response}
                 onChange={(e) => setResponse(e.target.value)}
               />
