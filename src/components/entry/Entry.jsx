@@ -18,6 +18,7 @@ import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
 import './Entry.css';
+import { adminId } from '../../appConfig';
 
 export default function Entry(props) {
   const {
@@ -200,7 +201,7 @@ export default function Entry(props) {
     setResponsesVisible(!responsesVisible);
   };
 
-  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
+  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === adminId);
 
   const clearReportAttempt = (e) => {
     if (!link.current.contains(e.target)) setAttemptingToReport(false);

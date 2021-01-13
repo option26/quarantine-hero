@@ -21,7 +21,7 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const isHotline = user.uid === 'r38Bl9VsfBO5Pb8D8M2IwdZKZsq1';
+  const isHotline = user && user.uid === hotlineId;
 
   const handleSubmit = async (e) => {
     // Prevent page reload
