@@ -17,7 +17,7 @@ export default function AskForHelp() {
 
   const [request, setRequest] = useState('');
   const [phoneNr, setPhoneNr] = useState('');
-  const [response, setResponse] = useState('');
+  const [comment, setComment] = useState('');
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
@@ -57,7 +57,7 @@ export default function AskForHelp() {
     if (isHotline) {
       docRef.native.collection('hotline').add({
         phoneNr,
-        response,
+        comment,
       });
     }
 
@@ -143,8 +143,8 @@ export default function AskForHelp() {
                 id="hotline_text"
                 className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
                 placeholder={t('views.askForHelp.autoResponseComment')}
-                value={response}
-                onChange={(e) => setResponse(e.target.value)}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
               />
             </div>
           </>

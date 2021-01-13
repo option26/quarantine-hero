@@ -16,6 +16,7 @@ import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
 
 import { CollectionName } from './types/enum/CollectionName';
+import { onSlackInteraction } from './utilities/slack';
 
 admin.initializeApp();
 
@@ -89,3 +90,9 @@ export const updateGeoDBFunction = functions
   .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
+
+//Handler to handle all incoming slack activities
+export const slackInteractivityHandler = functions
+  .region('europe-west1')
+  .https
+  .onRequest(onSlackInteraction);
