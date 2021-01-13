@@ -7,7 +7,7 @@ import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { postReplyToSlack } from 'src/utilities/slack';
+import { postReplyToSlack } from '../utilities/slack';
 
 export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
@@ -50,6 +50,8 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
         return;
       }
 
+      const { phoneNr, response } = hotlineDoc;
+
       const sendgridResponseOptions = {
         to: email,
         from: 'help@quarantaenehelden.org',
@@ -57,12 +59,10 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
         hideWarnings: true, // removes triple bracket warning
         dynamic_template_data: {
           subject: 'QuarantäneHeld*innen - Telefonisch kontaktieren!',
-          answer,
-          email,
-          request,
-          askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
+          phoneNr,
+          response,
         }
-      }
+      };
 
       // eslint-disable-next-line no-console
       console.log(sendgridResponseOptions);
