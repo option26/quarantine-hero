@@ -77,7 +77,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
 
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
-        await postReplyToSlack(askForHelpData.d.slackMessageRef, message);
+        await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
       } catch (err) {
         console.log('Error posting to slack', err);
       }
@@ -85,7 +85,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     } else {
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nEmails deaktiviert!`;
-        await postReplyToSlack(askForHelpData.d.slackMessageRef, message);
+        await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
       } catch (err) {
         console.log('Error posting to slack', err);
       }
