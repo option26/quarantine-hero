@@ -9,7 +9,7 @@ service cloud.firestore {
   	  return request.auth.uid == "gwPMgUwQyNWMI8LpMBIaJcDvXPc2"
   	}
 
-    function isHotline() {
+  	function isHotline() {
   	  return request.auth.uid == "r38Bl9VsfBO5Pb8D8M2IwdZKZsq1"
   	}
 
