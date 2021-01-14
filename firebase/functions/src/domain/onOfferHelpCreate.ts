@@ -148,6 +148,9 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
   }
 }
 
+// Accepts callbacks from slack when asked
+// if an email should be sent to a person who has offered to help
+// on a request that has been submitted via the hotline
 export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string) {
   try {
     const { value } = actions[0];
