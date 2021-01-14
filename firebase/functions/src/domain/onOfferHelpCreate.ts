@@ -128,15 +128,24 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
     ]
   };
 
-  await axios({
-    method: 'POST',
-    url: 'https://slack.com/api/chat.postMessage',
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': `Bearer ${functions.config().slack.token}`,
-    },
-    data: slackMessageData,
-  });
+  try {
+    await axios({
+      method: 'POST',
+      url: 'https://slack.com/api/chat.postMessage',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${functions.config().slack.token}`,
+      },
+      data: slackMessageData,
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(err);
+    if (err.response && err.response.body && err.response.body.errors) {
+      // eslint-disable-next-line no-console
+      console.warn(err.response.body.errors);
+    }
+  }
 }
 
 export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string) {
