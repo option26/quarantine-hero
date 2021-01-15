@@ -40,53 +40,58 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
     const offerRecordData = offer.data() as OfferHelpCollectionEntry;
     const { answer, email } = offerRecordData;
 
-    if (askRecordData.d.isHotline) {
-      await askAllowHotlineAnswer(askRecordData.d.slackMessageRef, askForHelp.id, offer.id, email, answer);
-    } else {
-      // Send email to ask-for-help creator
-      const sendgridOptions = {
-        to: receiver,
-        from: 'help@quarantaenehelden.org',
-        templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-        replyTo: { email },
-        hideWarnings: true, // removes triple bracket warning
-        dynamic_template_data: {
-          subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
-          answer,
-          email,
-          request,
-          askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
-        }
-      };
-
-      // eslint-disable-next-line no-console
-      console.log(sendgridOptions);
-
-      try {
-        if (SEND_EMAILS) {
-          // without "any" casting, sendgrid complains about sendgridOptions typing
-          await sgMail.send(sendgridOptions as any);
-        } else {
-          // eslint-disable-next-line no-console
-          console.log(sendingMailsDisabledLogMessage);
-        }
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn(err);
-        if (err.response && err.response.body && err.response.body.errors) {
-          // eslint-disable-next-line no-console
-          console.warn(err.response.body.errors);
-        }
-      }
-    }
-
-
+    // Update counters
     await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
       'd.responses': admin.firestore.FieldValue.increment(1),
     });
     await db.collection(CollectionName.Stats).doc('external').update({
       offerHelp: admin.firestore.FieldValue.increment(1),
     });
+
+    if (askRecordData.d.isHotline) {
+      await askAllowHotlineAnswer(askRecordData.d.slackMessageRef, askForHelp.id, offer.id, email, answer);
+
+      // Early return as we don't need to send an email notifaction to the hotline operators
+      return;
+    }
+
+    // Send email to ask-for-help creator
+    const sendgridOptions = {
+      to: receiver,
+      from: 'help@quarantaenehelden.org',
+      templateId: 'd-ed9746e4ff064676b7df121c81037fab',
+      replyTo: { email },
+      hideWarnings: true, // removes triple bracket warning
+      dynamic_template_data: {
+        subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
+        answer,
+        email,
+        request,
+        askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
+      }
+    };
+
+    // eslint-disable-next-line no-console
+    console.log(sendgridOptions);
+
+    try {
+      if (SEND_EMAILS) {
+        // without "any" casting, sendgrid complains about sendgridOptions typing
+        await sgMail.send(sendgridOptions as any);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(sendingMailsDisabledLogMessage);
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(err);
+      if (err.response && err.response.body && err.response.body.errors) {
+        // eslint-disable-next-line no-console
+        console.warn(err.response.body.errors);
+      }
+    }
+
+
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
