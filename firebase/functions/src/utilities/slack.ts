@@ -56,7 +56,7 @@ async function postReplyToSlack(messageRef: string | undefined, message: string,
   });
 }
 
-async function answerDirectly(message: string, responseUrl: string) {
+async function answerDirectly(message: string, responseUrl: string): Promise<void> {
   await axios({
     method: 'POST',
     url: responseUrl,
