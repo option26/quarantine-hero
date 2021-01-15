@@ -40,13 +40,22 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
     const offerRecordData = offer.data() as OfferHelpCollectionEntry;
     const { answer, email } = offerRecordData;
 
-    // Update counters
-    await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
-      'd.responses': admin.firestore.FieldValue.increment(1),
-    });
-    await db.collection(CollectionName.Stats).doc('external').update({
-      offerHelp: admin.firestore.FieldValue.increment(1),
-    });
+    try {
+      // Update counters
+      await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
+        'd.responses': admin.firestore.FieldValue.increment(1),
+      });
+      await db.collection(CollectionName.Stats).doc('external').update({
+        offerHelp: admin.firestore.FieldValue.increment(1),
+      });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(err);
+      if (err.response && err.response.body && err.response.body.errors) {
+        // eslint-disable-next-line no-console
+        console.warn(err.response.body.errors);
+      }
+    }
 
     if (askRecordData.d.isHotline) {
       await askAllowHotlineAnswer(askRecordData.d.slackMessageRef, askForHelp.id, offer.id, email, answer);
@@ -156,7 +165,7 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
 // Accepts callbacks from slack when asked
 // if an email should be sent to a person who has offered to help
 // on a request that has been submitted via the hotline
-export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string) : Promise<void> {
+export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string): Promise<void> {
   try {
     const { value } = actions[0];
     const [response, askForHelpId, offerHelpId] = value.split('|');
@@ -180,7 +189,7 @@ export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, re
 // an offerHelp to an askForHelp, telling them that
 // the person is only reachable via phone and that they
 // should reach out to this person personally with a phone-call
-async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: string) : Promise<void> {
+async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: string): Promise<void> {
   const db = admin.firestore();
 
   const askForHelpRef = db.collection('ask-for-help').doc(askForHelpId);
