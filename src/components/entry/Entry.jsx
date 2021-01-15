@@ -9,6 +9,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 
 import fb from '../../firebase';
+import { adminId } from '../../appConfig';
 import getDateFnsLocaleObject from '../../util/getDateFnsLocaleObject';
 import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
@@ -18,7 +19,6 @@ import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
 import './Entry.css';
-import { adminId } from '../../appConfig';
 
 export default function Entry(props) {
   const {

@@ -16,6 +16,7 @@ import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
 
 import { CollectionName } from './types/enum/CollectionName';
+
 import { onSlackInteraction } from './utilities/slack';
 
 admin.initializeApp();

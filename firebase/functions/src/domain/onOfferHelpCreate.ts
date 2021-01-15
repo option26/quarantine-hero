@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin';
-import * as sgMail from '@sendgrid/mail';
 import * as functions from 'firebase-functions';
+import * as sgMail from '@sendgrid/mail';
+import axios from 'axios';
 
 import { sendingMailsDisabledLogMessage, SEND_EMAILS } from '../config';
 
@@ -10,7 +11,6 @@ import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHe
 import { HotlineCollectionEntry } from '../types/interface/collections/HotlineCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
 import { answerDirectly, postReplyToSlack } from '../utilities/slack';
-import axios from 'axios';
 
 export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
@@ -100,7 +100,7 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
   }
 }
 
-async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpId: string, offerHelpId: string, email: string, answer: string) {
+async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpId: string, offerHelpId: string, email: string, answer: string): Promise<void> {
   if (!messageRef) {
     console.warn('No message ref passed');
     return;
@@ -113,20 +113,20 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
     attachments: [
       {
         text: 'Automatische Antwort jetzt senden?',
-        fallback: "Da ist wohl etwas schief gelaufen :(",
-        callback_id: "allow_hotline_answer",
-        color: "#e33ad2",
-        attachment_type: "default",
+        fallback: 'Da ist wohl etwas schief gelaufen :(',
+        callback_id: 'allow_hotline_answer',
+        color: '#e33ad2',
+        attachment_type: 'default',
         actions: [{
-          name: "allow_answer",
-          text: "Ja",
-          type: "button",
+          name: 'allow_answer',
+          text: 'Ja',
+          type: 'button',
           value: `true|${askForHelpId}|${offerHelpId}`
         },
         {
-          name: "allow_answer",
-          text: "Nein",
-          type: "button",
+          name: 'allow_answer',
+          text: 'Nein',
+          type: 'button',
           value: `false|${askForHelpId}|${offerHelpId}`
         }]
       }
@@ -156,7 +156,7 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
 // Accepts callbacks from slack when asked
 // if an email should be sent to a person who has offered to help
 // on a request that has been submitted via the hotline
-export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string) {
+export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, responseUrl: string) : Promise<void> {
   try {
     const { value } = actions[0];
     const [response, askForHelpId, offerHelpId] = value.split('|');
@@ -166,11 +166,11 @@ export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, re
       await sendAutomaticReplyToHelper(askForHelpId, offerHelpId);
     }
 
-    const allowedResponse = "Es wurde eine Email mit der Telefonnummer an den Helfenden gesendet.";
-    const forbiddenResponse = "Es wurde keine Email an den Helfenden gesendet.";
+    const allowedResponse = 'Es wurde eine Email mit der Telefonnummer an den Helfenden gesendet.';
+    const forbiddenResponse = 'Es wurde keine Email an den Helfenden gesendet.';
     await answerDirectly(allowed ? allowedResponse : forbiddenResponse, responseUrl);
   } catch (err) {
-    console.log("Error sending automatic response to request", err);
+    console.log('Error sending automatic response to request', err);
 
     await answerDirectly(`Fehler beim Senden der automatischen Email: ${err}`, responseUrl);
   }
@@ -180,7 +180,7 @@ export async function onAllowHotlineAnswer(actions: Array<{ value: string }>, re
 // an offerHelp to an askForHelp, telling them that
 // the person is only reachable via phone and that they
 // should reach out to this person personally with a phone-call
-async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: string) {
+async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: string) : Promise<void> {
   const db = admin.firestore();
 
   const askForHelpRef = db.collection('ask-for-help').doc(askForHelpId);

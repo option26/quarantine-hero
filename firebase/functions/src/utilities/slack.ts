@@ -2,8 +2,9 @@ import axios from 'axios';
 import * as functions from 'firebase-functions';
 import * as crypto from 'crypto';
 
-import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { onAllowHotlineAnswer } from '../domain/onOfferHelpCreate';
+
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 
 async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry): Promise<string> {
   const { request, location, isHotline } = snapData.d;
@@ -30,9 +31,6 @@ async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry):
 
   return response.data.ts;
 }
-
-// offerHelp created --> send message to slack with response text and a button that says allow / deny
-// button pressed --> call firebase webhook that triggers sending of that email (how do we identify which one? --> By the offer help)
 
 async function postReplyToSlack(messageRef: string | undefined, message: string, mention = false): Promise<void> {
   if (!messageRef) {
@@ -85,7 +83,7 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
   const slackSignature = request.headers['x-slack-signature'];
   
   if(slackSignature === undefined || mySignature !== slackSignature) {
-    console.warn("Slack message signatures did not match");
+    console.warn('Slack message signatures did not match');
     response.status(401).send();
     return;
   }
@@ -98,10 +96,10 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
     response_url: responseUrl
   } = actionContent;
 
-  console.log("Incoming activity for", callbackId);
+  console.log('Incoming activity for', callbackId);
 
   switch (callbackId) {
-    case "allow_hotline_answer": await onAllowHotlineAnswer(actions, responseUrl); break;
+    case 'allow_hotline_answer': await onAllowHotlineAnswer(actions, responseUrl); break;
   }
 
   response.status(200).send();
