@@ -7,6 +7,7 @@ import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import { useEmailVerified } from '../util/emailVerified';
+import { hotlineId } from '../appConfig';
 
 export default function AskForHelp() {
   const { t } = useTranslation();
@@ -15,9 +16,13 @@ export default function AskForHelp() {
   const [emailVerified, emailVerifiedLoading] = useEmailVerified(fb.auth);
 
   const [request, setRequest] = useState('');
+  const [phoneNr, setPhoneNr] = useState('');
+  const [comment, setComment] = useState('');
   const [location, setLocation] = useState('');
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
+
+  const isHotline = user && user.uid === hotlineId;
 
   const handleSubmit = async (e) => {
     // Prevent page reload
@@ -38,7 +43,7 @@ export default function AskForHelp() {
     const geocollection = geofirestore.collection('ask-for-help');
 
     // Add a GeoDocument to a GeoCollection
-    await geocollection.add({
+    const docRef = await geocollection.add({
       request,
       uid: user.uid,
       timestamp: Date.now(),
@@ -46,7 +51,15 @@ export default function AskForHelp() {
       coordinates: new fb.app.firestore.GeoPoint(lat, lng),
       location,
       plz,
+      isHotline,
     });
+
+    if (isHotline) {
+      docRef.native.collection('hotline').add({
+        phoneNr,
+        comment,
+      });
+    }
 
     return history.push('/success');
   };
@@ -94,10 +107,11 @@ export default function AskForHelp() {
 
       <div className="py-3">
         <div className="w-full">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="request_text">
             {t('views.askForHelp.whatCanWeDo')}
           </label>
           <textarea
+            id="request_text"
             className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
             data-cy="ask-for-help-text-input"
             required="required"
@@ -105,6 +119,36 @@ export default function AskForHelp() {
             onChange={(e) => setRequest(e.target.value)}
           />
         </div>
+        {isHotline && (
+          <>
+            <div className="w-full">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+                {t('views.askForHelp.phoneNr')}
+              </label>
+              <input
+                id="phone"
+                type="text"
+                className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
+                required="required"
+                placeholder={t('views.askForHelp.phoneNr')}
+                value={phoneNr}
+                onChange={(e) => setPhoneNr(e.target.value)}
+              />
+            </div>
+            <div className="w-full mt-1">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="hotline_text">
+                {t('views.askForHelp.autoResponseComment')}
+              </label>
+              <textarea
+                id="hotline_text"
+                className="border leading-tight rounded py-2 px-3 pb-20 w-full input-focus focus:outline-none"
+                placeholder={t('views.askForHelp.autoResponseComment')}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
+          </>
+        )}
         <div className="mt-4 mb-6 w-full text-gray-700">
           {t('views.askForHelp.requestIsPublic')}
         </div>

@@ -9,6 +9,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 
 import fb from '../../firebase';
+import { adminId } from '../../appConfig';
 import getDateFnsLocaleObject from '../../util/getDateFnsLocaleObject';
 import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
@@ -200,7 +201,7 @@ export default function Entry(props) {
     setResponsesVisible(!responsesVisible);
   };
 
-  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === 'gwPMgUwQyNWMI8LpMBIaJcDvXPc2');
+  const mayDeleteEntryAndSeeResponses = user && (user.uid === uid || user.uid === adminId);
 
   const clearReportAttempt = (e) => {
     if (!link.current.contains(e.target)) setAttemptingToReport(false);

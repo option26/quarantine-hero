@@ -9,6 +9,10 @@ service cloud.firestore {
   	  return request.auth.uid == "gwPMgUwQyNWMI8LpMBIaJcDvXPc2"
   	}
 
+  	function isHotline() {
+  	  return request.auth.uid == "r38Bl9VsfBO5Pb8D8M2IwdZKZsq1"
+  	}
+
     function emailVerified() {
     	return request.auth.token.email_verified;
     }
@@ -28,6 +32,10 @@ service cloud.firestore {
       // Function to get parent entry
       function askForHelpData() {
         return get(/databases/$(database)/documents/ask-for-help/$(askForHelpId)).data
+      }
+
+      match /hotline/{hotlineDataId} {
+        allow create: if isHotline();
       }
 
       match /offer-help/{offerHelpId} {
