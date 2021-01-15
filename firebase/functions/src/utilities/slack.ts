@@ -70,7 +70,7 @@ async function answerDirectly(message: string, responseUrl: string): Promise<voi
   });
 }
 
-async function onSlackInteraction(request: functions.https.Request, response: functions.Response<any>) {
+async function onSlackInteraction(request: functions.https.Request, response: functions.Response<any>): Promise<void> {
   // validate message is from slack
   const { signing_secret } = functions.config().slack;
   const hmac = crypto.createHmac('sha256', signing_secret);
