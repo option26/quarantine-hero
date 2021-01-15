@@ -14,10 +14,10 @@ import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedC
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
 import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
+import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
 
-import { onSlackInteraction } from './utilities/slack';
 
 admin.initializeApp();
 

@@ -4,13 +4,13 @@ import * as sgMail from '@sendgrid/mail';
 import axios from 'axios';
 
 import { sendingMailsDisabledLogMessage, SEND_EMAILS } from '../config';
+import { answerDirectly, postReplyToSlack } from '../utilities/slack';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
 import { HotlineCollectionEntry } from '../types/interface/collections/HotlineCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { answerDirectly, postReplyToSlack } from '../utilities/slack';
 
 export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
