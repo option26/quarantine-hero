@@ -91,7 +91,7 @@ export const updateGeoDBFunction = functions
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
 
-//Handler to handle all incoming slack activities
+// Handler to handle all incoming slack activities
 export const slackInteractivityHandler = functions
   .region('europe-west1')
   .https
