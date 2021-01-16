@@ -17,8 +17,10 @@ import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
 import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
 import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
+import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
+
 
 admin.initializeApp();
 
@@ -111,3 +113,9 @@ export const updateGeoDBFunction = functions
   .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year https://crontab.guru/#0_0_1_*/6_*
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
+
+// Handler to handle all incoming slack activities
+export const slackInteractivityHandler = functions
+  .region('europe-west1')
+  .https
+  .onRequest(onSlackInteraction);
