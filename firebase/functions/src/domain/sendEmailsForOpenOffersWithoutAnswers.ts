@@ -38,10 +38,8 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
       return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
 
-    // TODO: request more help slack message should tag @anfragencops
-
     // TODO: idea: put solved posts functionality in top right corner on dashboard, make ask for more help always visible
-
+    
     // TODO: handling for button in UI?
     // TODO: Disable button in frontend as long as in cooldown (possibly with tooltip or countdown in button)
 
