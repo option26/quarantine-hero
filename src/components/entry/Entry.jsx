@@ -9,7 +9,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 
 import fb from '../../firebase';
-import { adminId } from '../../appConfig';
+import { maxAllowedRequestForHelp, moreHelpRequestCooldownDays, adminId } from '../../appConfig';
 import getDateFnsLocaleObject from '../../util/getDateFnsLocaleObject';
 import Responses from '../Responses';
 import PopupOnEntryAction from '../Popup';
@@ -18,7 +18,6 @@ import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg
 import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
-import { maxAllowedRequestForHelp, moreHelpRequestCooldownDays } from '../../appConfig';
 import './Entry.css';
 
 export default function Entry(props) {
@@ -320,8 +319,9 @@ export default function Entry(props) {
       ? 'bg-secondary text-white btn-common'
       : 'bg-tertiary text-secondary hover:bg-secondary hover:text-white btn-common';
 
-    const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
-    const moreHelpEligible = notificationCounter < maxAllowedRequestForHelp && timeStampLastHelpRequest < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000;
+    const moreHelpEligible = lastHelpRequestTimestamps !== undefined
+      ? (notificationCounter < maxAllowedRequestForHelp) && (lastHelpRequestTimestamps.slice(-1)[0] < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000)
+      : false;
 
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
