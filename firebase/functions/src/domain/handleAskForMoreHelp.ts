@@ -47,6 +47,10 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     }
 
     const { uid, lastHelpRequestTimestamps, notificationCounter } = askForHelpData.d;
+    if (lastHelpRequestTimestamps === undefined) {
+      throw new Error('Last help request timestamp not set');
+    }
+
     const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
 
     // early return if the user does not request help or is not eligible for more help

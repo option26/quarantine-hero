@@ -33,6 +33,10 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
 
     const eligibleAskForHelpSnapsWithAnswers = openAskForHelpSnapsWithAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
+      if (data.d.lastHelpRequestTimestamps === undefined) {
+        return false;
+      }
+
       const [lastHelpRequested] = data.d.lastHelpRequestTimestamps.slice(-1);
       return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });

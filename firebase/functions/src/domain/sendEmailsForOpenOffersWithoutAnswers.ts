@@ -34,14 +34,15 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
+      if (data.d.lastHelpRequestTimestamps === undefined) {
+        return false;
+      }
+
       const [lastHelpRequested] = data.d.lastHelpRequestTimestamps.slice(-1);
       return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
 
     // TODO: idea: put solved posts functionality in top right corner on dashboard, make ask for more help always visible
-    
-    // TODO: handling for button in UI?
-    // TODO: Disable button in frontend as long as in cooldown (possibly with tooltip or countdown in button)
 
     // eslint-disable-next-line no-console
     console.log('askForHelpSnapsWithoutAnswers: Requests to execute', eligibleAskForHelpSnapsWithoutAnswers.length);
