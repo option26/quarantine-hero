@@ -74,7 +74,7 @@ export default function OfferHelp() {
         </div>
         <Entry
           key={entry.id}
-          enter={entry}
+          entry={entry}
           report={report}
           showFullText
           highlightLeft
