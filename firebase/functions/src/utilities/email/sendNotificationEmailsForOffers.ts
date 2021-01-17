@@ -11,7 +11,8 @@ export async function sendNotificationEmailsForOffers(
   eligibleHelpOffers: NotificationsCollectionEntry['d'][],
   askForHelpId: string,
   templateId: string,
-  templateData: SendgridTemplateData
+  templateData: SendgridTemplateData,
+  transaction?: FirebaseFirestore.Transaction
 ): Promise<void> {
   await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry['d']) => {
     try {
@@ -19,10 +20,19 @@ export async function sendNotificationEmailsForOffers(
 
       await sendEmailToUser(uid, templateId, templateData);
 
-      await db.collection(CollectionName.AskForHelp).doc(askForHelpId).update({
+      const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
+
+      const updatedData = {
         'd.notificationCounter': admin.firestore.FieldValue.increment(1),
         'd.notificationReceiver': admin.firestore.FieldValue.arrayUnion(uid),
-      });
+      };
+
+      if (transaction) {
+        await transaction.update(document, updatedData);
+        return;
+      }
+
+      await document.update(updatedData);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.warn(err);
