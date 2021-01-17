@@ -20,7 +20,7 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
   * we therefore ask him whether their issue is still relevant, or whether they already received help another way
   * as long as the request is open and has no answers, it indicates that the user still might need help.
 */
-
+// TODO: Cooldown for sending emails
 export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
   try {
     const db = admin.firestore();
@@ -28,25 +28,23 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
     const askForHelpSnapsWithoutAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
       .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
       .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.notificationCounter', '<', MAXIMUM_ALLOWED_REQUESTS_FOR_HELP)
       .where('d.responses', '==', 0)
       .get();
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      if (data.d.lastHelpRequestTimestamps === undefined) {
+      const {lastHelpRequestTimestamps, notificationCounter } = data.d;
+      if (lastHelpRequestTimestamps === undefined || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
         return false;
       }
 
-      const [lastHelpRequested] = data.d.lastHelpRequestTimestamps.slice(-1);
+      const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
       return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
 
-    // TODO: idea: put solved posts functionality in top right corner on dashboard, make ask for more help always visible
-
     // eslint-disable-next-line no-console
     console.log('askForHelpSnapsWithoutAnswers: Requests to execute', eligibleAskForHelpSnapsWithoutAnswers.length);
-    const templateId = SendgridTemplateId.HaveYouReceivedHelp;
+    const templateId = SendgridTemplateId.TemplateForOffersWithoutAnswers;
     await sendEmailForAskForHelpEntries(eligibleAskForHelpSnapsWithoutAnswers, templateId);
   } catch (error) {
     // eslint-disable-next-line no-console

@@ -18,26 +18,30 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
   * in this case, the users received some initial answers, but has not set the entry to solved yet
   * as long as the request is open, it indicates that the user still might need help.
 */
-
+// TODO: Cooldown for sending emails
 export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
   try {
     const db = admin.firestore();
     const now = Date.now();
 
-    const openAskForHelpSnapsWithAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
+    const askForHelpSnapsWithAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
       .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
       .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.notificationCounter', '<', MAXIMUM_ALLOWED_REQUESTS_FOR_HELP)
-      .where('d.responses', '>', 0)
       .get();
 
-    const eligibleAskForHelpSnapsWithAnswers = openAskForHelpSnapsWithAnswers.docs.filter((snap) => {
+    const eligibleAskForHelpSnapsWithAnswers = askForHelpSnapsWithAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      if (data.d.lastHelpRequestTimestamps === undefined) {
+      // we need to perform local filtering due to inequality filters
+      const { lastHelpRequestTimestamps, notificationCounter, responses } = data.d;
+      if (
+        lastHelpRequestTimestamps === undefined
+        || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP
+        || !responses // Filters for undefined or zero responses
+      ) {
         return false;
       }
 
-      const [lastHelpRequested] = data.d.lastHelpRequestTimestamps.slice(-1);
+      const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
       return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
 
@@ -47,7 +51,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
 
     // eslint-disable-next-line no-console
     console.log('openAskForHelpSnapsWithAnswers: Requests to execute', eligibleAskForHelpSnapsWithAnswers.length);
-    const templateId = SendgridTemplateId.HaveYouReceivedHelp;
+    const templateId = SendgridTemplateId.TemplateForOffersWithAnswers;
     await sendEmailForAskForHelpEntries(eligibleAskForHelpSnapsWithAnswers, templateId);
   } catch (error) {
     // eslint-disable-next-line no-console
