@@ -16,7 +16,7 @@ import { AskForHelpCollectionEntry } from '../types/interface/collections/AskFor
 import { CollectionName } from '../types/enum/CollectionName';
 
 export async function handleAskForMoreHelp(askForHelpId: string, context: CallableContext): Promise<void> {
-  if (askForHelpId !== undefined || context.auth === undefined || context.auth === null) {
+  if (askForHelpId === undefined || context.auth === undefined || context.auth === null) {
     throw Error('Bad Request');
   }
 
@@ -52,7 +52,6 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     }
 
     const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
-
     // early return if the user does not request help or is not eligible for more help
     if (notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
       console.log('Maximum amount of allowed request reached for user', notificationCounter, uid, askForHelpId);
@@ -77,8 +76,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
         link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
         reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
       };
-      await sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData);
-
+      await sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData, transaction);
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
         await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
@@ -93,14 +91,13 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       } catch (err) {
         console.log('Error posting to slack', err);
       }
+
+      // eslint-disable-next-line no-console
+      console.log(sendingMailsDisabledLogMessage);
     }
-
-    // eslint-disable-next-line no-console
-    console.log(sendingMailsDisabledLogMessage);
-
     return transaction.update(askForHelpDoc, {
       'd.notificationCounter': admin.firestore.FieldValue.increment(1),
-      'd.lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(new Date()),
+      'd.lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(Date.now()),
     });
   };
 }
