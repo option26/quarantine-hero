@@ -33,15 +33,14 @@ export default function PopupOnEntryAction(props) {
   const {
     responses,
     attemptingToDelete,
-    attemptingToSolve,
     deleted,
     popupVisible,
     setPopupVisible,
     setAttemptingToDelete,
     setMoreHelpRequestFailed,
     setMoreHelpRequested,
-    handleSolved,
     showAsSolved,
+    handleSolved,
     handleNewAskForHelp,
     cancelDelete,
     handleDelete,
@@ -67,15 +66,6 @@ export default function PopupOnEntryAction(props) {
       </p>
       <p>{t('components.entry.popup.wasYourRequestSuccessful.secondSentence')}</p>
       <p>{t('components.entry.popup.wasYourRequestSuccessful.thirdSentence')}</p>
-    </>
-  );
-
-  const textBodySolveReassure = (
-    <>
-      <p className="mt-2">
-        {t('components.entry.popup.solveReassure.firstSentence')}
-      </p>
-      <p>{t('components.entry.popup.solveReassure.secondSentence')}</p>
     </>
   );
 
@@ -146,14 +136,6 @@ export default function PopupOnEntryAction(props) {
     'btn-popup-cancel-positive',
   );
 
-  const CancelButtonNegativeClass = getButtonForPopup(
-    negativeActionButtonClasses,
-    t('components.entry.popup.cancel'),
-    cancelDelete,
-    null,
-    'btn-popup-cancel-negative',
-  );
-
   const CancelAskForMoreHelpButtonClass = getButtonForPopup(
     negativeActionButtonClasses,
     t('components.entry.popup.cancel'),
@@ -199,13 +181,6 @@ export default function PopupOnEntryAction(props) {
     textBodyAskForMoreHelp,
   );
 
-  const PopupContentSolveReassure = getPopupContentComponent(
-    t('components.entry.popup.solveReassure.heading'),
-    <HeroFoundButton />,
-    <CancelButtonNegativeClass />,
-    textBodySolveReassure,
-  );
-
   const PopupContentSolvedHint = getPopupContentComponent(
     t('components.entry.popup.wasYourRequestSuccessful.heading'),
     <HeroFoundButton />,
@@ -235,7 +210,6 @@ export default function PopupOnEntryAction(props) {
   );
 
   let popupContent = <></>;
-  if (attemptingToSolve && !showAsSolved) popupContent = <PopupContentSolveReassure />;
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;

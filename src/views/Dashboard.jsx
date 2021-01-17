@@ -72,7 +72,7 @@ function Dashboard(props) {
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((doc) => ({ ...doc.d, id: doc.id }))
+    .map((doc) => ({ ...doc.d, id: doc.id, solved: true }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
@@ -123,7 +123,6 @@ function Dashboard(props) {
           <Entry
             key={entry.id}
             entry={entry}
-            showAsSolved
             owner
           />
         ))}

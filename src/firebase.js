@@ -12,6 +12,7 @@ class Firebase {
     app.initializeApp(config);
     this.app = app;
     this.auth = app.auth();
+    this.functions = app.app().functions('europe-west1'); // FIXME: Check what .app() actually is
     this.setAnalytics(false);
     this.store = app.firestore();
   }
@@ -27,7 +28,7 @@ class Firebase {
   }
 
   askForMoreHelp(askForHelpId) {
-    const handleAskForMoreHelp = this.app.functions().httpsCallable('handleAskForMoreHelp');
+    const handleAskForMoreHelp = this.functions.httpsCallable('handleAskForMoreHelp', { });
     return handleAskForMoreHelp(askForHelpId);
   }
 }

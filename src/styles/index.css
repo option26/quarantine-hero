@@ -93,17 +93,29 @@
 }
 
 .btn-report-entry {
-    width: 115px;
     height: 25px;
     border-radius: 15px;
-    background-color: #b6223e;
+    @apply bg-primary px-2 text-white;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #ffffff;
+    top: 1rem;
+    right: 50px;
+}
+
+.btn-solved-entry {
+    height: 25px;
+    border-radius: 15px;
+    @apply bg-secondary px-2 text-white;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
     top: 1rem;
     right: 50px;
 }
@@ -120,11 +132,23 @@
     background-color: #dddddd;
 }
 
+.btn-solve-unsolved {
+    @apply bg-tertiary;
+}
+
+.btn-solve-abort {
+    background-color: #dddddd;
+}
+
 .flag {
     height: 1.1rem;
  }
 
 .cross {
+    height: 0.8rem;
+ }
+
+.checkmark {
     height: 0.8rem;
  }
 

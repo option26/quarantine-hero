@@ -335,6 +335,7 @@
       "registrationReason": "den Beitrag zu melden",
       "heroFound": "Held*in gefunden",
       "reportPost": "Post melden?",
+      "solvePost": "Post gelöst markieren?",
       "increaseReach": "Reichweite erhöhen",
       "popup": {
         "heroFound": "Ich habe eine Held*in gefunden",
@@ -345,11 +346,6 @@
         "deleteTerminally": "Endgültig löschen",
         "createNewRequest": "Neue Anfrage Erstellen",
         "requestMoreHelpButton": "Weitere Personen benachrichtigen",
-        "solveReassure": {
-          "heading": "War Dein Hilfegesuch erfolgreich?",
-          "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
-          "secondSentence": "Die Anfrage wird in das '$t(views.dashboard.tabs.solved)' Tab bewegt \nund Du bekommst keine weiteren Nachrichten von Helfenden mehr."
-        },
         "wasYourRequestSuccessful": {
           "heading": "War Dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
