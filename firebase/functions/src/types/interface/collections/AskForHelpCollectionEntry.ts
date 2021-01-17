@@ -4,7 +4,7 @@ export interface AskForHelpCollectionEntry {
     timestamp: number
     lastHelpRequestTimestamps?: number[] // not set for old entries
     request: string
-    response: number
+    responses?: number
     location: string
     plz: string
     coordinates: FirebaseFirestore.GeoPoint
