@@ -4,7 +4,7 @@ export interface SendgridTemplateData {
   subject: string;
   request: AskForHelpCollectionEntry['d']['request'];
   location: AskForHelpCollectionEntry['d']['location'];
-  link: string;
+  link?: string;
   reportLink?: string;
   solveLink?: string;
   requestMoreHelpLink?: string;

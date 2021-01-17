@@ -31,24 +31,22 @@ export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseF
 
 function getTemplateDateForEntry(templateId: SendgridTemplateId, askForHelpId: string, askForHelpSnapData: AskForHelpCollectionEntry): SendgridTemplateData {
   switch (templateId) {
-    case SendgridTemplateId.DoYouStillNeedHelp:
+    case SendgridTemplateId.TemplateForOffersWithoutAnswers:
       return {
         subject: 'QuarantäneHeld*innen - Benötigst du weiterhin Hilfe?',
         request: askForHelpSnapData.d.request,
         location: askForHelpSnapData.d.location,
-        link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&moreHelp=true`,
-        deleteLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&delete=true`,
+        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&moreHelp=true`,
+        deleteLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&delete=true`,
       };
-    case SendgridTemplateId.HaveYouReceivedHelp:
+    case SendgridTemplateId.TemplateForOffersWithAnswers:
       return {
         subject: 'QuarantäneHeld*innen - Wurde Dir geholfen?',
         request: askForHelpSnapData.d.request,
         location: askForHelpSnapData.d.location,
-        link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
-        solveLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&solve=true`,
-        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&moreHelp=true`,
-        deleteLink: `https://www.quarantaenehelden.org/#/offer-help/?entry=${askForHelpId}&delete=true`,
+        solveLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&solve=true`,
+        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&moreHelp=true`,
+        deleteLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&delete=true`,
       };
   }
 }
