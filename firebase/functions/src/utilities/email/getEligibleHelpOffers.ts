@@ -58,6 +58,11 @@ export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, ask
     }
   }
 
+  const { notificationReceiver: previouslyContacted } = askForHelpSnapData.d;
+  if (previouslyContacted !== undefined) {
+    queryResult = queryResult.filter(entry => !previouslyContacted.includes(entry.uid));
+  }
+
   let eligibleHelpOffers: NotificationsCollectionEntry['d'][] = [];
   if (queryResult.length > MAX_RESULTS) {
     for (let i = queryResult.length - 1; i > 0; i -= 1) {
@@ -71,8 +76,5 @@ export async function getEligibleHelpOffers(db: FirebaseFirestore.Firestore, ask
     eligibleHelpOffers = queryResult;
   }
 
-  const { notificationReceiver: previouslyContacted } = askForHelpSnapData.d;
-  if (!previouslyContacted || !previouslyContacted.length) return { eligibleHelpOffers, initialSize: queryResult.length };
-  const eligibleHelpOffersNotContacted = eligibleHelpOffers.filter(entry => !previouslyContacted.includes(entry.uid));
-  return { eligibleHelpOffers: eligibleHelpOffersNotContacted, initialSize: queryResult.length };
+  return { eligibleHelpOffers, initialSize: queryResult.length };
 }
