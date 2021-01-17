@@ -21,7 +21,7 @@ const MINIMUM_FOLLOWUP_DELAY_DAYS = 1;
 // The cooldown before a user can request more help again
 const MORE_HELP_REQUEST_COOLDOWN_DAYS = 1;
 // do not attempt to engage with open entries that are older that this value
-const MAXIMUM_FOLLOWUP_DELAY_DAYS = 10;
+const MAXIMUM_FOLLOWUP_DELAY_DAYS = 5;
 const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 3;
 
 export {
