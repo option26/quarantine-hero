@@ -3,6 +3,7 @@ export interface AskForHelpCollectionEntry {
     uid: string
     timestamp: number
     lastHelpRequestTimestamps?: number[] // not set for old entries
+    timestampLastEngagementAttempt?: number
     request: string
     responses?: number
     location: string
