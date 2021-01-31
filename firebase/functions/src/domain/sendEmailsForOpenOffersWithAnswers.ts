@@ -5,6 +5,7 @@ import {
   MAXIMUM_FOLLOWUP_DELAY_DAYS,
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
   MORE_HELP_REQUEST_COOLDOWN_DAYS,
+  ENGAGEMENT_ATTEMPT_COOLDOWN_DAYS,
 } from '../config';
 
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
@@ -18,7 +19,6 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
   * in this case, the users received some initial answers, but has not set the entry to solved yet
   * as long as the request is open, it indicates that the user still might need help.
 */
-// TODO: Cooldown for sending emails
 export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
   try {
     const db = admin.firestore();
@@ -32,7 +32,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
     const eligibleAskForHelpSnapsWithAnswers = askForHelpSnapsWithAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
       // we need to perform local filtering due to inequality filters
-      const { lastHelpRequestTimestamps, notificationCounter, responses } = data.d;
+      const { lastHelpRequestTimestamps, notificationCounter, responses, timestampLastEngagementAttempt } = data.d;
       if (
         lastHelpRequestTimestamps === undefined
         || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP
@@ -42,12 +42,11 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
       }
 
       const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
-      return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
+      const userWasContactedRecently = timestampLastEngagementAttempt
+        ? timestampLastEngagementAttempt <= now - ENGAGEMENT_ATTEMPT_COOLDOWN_DAYS * 24 * 60 * 60 * 1000
+        : false;
+      return !userWasContactedRecently && lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
-
-    //TODO: Idea: put notification counter in template to only show "request more help" if the counter is < max allowed
-    // In this case, increase the MAXIMUM_FOLLOWUP_DELAY_DAYS in line 28 by 1
-    //const showMoreHelp = notificationCounter < MAXIMUM_ALLOWED_REQUESTS_FOR_HELP && timestamp < now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000
 
     // eslint-disable-next-line no-console
     console.log('openAskForHelpSnapsWithAnswers: Requests to execute', eligibleAskForHelpSnapsWithAnswers.length);
