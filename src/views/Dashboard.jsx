@@ -145,7 +145,7 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(true);
             }}
-            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main focus:outline-none
             ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.open')}
@@ -156,7 +156,7 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(false);
             }}
-            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main focus:outline-none
              ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.solved')}
