@@ -17,7 +17,7 @@ import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
 import { ReactComponent as FlagWhiteSvg } from '../../assets/flag_white.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
-import { ReactComponent as AddReachSymbolSvg } from '../../assets/add_reach_grey.svg';
+import { ReactComponent as AddReachSymbolSvg } from '../../assets/add_reach.svg';
 
 import './Entry.css';
 
