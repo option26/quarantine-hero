@@ -1,3 +1,5 @@
+import * as admin from 'firebase-admin';
+
 import {
   SEND_EMAILS,
   sendingMailsDisabledLogMessage,
@@ -8,6 +10,7 @@ import { sendEmailToUser } from './sendEmailToUser';
 import { AskForHelpCollectionEntry } from '../../types/interface/collections/AskForHelpCollectionEntry';
 import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
 import { SendgridTemplateId } from '../../types/enum/SendgridTemplateId';
+import { CollectionName } from '../../types/enum/CollectionName';
 
 export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseFirestore.DocumentData[], templateId: SendgridTemplateId) {
   const asyncEmails = askForHelpEntries.map(async (askForHelpSnap) => {
@@ -19,6 +22,14 @@ export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseF
     if (SEND_EMAILS) {
       const templateData = getTemplateDateForEntry(templateId, askForHelpId, askForHelpSnapData);
       await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData);
+
+      const db = admin.firestore();
+      const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
+      const updatedData = {
+        'd.timestampLastEngagementAttempt': Date.now(),
+      };
+      await document.update(updatedData);
+
       return askForHelpSnapData.d.uid;
     }
     // eslint-disable-next-line no-console

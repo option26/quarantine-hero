@@ -4,7 +4,8 @@ import {
   MINIMUM_FOLLOWUP_DELAY_DAYS,
   MAXIMUM_FOLLOWUP_DELAY_DAYS,
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
-  MORE_HELP_REQUEST_COOLDOWN_DAYS
+  MORE_HELP_REQUEST_COOLDOWN_DAYS,
+  ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS
 } from '../config';
 
 import { sendEmailForAskForHelpEntries } from '../utilities/email/sendEmailForAskForHelpEntries';
@@ -20,7 +21,6 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
   * we therefore ask him whether their issue is still relevant, or whether they already received help another way
   * as long as the request is open and has no answers, it indicates that the user still might need help.
 */
-// TODO: Cooldown for sending emails
 export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
   try {
     const db = admin.firestore();
@@ -33,13 +33,16 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      const {lastHelpRequestTimestamps, notificationCounter } = data.d;
+      const { lastHelpRequestTimestamps, notificationCounter, timestampLastEngagementAttempt } = data.d;
       if (lastHelpRequestTimestamps === undefined || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
         return false;
       }
 
       const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
-      return lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
+      const userWasContactedRecently = timestampLastEngagementAttempt
+        ? timestampLastEngagementAttempt <= now - ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS * 60 * 60 * 1000
+        : false;
+      return !userWasContactedRecently && lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
 
     // eslint-disable-next-line no-console
