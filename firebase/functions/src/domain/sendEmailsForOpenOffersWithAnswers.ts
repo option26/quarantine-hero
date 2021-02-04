@@ -5,7 +5,7 @@ import {
   MAXIMUM_FOLLOWUP_DELAY_DAYS,
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
   MORE_HELP_REQUEST_COOLDOWN_DAYS,
-  ENGAGEMENT_ATTEMPT_COOLDOWN_DAYS,
+  ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS,
 } from '../config';
 
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
@@ -43,7 +43,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
 
       const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
       const userWasContactedRecently = timestampLastEngagementAttempt
-        ? timestampLastEngagementAttempt <= now - ENGAGEMENT_ATTEMPT_COOLDOWN_DAYS * 24 * 60 * 60 * 1000
+        ? timestampLastEngagementAttempt <= now - ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS * 60 * 60 * 1000
         : false;
       return !userWasContactedRecently && lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
