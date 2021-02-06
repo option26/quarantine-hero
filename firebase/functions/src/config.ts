@@ -24,6 +24,7 @@ const MAXIMUM_FOLLOWUP_DELAY_DAYS = 5;
 const MORE_HELP_REQUEST_COOLDOWN_DAYS = 1;
 // The cooldown before we attempt to contact a user again
 const ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS = 12;
+// The maximum threshold of requests for help a user can make
 const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 3;
 
 export {
