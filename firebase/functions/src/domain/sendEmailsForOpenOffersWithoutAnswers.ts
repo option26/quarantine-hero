@@ -18,7 +18,7 @@ import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
   * With this function, we send emails to the authors of open help entries who have not received any answers yet, and ask whether they are still in need for help
   * the goal is to make sure that everyone in need gets the required help
   * in this case, the users received no initial answers
-  * we therefore ask him whether their issue is still relevant, or whether they already received help another way
+  * we therefore ask them whether their issue is still relevant, or whether they already received help another way
   * as long as the request is open and has no answers, it indicates that the user still might need help.
 */
 export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
