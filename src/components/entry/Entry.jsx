@@ -102,7 +102,7 @@ export default function Entry(props) {
     setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
-    return history.push(windowLocation.pathname);
+    return history.replace(windowLocation.pathname);
   };
 
   const initializeSolve = async (e) => {
@@ -146,20 +146,20 @@ export default function Entry(props) {
     e.preventDefault();
     setAttemptingToDelete(false);
     setPopupVisible(false);
-    return history.push(windowLocation.pathname);
+    return history.replace(windowLocation.pathname);
   };
 
   const cancelAttemptingToRequestMoreHelp = async (e) => {
     e.preventDefault();
     setAttemptingToRequestMoreHelp(false);
     setPopupVisible(false);
-    return history.push(windowLocation.pathname);
+    return history.replace(windowLocation.pathname);
   };
 
   const backToOverview = async (e) => {
     e.preventDefault();
     setPopupVisible(false);
-    return history.push(windowLocation.pathname);
+    return history.replace(windowLocation.pathname);
   };
 
   const handlePopupClose = () => {
@@ -167,7 +167,7 @@ export default function Entry(props) {
     setPopupVisible(false);
     setMoreHelpRequestFailed(false);
     setMoreHelpRequested(false);
-    return history.push(windowLocation.pathname);
+    return history.replace(windowLocation.pathname);
   };
 
   const handleAddressClick = (e) => {
