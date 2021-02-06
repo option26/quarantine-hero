@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { useTranslation } from 'react-i18next';
@@ -47,6 +47,7 @@ export default function Entry(props) {
   } = entry;
 
   const history = useHistory();
+  const windowLocation = useLocation();
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
@@ -101,6 +102,7 @@ export default function Entry(props) {
     setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
+    return history.push(windowLocation.pathname);
   };
 
   const initializeSolve = async (e) => {
@@ -144,17 +146,28 @@ export default function Entry(props) {
     e.preventDefault();
     setAttemptingToDelete(false);
     setPopupVisible(false);
+    return history.push(windowLocation.pathname);
   };
 
   const cancelAttemptingToRequestMoreHelp = async (e) => {
     e.preventDefault();
     setAttemptingToRequestMoreHelp(false);
     setPopupVisible(false);
+    return history.push(windowLocation.pathname);
   };
 
   const backToOverview = async (e) => {
     e.preventDefault();
     setPopupVisible(false);
+    return history.push(windowLocation.pathname);
+  };
+
+  const handlePopupClose = () => {
+    setAttemptingToDelete(false);
+    setPopupVisible(false);
+    setMoreHelpRequestFailed(false);
+    setMoreHelpRequested(false);
+    return history.push(windowLocation.pathname);
   };
 
   const handleAddressClick = (e) => {
@@ -214,8 +227,7 @@ export default function Entry(props) {
       attemptingToSolve={attemptingToSolve}
       deleted={deleted}
       popupVisible={popupVisible}
-      setPopupVisible={setPopupVisible}
-      setAttemptingToDelete={setAttemptingToDelete}
+      handlePopupClose={handlePopupClose}
       handleSolved={solveEntry}
       showAsSolved={showAsSolved}
       handleNewAskForHelp={handleNewAskForHelp}
@@ -225,8 +237,6 @@ export default function Entry(props) {
       cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
       handleRequestMoreHelp={handleRequestMoreHelp}
       moreHelpRequested={moreHelpRequested}
-      setMoreHelpRequestFailed={setMoreHelpRequestFailed}
-      setMoreHelpRequested={setMoreHelpRequested}
       moreHelpRequestFailed={moreHelpRequestFailed}
       backToOverview={backToOverview}
     />
