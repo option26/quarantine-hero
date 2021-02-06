@@ -32,10 +32,10 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
     const eligibleAskForHelpSnapsWithAnswers = askForHelpSnapsWithAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
       // we need to perform local filtering due to inequality filters
-      const { lastHelpRequestTimestamps, notificationCounter, responses, timestampLastEngagementAttempt } = data.d;
+      const { lastHelpRequestTimestamps, responses, timestampLastEngagementAttempt } = data.d;
       if (
         lastHelpRequestTimestamps === undefined
-        || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP
+        || lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP
         || !responses // Filters for undefined or zero responses
       ) {
         return false;

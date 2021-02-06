@@ -33,8 +33,8 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      const { lastHelpRequestTimestamps, notificationCounter, timestampLastEngagementAttempt } = data.d;
-      if (lastHelpRequestTimestamps === undefined || notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
+      const { lastHelpRequestTimestamps, timestampLastEngagementAttempt } = data.d;
+      if (lastHelpRequestTimestamps === undefined || lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
         return false;
       }
 
