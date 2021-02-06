@@ -11,14 +11,14 @@ sgMail.setApiKey(sgMailApiKey);
 const REGION_EUROPE_WEST_1 = 'europe-west1';
 const MAX_RESULTS = 100;
 const MAPS_ENABLED = true;
-// How long we wait before we send email notifications after a person posted a help request.
+// How long we wait before we send email notifications after a person posted a help request
 const MINIMUM_NOTIFICATION_DELAY_MINUTES = 20;
 const SEND_EMAILS = sgMailApiKey !== null;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
 const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35_000;
-// We only follow up with a user as long as his request is open
+// The minimum threshold until we contact a user about their open entry for the first time
 const MINIMUM_FOLLOWUP_DELAY_DAYS = 1;
-// do not attempt to engage with open entries that are older that this value
+// The maximum threshold until we do not contact a user about their open entry anymore
 const MAXIMUM_FOLLOWUP_DELAY_DAYS = 5;
 // The cooldown before a user can request more help again
 const MORE_HELP_REQUEST_COOLDOWN_DAYS = 1;
