@@ -110,10 +110,7 @@ export function PopupOnEntryAction(props) {
     attemptingToSolve,
     deleted,
     popupVisible,
-    setPopupVisible,
-    setAttemptingToDelete,
-    setMoreHelpRequestFailed,
-    setMoreHelpRequested,
+    handlePopupClose,
     showAsSolved,
     handleSolved,
     handleNewAskForHelp,
@@ -322,12 +319,7 @@ export function PopupOnEntryAction(props) {
       modal
       data-cy="popup-hint-for-entry"
       open={popupVisible}
-      onClose={() => {
-        setAttemptingToDelete(false);
-        setPopupVisible(false);
-        setMoreHelpRequestFailed(false);
-        setMoreHelpRequested(false);
-      }}
+      onClose={handlePopupClose}
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
       contentStyle={
         {
