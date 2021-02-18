@@ -28,6 +28,6 @@
     "typescript": "^3.8"
   },
   "engines": {
-    "node": "10"
+    "node": "12"
   }
 }
