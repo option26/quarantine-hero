@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 const moment = require('moment-timezone');
 
 import '@twilio-labs/serverless-runtime-types';
-import { Context, ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types';
+import { Context } from '@twilio-labs/serverless-runtime-types/types';
 import { Environment } from '../types/Environment';
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -10,18 +10,25 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const weekdayIndex: { [key: string]: number } = {
   'Monday Morning': 0,
   'Monday Afternoon': 1,
-  'Tuesday Morning': 2,
-  'Tuesday Afternoon': 3,
-  'Wednesday Morning': 4,
-  'Wednesday Afternoon': 5,
-  'Thursday Morning': 6,
-  'Thursday Afternoon': 7,
-  'Friday Morning': 8,
-  'Friday Afternoon': 9,
-  'Saturday Morning': 10,
-  'Saturday Afternoon': 11,
-  'Sunday Morning': 12,
-  'Sunday Afternoon': 13,
+  'Monday Night': 2,
+  'Tuesday Morning': 3,
+  'Tuesday Afternoon': 4,
+  'Tuesday Night': 5,
+  'Wednesday Morning': 6,
+  'Wednesday Afternoon': 7,
+  'Wednesday Night': 8,
+  'Thursday Morning': 9,
+  'Thursday Afternoon': 10,
+  'Thursday Night': 11,
+  'Friday Morning': 12,
+  'Friday Afternoon': 13,
+  'Friday Night': 14,
+  'Saturday Morning': 15,
+  'Saturday Afternoon': 16,
+  'Saturday Night': 17,
+  'Sunday Morning': 18,
+  'Sunday Afternoon': 19,
+  'Sunday Night': 20,
 };
 
 const days = [
