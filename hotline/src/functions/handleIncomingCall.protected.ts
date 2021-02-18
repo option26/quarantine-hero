@@ -50,7 +50,7 @@ async function smartSimulring(twilioClient: twilio.Twilio, hotlineAgents: Array<
       await twilioClient.calls.create({
         url: `https://${context.DOMAIN_NAME}/screenAgent`,
         to: hotlineAgent,
-        from: '+4989143770224'
+        from: '+4908008050850'
       });
     } catch (err) {
       console.log(err);
