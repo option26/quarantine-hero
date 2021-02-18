@@ -38,7 +38,7 @@ async function handleIncomingCall(context: Context<Environment>, event: {}, call
 
 async function smartSimulring(twilioClient: twilio.Twilio, hotlineAgents: Array<string>, context: Context<Environment>) {
   const response = new Twilio.twiml.VoiceResponse();
-  // Enque the caller. The caller will be dequeued by the first agent that answers.
+  // Enqueue the caller. The caller will be dequeued by the first agent that answers.
   response.enqueue({
     waitUrl: `https://${context.DOMAIN_NAME}/playWaitMusic`
   }, 'hotline');
@@ -46,7 +46,6 @@ async function smartSimulring(twilioClient: twilio.Twilio, hotlineAgents: Array<
   // Calls each hotline agent and screens them
   for (const hotlineAgent of hotlineAgents) {
     try {
-      // TODO: Store call sid's and stop all calls if first answered??
       await twilioClient.calls.create({
         url: `https://${context.DOMAIN_NAME}/screenAgent`,
         to: hotlineAgent,
@@ -56,6 +55,9 @@ async function smartSimulring(twilioClient: twilio.Twilio, hotlineAgents: Array<
       console.log(err);
     }
   }
+
+  // If no agent is available, play no agent available message
+  response.redirect(`https://${context.DOMAIN_NAME}/noAgentAvailable`);
 
   return response;
 }
