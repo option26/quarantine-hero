@@ -32,6 +32,8 @@ export async function handleAskForMoreHelp(askForHelpId: string, context: Callab
     console.error(e);
     // eslint-disable-next-line no-console
     console.log('ID', askForHelpId);
+    // we need to throw this error here, because otherwise the user will see a success message in the UI.
+    throw new Error('An unknown error occurred');
   }
 }
 
