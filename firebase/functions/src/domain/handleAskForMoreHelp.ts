@@ -30,7 +30,8 @@ export async function handleAskForMoreHelp(askForHelpId: string, context: Callab
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
-    throw new Error('An unknown error occurred');
+    // eslint-disable-next-line no-console
+    console.log('ID', askForHelpId);
   }
 }
 
