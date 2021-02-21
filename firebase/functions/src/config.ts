@@ -22,9 +22,9 @@ const MINIMUM_FOLLOWUP_DELAY_DAYS = 1;
 const MAXIMUM_FOLLOWUP_DELAY_DAYS = 5;
 // The cooldown before a user can request more help again
 const MORE_HELP_REQUEST_COOLDOWN_DAYS = 1;
-// The cooldown before we attempt to contact a user again
-const ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS = 12;
-// The maximum threshold of requests for help a user can make
+// The cooldown before we attempt to contact a user again. We want to wait at least one day but also avoid potential fuckups during calculation on the next day
+const ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS = 23;
+// The maximum threshold of requests for help a user can make. This includes the initial request for help.
 const MAXIMUM_ALLOWED_REQUESTS_FOR_HELP = 3;
 
 export {
