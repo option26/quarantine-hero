@@ -43,7 +43,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
 
       const [lastHelpRequested] = lastHelpRequestTimestamps.slice(-1);
       const userWasContactedRecently = timestampLastEngagementAttempt
-        ? timestampLastEngagementAttempt <= now - ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS * 60 * 60 * 1000
+        ? timestampLastEngagementAttempt >= now - ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS * 60 * 60 * 1000
         : false;
       return !userWasContactedRecently && lastHelpRequested <= now - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
     });
