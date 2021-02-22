@@ -13,6 +13,20 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "ask-for-help",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "d.responses",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "d.timestamp",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [

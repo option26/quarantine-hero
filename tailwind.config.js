@@ -311,6 +311,7 @@ module.exports = {
       auto: 'auto',
       ...theme('spacing'),
       ...negative(theme('spacing')),
+      '0.75': '0.15rem',
     }),
     maxHeight: {
       full: '100%',

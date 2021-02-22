@@ -2,6 +2,7 @@ import * as app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
 import 'firebase/firestore';
+import 'firebase/functions';
 import 'firebase/database';
 import 'firebase/storage';
 import config from './firebaseConfig';
@@ -11,6 +12,7 @@ class Firebase {
     app.initializeApp(config);
     this.app = app;
     this.auth = app.auth();
+    this.functions = app.app().functions('europe-west1'); // FIXME: Check what .app() actually is
     this.setAnalytics(false);
     this.store = app.firestore();
   }
@@ -23,6 +25,11 @@ class Firebase {
     this.analytics = {
       logEvent: () => { },
     };
+  }
+
+  askForMoreHelp(askForHelpId) {
+    const handleAskForMoreHelp = this.functions.httpsCallable('handleAskForMoreHelp', { });
+    return handleAskForMoreHelp(askForHelpId);
   }
 }
 export default new Firebase();

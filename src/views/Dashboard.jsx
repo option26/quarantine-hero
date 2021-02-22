@@ -51,7 +51,7 @@ function Dashboard(props) {
 
   const [isOpenEntriesView, setIsOpenEntriesView] = useState(true);
 
-  const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl } = useQuery();
+  const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl, moreHelp: attemptingToRequestMoreHelp } = useQuery();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
     askForHelpCollection.where('d.uid', '==', user.uid),
@@ -72,9 +72,8 @@ function Dashboard(props) {
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((doc) => ({ ...doc.d, id: doc.id }))
+    .map((doc) => ({ ...doc.d, id: doc.id, solved: true }))
     .sort((a, b) => b.timestamp - a.timestamp);
-
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
     // Commented out until there is a consistent way of showing placeholders on the site
@@ -97,15 +96,10 @@ function Dashboard(props) {
         : requestsForHelp.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
-            showSolveHint={attemptingToSolve && !attemptingToDelete && entry.responses > 0 && entryIdFromUrl === entry.id}
-            showDeleteHint={!attemptingToSolve && attemptingToDelete && entryIdFromUrl === entry.id}
+            entry={entry}
+            showSolveHint={attemptingToSolve && !attemptingToDelete && !attemptingToRequestMoreHelp && entry.responses > 0 && entryIdFromUrl === entry.id}
+            showDeleteHint={!attemptingToSolve && attemptingToDelete && !attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
+            showMoreHelpHint={!attemptingToSolve && !attemptingToDelete && attemptingToRequestMoreHelp && entryIdFromUrl === entry.id}
             owner
           />
         ))}
@@ -128,14 +122,7 @@ function Dashboard(props) {
         : solvedPosts.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
-            showAsSolved
+            entry={entry}
             owner
           />
         ))}
@@ -158,7 +145,7 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(true);
             }}
-            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main
+            className={`text-white items-center rounded-l px-1 py-1 xs:px-6 md:py-2 btn-main focus:outline-none
             ${isOpenEntriesView ? 'btn-dark-green' : 'btn-light-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.open')}
@@ -169,7 +156,7 @@ function Dashboard(props) {
             onClick={() => {
               setIsOpenEntriesView(false);
             }}
-            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main
+            className={`text-white items-center rounded-r px-1 py-1 xs:px-6 md:py-2 btn-main focus:outline-none
              ${isOpenEntriesView ? 'btn-light-green' : 'btn-dark-green'} hover:opacity-75`}
           >
             {t('views.dashboard.tabs.solved')}

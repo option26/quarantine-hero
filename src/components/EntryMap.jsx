@@ -80,7 +80,7 @@ export default function EntryMap() {
           bootstrapURLKeys={{
             language: 'de',
             region: 'de',
-            key: process.env.REACT_GOOGLE_MAPS_KEY,
+            key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
           }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map }) => {
@@ -208,13 +208,7 @@ export default function EntryMap() {
         selectedHelpRequests.map((entry) => (
           <Entry
             key={entry.id}
-            location={entry.location}
-            id={entry.id}
-            request={entry.request}
-            timestamp={entry.timestamp}
-            responses={entry.responses}
-            reportedBy={entry.reportedBy}
-            uid={entry.uid}
+            entry={entry}
           />
         ))
       )}

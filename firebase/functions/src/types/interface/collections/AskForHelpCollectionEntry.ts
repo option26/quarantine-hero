@@ -2,8 +2,10 @@ export interface AskForHelpCollectionEntry {
   d: {
     uid: string
     timestamp: number
+    lastHelpRequestTimestamps?: number[] // not set for old entries
+    timestampLastEngagementAttempt?: number
     request: string
-    response: number
+    responses?: number
     location: string
     plz: string
     coordinates: FirebaseFirestore.GeoPoint

@@ -324,7 +324,7 @@
       "forEveryone": "Natürlich ist unser Angebot an alle QuarantäneHeld*innen da draußen gerichtet."
     },
     "entry": {
-      "noRepliesYet": "Noch keine Antworten erhalten",
+      "noRepliesYet": "Keine Antworten",
       "oneReplyReceived": "1 Antwort erhalten",
       "repliesReceived": "Antworten erhalten",
       "somebodyAt": "Jemand in",
@@ -334,6 +334,13 @@
       "deleteRequestForHelp": "Löschen",
       "registrationReason": "den Beitrag zu melden",
       "heroFound": "Held*in gefunden",
+      "reportPost": "Post melden?",
+      "solvePost": "Post gelöst markieren?",
+      "increaseReach": "Reichweite erhöhen",
+      "contextMenu": {
+        "heroFound": "Als gelöst markieren",
+        "deletePost": "Post löschen"
+      },
       "popup": {
         "heroFound": "Ich habe eine Held*in gefunden",
         "deleteAnyway": "Trotzdem löschen",
@@ -342,6 +349,7 @@
         "cancel": "Abbrechen",
         "deleteTerminally": "Endgültig löschen",
         "createNewRequest": "Neue Anfrage Erstellen",
+        "requestMoreHelpButton": "Weitere Personen benachrichtigen",
         "solveReassure": {
           "heading": "War Dein Hilfegesuch erfolgreich?",
           "firstSentence": "Lass die Community wissen ob Deine Suche erfolgreich war.",
@@ -357,6 +365,22 @@
           "heading": "Dein Hilfegesuch wurde gelöscht!",
           "firstSentence": "Bitte beachte, dass es einen Moment dauern kann, bis der Eintrag gelöscht wird.",
           "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine Held*in um Hilfe bitten."
+        },
+        "requestMoreHelp": {
+          "heading": "Benötigst du weiterhin Hilfe?",
+          "firstSentence": "Falls du weiterhin Hilfe benötigst, werden wir für Dich neue potentielle Helfer*innen kontaktieren, die sich in Deinem Umkreis befinden.",
+          "secondSentence": "Bitte beachte, dass Dir diese Funktion nur begrenzt zur Verfügung steht, um potentiellen Spam zu vermeiden.",
+          "thirdSentence": "Falls Du keine Hilfe mehr benötigst, kannst Du Dein Hilfegesuch jederzeit löschen."
+        },
+        "requestMoreHelpSuccessful": {
+          "heading": "Deine Anfrage für weitere Hilfe war erfolgreich!",
+          "firstSentence": "Bitte beachte, dass es einen Augenblick dauern kann, bis sich potentieller Helfer*innen bei Dir melden.",
+          "secondSentence": "Wir hoffen, dass dir schon bald geholfen wird. Bleibe gesund!"
+        },
+        "requestMoreHelpFailed": {
+          "heading": "Leider ist etwas schief gelaufen...",
+          "firstSentence": "Versuche es bitte noch einmal!",
+          "secondSentence": "Bei wiederkehrendem Auftreten versuche es bitte noch einmal zu einem späteren Zeitpunkt oder kontaktiere unseren Support."
         }
       }
     },

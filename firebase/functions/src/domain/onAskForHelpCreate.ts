@@ -21,9 +21,13 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
       console.log('Error posting to slack', err);
     }
 
-    // Enforce field to 0
+    // Enforce server-side defaults
+    const now = Date.now();
     await snap.ref.update({
       'd.notificationCounter': 0,
+      'd.responses': 0,
+      'd.lastHelpRequestTimestamps': [now],
+      'd.timestamp': now,
       'd.slackMessageRef': messageRef,
     });
 

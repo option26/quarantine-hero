@@ -2,13 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation, Trans } from 'react-i18next';
-import * as firebase from 'firebase';
 import Popup from 'reactjs-popup';
 import * as Sentry from '@sentry/browser';
 import Loader from '../components/loader/Loader';
 import StatusIndicator from '../components/StatusIndicator';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
+import fb from '../firebase';
 
 export default function HandleEmailAction() {
   const { t } = useTranslation();
@@ -40,14 +40,14 @@ function SignInView({ continueUrl }) {
   const [email, setEmail] = useState(window.localStorage.getItem('emailForSignIn'));
 
   const verifyUrl = () => {
-    if (!firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    if (!fb.auth.isSignInWithEmailLink(window.location.href)) {
       setError(t('views.emailActions.signIn.invalidLink'));
     }
   };
 
   const finishSignIn = async () => {
     try {
-      await firebase.auth().signInWithEmailLink(email, window.location.href);
+      await fb.auth.signInWithEmailLink(email, window.location.href);
 
       // Remove query params in front of hash
       window.history.replaceState(null, null, window.location.pathname);
@@ -137,15 +137,15 @@ function VerifyEmailView({ continueUrl, actionCode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);
-  const [user, isAuthLoading] = useAuthState(firebase.auth());
+  const [user, isAuthLoading] = useAuthState(fb.auth);
 
   const verifyEmail = async () => {
     try {
-      const tokenInfo = await firebase.auth().checkActionCode(actionCode);
+      const tokenInfo = await fb.auth.checkActionCode(actionCode);
       if (user && user.email !== tokenInfo.data.email) {
-        await firebase.auth().signOut();
+        await fb.auth.signOut();
       }
-      await firebase.auth().applyActionCode(actionCode);
+      await fb.auth.applyActionCode(actionCode);
       setLoading(false);
     } catch (err) {
       Sentry.captureException(err);
@@ -211,7 +211,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
 
   const verifyToken = async () => {
     try {
-      await firebase.auth().verifyPasswordResetCode(actionCode);
+      await fb.auth.verifyPasswordResetCode(actionCode);
     } catch (err) {
       setTokenInvalid(true);
     }
@@ -225,7 +225,7 @@ function ResetPasswordView({ continueUrl, actionCode }) {
     if (tokenInvalid) return;
 
     try {
-      await firebase.auth().confirmPasswordReset(actionCode, password);
+      await fb.auth.confirmPasswordReset(actionCode, password);
 
       setSuccess(true);
     } catch (err) {
@@ -338,7 +338,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
 
   const verifyToken = async () => {
     try {
-      const tokenInfo = await firebase.auth().checkActionCode(actionCode);
+      const tokenInfo = await fb.auth.checkActionCode(actionCode);
       return tokenInfo.data.email;
     } catch (err) {
       setTokenInvalid(true);
@@ -348,7 +348,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
 
   const resetEmail = async () => {
     try {
-      await firebase.auth().applyActionCode(actionCode);
+      await fb.auth.applyActionCode(actionCode);
 
       setResetSuccess(true);
     } catch (err) {
@@ -362,7 +362,7 @@ function RecoverEmailView({ continueUrl, actionCode }) {
 
   const sendPwResetLink = async () => {
     try {
-      await firebase.auth().sendPasswordResetEmail(recoveredEmail);
+      await fb.auth.sendPasswordResetEmail(recoveredEmail);
     } catch (err) {
       setError(true);
     }

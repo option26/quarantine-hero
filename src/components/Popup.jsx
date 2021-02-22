@@ -4,6 +4,11 @@ import Popup from 'reactjs-popup';
 
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+
+import { ReactComponent as DotsSvg } from '../assets/dots_grey.svg';
+
+import 'reactjs-popup/dist/index.css';
 
 function getPopupContentComponent(heading, firstButtonComponent, secondButtonComponent, textBody = null) {
   const popupContentClasses = 'p-4 bg-kaki font-open-sans flex flex-col justify-center items-center';
@@ -29,27 +34,100 @@ function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, cyI
   );
 }
 
-export default function PopupOnEntryAction(props) {
+function getButtonForContextMenu(text, onClickFunction, icon, cyIdentifier, disabled = false) {
+  const commonButtonClasses = 'focus:outline-none flex items-stretch w-full';
+  return () => (
+    <div className="rounded py-1 my-0.75 bg-white text-gray-700 shadow-lg popup-context-menu-entry">
+      <button type="button" data-cy={cyIdentifier} className={commonButtonClasses} onClick={onClickFunction} disabled={disabled}>
+        {icon}
+        {text}
+      </button>
+    </div>
+  );
+}
+
+export function ContextMenuPopup(props) {
+  const {
+    eligibleToSolve,
+    initializeDelete,
+    initializeSolve,
+    showAsSolved,
+  } = props;
+
+  const { t } = useTranslation();
+
+  const HeroFoundButton = getButtonForContextMenu(
+    t('components.entry.contextMenu.heroFound'),
+    initializeSolve,
+    <DoneIcon className="ml-2 mb-1" />,
+    'btn-context-menu-hero-found',
+  );
+
+  const DeleteButton = getButtonForContextMenu(
+    t('components.entry.contextMenu.deletePost'),
+    initializeDelete,
+    <DeleteOutlineIcon className="ml-2 mb-1" />,
+    'btn-context-menu-delete-anyway',
+  );
+
+  const popupContent = (
+    <div className="font-open-sans flex flex-col justify-center items-left">
+      {eligibleToSolve && !showAsSolved ? <HeroFoundButton /> : <></>}
+      <DeleteButton />
+    </div>
+  );
+
+  return (
+    <Popup
+      data-cy="popup-context-menu"
+      className="popup-context-menu"
+      position="left center"
+      trigger={() => (
+        <button
+          type="button"
+          className="focus:outline-none hover:bg-gray-200 rounded-full"
+        >
+          <DotsSvg className="dots" alt="" />
+        </button>
+      )}
+      contentStyle={
+        {
+          background: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
+        }
+      }
+    >
+      {popupContent}
+    </Popup>
+  );
+}
+
+export function PopupOnEntryAction(props) {
   const {
     responses,
     attemptingToDelete,
     attemptingToSolve,
     deleted,
     popupVisible,
-    setPopupVisible,
-    setAttemptingToDelete,
-    handleSolved,
+    handlePopupClose,
     showAsSolved,
+    handleSolved,
     handleNewAskForHelp,
     cancelDelete,
     handleDelete,
+    attemptingToRequestMoreHelp,
+    cancelAttemptingToRequestMoreHelp,
+    handleRequestMoreHelp,
+    moreHelpRequested,
+    moreHelpRequestFailed,
     backToOverview,
   } = props;
 
   const { t } = useTranslation();
 
-  const positiveActionButtonClasses = 'bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 btn-common';
-  const negativeActionButtonClasses = 'text-primary min-w-90 btn-common-font-normal';
+  const positiveActionButtonClasses = 'bg-secondary text-white hover:opacity-75 rounded mb-2 block min-w-90 btn-common focus:outline-none';
+  const negativeActionButtonClasses = 'text-primary min-w-90 btn-common-font-normal focus:outline-none';
 
   const strongerTogetherHashtag = <i> #strongertogether</i>;
   const textBodyWasYourRequestSuccessful = (
@@ -82,6 +160,30 @@ export default function PopupOnEntryAction(props) {
     </>
   );
 
+  const textBodyAskForMoreHelp = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelp.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelp.secondSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelp.thirdSentence')}</p>
+    </>
+  );
+
+  const textBodyAskForMoreHelpSuccessful = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelpSuccessful.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelpSuccessful.secondSentence')}</p>
+      {strongerTogetherHashtag}
+    </>
+  );
+
+  const textBodyAskForMoreHelpFailed = (
+    <>
+      <p>{t('components.entry.popup.requestMoreHelpFailed.firstSentence')}</p>
+      <p>{t('components.entry.popup.requestMoreHelpFailed.secondSentence')}</p>
+      {strongerTogetherHashtag}
+    </>
+  );
+
   const HeroFoundButton = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.heroFound'),
@@ -99,6 +201,14 @@ export default function PopupOnEntryAction(props) {
     'btn-popup-ask-for-help',
   );
 
+  const AskForMoreHelpButton = getButtonForPopup(
+    positiveActionButtonClasses,
+    t('components.entry.popup.requestMoreHelpButton'),
+    handleRequestMoreHelp,
+    <ArrowForwardIosIcon className="ml-2 mb-1" />,
+    'btn-popup-ask-for-help',
+  );
+
   const CancelButtonPositiveClass = getButtonForPopup(
     positiveActionButtonClasses,
     t('components.entry.popup.cancel'),
@@ -111,6 +221,14 @@ export default function PopupOnEntryAction(props) {
     negativeActionButtonClasses,
     t('components.entry.popup.cancel'),
     cancelDelete,
+    null,
+    'btn-popup-cancel-negative',
+  );
+
+  const CancelAskForMoreHelpButtonClass = getButtonForPopup(
+    negativeActionButtonClasses,
+    t('components.entry.popup.cancel'),
+    cancelAttemptingToRequestMoreHelp,
     null,
     'btn-popup-cancel-negative',
   );
@@ -145,6 +263,13 @@ export default function PopupOnEntryAction(props) {
     <DeleteTerminallyButton />,
   );
 
+  const RequestMoreHelpReassure = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelp.heading'),
+    <AskForMoreHelpButton />,
+    <CancelAskForMoreHelpButtonClass />,
+    textBodyAskForMoreHelp,
+  );
+
   const PopupContentSolveReassure = getPopupContentComponent(
     t('components.entry.popup.solveReassure.heading'),
     <HeroFoundButton />,
@@ -166,21 +291,35 @@ export default function PopupOnEntryAction(props) {
     textBodyYourRequestWasDeleted,
   );
 
+  const RequestMoreHelpSuccess = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelpSuccessful.heading'),
+    <NewAskForHelpButton />,
+    <BackToOverviewButton />,
+    textBodyAskForMoreHelpSuccessful,
+  );
+
+  const RequestMoreHelpFailed = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelpFailed.heading'),
+    <></>,
+    <BackToOverviewButton />,
+    textBodyAskForMoreHelpFailed,
+  );
+
   let popupContent = <></>;
   if (attemptingToSolve && !showAsSolved) popupContent = <PopupContentSolveReassure />;
   if (attemptingToDelete && (responses === 0 || showAsSolved)) popupContent = <PopupContentDeleteReassure />;
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
+  if (attemptingToRequestMoreHelp) popupContent = <RequestMoreHelpReassure />;
+  if (moreHelpRequested) popupContent = <RequestMoreHelpSuccess />;
+  if (moreHelpRequestFailed) popupContent = <RequestMoreHelpFailed />;
 
   return (
     <Popup
       modal
       data-cy="popup-hint-for-entry"
       open={popupVisible}
-      onClose={() => {
-        setAttemptingToDelete(false);
-        setPopupVisible(false);
-      }}
+      onClose={handlePopupClose}
       // we cannot set this with classes because the popup library has inline style, which would overwrite the width and padding again
       contentStyle={
         {

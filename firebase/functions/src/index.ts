@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import { REGION_EUROPE_WEST_1 } from './config';
 
 import { handleIncomingCall as handleIncomingCallFromHotline } from './domain/handleIncomingCall';
+import { handleAskForMoreHelp as handleAskForMoreHelpFunction } from './domain/handleAskForMoreHelp';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
 import { onDeletedCreate } from './domain/onDeletedCreate';
 import { onUserDelete } from './domain/onUserDelete';
@@ -14,6 +15,8 @@ import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedC
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
 import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
+import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
+import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
 import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
@@ -30,9 +33,23 @@ export const contentUpdated = functions
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23.
+  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23. https://crontab.guru/#*/3_9-23_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
+
+export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
+  .timeZone('Europe/Berlin')
+  .onRun(sendEmailsForOpenOffersWithoutAnswers);
+
+export const sendNotificationEmailsForOpenOffersWithAnswers = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
+  .timeZone('Europe/Berlin')
+  .onRun(sendEmailsForOpenOffersWithAnswers);
 
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
@@ -75,6 +92,11 @@ export const handleIncomingCall = functions
   .https
   .onRequest(handleIncomingCallFromHotline);
 
+export const handleAskForMoreHelp = functions
+  .region(REGION_EUROPE_WEST_1)
+  .https
+  .onCall(handleAskForMoreHelpFunction);
+
 export const deleteUserData = functions
   .region(REGION_EUROPE_WEST_1)
   .auth
@@ -88,7 +110,7 @@ export const updateGeoDBFunction = functions
   })
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year
+  .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year https://crontab.guru/#0_0_1_*/6_*
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
 

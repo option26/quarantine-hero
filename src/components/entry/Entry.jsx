@@ -1,44 +1,52 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DoneIcon from '@material-ui/icons/Done';
 
 import fb from '../../firebase';
-import { adminId } from '../../appConfig';
+import { maxAllowedRequestForHelp, moreHelpRequestCooldownDays, adminId } from '../../appConfig';
 import getDateFnsLocaleObject from '../../util/getDateFnsLocaleObject';
 import Responses from '../Responses';
-import PopupOnEntryAction from '../Popup';
+import { ContextMenuPopup, PopupOnEntryAction } from '../Popup';
 
-import { ReactComponent as QuestionMarkSvg } from '../../assets/questionmark.svg';
 import { ReactComponent as FlagRedSvg } from '../../assets/flag_red.svg';
+import { ReactComponent as FlagWhiteSvg } from '../../assets/flag_white.svg';
 import { ReactComponent as FlagOrangeSvg } from '../../assets/flag_orange.svg';
 import { ReactComponent as XSymbolSvg } from '../../assets/x.svg';
+import { ReactComponent as AddReachSymbolSvg } from '../../assets/add_reach.svg';
+
 import './Entry.css';
 
 export default function Entry(props) {
   const {
     showFullText = false,
-    showAsSolved = false,
+    onAddressClick,
+    highlightLeft = false,
+    report = false,
+    entry = undefined,
+    showSolveHint = false,
+    showDeleteHint = false,
+    showMoreHelpHint = false,
+  } = props;
+
+  const {
     location = '',
     id = '',
     request = '',
     timestamp = Date.now(),
-    onAddressClick,
     responses = 0,
-    highlightLeft = false,
-    reportedBy = [],
-    report = false,
     uid = '',
-    showSolveHint = false,
-    showDeleteHint = false,
-  } = props;
+    lastHelpRequestTimestamps = undefined,
+    reportedBy = [],
+    solved: showAsSolved,
+  } = entry;
 
   const history = useHistory();
+  const windowLocation = useLocation();
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
   const link = useRef(null);
@@ -48,16 +56,20 @@ export default function Entry(props) {
 
   const [deleted, setDeleted] = useState(false);
   const [solved, setSolved] = useState(false);
+  const [moreHelpRequested, setMoreHelpRequested] = useState(false);
+  const [moreHelpRequestFailed, setMoreHelpRequestFailed] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
   const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
-  const [popupVisible, setPopupVisible] = useState(showSolveHint || showDeleteHint);
+  const [attemptingToRequestMoreHelp, setAttemptingToRequestMoreHelp] = useState(showMoreHelpHint);
+  const [popupVisible, setPopupVisible] = useState(showSolveHint || showDeleteHint || showMoreHelpHint);
 
   const userIsLoggedIn = !!user && !!user.uid;
   const userLoggedInAndReportedEntryBefore = userIsLoggedIn && reportedBy.includes(user.uid);
   const [reported, setReported] = useState(userLoggedInAndReportedEntryBefore);
   const entryBelongsToCurrentUser = userIsLoggedIn && user.uid === uid;
   const collectionName = showAsSolved ? 'solved-posts' : 'ask-for-help';
+  const eligibleToSolve = responses > 0;
 
   let textToDisplay;
   if (showFullText) {
@@ -80,7 +92,7 @@ export default function Entry(props) {
     setPopupVisible(true); // trigger the deletion confirmation popup
   };
 
-  const handleSolved = async (e) => {
+  const solveEntry = async (e) => {
     e.preventDefault();
     const askForHelpDoc = await fb.store.collection('ask-for-help').doc(id).get();
     const data = askForHelpDoc.data();
@@ -89,6 +101,26 @@ export default function Entry(props) {
     setSolved(true);
     setAttemptingToDelete(false);
     setPopupVisible(false);
+    return history.replace(windowLocation.pathname);
+  };
+
+  const initializeSolve = async (e) => {
+    e.preventDefault();
+    setAttemptingToSolve(true);
+    setPopupVisible(true);
+  };
+
+  const handleRequestMoreHelp = async (e) => {
+    e.preventDefault();
+    try {
+      await fb.askForMoreHelp(id);
+      setMoreHelpRequested(true);
+    } catch (err) {
+      setMoreHelpRequestFailed(true);
+    }
+    fb.analytics.logEvent('more_help_requested');
+    setAttemptingToRequestMoreHelp(false);
+    setPopupVisible(true);
   };
 
   const handleNewAskForHelp = async (e) => {
@@ -103,9 +135,9 @@ export default function Entry(props) {
     setPopupVisible(true);
   };
 
-  const initializeSolve = async (e) => {
+  const initializeMoreHelp = async (e) => {
     e.preventDefault();
-    setAttemptingToSolve(true);
+    setAttemptingToRequestMoreHelp(true);
     setPopupVisible(true);
   };
 
@@ -113,11 +145,28 @@ export default function Entry(props) {
     e.preventDefault();
     setAttemptingToDelete(false);
     setPopupVisible(false);
+    return history.replace(windowLocation.pathname);
+  };
+
+  const cancelAttemptingToRequestMoreHelp = async (e) => {
+    e.preventDefault();
+    setAttemptingToRequestMoreHelp(false);
+    setPopupVisible(false);
+    return history.replace(windowLocation.pathname);
   };
 
   const backToOverview = async (e) => {
     e.preventDefault();
     setPopupVisible(false);
+    return history.replace(windowLocation.pathname);
+  };
+
+  const handlePopupClose = () => {
+    setAttemptingToDelete(false);
+    setPopupVisible(false);
+    setMoreHelpRequestFailed(false);
+    setMoreHelpRequested(false);
+    return history.replace(windowLocation.pathname);
   };
 
   const handleAddressClick = (e) => {
@@ -177,24 +226,34 @@ export default function Entry(props) {
       attemptingToSolve={attemptingToSolve}
       deleted={deleted}
       popupVisible={popupVisible}
-      setPopupVisible={setPopupVisible}
-      setAttemptingToDelete={setAttemptingToDelete}
-      handleSolved={handleSolved}
+      handlePopupClose={handlePopupClose}
+      handleSolved={solveEntry}
       showAsSolved={showAsSolved}
       handleNewAskForHelp={handleNewAskForHelp}
       cancelDelete={cancelDelete}
       handleDelete={handleDelete}
+      attemptingToRequestMoreHelp={attemptingToRequestMoreHelp}
+      cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
+      handleRequestMoreHelp={handleRequestMoreHelp}
+      moreHelpRequested={moreHelpRequested}
+      moreHelpRequestFailed={moreHelpRequestFailed}
       backToOverview={backToOverview}
     />
   );
 
-  if (deleted || solved) {
+  const contextMenu = (
+    <ContextMenuPopup
+      initializeSolve={initializeSolve}
+      initializeDelete={initializeDelete}
+      eligibleToSolve={eligibleToSolve}
+      showAsSolved={showAsSolved}
+    />
+  );
+
+  if (deleted || solved || moreHelpRequested) {
     // make popup component available to show the success hint, if the entry was previously deleted
     return <>{popupOnEntryAction}</>;
   }
-
-  // eslint-disable-next-line no-nested-ternary
-  const buttonClass = reported ? 'btn-report-flagged' : (attemptingToReport ? 'btn-report-abort' : 'btn-report-unflagged');
 
   const toggleResponsesVisible = (event) => {
     event.preventDefault();
@@ -208,8 +267,17 @@ export default function Entry(props) {
     document.body.removeEventListener('click', clearReportAttempt);
   };
 
-  const topRightButtonBar = (() => {
-    if (showAsSolved && !entryBelongsToCurrentUser) {
+  const TopRightButtonBar = (() => {
+    // eslint-disable-next-line no-nested-ternary
+    const reportButtonClass = reported ? 'btn-report-flagged' : (attemptingToReport ? 'btn-report-abort' : 'btn-report-unflagged');
+
+    // always show the context menu if the entry belongs to the user
+    if (entryBelongsToCurrentUser) {
+      return contextMenu;
+    }
+
+    // else, show the solved hint, if the entry does not belong to the user
+    if (showAsSolved) {
       return (
         <div className="flex justify-center items-center bg-secondary text-white text-xs font-medium rounded px-2">
           {t('components.entry.heroFound')}
@@ -218,94 +286,90 @@ export default function Entry(props) {
       );
     }
 
+    // otherwise, show the reporting flag
     return (
       <div>
-        {!entryBelongsToCurrentUser
-          ? (
+        <button
+          type="button"
+          className={`btn-round ${!reported && 'hover:opacity-75'} my-2 ml-2 flex items-center justify-center ${reportButtonClass} z-10 relative`}
+          disabled={reported}
+          onClick={(e) => {
+            e.preventDefault();
+            const prevValue = attemptingToReport;
+            setAttemptingToReport((curr) => !curr);
+            if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
+          }}
+        >
+          {reported && <FlagOrangeSvg className="flag" alt="" />}
+          {!reported && !attemptingToReport && <FlagRedSvg className="flag" alt="" />}
+          {!reported && attemptingToReport && <XSymbolSvg className="cross" alt="" />}
+        </button>
+        {attemptingToReport && (
+          <div
+            role="button"
+            tabIndex="0"
+            className="absolute inset-0 bg-white-75"
+            onClick={(e) => {
+              e.preventDefault();
+              setAttemptingToReport((curr) => !curr);
+            }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                setAttemptingToReport((curr) => !curr);
+              }
+            }}
+          >
             <button
               type="button"
-              className={`btn-round ${!reported && 'hover:opacity-75'} my-2 ml-2 flex items-center justify-center ${buttonClass} z-10 relative`}
-              disabled={reported}
-              onClick={(e) => {
-                e.preventDefault();
-                const prevValue = attemptingToReport;
-                setAttemptingToReport((curr) => !curr);
-                if (!reported && !prevValue) document.body.addEventListener('click', clearReportAttempt);
-              }}
+              className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry z-10 absolute"
+              onClick={reportEntry}
             >
-              {reported ? <FlagOrangeSvg className="flag" alt="" /> : null}
-              {!reported && !attemptingToReport ? <FlagRedSvg className="flag" alt="" /> : null}
-              {!reported && attemptingToReport ? <XSymbolSvg className="cross" alt="" /> : null}
+              {t('components.entry.reportPost')}
+              <FlagWhiteSvg className="ml-2 inline-block" />
             </button>
-          ) : null}
-        {attemptingToReport
-          ? (
-            <div
-              role="button"
-              tabIndex="0"
-              className="absolute inset-0 bg-white-75"
-              onClick={(e) => {
-                e.preventDefault();
-                setAttemptingToReport((curr) => !curr);
-              }}
-              onKeyDown={(e) => {
-                if (e.keyCode === 13) {
-                  setAttemptingToReport((curr) => !curr);
-                }
-              }}
-            >
-              <button
-                type="button"
-                className="flex items-center justify-center hover:opacity-75 font-open-sans btn-report-entry z-10 absolute"
-                onClick={reportEntry}
-              >
-                Post melden?
-                <img className="ml-2 inline-block" src={require('../../assets/flag_white.svg')} alt="" />
-              </button>
-            </div>
-          ) : null}
+          </div>
+        )}
       </div>
     );
-  })();
+  });
 
-  const bottomButtonBar = (() => {
+  const BottomButtonBar = (() => {
     if (!mayDeleteEntryAndSeeResponses) {
       return <></>;
     }
 
-    const heroFoundButtonClasses = showAsSolved
-      ? 'bg-secondary text-white btn-common'
-      : 'bg-tertiary text-secondary hover:bg-secondary hover:text-white btn-common';
+    const moreHelpEligible = lastHelpRequestTimestamps !== undefined
+      ? (lastHelpRequestTimestamps.length < maxAllowedRequestForHelp) && (lastHelpRequestTimestamps.slice(-1)[0] < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000)
+      : false;
 
     return (
       <div className="flex flex-row mt-2 -mb-2 -mx-4 text-sm rounded-b overflow-hidden">
         {responses === 0
           ? (
-            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-grow mr-px btn-common">
+            <div className="bg-gray-200 text-gray-700 flex justify-center items-center flex-1 btn-common">
               <div>{numberOfResponsesText}</div>
             </div>
           ) : (
-            <>
-              <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row items-center justify-center" onClick={toggleResponsesVisible}>
-                <div className="hidden xs:block">{t('components.entry.message', { count: responses })}</div>
-                <MailOutlineIcon className="ml-2 inline-block" />
-                <div className="block xs:hidden font-open-sans font-bold ml-1">{responses}</div>
-              </button>
-              <button type="button" data-cy="btn-entry-solve" className={`flex items-center justify-center flex-1 sm:flex-grow mx-px ${heroFoundButtonClasses} px-2`} onClick={initializeSolve} disabled={showAsSolved}>
-                <div>{t('components.entry.heroFound')}</div>
-                {showAsSolved
-                  ? <DoneIcon className="ml-1 inline-block" />
-                  : <QuestionMarkSvg className="ml-1 inline-block h-4" />}
-              </button>
-            </>
+            <button type="button" className="bg-secondary hover:opacity-75 text-white flex-1 btn-common flex flex-row items-center justify-center focus:outline-none" onClick={toggleResponsesVisible}>
+              <div className="hidden xs:block">{t('components.entry.message', { count: responses })}</div>
+              <MailOutlineIcon className="ml-2 inline-block" />
+              <div className="block xs:hidden font-open-sans font-bold ml-1">{responses}</div>
+            </button>
           )}
-        <button type="button" data-cy="btn-entry-delete" className="bg-red-200 text-primary hover:text-white hover:bg-primary flex flex-row item-center md:justify-around max-w-5 md:max-w-full btn-common pl-2 pr-8 md:px-6" onClick={initializeDelete}>
-          <div className="hidden md:block">{t('components.entry.deleteRequestForHelp')}</div>
-          <DeleteOutlineIcon className="pb-1" />
-        </button>
+        {!showAsSolved && moreHelpEligible && (
+          <button
+            type="button"
+            data-cy="btn-entry-more-help"
+            className="flex items-center justify-center flex-1 sm:flex-grow px-2 ml-px bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white btn-common focus:outline-none"
+            onClick={initializeMoreHelp}
+          >
+            <div>{t('components.entry.increaseReach')}</div>
+            <AddReachSymbolSvg className="ml-1 inline-block h-4" />
+          </button>
+        )}
       </div>
     );
-  })();
+  });
 
   const requestCard = (
     <>
@@ -331,14 +395,14 @@ export default function Entry(props) {
             {' '}
             {t('components.entry.needsHelp')}
           </span>
-          {topRightButtonBar}
+          <TopRightButtonBar />
         </div>
         <p className="mt-2 mb-2 font-open-sans text-gray-800">{textToDisplay}</p>
         <div className="flex flex-row justify-between items-center mt-4 mb-2">
           <div className="text-xs text-secondary mr-1 font-bold">{mayDeleteEntryAndSeeResponses ? '' : numberOfResponsesText}</div>
           <span className="text-gray-500 inline-block text-right text-xs font-open-sans">{date}</span>
         </div>
-        {bottomButtonBar}
+        <BottomButtonBar />
       </Link>
       {popupOnEntryAction}
     </>
