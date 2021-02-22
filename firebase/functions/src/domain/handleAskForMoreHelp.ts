@@ -49,15 +49,15 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       throw new Error('Unauthorized');
     }
 
-    const { uid, lastHelpRequestTimestamps, notificationCounter } = askForHelpData.d;
+    const { uid, lastHelpRequestTimestamps } = askForHelpData.d;
     if (lastHelpRequestTimestamps === undefined) {
       throw new Error('Last help request timestamp not set');
     }
 
     const [timeStampLastHelpRequest] = lastHelpRequestTimestamps.slice(-1);
     // early return if the user does not request help or is not eligible for more help
-    if (notificationCounter >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
-      console.log('Maximum amount of allowed request reached for user', notificationCounter, uid, askForHelpId);
+    if (lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
+      console.log('Maximum amount of allowed request reached for user', uid, askForHelpId);
       throw new Error('Maximum amount of allowed request reached');
     }
     if (timeStampLastHelpRequest >= Date.now() - MORE_HELP_REQUEST_COOLDOWN_DAYS * 24 * 60 * 60 * 1000) {
