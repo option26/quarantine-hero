@@ -37,7 +37,7 @@ function getButtonForPopup(commonButtonClasses, text, onClickFunction, icon, cyI
 function getButtonForContextMenu(text, onClickFunction, icon, cyIdentifier, disabled = false) {
   const commonButtonClasses = 'focus:outline-none flex items-stretch w-full';
   return () => (
-    <div className="rounded py-1 my-0.75 bg-white text-gray-700 popup-context-menu-entry">
+    <div className="rounded py-1 my-0.75 bg-white text-gray-700 shadow-lg popup-context-menu-entry">
       <button type="button" data-cy={cyIdentifier} className={commonButtonClasses} onClick={onClickFunction} disabled={disabled}>
         {icon}
         {text}
@@ -85,7 +85,7 @@ export function ContextMenuPopup(props) {
       trigger={() => (
         <button
           type="button"
-          className="focus:outline-none"
+          className="focus:outline-none hover:bg-gray-200 rounded-full"
         >
           <DotsSvg className="dots" alt="" />
         </button>
