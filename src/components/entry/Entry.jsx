@@ -41,7 +41,6 @@ export default function Entry(props) {
     responses = 0,
     uid = '',
     lastHelpRequestTimestamps = undefined,
-    notificationCounter = undefined,
     reportedBy = [],
     solved: showAsSolved,
   } = entry;
@@ -340,7 +339,7 @@ export default function Entry(props) {
     }
 
     const moreHelpEligible = lastHelpRequestTimestamps !== undefined
-      ? (notificationCounter < maxAllowedRequestForHelp) && (lastHelpRequestTimestamps.slice(-1)[0] < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000)
+      ? (lastHelpRequestTimestamps.length < maxAllowedRequestForHelp) && (lastHelpRequestTimestamps.slice(-1)[0] < Date.now() - moreHelpRequestCooldownDays * 24 * 60 * 60 * 1000)
       : false;
 
     return (
