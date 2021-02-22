@@ -99,7 +99,6 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       console.log(sendingMailsDisabledLogMessage);
     }
     return transaction.update(askForHelpDoc, {
-      'd.notificationCounter': admin.firestore.FieldValue.increment(1),
       'd.lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(Date.now()),
     });
   };
