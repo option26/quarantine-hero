@@ -8,7 +8,10 @@
     "strict": true,
     "target": "es2017",
     "allowJs": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "compileOnSave": true,
   "include": [

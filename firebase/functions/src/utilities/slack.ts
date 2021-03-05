@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 import { onAllowHotlineAnswer } from '../domain/onOfferHelpCreate';
 
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { onDeletePost } from '../domain/onDeletePost';
 
 async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry): Promise<string> {
   const { request, location, isHotline } = snapData.d;
@@ -93,13 +94,15 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
   const {
     actions,
     callback_id: callbackId,
-    response_url: responseUrl
+    response_url: responseUrl,
+    message_ts: messageRef,
   } = actionContent;
 
   console.log('Incoming activity for', callbackId);
 
   switch (callbackId) {
     case 'allow_hotline_answer': await onAllowHotlineAnswer(actions, responseUrl); break;
+    case 'delete_post': await onDeletePost(messageRef, responseUrl); break;
   }
 
   response.status(200).send();
