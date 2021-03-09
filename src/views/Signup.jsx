@@ -164,7 +164,10 @@ function SignupBody() {
 
       const signUpResult = await createUserWithEmailAndPassword(email, password);
       await signUpResult.user.sendEmailVerification({ url: `${baseUrl}/#/${returnUrl || ''}` });
-      await fb.store.collection('users').doc(signUpResult.user.uid).set({ source: userSource });
+      await fb.store.collection('users').doc(signUpResult.user.uid).set({
+        source: userSource,
+        timestamp: Date.now(),
+      });
       fb.analytics.logEvent(`signup_${userSource}`);
     } catch (err) {
       switch (err.code) {
