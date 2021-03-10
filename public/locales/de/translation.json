@@ -90,7 +90,8 @@
       "phoneNr": "Telefonnummer",
       "autoResponseComment": "Anmerkung für automatische Antwort",
       "requestIsPublic": "Sobald Du Deine Anfrage absendest ist diese öffentlich für andere einsehbar. Deine E-Mail-Adresse ist für andere nicht sichtbar.",
-      "askNow": "Jetzt um Hilfe bitten"
+      "askNow": "Jetzt um Hilfe bitten",
+      "maximumOpenRequestsReachedExplanation": "Du hast leider die maximale Anzahl an offenen Anfragen erreicht. Bitte schließe zunächst eine Deiner offenen Anfragen in der Übersicht."
     },
     "overview": {
       "title": "Aktuelle Anfragen",
