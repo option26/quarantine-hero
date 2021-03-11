@@ -23,7 +23,7 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const isHotline = user && user.uid === hotlineId;
+  const isHotline = useMemo(() => user && user.uid === hotlineId, [user, hotlineId]);
 
   const askForHelpCollection = fb.store.collection('ask-for-help');
 
@@ -32,7 +32,7 @@ export default function AskForHelp() {
     { idField: 'id' },
   );
 
-  const showAllowedRequestsHint = useMemo(() => !isHotline || (existingDocsForUser && existingDocsForUser.length > allowedOpenRequestsPerUser), [existingDocsForUser]);
+  const showAllowedRequestsHint = useMemo(() => !isHotline || (existingDocsForUser && existingDocsForUser.length > allowedOpenRequestsPerUser), [existingDocsForUser, isHotline]);
 
   const handleSubmit = async (e) => {
     // Prevent page reload
