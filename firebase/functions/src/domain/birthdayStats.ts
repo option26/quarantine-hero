@@ -16,13 +16,13 @@ export async function birthdayStats(): Promise<void> {
         const offerHelp = await db.collectionGroup(CollectionName.OfferHelp)
             .where('timestamp', '>=', sinceTimestamp)
             .get();
-        
-        const { data: betterPlaceResponse } = await axios.get('https://api.betterplace.org/de/api_v4/fundraising_events/<id>>.json');
+
+        const { data: betterPlaceResponse } = await axios.get('https://api.betterplace.org/de/api_v4/fundraising_events/37416.json');
         const donations = Math.round((betterPlaceResponse?.donated_amount_in_cents || 0) / 100);
 
         const reelShares = await getReelShares(sinceTimestamp);
 
-        await db.collection(CollectionName.BirthdayStats).doc('external').update({
+        await db.collection(CollectionName.BirthdayStats).doc('external').set({
             offerHelp: offerHelp.size,
             notifications: notifications.size,
             donations,
