@@ -105,7 +105,9 @@ function Anniversary() {
             </div>
           </div>
 
-          <p className="font-exo2 text-2xl mt-10 text-center">So kannst Du spenden</p>
+          <p className="font-exo2 text-2xl mt-10 text-center">
+            So kannst Du spenden
+          </p>
 
           <div className="flex flex-col font-exo2 px-8 mt-4 mb-8">
             <Link to="/notify-me" className="flex items-center md:justify-center action-button relative">
@@ -114,6 +116,7 @@ function Anniversary() {
                 <p className="font-semibold">Als Held*in registrieren</p>
                 <p>
                   und wir spenden
+                  <sup className="text-xs">*</sup>
                   <span className="rounded bg-secondary text-white ml-2 px-1 font-semibold">
                     {notificationMultiplier}
                     €
@@ -131,6 +134,7 @@ function Anniversary() {
                 <p className="font-semibold">Eine Story posten</p>
                 <p>
                   und wir spenden
+                  <sup className="text-xs">*</sup>
                   <span className="rounded bg-secondary text-white ml-2 px-1 font-semibold">
                     {storyMultiplier}
                     €
@@ -142,7 +146,7 @@ function Anniversary() {
                 <img src={require('../assets/arrow-right.svg')} className="h-4 w-4" alt="" />
               </div>
             </a>
-            <a href="https://betterplace.org/de/fundraising-events/24938" className="flex items-center md:justify-center action-button mt-4 relative">
+            <a href="https://www.betterplace.org/de/fundraising-events/37416-quarantaeneheld-innen-sammeln-fuer-silbernetz-e-v" className="flex items-center md:justify-center action-button mt-4 relative">
               <img src={require('../assets/donate.svg')} className="h-12" alt="" />
               <div className="flex flex-col ml-4 text-sm">
                 <p className="font-semibold">Selbst spenden</p>
@@ -197,6 +201,11 @@ function Anniversary() {
                 </p>
               </div>
             </div>
+
+            <p className="text-xs">
+              <sup>*</sup>
+              Durch unsere Spendenpartner spenden wir den genannten Betrag bis zu einer Gesamtsumme von 1000€
+            </p>
           </div>
 
           <div className="flex justify-center -mb-12">
