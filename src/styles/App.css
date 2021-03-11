@@ -135,3 +135,90 @@
     background: #b6223e;
     position: absolute;
 }
+
+
+.angled-background {
+    background-color: #f9f7f0;
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+@media (min-width: 835px) {
+    .angled-background {
+        margin-left: -4rem;
+        margin-right: -4rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+.angled-background::before {
+    position: absolute;
+    content: ' ';
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-style: solid;
+    border-width: 30px 100vw 0 0;
+    border-color: white transparent transparent transparent;
+}
+.angled-background::after {
+    position: absolute;
+    content: ' ';
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 30px 100vw 0 0;
+    border-color: transparent white transparent transparent ;
+}
+
+.snap-container {
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
+}
+.snap-child {
+    scroll-snap-align: start;
+}
+.snap-child:last-of-type::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: -2rem;
+    width: 2rem;
+    height: 1px;
+}
+
+.shadow-around {
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-card {
+    box-shadow: 1px 1px 4px -1px rgba(0, 0, 0, 0.1), 2px 4px 20px -9px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.action-button {
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: #F1EDE2;
+}
+.action-button:hover {
+    background-color:#EDE8DA;
+    box-shadow: 0px 12px 8px -14px rgba(0, 0, 0, 0.7);
+}
+
+.justify-self-end {
+    justify-self: end;
+}
