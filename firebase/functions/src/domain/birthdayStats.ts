@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-import {CollectionName} from '../types/enum/CollectionName';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function birthdayStats(): Promise<void> {
     try {
