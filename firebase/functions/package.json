@@ -22,11 +22,13 @@
     "firebase-functions": "^3.3.0",
     "geofirestore": "^3.6.0",
     "googleapis": "^49.0.0",
+    "instagram-private-api": "^1.43.4",
     "moment-timezone": "^0.5.31"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/firebase": "^3.2.1",
+    "@types/luxon": "^1.26.2",
     "firebase-functions-test": "^0.1.6",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"

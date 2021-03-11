@@ -1,33 +1,32 @@
+import axios from 'axios';
 import * as admin from 'firebase-admin';
+import getReelShares from '../utilities/instagram';
 
-import {CollectionName} from '../types/enum/CollectionName';
+import { CollectionName } from '../types/enum/CollectionName';
 
 export async function birthdayStats(): Promise<void> {
     try {
-        const sinceTimestamp = Date.parse('Tue Mar 09 2021 21:00:00 GMT+0100');
+        const sinceTimestamp = Date.parse('2021-03-14T00:00:00+01:00');
         const db = admin.firestore();
 
         const notifications = await db.collection(CollectionName.Notifications)
             .where('d.timestamp', '>=', sinceTimestamp)
             .get();
 
-        const solvedPosts = await db.collection(CollectionName.SolvedPosts)
-            .where('d.timestamp', '>=', sinceTimestamp)
-            .get();
-
-        const users = await db.collection(CollectionName.Users)
-            .where('timestamp', '>=', sinceTimestamp)
-            .get();
-
         const offerHelp = await db.collectionGroup(CollectionName.OfferHelp)
             .where('timestamp', '>=', sinceTimestamp)
             .get();
+        
+        const { data: betterPlaceResponse } = await axios.get('https://api.betterplace.org/de/api_v4/fundraising_events/<id>>.json');
+        const donations = Math.round((betterPlaceResponse?.donated_amount_in_cents || 0) / 100);
 
-        await db.collection(CollectionName.BirthdayStats).doc('external').set({
+        const reelShares = await getReelShares(sinceTimestamp);
+
+        await db.collection(CollectionName.BirthdayStats).doc('external').update({
             offerHelp: offerHelp.size,
             notifications: notifications.size,
-            solvedPosts: solvedPosts.size,
-            users: users.size,
+            donations,
+            stories: reelShares,
         });
     } catch (e) {
         // eslint-disable-next-line no-console
