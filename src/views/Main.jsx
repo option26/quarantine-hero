@@ -94,13 +94,13 @@ export default function Main() {
         <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
           <div className="font-open-sans flex flex-col">
             <p>
-              QuarantäneHeld*innen wird ein Jahr alt und veranstaltet aus diesem Anlass eine Spendenaktion für Silbernetz e.V.
+              QuarantäneHeld*innen wird ein Jahr alt und veranstaltet eine Solidaritätsaktion für Silbernetz e.V. Sei dabei!
             </p>
             <Link
               to="/geburtstag"
               className="self-end flex justify-center items-center rounded btn-main text-primary hover:opacity-75"
             >
-              Mitmachen
+              Mehr erfahren
               <span className="ml-1 text-xl leading-0">&gt;</span>
             </Link>
           </div>
