@@ -38,7 +38,7 @@ function Anniversary() {
     if (lastMessage && lastMessage.data && lastMessage.data.startsWith('0')) {
       sendMessage('40');
     }
-  }, [lastMessage]);
+  }, [lastMessage, sendMessage]);
 
   useEffect(() => {
     if (!lastMessage || !lastMessage.data || !lastMessage.data.startsWith('42')) {
@@ -66,7 +66,7 @@ function Anniversary() {
       },
     ];
     sendMessage(`42${JSON.stringify(payload)}`);
-  });
+  }, [sendMessage]);
 
   useEffect(() => createEventListener(feedRef.current, 'scroll', (event) => {
     if (!event.target || postsLoading) {
@@ -80,7 +80,7 @@ function Anniversary() {
       setPostsLoading(true);
       loadOlderPosts(instagramPosts[instagramPosts.length - 1]);
     }
-  }), [feedRef, instagramPosts, postsLoading]);
+  }), [feedRef, instagramPosts, postsLoading, loadOlderPosts]);
 
   return (
     <div className="flex mt-8 items-center flex-col">

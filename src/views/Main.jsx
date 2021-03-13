@@ -86,9 +86,11 @@ export default function Main() {
 
         <div className="w-full flex justify-center mt-8">
           <div className="bg-primary -mb-8 rounded-full relative w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            <p className="text-3xl absolute top-0 -mt-2 left-0 -ml-8 transform scale-x-flip">&#x1F389;</p>
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span className="text-3xl absolute top-0 -mt-2 left-0 -ml-8 transform scale-x-flip" role="img">&#x1F389;</span>
             WIR HABEN GEBURTSTAG
-            <p className="text-3xl absolute top-0 -mt-2 right-0 -mr-8">&#x1F389;</p>
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span className="text-3xl absolute top-0 -mt-2 right-0 -mr-8" role="img">&#x1F389;</span>
           </div>
         </div>
         <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
