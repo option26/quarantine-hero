@@ -118,7 +118,7 @@ export const updateGeoDBFunction = functions
 export const calculateBirthdayStats = functions
     .region(REGION_EUROPE_WEST_1)
     .pubsub
-    .schedule('*/5 * * * *') // At every 3rd minute. https://crontab.guru/#*/3_*_*_*_*
+    .schedule('*/5 * * * *') // At every fifth minute. https://crontab.guru/#*/3_*_*_*_*
     .timeZone('Europe/Berlin')
     .onRun(birthdayStats);
 
