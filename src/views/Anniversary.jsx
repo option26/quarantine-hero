@@ -94,7 +94,7 @@ function Anniversary() {
           QuarantäneHeld*innen feiert Geburtstag!
           <br />
           Seit einem Jahr gibt es nun schon die Plattform QuarantäneHeld*innen - ein paar Tage vor dem ersten Lockdown ging die Seite online und seitdem konnte dank Eures Einsatzes schon vielen Menschen geholfen werden. DANKE!
-          Das wollen wir diese Woche gemeinsam mit euch feiern. Gleichzeitig möchten wir in diesem Rahmen gerne eine Initiative unterstützen und starten dazu eine Spendenaktion für&nbsp;
+          Das wollen wir diese Woche gemeinsam mit Euch feiern. Gleichzeitig möchten wir in diesem Rahmen gerne eine Initiative unterstützen und starten dazu eine Spendenaktion für&nbsp;
           <a href="https://silbernetz.org" className="text-secondary hover:underline inline-block" target="_blank" rel="noopener noreferrer">Silbernetz e.V.</a>
         </p>
 
