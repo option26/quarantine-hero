@@ -128,7 +128,12 @@ function Anniversary() {
                 <img src={require('../assets/arrow-right.svg')} className="h-4 w-4" alt="" />
               </div>
             </Link>
-            <a href="https://instagram.com/quarantaenehelden" className="flex items-center md:justify-center action-button mt-4 relative">
+            <a
+              href="https://instagram.com/quarantaenehelden"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex items-center md:justify-center action-button mt-4 relative"
+            >
               <img src={require('../assets/phone_story.svg')} className="h-12" alt="" />
               <div className="flex flex-col ml-4 text-sm">
                 <p className="font-semibold">Eine Story posten</p>
@@ -146,7 +151,12 @@ function Anniversary() {
                 <img src={require('../assets/arrow-right.svg')} className="h-4 w-4" alt="" />
               </div>
             </a>
-            <a href="https://www.betterplace.org/de/fundraising-events/37416-quarantaeneheld-innen-sammeln-fuer-silbernetz-e-v" className="flex items-center md:justify-center action-button mt-4 relative">
+            <a
+              href="https://www.betterplace.org/de/fundraising-events/37416-quarantaeneheld-innen-sammeln-fuer-silbernetz-e-v"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex items-center md:justify-center action-button mt-4 relative"
+            >
               <img src={require('../assets/donate.svg')} className="h-12" alt="" />
               <div className="flex flex-col ml-4 text-sm">
                 <p className="font-semibold">Selbst spenden</p>
