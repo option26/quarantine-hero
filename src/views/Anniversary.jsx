@@ -233,20 +233,7 @@ function Anniversary() {
         </div>
 
         <div className="angled-background bg-kaki -mt-24">
-          <p className="font-teaser mt-24 mx-4">Unsere Spendenpartner</p>
-          <div className="grid grid-cols-4 gap-2 mx-4 my-8">
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-            <img src="http://placehold.it/500" alt="" />
-          </div>
+          <div className="my-48" />
         </div>
       </div>
     </div>
@@ -264,7 +251,6 @@ function InstaPost({ post }) {
     post_image: postImage,
     post_link: postLink,
     type,
-    tags,
   } = post;
 
   const formattedDate = useMemo(() => formatDistance(new Date(postDate), Date.now(), { locale: getDateFnsLocaleObject(), addSuffix: true }), [postDate]);
