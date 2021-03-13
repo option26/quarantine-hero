@@ -22,7 +22,6 @@
     "firebase-functions": "^3.3.0",
     "geofirestore": "^3.6.0",
     "googleapis": "^49.0.0",
-    "instagram-private-api": "^1.43.4",
     "moment-timezone": "^0.5.31"
   },
   "devDependencies": {
