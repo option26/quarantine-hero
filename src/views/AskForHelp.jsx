@@ -32,7 +32,7 @@ export default function AskForHelp() {
     { idField: 'id' },
   );
 
-  const showAllowedRequestsHint = useMemo(() => !isHotline || (existingDocsForUser && existingDocsForUser.length >= allowedOpenRequestsPerUser), [existingDocsForUser, isHotline]);
+  const showAllowedRequestsHint = useMemo(() => !isHotline && existingDocsForUser && existingDocsForUser.length >= allowedOpenRequestsPerUser, [existingDocsForUser, isHotline]);
 
   const handleSubmit = async (e) => {
     // Prevent page reload
