@@ -27,7 +27,6 @@
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/firebase": "^3.2.1",
-    "@types/luxon": "^1.26.2",
     "firebase-functions-test": "^0.1.6",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
