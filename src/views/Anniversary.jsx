@@ -129,7 +129,7 @@ function Anniversary() {
               </div>
             </Link>
             <a
-              href="https://instagram.com/quarantaenehelden"
+              href="https://www.instagram.com/p/CMZ9-x1HLrm/?igshid=sq54s6gvxepu"
               target="_blank"
               rel="noreferrer noopener"
               className="flex items-center md:justify-center action-button mt-4 relative"
