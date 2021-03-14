@@ -90,7 +90,7 @@ function Anniversary() {
           <span className="inline-block">wird ein Jahr alt</span>
         </p>
 
-        <p className="text-justify mt-4 mx-4 font-open-sans font-thin leading-7">
+        <p className="text-justify mt-4 mx-4 font-open-sans font-normal leading-7">
           QuarantäneHeld*innen feiert Geburtstag!
           <br />
           Seit einem Jahr gibt es nun schon die Plattform QuarantäneHeld*innen - ein paar Tage vor dem ersten Lockdown ging die Seite online und seitdem konnte dank Eures Einsatzes schon vielen Menschen geholfen werden. DANKE!
@@ -227,7 +227,7 @@ function Anniversary() {
 
         <div className="mt-12 mx-4">
           <p className="font-teaser">Warum Silbernetz</p>
-          <p className="text-justify mt-4 font-open-sans font-thin leading-7">
+          <p className="text-justify mt-4 font-open-sans font-normal leading-7">
             Im vergangenen Jahr haben wir vor allem über unsere Hotline regelmäßig Kontakt zu älteren Menschen gehabt, die von der Pandemie besonders betroffen sind.
             Viele sind gerade jetzt besonders isoliert und einsam. Um genau diese Menschen zu unterstützen hat sich Silbernetz gegründet - ein Hilfs- und Kontaktangebot für ältere Menschen, das mit seinem Ansatz vereinsamten Älteren hilft, einen Weg aus der Isolation zu finden.
             <br />
