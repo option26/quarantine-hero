@@ -63,6 +63,10 @@ service cloud.firestore {
       // everyone can read the summarized stats
       allow read: if true;
     }
+    match /birthday-stats/{statsId} {
+      // everyone can read the summarized stats
+      allow read: if true;
+    }
     match /users/{userId} {
       // User can only create their own entry
       allow create: if matchesRequestUserId(request.resource.id);

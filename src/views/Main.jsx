@@ -85,6 +85,30 @@ export default function Main() {
         </div>
 
         <div className="w-full flex justify-center mt-8">
+          <div className="bg-primary -mb-8 rounded-full relative w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span className="text-3xl absolute top-0 -mt-2 left-0 -ml-8 transform scale-x-flip" role="img">&#x1F389;</span>
+            WIR HABEN GEBURTSTAG
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span className="text-3xl absolute top-0 -mt-2 right-0 -mr-8" role="img">&#x1F389;</span>
+          </div>
+        </div>
+        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
+          <div className="font-open-sans flex flex-col">
+            <p>
+              QuarantäneHeld*innen wird ein Jahr alt und veranstaltet eine Solidaritätsaktion für Silbernetz e.V. Sei dabei!
+            </p>
+            <Link
+              to="/geburtstag"
+              className="self-end flex justify-center items-center rounded btn-main text-primary hover:opacity-75"
+            >
+              Mehr erfahren
+              <span className="ml-1 text-xl leading-0">&gt;</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="w-full flex justify-center mt-8">
           <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
             {t('views.main.importantNotes.title')}
           </div>

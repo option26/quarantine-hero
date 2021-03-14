@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScrollUpButton from 'react-scroll-up-button';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -11,6 +11,7 @@ import Footer from './Footer';
 import arrowUpIcon from '../assets/arrows_up.svg';
 import Sidebar from './Sidebar';
 import fb from '../firebase';
+import { confetti } from '../util/confetti';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
@@ -84,7 +85,7 @@ function MobileTopNavigation({ onMenuIconClick }) {
           className="font-main ml-4"
           style={{ fontWeight: '600' }}
         >
-          <img alt="logo" src={require('../assets/logo_invert.svg')} className="h-10" />
+          <img alt="logo" src={require('../assets/logo_invert_celebration.svg')} className="h-10" />
         </Link>
         <div>
           <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} data-cy="mobile-menu-icon" />
@@ -103,6 +104,12 @@ export default function Page({ children }) {
 
   const signOut = () => fb.auth.signOut();
 
+  useEffect(() => {
+    confetti.start();
+
+    return () => confetti.stop();
+  }, []);
+
   return (
     <>
       <div className="flex items-center min-h-screen flex-col bg-kaki">
@@ -110,7 +117,7 @@ export default function Page({ children }) {
         <DesktopTopNavigation user={user} isAuthLoading={isAuthLoading} signOut={signOut} />
         <MobileTopNavigation onMenuIconClick={() => setMenuOpen(true)} />
 
-        <div className="phone-width bg-white shadow-xl min-h-screen md:mt-2">
+        <div className="z-10 phone-width bg-white shadow-xl min-h-screen md:mt-2">
           <DesktopLowerNavigation />
           <div className="md:px-16 mt-20 md:mt-0 overflow-hidden">
             {children}

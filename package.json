@@ -28,6 +28,7 @@
     "react-scroll-up-button": "^1.6.4",
     "react-share": "^4.1.0",
     "react-slider": "^1.0.3",
+    "react-use-websocket": "^2.5.0",
     "reactjs-popup": "^2.0.4",
     "supercluster": "^7.0.0",
     "tailwindcss": "^1.2.0",
