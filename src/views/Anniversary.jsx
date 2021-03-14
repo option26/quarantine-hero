@@ -212,7 +212,7 @@ function Anniversary() {
               </div>
             </div>
 
-            <p className="text-xs">
+            <p className="text-xs mt-6">
               <sup>*</sup>
               Durch unsere Spendenpartner spenden wir den genannten Betrag bis zu einer Gesamtsumme von 1000€
             </p>
