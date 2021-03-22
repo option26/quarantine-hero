@@ -6,7 +6,5 @@ export enum CollectionName {
   SolvedPosts = 'solved-posts',
   Stats = 'stats',
   ReportedPosts = 'reported-posts',
-  GeoData = 'geo-data',
-  BirthdayStats = 'birthday-stats',
-  Users = 'users'
+  GeoData = 'geo-data'
 }
