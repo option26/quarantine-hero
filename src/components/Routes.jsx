@@ -25,7 +25,6 @@ import HandleEmailAction from '../views/HandleEmailAction';
 import PrivacyPolicy from '../views/PrivacyPolicy';
 import Imprint from '../views/Imprint';
 import Partners from '../views/Partners';
-import Anniversary from '../views/Anniversary';
 
 function usePageViews() {
   const location = useLocation();
@@ -44,11 +43,6 @@ export default function Routes() {
     <Switch>
       <Route path="/filtered-list-frame">
         <FilteredListFrame />
-      </Route>
-      <Route path="/geburtstag">
-        <Page>
-          <Anniversary />
-        </Page>
       </Route>
       <Route path="/offer-help/:id">
         <Page>
