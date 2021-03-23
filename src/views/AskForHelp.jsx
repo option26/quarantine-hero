@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { Redirect, useHistory, Link } from 'react-router-dom';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import { useEmailVerified } from '../util/emailVerified';
-import { hotlineId } from '../appConfig';
+import { hotlineId, allowedOpenRequestsPerUser } from '../appConfig';
 
 export default function AskForHelp() {
   const { t } = useTranslation();
@@ -22,7 +23,16 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const isHotline = user && user.uid === hotlineId;
+  const isHotline = useMemo(() => user && user.uid === hotlineId, [user, hotlineId]);
+
+  const askForHelpCollection = fb.store.collection('ask-for-help');
+
+  const [existingDocsForUser] = useCollectionData(
+    user ? askForHelpCollection.where('d.uid', '==', user.uid) : null,
+    { idField: 'id' },
+  );
+
+  const showAllowedRequestsHint = useMemo(() => !isHotline && existingDocsForUser && existingDocsForUser.length >= allowedOpenRequestsPerUser, [existingDocsForUser, isHotline]);
 
   const handleSubmit = async (e) => {
     // Prevent page reload
@@ -81,8 +91,8 @@ export default function AskForHelp() {
     return <Redirect to="/verify-email" />;
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="p-4">
+  const TopLevelContent = (() => (
+    <>
       <h1 className="font-teaser py-4 pt-10">{t('views.askForHelp.createRequest')}</h1>
       <div className="font-open-sans">
         {t('views.askForHelp.whenSomeoneWantsToHelpExplanation')}
@@ -97,6 +107,32 @@ export default function AskForHelp() {
           .
         </div>
       </div>
+    </>
+  ));
+
+  if (showAllowedRequestsHint) {
+    return (
+      <>
+        <TopLevelContent />
+        <div className="font-open-sans mt-4">
+          {t('views.askForHelp.maximumOpenRequestsReachedExplanation')}
+        </div>
+        <div className="mt-4 w-full flex justify-end">
+          <Link
+            data-cy="ask-for-help-my-overview"
+            className="btn-green w-full md:w-1/3"
+            to="/dashboard"
+          >
+            {t('components.desktopMenu.myOverview')}
+          </Link>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="p-4">
+      <TopLevelContent />
       <div className="py-3">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
           {t('views.askForHelp.whereAreYou')}
