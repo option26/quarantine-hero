@@ -136,7 +136,7 @@ export default function LocationInput(props) {
       <div
         id="suggestion-box"
         className="absolute w-full bg-white shadow-xl z-10 overflow-y-auto"
-        style={{ maxHeight: '300px' }}
+        style={{ maxHeight: '200px' }}
       >
         {suggestions.map((s, i) => (
           <AutocompleteSuggestion
