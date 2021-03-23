@@ -23,7 +23,7 @@ export default function AskForHelp() {
   const [placeId, setPlaceId] = useState(undefined);
   const history = useHistory();
 
-  const isHotline = useMemo(() => user && user.uid === hotlineId, [user, hotlineId]);
+  const isHotline = useMemo(() => user && user.uid === hotlineId, [user]);
 
   const askForHelpCollection = fb.store.collection('ask-for-help');
 
