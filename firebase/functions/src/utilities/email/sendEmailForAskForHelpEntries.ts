@@ -44,7 +44,7 @@ function getTemplateDateForEntry(templateId: SendgridTemplateId, askForHelpId: s
   switch (templateId) {
     case SendgridTemplateId.TemplateForOffersWithoutAnswers:
       return {
-        subject: 'QuarantäneHeld*innen - Benötigst du weiterhin Hilfe?',
+        subject: 'QuarantäneHeld*innen - Benötigst Du weiterhin Hilfe?',
         request: askForHelpSnapData.d.request,
         location: askForHelpSnapData.d.location,
         requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&moreHelp=true`,

@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import { ReactComponent as DotsSvg } from '../assets/dots_grey.svg';
+import { ReactComponent as LoadingSvg } from '../assets/loading.svg';
 
 import 'reactjs-popup/dist/index.css';
 
@@ -119,6 +120,7 @@ export function PopupOnEntryAction(props) {
     attemptingToRequestMoreHelp,
     cancelAttemptingToRequestMoreHelp,
     handleRequestMoreHelp,
+    requestingMoreHelp,
     moreHelpRequested,
     moreHelpRequestFailed,
     backToOverview,
@@ -263,6 +265,13 @@ export function PopupOnEntryAction(props) {
     <DeleteTerminallyButton />,
   );
 
+  const RequestMoreHelpLoading = getPopupContentComponent(
+    t('components.entry.popup.requestMoreHelp.heading'),
+    <LoadingSvg alt="loading-indicator" />,
+    null,
+    textBodyAskForMoreHelp,
+  );
+
   const RequestMoreHelpReassure = getPopupContentComponent(
     t('components.entry.popup.requestMoreHelp.heading'),
     <AskForMoreHelpButton />,
@@ -311,6 +320,7 @@ export function PopupOnEntryAction(props) {
   if (attemptingToDelete && responses !== 0 && !showAsSolved) popupContent = <PopupContentSolvedHint />;
   if (deleted) popupContent = <PopupContentDeleteSuccess />;
   if (attemptingToRequestMoreHelp) popupContent = <RequestMoreHelpReassure />;
+  if (requestingMoreHelp) popupContent = <RequestMoreHelpLoading />;
   if (moreHelpRequested) popupContent = <RequestMoreHelpSuccess />;
   if (moreHelpRequestFailed) popupContent = <RequestMoreHelpFailed />;
 
