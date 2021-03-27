@@ -13,6 +13,7 @@ export default function LocationInput(props) {
     debounce = 200,
     minSearchInput = 4,
     onSelect = () => { },
+    isInitiallyValid = false,
   } = props;
 
   const { t } = useTranslation();
@@ -104,7 +105,11 @@ export default function LocationInput(props) {
     }
   };
 
-  useEffect(setInvalidNoSelect, []);
+  useEffect(() => {
+    if (!isInitiallyValid) {
+      setInvalidNoSelect();
+    }
+  }, []);
 
   const loadingVisible = (value.length < minSearchInput) || waitingForResults;
 
