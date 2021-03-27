@@ -25,38 +25,26 @@ async function migrateResponses(db: admin.firestore.Firestore, collectionToMigra
   await batch.commit();
 }
 
-async function deleteQueryBatch(db: admin.firestore.Firestore, query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>, resolve: any, reject: any): Promise<void> {
+async function deleteQueryBatch(db: admin.firestore.Firestore, query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>, resolve: any): Promise<void> {
   // code taken from https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
-  try {
-
-    const snapshot = await query.get();
-    // When there are no documents left, we are done
-    if (snapshot.size === 0) {
-      return;
-    }
-
-    // Delete documents in a batch
-    const batch = db.batch();
-    snapshot.docs.forEach((doc) => {
-      batch.delete(doc.ref);
-    });
-
-    return batch.commit().then(() => snapshot.size)
-      .then((numDeleted) => {
-        if (numDeleted === 0) {
-          return resolve();
-        }
-
-        // Recurse on the next process tick, to avoid
-        // exploding the stack.
-        process.nextTick(async () => {
-          await deleteQueryBatch(db, query, resolve, reject);
-        });
-      });
-
-  } catch (error) {
-    return reject(error);
+  const snapshot = await query.get();
+    
+  // When there are no documents left, we are done
+  if (snapshot.size === 0) {
+    resolve();
+    return;
   }
+
+  // Delete documents in a batch
+  const batch = db.batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+  
+  // Recurse on the next process tick, to avoid
+  // exploding the stack.
+  process.nextTick(() => deleteQueryBatch(db, query, resolve));
 }
 
 async function deleteCollection(db: admin.firestore.Firestore, collectionPath: string, batchSize: number): Promise<void> {
@@ -64,7 +52,7 @@ async function deleteCollection(db: admin.firestore.Firestore, collectionPath: s
   const collectionRef = db.collection(collectionPath);
   const query = collectionRef.orderBy('__name__').limit(batchSize);
 
-  return new Promise((resolve, reject) => deleteQueryBatch(db, query, resolve, reject));
+  return new Promise((resolve, reject) => deleteQueryBatch(db, query, resolve).catch(reject));
 }
 
 // db-admins API does not support recursive deletion yet,
