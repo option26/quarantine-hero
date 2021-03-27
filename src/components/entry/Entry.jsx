@@ -119,6 +119,7 @@ export default function Entry(props) {
       setRequestingMoreHelp(false);
       setMoreHelpRequested(true);
     } catch (err) {
+      setRequestingMoreHelp(false);
       setMoreHelpRequestFailed(true);
     }
     fb.analytics.logEvent('more_help_requested');
