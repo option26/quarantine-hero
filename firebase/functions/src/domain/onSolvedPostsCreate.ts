@@ -5,6 +5,7 @@ import {
   migrateResponses,
   deleteDocumentWithSubCollections,
 } from '../utilities/utils';
+import { postReplyToSlack } from '../utilities/slack';
 
 import { SolvedPostsCollectionEntry } from '../types/interface/collections/SolvedPostsCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
@@ -19,6 +20,16 @@ export async function onSolvedPostsCreate(snap: admin.firestore.DocumentSnapshot
 
     await migrateResponses(db, CollectionName.AskForHelp, snap.id, CollectionName.SolvedPosts);
     await deleteDocumentWithSubCollections(db, CollectionName.AskForHelp, snap.id);
+
+    try {
+      // Don't let message sending break everything
+      const message = 'Der Eintrag wurde als gelöst markiert ✅';
+      await postReplyToSlack(snapValue.d.slackMessageRef, message, false);
+
+    } catch (err) {
+      console.log('Error posting to slack', err);
+    }
+
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

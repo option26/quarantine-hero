@@ -58,6 +58,7 @@ export default function Entry(props) {
   const [solved, setSolved] = useState(false);
   const [moreHelpRequested, setMoreHelpRequested] = useState(false);
   const [moreHelpRequestFailed, setMoreHelpRequestFailed] = useState(false);
+  const [requestingMoreHelp, setRequestingMoreHelp] = useState(false);
   const [attemptingToDelete, setAttemptingToDelete] = useState(showDeleteHint);
   const [attemptingToSolve, setAttemptingToSolve] = useState(showSolveHint);
   const [attemptingToReport, setAttemptingToReport] = useState(report);
@@ -113,9 +114,12 @@ export default function Entry(props) {
   const handleRequestMoreHelp = async (e) => {
     e.preventDefault();
     try {
+      setRequestingMoreHelp(true);
       await fb.askForMoreHelp(id);
+      setRequestingMoreHelp(false);
       setMoreHelpRequested(true);
     } catch (err) {
+      setRequestingMoreHelp(false);
       setMoreHelpRequestFailed(true);
     }
     fb.analytics.logEvent('more_help_requested');
@@ -235,6 +239,7 @@ export default function Entry(props) {
       attemptingToRequestMoreHelp={attemptingToRequestMoreHelp}
       cancelAttemptingToRequestMoreHelp={cancelAttemptingToRequestMoreHelp}
       handleRequestMoreHelp={handleRequestMoreHelp}
+      requestingMoreHelp={requestingMoreHelp}
       moreHelpRequested={moreHelpRequested}
       moreHelpRequestFailed={moreHelpRequestFailed}
       backToOverview={backToOverview}
