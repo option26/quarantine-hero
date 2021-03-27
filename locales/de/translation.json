@@ -215,7 +215,7 @@
       "toHome": "Bring mich zur Startseite"
     },
     "verifyEmail": {
-      "confirmEmail": "E-Mail-Addresse bestätigen",
+      "confirmEmail": "E-Mail-Adresse bestätigen",
       "explanation": "Damit potentielle Helfer*innen auf Dich zukommen können, müssen wir sicherstellen, dass Deine E-Mail-Adresse korrekt hinterlegt ist. Bestätige diese bitte, indem Du auf den Link in der E-Mail, welche wir Dir gerade gesendet haben, klickst.",
       "recheckEmail": "Bestätigung überprüfen",
       "resendEmail": "E-Mail erneut senden",
@@ -368,15 +368,15 @@
           "secondSentence": "Du kannst natürlich jederzeit eine neue Anfrage erstellen \nund eine Held*in um Hilfe bitten."
         },
         "requestMoreHelp": {
-          "heading": "Benötigst du weiterhin Hilfe?",
-          "firstSentence": "Falls du weiterhin Hilfe benötigst, werden wir für Dich neue potentielle Helfer*innen kontaktieren, die sich in Deinem Umkreis befinden.",
+          "heading": "Benötigst Du weiterhin Hilfe?",
+          "firstSentence": "Falls Du weiterhin Hilfe benötigst, werden wir für Dich neue potentielle Helfer*innen kontaktieren, die sich in Deinem Umkreis befinden.",
           "secondSentence": "Bitte beachte, dass Dir diese Funktion nur begrenzt zur Verfügung steht, um potentiellen Spam zu vermeiden.",
           "thirdSentence": "Falls Du keine Hilfe mehr benötigst, kannst Du Dein Hilfegesuch jederzeit löschen."
         },
         "requestMoreHelpSuccessful": {
           "heading": "Deine Anfrage für weitere Hilfe war erfolgreich!",
           "firstSentence": "Bitte beachte, dass es einen Augenblick dauern kann, bis sich potentieller Helfer*innen bei Dir melden.",
-          "secondSentence": "Wir hoffen, dass dir schon bald geholfen wird. Bleibe gesund!"
+          "secondSentence": "Wir hoffen, dass Dir schon bald geholfen wird. Bleibe gesund!"
         },
         "requestMoreHelpFailed": {
           "heading": "Leider ist etwas schief gelaufen...",
