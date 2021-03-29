@@ -13,10 +13,10 @@ function screenAgent(context: Context<Environment>, event: {}, callback: Serverl
     timeout: 5
   });
   gather.pause({ length: 1 });
-  gather.say('This is the QH hotline. Press any key to get connected to the waiting caller.');
+  gather.say({ language: 'de-DE' }, 'Hier ist die QH Hotline. Drücke eine beliebige Taste um verbunden zu werden.');
 
   // If there was no input, hangup
-  response.say('Sorry. Did not get your response');
+  response.say({ language: 'de-DE' }, 'Keine Antwort erhalten. Tschüss.');
   response.hangup();
 
   return callback(null, response);

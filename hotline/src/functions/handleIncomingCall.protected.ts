@@ -1,74 +1,46 @@
-import axios from 'axios';
-import * as twilio from 'twilio';
-
 import '@twilio-labs/serverless-runtime-types';
 import { Context, ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types';
+import { google, sheets_v4 } from 'googleapis';
 import { Environment } from '../types/Environment';
 
 // Main entry point for incoming hotline calls
-async function handleIncomingCall(context: Context<Environment>, event: {}, callback: ServerlessCallback) {
-  const twilioClient = context.getTwilioClient();
-
-  let hotlineAgents: Array<string> = [];
-  try {
-    // Get numbers of all agents in shift
-    const agents: { getAgentsInShift: (context: Context<Environment>) => string[] } = require(Runtime.getAssets()['/agents.js'].path);
-    const response = await agents.getAgentsInShift(context);
-    console.log(response);
-
-    if (response === undefined || !Array.isArray(response)) {
-      throw new Error('Bad response');
-    }
-
-    hotlineAgents = response;
-  } catch (err) {
-    await axios.post(context.SLACK_WEBHOOK_URL, { text: `An error occured: ${err}` }).catch(() => { });
-  }
-
-  if (hotlineAgents.length === 0) {
+async function handleIncomingCall(context: Context<Environment>, event: { From: string }, callback: ServerlessCallback) {
+  // Test for blocked numbers
+  const [, ...blockListData] = await getSheetData(context);
+  const blockedNumbers = blockListData.map((row) => row[0]);
+  if (blockedNumbers.includes(event.From)) {
     const response = new Twilio.twiml.VoiceResponse();
-    response.redirect(`https://${context.DOMAIN_NAME}/noAgentAvailable`);
+    response.hangup();
     return callback(null, response);
   }
 
-  const response = await smartSimulring(twilioClient, hotlineAgents, context);
-  //const response = standardSimulring(hotlineAgents);
+  // Pick up the call and start screening the user about what the hotline is.
+  const response = new Twilio.twiml.VoiceResponse();
+  response.redirect(`https://${context.DOMAIN_NAME}/screenCaller`);
   return callback(null, response);
 };
 
-async function smartSimulring(twilioClient: twilio.Twilio, hotlineAgents: Array<string>, context: Context<Environment>) {
-  const response = new Twilio.twiml.VoiceResponse();
-  // Enqueue the caller. The caller will be dequeued by the first agent that answers.
-  response.enqueue({
-    waitUrl: `https://${context.DOMAIN_NAME}/playWaitMusic`
-  }, 'hotline');
+async function getSheetData(context: Context<Environment>): Promise<string[][]> {
+  const { SPREADSHEET_ID, SERVICE_ACCOUNT_EMAIL, BLOCK_LIST_SHEET, PRIVATE_KEY_1, PRIVATE_KEY_2, PRIVATE_KEY_3, PRIVATE_KEY_4, PRIVATE_KEY_5 } = context;
+  const PRIVATE_KEY = PRIVATE_KEY_1 + PRIVATE_KEY_2 + PRIVATE_KEY_3 + PRIVATE_KEY_4 + PRIVATE_KEY_5;
 
-  // Calls each hotline agent and screens them
-  for (const hotlineAgent of hotlineAgents) {
-    try {
-      await twilioClient.calls.create({
-        url: `https://${context.DOMAIN_NAME}/screenAgent`,
-        to: hotlineAgent,
-        from: '+4908008050850'
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const spreadsheetParams = {
+    spreadsheetId: SPREADSHEET_ID,
+    range: BLOCK_LIST_SHEET,
+  };
 
-  // If no agent is available, play no agent available message
-  response.redirect(`https://${context.DOMAIN_NAME}/noAgentAvailable`);
+  const auth = new google.auth.JWT(SERVICE_ACCOUNT_EMAIL, undefined, PRIVATE_KEY, ['https://www.googleapis.com/auth/spreadsheets']);
+  const sheetsApi = google.sheets({ version: 'v4', auth });
 
-  return response;
+  return new Promise<string[][]>((resolve, reject) => {
+    sheetsApi.spreadsheets.values.get(spreadsheetParams, (err: Error | null, response?: { data: sheets_v4.Schema$ValueRange } | null) => {
+      if (err || !response?.data.values) {
+        reject(err || 'No data');
+      } else {
+        resolve(response?.data.values);
+      }
+    });
+  })
 }
 
 export { handleIncomingCall as handler };
-
-// function standardSimulring(hotlineAgents) {
-//   const response = new Twilio.twiml.VoiceResponse();
-//   const dial = response.dial();
-//   for (const hotlineAgent of hotlineAgents) {
-//     dial.number(hotlineAgent);
-//   }
-//   return response;
-// }

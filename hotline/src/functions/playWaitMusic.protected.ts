@@ -6,10 +6,10 @@ import { Environment } from '../types/Environment';
 function playWaitMusic(context: Context<Environment>, event: { QueueTime: number }, callback: ServerlessCallback) {
   const response = new Twilio.twiml.VoiceResponse();
 
-  // On every execution, we get the current wait time and if it exceeds a threshold, we dequeue caller.
+  // On every execution, we get the current wait time and if it exceeds a threshold, we dequeue the caller.
   const waitTime = event.QueueTime;
   if (waitTime >= 60) {
-    // Control is handed back to the handleIncomingCall function, which will invoke the 'no agent available' function
+    // We leave the queue and the control is handed back to the handleIncomingCall function, which will invoke the 'no agent available' function
     response.leave();
     return callback(null, response);
   }
