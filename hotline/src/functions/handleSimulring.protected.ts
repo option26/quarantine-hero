@@ -24,7 +24,7 @@ async function handleIncomingCall(context: Context<Environment>, event: { From: 
     }
 
     // Second, retrieve all agents that are registered for the current time
-    const hotlineAgents = await getAgentsOnDuty(availabilitySheetData, context.OFFSET_TOP);
+    const hotlineAgents = await getAgentsOnDuty(availabilitySheetData, Number.parseInt(context.OFFSET_TOP, 10));
     
     // If there are no agents available, play the corresponding message and hang up
     if (hotlineAgents.length === 0) {
@@ -51,23 +51,24 @@ async function isOutsideBusinessHours(sheetData: string[][]): Promise<boolean> {
   const businessHours = sheetData[0][1];
   const [from, to] = businessHours.split('-').map((data) => data.trim());
 
-  const now = moment();
+  const now = moment().tz('Europe/Berlin');
   const [dateString] = now.toISOString().split('T');
-  const startOfBusinessDay = moment(`${dateString}T${from}`);
-  const endOfBusinessDay = moment(`${dateString}T${to}`);
+  const startOfBusinessDay = moment.tz(`${dateString}T${from}`, 'Europe/Berlin');
+  const endOfBusinessDay = moment.tz(`${dateString}T${to}`, 'Europe/Berlin');
 
   // Returns true, if the current time is *outside* the business hours, else returns false
   return startOfBusinessDay >= now || endOfBusinessDay <= now;
 }
 
 async function getAgentsOnDuty(sheetData: string[][], offsetTop: number): Promise<string[]> {
-  const now = moment();
+  const now = moment().tz('Europe/Berlin');
   const dayOfWeek = (now.get('weekday') + 6) % 7; // Convert from sunday=0 to monday=0 
   const hourOfDay = now.get('hour');
 
   const rowOffset = offsetTop + dayOfWeek * 24 + hourOfDay;
   const row = sheetData[rowOffset];
 
+  console.log(JSON.stringify(sheetData), offsetTop, dayOfWeek, hourOfDay, rowOffset, row);
   const activeAgentsIndices = row.reduce<number[]>((indices, col, index) => {
     if(col === 'TRUE') {
       return [...indices, index];

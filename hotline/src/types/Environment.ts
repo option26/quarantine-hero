@@ -2,7 +2,7 @@ export interface Environment {
     SPREADSHEET_ID: string;
     AVAILABILITY_SHEET: string;
     BLOCK_LIST_SHEET: string;
-    OFFSET_TOP: number;
+    OFFSET_TOP: string;
     SERVICE_ACCOUNT_EMAIL: string;
     PRIVATE_KEY_1: string;
     PRIVATE_KEY_2: string;
