@@ -6,7 +6,7 @@ import { Environment } from '../types/Environment';
 
 // Handler that gets called whenever a user gets dequeued
 async function handleConnectedCall(context: Context<Environment>, event: { From: string }, callback: ServerlessCallback) {
-  await axios.post(context.SLACK_WEBHOOK_URL, { text: `Phone call from ${event.From} was picked up` }).catch(() => {});
+  await axios.post(context.SLACK_WEBHOOK_URL, { text: `Anruf von ${event.From} wurde entgegen genommen.` }).catch(() => {});
 
   // Instead of returning nothing, we could return a message for the caller here
   return callback(null, '');

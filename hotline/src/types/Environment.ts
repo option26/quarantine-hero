@@ -1,6 +1,8 @@
 export interface Environment {
     SPREADSHEET_ID: string;
-    RANGE: string;
+    AVAILABILITY_SHEET: string;
+    BLOCK_LIST_SHEET: string;
+    OFFSET_TOP: number;
     SERVICE_ACCOUNT_EMAIL: string;
     PRIVATE_KEY_1: string;
     PRIVATE_KEY_2: string;
@@ -10,4 +12,7 @@ export interface Environment {
     SLACK_WEBHOOK_URL: string;
     ACCOUNT_SID: string;
     AUTH_TOKEN: string;
+    API_KEY: string;
+    CALLER_ID: string;
+    TWIML_APP_SID: string;
 }
