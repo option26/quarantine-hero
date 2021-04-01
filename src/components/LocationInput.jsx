@@ -109,7 +109,7 @@ export default function LocationInput(props) {
     if (!isInitiallyValid) {
       setInvalidNoSelect();
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadingVisible = (value.length < minSearchInput) || waitingForResults;
 

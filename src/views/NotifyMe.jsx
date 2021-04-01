@@ -51,6 +51,7 @@ export default function NotifyMe() {
     setPlaceId(pId);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => history.replace(windowLocation.pathname), []);
 
   if (signInLinkSent) {
