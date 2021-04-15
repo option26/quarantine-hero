@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
+import useQuery from '../util/useQuery';
 import HelpNeededLogo from '../assets/help_needed.svg';
 
 export default function NotifyMe() {
   const { t } = useTranslation();
   const [user] = useAuthState(fb.auth);
 
+  const { location: queryLocation, placeId: queryPid } = useQuery();
+
   const [email, setEmail] = useState((user && user.email) || '');
   const [signInLinkSent, setSignInLinkSent] = useState(false);
-  const [location, setLocation] = useState('');
-  const [placeId, setPlaceId] = useState('');
+  const [location, setLocation] = useState(queryLocation || '');
+  const [placeId, setPlaceId] = useState(queryPid || '');
+  const history = useHistory();
+  const windowLocation = useLocation();
 
   const handleSubmit = async (e) => {
     // Prevent page reload
@@ -46,6 +51,9 @@ export default function NotifyMe() {
     setPlaceId(pId);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => history.replace(windowLocation.pathname), []);
+
   if (signInLinkSent) {
     return (
       <div className="p-4">
@@ -73,7 +81,7 @@ export default function NotifyMe() {
         {t('views.notifyMe.beNotified')}
       </div>
       <form onSubmit={handleSubmit}>
-        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} />
+        <LocationInput required onChange={handleChange} value={location} onSelect={handleSelect} isInitiallyValid={!!placeId} />
         <MailInput className="input-focus my-6" placeholder={t('views.notifyMe.yourMail')} onChange={setEmail} defaultValue={email} />
         <button className="mt-6 btn-green w-full disabled:opacity-75 disabled:cursor-not-allowed" type="submit">
           {t(
