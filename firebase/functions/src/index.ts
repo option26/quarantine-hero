@@ -17,6 +17,7 @@ import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
 import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
 import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
+import { sendNotificationsForHotlineRequests } from './domain/sendNotificationsForHotlineRequests';
 import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
@@ -50,6 +51,13 @@ export const sendNotificationEmailsForOpenOffersWithAnswers = functions
   .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithAnswers);
+
+export const sendSlackNotificationsForHotlineRequests = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
+  .timeZone('Europe/Berlin')
+  .onRun(sendNotificationsForHotlineRequests);
 
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
