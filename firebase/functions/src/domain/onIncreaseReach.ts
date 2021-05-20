@@ -4,10 +4,11 @@ import { answerDirectly } from '../utilities/slack';
 import { CollectionName } from '../types/enum/CollectionName';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 
-export async function onIncreaseReach(messageRef: string, actions: Array<{ value: string }>, responseUrl: string) {
+export async function onIncreaseReach(actions: Array<{ value: string }>, responseUrl: string) {
     const db = admin.firestore();
     const { value } = actions[0];
-    const allowed = value === 'true';
+    const [response, askForHelpId] = value.split('|');
+    const allowed = response === 'true';
 
     if (!allowed) {
         await answerDirectly('Die Reichweite wurde nicht erhöht', responseUrl);
@@ -15,19 +16,13 @@ export async function onIncreaseReach(messageRef: string, actions: Array<{ value
     }
 
     try {
-        const snapshot = await db.collection(CollectionName.AskForHelp).where('d.slackMessageRef', '==', messageRef).get();
+        const askForHelpSnap = await db.collection(CollectionName.AskForHelp).doc(askForHelpId).get();
 
-
-        if (snapshot.empty) {
-            throw new Error('Keine Nachrichten mit dieser Slack-Referenz');
-        }
-
-        if (snapshot.docs.length > 1) {
-            throw new Error('Mehr als eine Nachricht mit dieser Slack-Referenz');
+        if (askForHelpSnap.exists) {
+            throw new Error('Keine Inserat mit dieser ID');
         }
 
         // Get the identified post
-        const askForHelpSnap = snapshot.docs[0];
         const askForHelpData = askForHelpSnap.data() as AskForHelpCollectionEntry;
 
         await askForMoreHelp(askForHelpSnap.id, askForHelpData.d.uid);

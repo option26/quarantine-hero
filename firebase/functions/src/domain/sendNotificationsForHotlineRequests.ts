@@ -74,13 +74,13 @@ async function askForReachIncrease(messageRef: string | undefined, askForHelpId:
           name: 'allow_answer',
           text: 'Ja',
           type: 'button',
-          value: 'true'
+          value: `true|${askForHelpId}`
         },
         {
           name: 'allow_answer',
           text: 'Nein',
           type: 'button',
-          value: 'false'
+          value: `false|${askForHelpId}`
         }]
       }
     ]

@@ -104,7 +104,7 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
   switch (callbackId) {
     case 'allow_hotline_answer': await onAllowHotlineAnswer(actions, responseUrl); break;
     case 'delete_post': await onDeletePost(messageRef, responseUrl); break;
-    case 'increase_reach': await onIncreaseReach(messageRef, actions, responseUrl); break;
+    case 'increase_reach': await onIncreaseReach(actions, responseUrl); break;
   }
 
   response.status(200).send();
