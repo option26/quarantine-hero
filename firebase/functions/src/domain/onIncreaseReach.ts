@@ -11,15 +11,15 @@ export async function onIncreaseReach(actions: Array<{ value: string }>, respons
     const allowed = response === 'true';
 
     if (!allowed) {
-        await answerDirectly('Die Reichweite wurde nicht erhöht', responseUrl);
+        await answerDirectly('Die Reichweite wurde nicht erhöht.', responseUrl);
         return;
     }
 
     try {
         const askForHelpSnap = await db.collection(CollectionName.AskForHelp).doc(askForHelpId).get();
 
-        if (askForHelpSnap.exists) {
-            throw new Error('Keine Inserat mit dieser ID');
+        if (!askForHelpSnap.exists) {
+            throw new Error('Kein Inserat mit dieser ID.');
         }
 
         // Get the identified post
