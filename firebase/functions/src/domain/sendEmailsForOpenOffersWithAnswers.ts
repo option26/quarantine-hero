@@ -27,6 +27,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
     const askForHelpSnapsWithAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
       .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
       .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('d.isHotline', '==', false)
       .get();
 
     const eligibleAskForHelpSnapsWithAnswers = askForHelpSnapsWithAnswers.docs.filter((snap) => {

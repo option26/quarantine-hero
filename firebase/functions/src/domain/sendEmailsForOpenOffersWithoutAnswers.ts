@@ -29,6 +29,7 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
       .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
       .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
       .where('d.responses', '==', 0)
+      .where('d.isHotline', '==', false)
       .get();
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
