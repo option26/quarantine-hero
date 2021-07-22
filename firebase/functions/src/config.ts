@@ -1,19 +1,21 @@
 import * as functions from 'firebase-functions';
-import * as sgMail from '@sendgrid/mail';
 
 const envVariables = functions.config();
 
-const sgMailApiKey = envVariables && envVariables.sendgrid && envVariables.sendgrid.key
-  ? envVariables.sendgrid.key
-  : null;
-sgMail.setApiKey(sgMailApiKey);
+// MAIL SETTINGS
+const SMTP_HOST = 'smtp.mailgun.org';
+const SMTP_PORT = 587;
+const MAIL_SECURE = false;
+const SMTP_USER = envVariables?.smtp?.user;
+const SMTP_PASSWORD = envVariables?.smtp?.password;
+const SENDER_EMAIL = 'help@quarantaenehelden.org';
 
 const REGION_EUROPE_WEST_1 = 'europe-west1';
 const MAX_RESULTS = 100;
 const MAPS_ENABLED = true;
 // How long we wait before we send email notifications after a person posted a help request
 const MINIMUM_NOTIFICATION_DELAY_MINUTES = 20;
-const SEND_EMAILS = sgMailApiKey !== null;
+const SEND_EMAILS = SMTP_USER && SMTP_PASSWORD;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
 const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35_000;
 // The minimum threshold until we contact a user about their open entry for the first time
@@ -40,4 +42,10 @@ export {
   MORE_HELP_REQUEST_COOLDOWN_DAYS,
   ENGAGEMENT_ATTEMPT_COOLDOWN_HOURS,
   MAXIMUM_ALLOWED_REQUESTS_FOR_HELP,
+  SMTP_HOST,
+  SMTP_PORT,
+  MAIL_SECURE,
+  SMTP_USER,
+  SMTP_PASSWORD,
+  SENDER_EMAIL,
 };

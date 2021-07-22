@@ -12,8 +12,9 @@ import {
 import { postReplyToSlack } from '../utilities/slack';
 
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
-import { SendgridTemplateData } from '../types/interface/email/SendgridTemplateData';
+import { RequestInYourAreaTemplateData } from '../types/interface/email/TemplateData';
 import { CollectionName } from '../types/enum/CollectionName';
+import { TemplateId } from "../types/enum/TemplateId";
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   try {
@@ -36,14 +37,14 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       // eslint-disable-next-line no-console
       console.log('eligibleHelpOffers', eligibleHelpOffers.length);
       if (SEND_EMAILS) {
-        const templateId = 'd-9e0d0ec8eda04c9a98e6cb1edffdac71';
-        const templateData: SendgridTemplateData = {
-          subject: 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!',
+        const templateId = TemplateId.TemplateForAskForHelp;
+        const templateData: RequestInYourAreaTemplateData = {
           request: askForHelpSnapData.d.request,
           location: askForHelpSnapData.d.location,
           link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
           reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
         };
+        const subject = 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!';
 
         try {
           const message = `Potentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
@@ -52,7 +53,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
           console.log('Error posting to slack', err);
         }
 
-        return sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData);
+        return sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData, subject);
       }
 
       try {

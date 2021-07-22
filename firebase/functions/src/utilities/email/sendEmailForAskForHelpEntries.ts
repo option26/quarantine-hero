@@ -8,11 +8,17 @@ import {
 import { sendEmailToUser } from './sendEmailToUser';
 
 import { AskForHelpCollectionEntry } from '../../types/interface/collections/AskForHelpCollectionEntry';
-import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
-import { SendgridTemplateId } from '../../types/enum/SendgridTemplateId';
+import {
+  OffersWithAnswersTemplateData,
+  OffersWithoutAnswersTemplateData,
+} from '../../types/interface/email/TemplateData';
+import { TemplateId } from '../../types/enum/TemplateId';
 import { CollectionName } from '../../types/enum/CollectionName';
 
-export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseFirestore.DocumentData[], templateId: SendgridTemplateId) {
+export async function sendEmailForAskForHelpEntries(
+  askForHelpEntries: FirebaseFirestore.DocumentData[],
+  templateId: TemplateId.TemplateForOffersWithAnswers | TemplateId.TemplateForOffersWithoutAnswers
+) {
   const asyncEmails = askForHelpEntries.map(async (askForHelpSnap) => {
     const askForHelpSnapData = askForHelpSnap.data() as AskForHelpCollectionEntry;
     const askForHelpId = askForHelpSnap.id;
@@ -20,8 +26,8 @@ export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseF
     console.log('askForHelpId', askForHelpId);
     // eslint-disable-next-line no-console
     if (SEND_EMAILS) {
-      const templateData = getTemplateDateForEntry(templateId, askForHelpId, askForHelpSnapData);
-      await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData);
+      const { data: templateData, subject } = getTemplateDateForEntry(templateId, askForHelpId, askForHelpSnapData);
+      await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData, subject);
 
       const db = admin.firestore();
       const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
@@ -40,24 +46,32 @@ export async function sendEmailForAskForHelpEntries(askForHelpEntries: FirebaseF
   console.log('result', result);
 }
 
-function getTemplateDateForEntry(templateId: SendgridTemplateId, askForHelpId: string, askForHelpSnapData: AskForHelpCollectionEntry): SendgridTemplateData {
+function getTemplateDateForEntry(
+  templateId: TemplateId.TemplateForOffersWithAnswers | TemplateId.TemplateForOffersWithoutAnswers,
+  askForHelpId: string,
+  askForHelpSnapData: AskForHelpCollectionEntry
+): { data: OffersWithoutAnswersTemplateData | OffersWithAnswersTemplateData, subject: string } {
   switch (templateId) {
-    case SendgridTemplateId.TemplateForOffersWithoutAnswers:
+    case TemplateId.TemplateForOffersWithoutAnswers:
       return {
         subject: 'QuarantäneHeld*innen - Benötigst Du weiterhin Hilfe?',
-        request: askForHelpSnapData.d.request,
-        location: askForHelpSnapData.d.location,
-        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&moreHelp=true`,
-        deleteLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&delete=true`,
+        data: {
+          request: askForHelpSnapData.d.request,
+          location: askForHelpSnapData.d.location,
+          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&moreHelp=true`,
+          deleteLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&delete=true`,
+        }
       };
-    case SendgridTemplateId.TemplateForOffersWithAnswers:
+    case TemplateId.TemplateForOffersWithAnswers:
       return {
         subject: 'QuarantäneHeld*innen - Wurde Dir geholfen?',
-        request: askForHelpSnapData.d.request,
-        location: askForHelpSnapData.d.location,
-        solveLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&solve=true`,
-        requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&moreHelp=true`,
-        deleteLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&delete=true`,
+        data: {
+          request: askForHelpSnapData.d.request,
+          location: askForHelpSnapData.d.location,
+          solveLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&solve=true`,
+          requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&moreHelp=true`,
+          deleteLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&delete=true`,
+        }
       };
   }
 }

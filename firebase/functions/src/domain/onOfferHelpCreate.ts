@@ -1,9 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import * as sgMail from '@sendgrid/mail';
 import axios from 'axios';
-
-import { sendingMailsDisabledLogMessage, SEND_EMAILS } from '../config';
 import { answerDirectly, postReplyToSlack } from '../utilities/slack';
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
@@ -11,6 +8,8 @@ import { AskForHelpCollectionEntry } from '../types/interface/collections/AskFor
 import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
 import { HotlineCollectionEntry } from '../types/interface/collections/HotlineCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
+import { TemplateId } from "../types/enum/TemplateId";
+import { queueEmail } from "../utilities/email/queueEmail";
 
 export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {
@@ -64,43 +63,24 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
       return;
     }
 
+    if(!receiver) {
+      console.error('Receiving user has no email');
+      return;
+    }
+
     // Send email to ask-for-help creator
-    const sendgridOptions = {
-      to: receiver,
-      from: 'help@quarantaenehelden.org',
-      templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-      replyTo: { email },
-      hideWarnings: true, // removes triple bracket warning
-      dynamic_template_data: {
-        subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
+    await queueEmail({
+      receiver,
+      replyTo: email,
+      templateId: TemplateId.TemplateForOfferHelp,
+      subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
+      templateData: {
         answer,
         email,
         request,
         askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelp.id}`,
-      }
-    };
-
-    // eslint-disable-next-line no-console
-    console.log(sendgridOptions);
-
-    try {
-      if (SEND_EMAILS) {
-        // without "any" casting, sendgrid complains about sendgridOptions typing
-        await sgMail.send(sendgridOptions as any);
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(sendingMailsDisabledLogMessage);
-      }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(err);
-      if (err.response && err.response.body && err.response.body.errors) {
-        // eslint-disable-next-line no-console
-        console.warn(err.response.body.errors);
-      }
-    }
-
-
+      },
+    });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
@@ -132,12 +112,12 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
           type: 'button',
           value: `true|${askForHelpId}|${offerHelpId}`
         },
-        {
-          name: 'allow_answer',
-          text: 'Nein',
-          type: 'button',
-          value: `false|${askForHelpId}|${offerHelpId}`
-        }]
+          {
+            name: 'allow_answer',
+            text: 'Nein',
+            type: 'button',
+            value: `false|${askForHelpId}|${offerHelpId}`
+          }]
       }
     ]
   };
@@ -212,28 +192,16 @@ async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: str
     return;
   }
 
-
   const { phoneNr, comment } = hotlineData;
-  const sendgridResponseOptions = {
-    to: offerHelpData.email,
-    from: 'help@quarantaenehelden.org',
-    templateId: 'd-486c10fbe4e645a39be22f266dea5523',
-    hideWarnings: true, // removes triple bracket warning
-    dynamic_template_data: {
-      subject: 'QuarantäneHeld*innen - Telefonisch kontaktieren!',
+
+  await queueEmail({
+    receiver: offerHelpData.email,
+    templateId: TemplateId.TemplateForHotlineContact,
+    subject: 'QuarantäneHeld*innen - Telefonisch kontaktieren!',
+    templateData: {
       askForHelpLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpRef.id}`,
       phoneNr,
       comment,
     }
-  };
-
-  // eslint-disable-next-line no-console
-  console.log(sendgridResponseOptions);
-
-  if (SEND_EMAILS) {
-    await sgMail.send(sendgridResponseOptions as any);
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(sendingMailsDisabledLogMessage);
-  }
+  });
 }

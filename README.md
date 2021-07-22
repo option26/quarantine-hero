@@ -94,33 +94,7 @@ However, since we use it in production we need to comment out the following line
       .onRun(async (context) => {}
 ```
 
-In general, local development should not use the email system, and if you'd want to use it, you'd have to create your own `sendGrid` account and API key. Hence, please also comment out:
-
-```JSX
-// sgMail.setApiKey(functions.config().sendgrid.key);
-```
-
-and 
-
-```JSX
-await sgMail.send({
-  to: receiver,
-  from: 'help@quarantaenehelden.org',
-  replyTo: {
-    email: email,
-  },
-  templateId: 'd-ed9746e4ff064676b7df121c81037fab',
-  dynamic_template_data: {
-    subject: 'QuarantäneHeld*innen - Jemand hat Dir geschrieben!',
-    answer,
-    email,
-    request,
-  },
-  hideWarnings: true, // removes triple bracket warning
-});
-```
-
-Or even better, replace all email-related source code with proper logging.
+In general, local development should not use the email system, and if you'd want to use it, you'd have to configure your own SMTP server. Or even better, replace all email-related source code with proper logging.
 
 ### Deployment
 

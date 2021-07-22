@@ -17,6 +17,7 @@ import { onContentUpdate } from './domain/onContentUpdate';
 import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
 import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
 import { sendNotificationsForHotlineRequests } from './domain/sendNotificationsForHotlineRequests';
+import { sendEmails } from './domain/sendEmails';
 import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
@@ -115,6 +116,13 @@ export const updateGeoDBFunction = functions
   .schedule('0 0 1 */6 *') // At 1.6 and 1.12 every year https://crontab.guru/#0_0_1_*/6_*
   .timeZone('Europe/Berlin')
   .onRun(updateGeoDB);
+
+export const sendEmailsFunction = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('*/5 * * * *') // At every 5th minute
+  .timeZone('Europe/Berlin')
+  .onRun(sendEmails);
 
 // Handler to handle all incoming slack activities
 export const slackInteractivityHandler = functions

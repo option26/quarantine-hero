@@ -12,7 +12,7 @@ import { sendEmailForAskForHelpEntries } from '../utilities/email/sendEmailForAs
 
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
+import { TemplateId } from '../types/enum/TemplateId';
 
 /*
   * With this function, we send emails to the authors of open help entries who have not received any answers yet, and ask whether they are still in need for help
@@ -48,7 +48,7 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
 
     // eslint-disable-next-line no-console
     console.log('askForHelpSnapsWithoutAnswers: Requests to execute', eligibleAskForHelpSnapsWithoutAnswers.length);
-    const templateId = SendgridTemplateId.TemplateForOffersWithoutAnswers;
+    const templateId = TemplateId.TemplateForOffersWithoutAnswers;
     await sendEmailForAskForHelpEntries(eligibleAskForHelpSnapsWithoutAnswers, templateId);
   } catch (error) {
     // eslint-disable-next-line no-console

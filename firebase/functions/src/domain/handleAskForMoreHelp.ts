@@ -14,6 +14,7 @@ import {
 import { CallableContext } from 'firebase-functions/lib/providers/https';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
+import { TemplateId } from "../types/enum/TemplateId";
 
 export async function handleAskForMoreHelp(askForHelpId: string, context: CallableContext): Promise<void> {
   if (askForHelpId === undefined || context.auth === undefined || context.auth === null) {
@@ -75,15 +76,15 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     // eslint-disable-next-line no-console
     console.log('eligibleHelpOffers', eligibleHelpOffers.length);
     if (SEND_EMAILS) {
-      const templateId = 'd-9e0d0ec8eda04c9a98e6cb1edffdac71';
+      const templateId = TemplateId.TemplateForAskForHelp;
+      const subject = 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!';
       const templateData = {
-        subject: 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!',
         request: askForHelpData.d.request,
         location: askForHelpData.d.location,
         link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
         reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
       };
-      await sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData, transaction);
+      await sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData, subject, transaction);
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
         await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);

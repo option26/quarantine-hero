@@ -11,7 +11,7 @@ import {
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
 import { sendEmailForAskForHelpEntries } from '../utilities/email/sendEmailForAskForHelpEntries';
-import { SendgridTemplateId } from '../types/enum/SendgridTemplateId';
+import { TemplateId } from '../types/enum/TemplateId';
 
 /*
   * With this function, we send emails to the authors of open help entries with answers, and ask whether they are still in need for help
@@ -51,7 +51,7 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
 
     // eslint-disable-next-line no-console
     console.log('openAskForHelpSnapsWithAnswers: Requests to execute', eligibleAskForHelpSnapsWithAnswers.length);
-    const templateId = SendgridTemplateId.TemplateForOffersWithAnswers;
+    const templateId = TemplateId.TemplateForOffersWithAnswers;
     await sendEmailForAskForHelpEntries(eligibleAskForHelpSnapsWithAnswers, templateId);
   } catch (error) {
     // eslint-disable-next-line no-console
