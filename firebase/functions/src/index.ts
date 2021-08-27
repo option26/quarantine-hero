@@ -120,7 +120,7 @@ export const updateGeoDBFunction = functions
 export const sendEmailsFunction = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/5 * * * *') // At every 5th minute
+  .schedule('*/5 * * * *') // At every 5th minute https://crontab.guru/#*/5_*_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmails);
 
