@@ -7,10 +7,20 @@ import hotlineTemplate from "./hotline";
 import offerHelpTemplate from "./offerHelp";
 import askForHelpTemplate from "./askForHelp";
 
+const compiledMainLayout = handlebars.compile(mainLayout);
+
+/*
+ * Basic process for handlebars
+ * HTML --compile--> Template
+ * Here the main layout is first filled with the respective templates ( HTML --> Template --> HTML)
+ * Then this results in HTML and is compiled again to a handlebars template ( HTML --> Template)
+ * So the full process looks like (HTML --> Template --> HTML --> Template)
+ */
+
 export default {
-  [TemplateId.TemplateForOffersWithoutAnswers]: handlebars.compile(mainLayout)({ body: offerWithoutAnswersTemplate }),
-  [TemplateId.TemplateForOffersWithAnswers]: handlebars.compile(mainLayout)({ body: offerWithAnswersTemplate }),
-  [TemplateId.TemplateForHotlineContact]: handlebars.compile(mainLayout)({ body: hotlineTemplate }),
-  [TemplateId.TemplateForOfferHelp]: handlebars.compile(mainLayout)({ body: offerHelpTemplate }),
-  [TemplateId.TemplateForAskForHelp]: handlebars.compile(mainLayout)({ body: askForHelpTemplate }),
+  [TemplateId.TemplateForOffersWithoutAnswers]: handlebars.compile(compiledMainLayout({ body: offerWithoutAnswersTemplate })),
+  [TemplateId.TemplateForOffersWithAnswers]: handlebars.compile(compiledMainLayout({ body: offerWithAnswersTemplate })),
+  [TemplateId.TemplateForHotlineContact]: handlebars.compile(compiledMainLayout({ body: hotlineTemplate })),
+  [TemplateId.TemplateForOfferHelp]: handlebars.compile(compiledMainLayout({ body: offerHelpTemplate })),
+  [TemplateId.TemplateForAskForHelp]: handlebars.compile(compiledMainLayout({ body: askForHelpTemplate })),
 };

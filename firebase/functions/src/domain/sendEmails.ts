@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
-import * as handlebars from 'handlebars';
 import templates from '../templates';
 import { convert } from 'html-to-text';
 
@@ -14,10 +13,8 @@ import { MailCollectionEntry } from "../types/interface/collections/MailCollecti
 import { TemplateId } from "../types/enum/TemplateId";
 
 /*
-  * This function regular checks if there are unsent emails and sends them off
-*/
-const handlebarsTemplateCache: Record<string, HandlebarsTemplateDelegate> = {};
-
+ * This function regular checks if there are unsent emails and sends them off
+ */
 export async function sendEmails(): Promise<void> {
   try {
     const db = admin.firestore();
@@ -78,8 +75,5 @@ export async function sendEmails(): Promise<void> {
 }
 
 function compileHTML(templateId: TemplateId, templateData: TemplateData): string {
-  if (!handlebarsTemplateCache[templateId]) {
-    handlebarsTemplateCache[templateId] = handlebars.compile(templates[templateId]);
-  }
-  return handlebarsTemplateCache[templateId](templateData);
+  return templates[templateId](templateData);
 }
