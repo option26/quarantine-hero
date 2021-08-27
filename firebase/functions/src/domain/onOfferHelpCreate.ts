@@ -63,7 +63,7 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
       return;
     }
 
-    if(!receiver) {
+    if (!receiver) {
       console.error('Receiving user has no email');
       return;
     }
@@ -106,18 +106,20 @@ async function askAllowHotlineAnswer(messageRef: string | undefined, askForHelpI
         callback_id: 'allow_hotline_answer',
         color: '#e33ad2',
         attachment_type: 'default',
-        actions: [{
-          name: 'allow_answer',
-          text: 'Ja',
-          type: 'button',
-          value: `true|${askForHelpId}|${offerHelpId}`
-        },
+        actions: [
+          {
+            name: 'allow_answer',
+            text: 'Ja',
+            type: 'button',
+            value: `true|${askForHelpId}|${offerHelpId}`
+          },
           {
             name: 'allow_answer',
             text: 'Nein',
             type: 'button',
             value: `false|${askForHelpId}|${offerHelpId}`
-          }]
+          }
+        ]
       }
     ]
   };
