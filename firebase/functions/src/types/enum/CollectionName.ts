@@ -7,5 +7,5 @@ export enum CollectionName {
   Stats = 'stats',
   ReportedPosts = 'reported-posts',
   GeoData = 'geo-data',
-  Mails = 'mails'
+  Mails = 'mails',
 }
