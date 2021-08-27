@@ -60,13 +60,13 @@ export async function sendEmails(): Promise<void> {
           await mailDoc.ref.update({
             'sendDate': Date.now(),
             'sendSuccess': true,
-            'sendAttempts': mail.sendAttempts + 1,
+            'sendAttempts': admin.firestore.FieldValue.increment(1),
           });
         } catch (e) {
           // eslint-disable-next-line no-console
           console.error(e);
           await mailDoc.ref.update({
-            'sendAttempts': mail.sendAttempts + 1,
+            'sendAttempts': admin.firestore.FieldValue.increment(1),
           });
         }
       }
