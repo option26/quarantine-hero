@@ -5,6 +5,20 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "d.isHotline",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "d.timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "ask-for-help",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "d.notificationCounter",
           "order": "ASCENDING"
         },

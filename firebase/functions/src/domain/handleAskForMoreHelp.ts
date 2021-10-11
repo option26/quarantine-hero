@@ -20,8 +20,12 @@ export async function handleAskForMoreHelp(askForHelpId: string, context: Callab
     throw Error('Bad Request');
   }
 
-  const db = admin.firestore();
   const { uid } = context.auth;
+  await askForMoreHelp(askForHelpId, uid);
+}
+
+export async function askForMoreHelp(askForHelpId: string, uid: string): Promise<void> {
+  const db = admin.firestore();
 
   try {
     const transaction = buildTransaction(askForHelpId, uid);

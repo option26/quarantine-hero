@@ -158,7 +158,7 @@ export default function EntryList({ pageSize }) {
           />
         </div>
       ) : null}
-      <NotifyMe location={location} />
+      <NotifyMe location={location} placeId={placeId} />
       {entries.length === 0 ? (
         <div className="w-full text-center my-10 font-open-sans">
           {t('components.filteredList.noHelpCurrentlyNeededIn', {

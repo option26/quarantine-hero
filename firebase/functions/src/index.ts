@@ -16,6 +16,7 @@ import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
 import { sendEmailsForOpenOffersWithAnswers } from './domain/sendEmailsForOpenOffersWithAnswers';
 import { sendEmailsForOpenOffersWithoutAnswers } from './domain/sendEmailsForOpenOffersWithoutAnswers';
+import { sendNotificationsForHotlineRequests } from './domain/sendNotificationsForHotlineRequests';
 import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
@@ -32,23 +33,30 @@ export const contentUpdated = functions
 export const sendNotificationEmails = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('*/3 9-23 * * *') // At every 3rd minute past every hour from 9 through 23. https://crontab.guru/#*/3_9-23_*_*_*
+  .schedule('*/3 9-22 * * *') // At every 3rd minute past every hour from 9 through 22. https://crontab.guru/#*/3_9-22_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
 
 export const sendNotificationEmailsForOpenOffersWithoutAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
+  .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithoutAnswers);
 
 export const sendNotificationEmailsForOpenOffersWithAnswers = functions
   .region(REGION_EUROPE_WEST_1)
   .pubsub
-  .schedule('00 9-23/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-23/6_*_*_*
+  .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(sendEmailsForOpenOffersWithAnswers);
+
+export const sendSlackNotificationsForHotlineRequests = functions
+  .region(REGION_EUROPE_WEST_1)
+  .pubsub
+  .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
+  .timeZone('Europe/Berlin')
+  .onRun(sendNotificationsForHotlineRequests);
 
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
