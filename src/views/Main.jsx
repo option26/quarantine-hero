@@ -97,7 +97,7 @@ export default function Main() {
           <OnePagers />
         </div>
 
-        <ArrowDown onClick={scrollTo} />
+        <ArrowDown onClick={() => scrollTo()} />
 
         <div className="flex justify-around mx-4 md:mx-0 my-6 md:my-10" id="hilfe-buttons">
           <Link

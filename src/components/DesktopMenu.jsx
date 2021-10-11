@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 export default function DesktopMenu() {
   const { t } = useTranslation();
 
-  const MenuItem = (menuItemProps) => (
+  const MenuItem = ({ to, onClick, children }) => (
     <li className="mr-6 hover:opacity-75">
-      <Link to={menuItemProps.to} onClick={menuItemProps.onClick}>{menuItemProps.children}</Link>
+      <Link to={to} onClick={onClick}>{children}</Link>
     </li>
   );
 
