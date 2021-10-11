@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - firebase
+      - firebase/**
 jobs:
   deploy-firebase:
     runs-on: ubuntu-latest
