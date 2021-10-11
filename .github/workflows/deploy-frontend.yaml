@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
         env:
