@@ -6,7 +6,7 @@
     "test": "tsc --noEmit",
     "start": "twilio-run --functions-folder dist/functions --assets-folder dist/assets",
     "dev": "twilio serverless:start --ngrok=\"\" --functions-folder dist/functions --assets-folder dist/assets",
-    "deploy": "twilio-run deploy --functions-folder dist/functions --assets-folder dist/assets",
+    "deploy": "twilio-run deploy --runtime node12 --functions-folder dist/functions --assets-folder dist/assets --override-existing-project",
     "build": "tsc && npm run build:copy-assets",
     "build:copy-assets": "copyfiles src/assets/* src/assets/**/* --up 2 --exclude **/*.ts dist/assets/",
     "prestart": "npm run build",
@@ -24,7 +24,7 @@
     "copyfiles": "^2.2.0",
     "rimraf": "^3.0.2",
     "twilio-cli": "^2.16.0",
-    "twilio-run": "^2.6.0",
+    "twilio-run": "^3.1.0",
     "typescript": "^3.8"
   },
   "engines": {

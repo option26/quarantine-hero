@@ -8,8 +8,12 @@ import { Context, ServerlessCallback } from '@twilio-labs/serverless-runtime-typ
 import { Environment } from '../types/Environment';
 
 // Main entry point for incoming hotline calls
-async function handleIncomingCall(context: Context<Environment>, event: { From: string }, callback: ServerlessCallback) {
+async function handleIncomingCall(context: Context<Environment>, event: { From: string, CallStatus: string }, callback: ServerlessCallback) {
   const twilioClient = context.getTwilioClient();
+
+  if(event.CallStatus !== 'in-progress') {
+    return callback(null, undefined);
+  }
 
   try {
     // First, get the sheet data that is needed at several places
