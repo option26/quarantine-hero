@@ -1,0 +1,22 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - firebase/functions/src
+jobs:
+  deploy-firebase:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: firebase/functions
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: ../../.github/workflows/deploy-firebase.sh
