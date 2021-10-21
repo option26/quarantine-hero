@@ -15,22 +15,22 @@ export interface HotlineTemplateData {
 }
 
 export interface RequestInYourAreaTemplateData {
-  request: AskForHelpCollectionEntry['d']['request'];
-  location: AskForHelpCollectionEntry['d']['location'];
+  request: AskForHelpCollectionEntry['request'];
+  location: AskForHelpCollectionEntry['location'];
   link: string;
   reportLink: string;
 }
 
 export interface OffersWithoutAnswersTemplateData {
-  request: AskForHelpCollectionEntry['d']['request'];
-  location: AskForHelpCollectionEntry['d']['location'];
+  request: AskForHelpCollectionEntry['request'];
+  location: AskForHelpCollectionEntry['location'];
   requestMoreHelpLink: string;
   deleteLink: string;
 }
 
 export interface OffersWithAnswersTemplateData {
-  request: AskForHelpCollectionEntry['d']['request'];
-  location: AskForHelpCollectionEntry['d']['location'];
+  request: AskForHelpCollectionEntry['request'];
+  location: AskForHelpCollectionEntry['location'];
   solveLink: string;
   requestMoreHelpLink: string;
   deleteLink: string;
@@ -39,13 +39,13 @@ export interface OffersWithAnswersTemplateData {
 export interface OfferHelpTemplateData {
   answer: string;
   email: string;
-  request: AskForHelpCollectionEntry['d']['request'];
+  request: AskForHelpCollectionEntry['request'];
   askForHelpLink: string;
 }
 
 export interface AskForHelpTemplateData {
-  request: AskForHelpCollectionEntry['d']['request'];
-  location: AskForHelpCollectionEntry['d']['location'];
+  request: AskForHelpCollectionEntry['request'];
+  location: AskForHelpCollectionEntry['location'];
   link: string;
   reportLink: string;
 }

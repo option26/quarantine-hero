@@ -14,8 +14,8 @@ function markSolved(document) {
 }
 
 export async function getInitialDocuments(pageSize = 20) {
-  const askForHelpQuery = askForHelpCollection.orderBy('d.timestamp', 'desc').limit(pageSize);
-  const solvedPostsQuery = solvedPostsCollection.orderBy('d.timestamp', 'desc').limit(pageSize);
+  const askForHelpQuery = askForHelpCollection.orderBy('timestamp', 'desc').limit(pageSize);
+  const solvedPostsQuery = solvedPostsCollection.orderBy('timestamp', 'desc').limit(pageSize);
 
   const askForHelpDocuments = await askForHelpQuery.get().then((snap) => snap.docs.map(parseDoc).filter(Boolean));
   const solvedPostsDocuments = await solvedPostsQuery.get().then((snap) => snap.docs.map(markSolved).map(parseDoc).filter(Boolean));
@@ -33,7 +33,7 @@ export async function getInitialDocuments(pageSize = 20) {
 }
 
 export async function loadMoreDocuments(startAfter, pageSize = 20) {
-  const query = askForHelpCollection.orderBy('d.timestamp', 'desc').startAfter(startAfter).limit(pageSize);
+  const query = askForHelpCollection.orderBy('timestamp', 'desc').startAfter(startAfter).limit(pageSize);
 
   const snapshot = await query.get();
   // Filter broken documents

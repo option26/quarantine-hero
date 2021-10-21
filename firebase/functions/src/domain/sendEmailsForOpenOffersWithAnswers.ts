@@ -25,15 +25,15 @@ export async function sendEmailsForOpenOffersWithAnswers(): Promise<void> {
     const now = Date.now();
 
     const askForHelpSnapsWithAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.isHotline', '==', false)
+      .where('timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('isHotline', '==', false)
       .get();
 
     const eligibleAskForHelpSnapsWithAnswers = askForHelpSnapsWithAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
       // we need to perform local filtering due to inequality filters
-      const { lastHelpRequestTimestamps, responses, timestampLastEngagementAttempt } = data.d;
+      const { lastHelpRequestTimestamps, responses, timestampLastEngagementAttempt } = data;
       if (
         lastHelpRequestTimestamps === undefined
         || lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP

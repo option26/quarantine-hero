@@ -37,7 +37,7 @@ export default function EntryMap() {
     const fetchEntries = async () => {
       const threeMonthAgo = new Date();
       threeMonthAgo.setMonth(threeMonthAgo.getMonth() - 3);
-      const queryResult = await fb.store.collection('ask-for-help').orderBy('d.timestamp').startAt(threeMonthAgo.getTime()).get();
+      const queryResult = await fb.store.collection('ask-for-help').orderBy('timestamp').startAt(threeMonthAgo.getTime()).get();
 
       const entriesFromQuery = queryResult.docs
         .map(parseDoc)

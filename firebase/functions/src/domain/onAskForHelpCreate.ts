@@ -24,11 +24,11 @@ export async function onAskForHelpCreate(snap: admin.firestore.DocumentSnapshot)
     // Enforce server-side defaults
     const now = Date.now();
     await snap.ref.update({
-      'd.notificationCounter': 0,
-      'd.responses': 0,
-      'd.lastHelpRequestTimestamps': [now],
-      'd.timestamp': now,
-      'd.slackMessageRef': messageRef,
+      'notificationCounter': 0,
+      'responses': 0,
+      'lastHelpRequestTimestamps': [now],
+      'timestamp': now,
+      'slackMessageRef': messageRef,
     });
 
     await db.collection(CollectionName.Stats).doc('external').update({

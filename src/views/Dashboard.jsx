@@ -54,25 +54,24 @@ function Dashboard(props) {
   const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl, moreHelp: attemptingToRequestMoreHelp } = useQuery();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
-    askForHelpCollection.where('d.uid', '==', user.uid),
+    askForHelpCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
   const requestsForHelp = (requestsForHelpUnsorted || [])
-    .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
-    notificationCollection.where('d.uid', '==', user.uid),
+    notificationCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
-  const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));
+  const offers = (offersDocs || []);
 
   const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionDataOnce(
-    solvedPostsCollection.where('d.uid', '==', user.uid),
+    solvedPostsCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((doc) => ({ ...doc.d, id: doc.id, solved: true }))
+    .map((doc) => ({ ...doc, solved: true }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {

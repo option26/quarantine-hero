@@ -30,19 +30,19 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
       return;
     }
 
-    const askRecordData = askRecord && askRecord.data() as AskForHelpCollectionEntry;
-    const { request, uid } = askRecordData.d;
+    const askRecordData: AskForHelpCollectionEntry = askRecord && askRecord.data() as AskForHelpCollectionEntry;
+    const { request, uid } = askRecordData;
 
     const data = await admin.auth().getUser(uid);
     const { email: receiver } = data.toJSON() as UserRecord;
 
-    const offerRecordData = offer.data() as OfferHelpCollectionEntry;
+    const offerRecordData: OfferHelpCollectionEntry = offer.data() as OfferHelpCollectionEntry;
     const { answer, email } = offerRecordData;
 
     try {
       // Update counters
       await db.collection(CollectionName.AskForHelp).doc(askRecord.id).update({
-        'd.responses': admin.firestore.FieldValue.increment(1),
+        'responses': admin.firestore.FieldValue.increment(1),
       });
       await db.collection(CollectionName.Stats).doc('external').update({
         offerHelp: admin.firestore.FieldValue.increment(1),
@@ -56,8 +56,8 @@ export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot)
       }
     }
 
-    if (askRecordData.d.isHotline) {
-      await askAllowHotlineAnswer(askRecordData.d.slackMessageRef, askForHelp.id, offer.id, email, answer);
+    if (askRecordData.isHotline) {
+      await askAllowHotlineAnswer(askRecordData.slackMessageRef, askForHelp.id, offer.id, email, answer);
 
       // Early return as we don't need to send an email notifaction to the hotline operators
       return;
@@ -175,7 +175,7 @@ async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: str
   const db = admin.firestore();
 
   const askForHelpRef = db.collection('ask-for-help').doc(askForHelpId);
-  const askForHelpData = await askForHelpRef.get().then(snap => snap.data() as AskForHelpCollectionEntry);
+  const askForHelpData: AskForHelpCollectionEntry = await askForHelpRef.get().then(snap => snap.data() as AskForHelpCollectionEntry);
 
   // we take the hotline document at index zero because there should only ever be one hotline document within this nested collection
   const hotlineData = await askForHelpRef.collection('hotline').get().then(snap => snap.docs.length > 0 ? snap.docs[0].data() as HotlineCollectionEntry : undefined);
@@ -187,7 +187,7 @@ async function sendAutomaticReplyToHelper(askForHelpId: string, offerHelpId: str
   if (!hotlineData) {
     try {
       const message = 'Fehler! Antwort für Hotline-Inserat erhalten aber keine Kontaktinformationen für Hilfesuchende*n gefunden.';
-      await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
+      await postReplyToSlack(askForHelpData.slackMessageRef, message, true);
     } catch (err) {
       console.log('Error posting to slack', err);
     }

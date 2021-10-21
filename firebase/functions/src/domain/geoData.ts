@@ -9,7 +9,7 @@ export async function updateGeoDB(): Promise<void> {
 
     try {
         async function urlToObject(url: string, country: string) {
-            const response: AxiosResponse = await axios.get(url);
+            const response: AxiosResponse<string> = await axios.get(url);
             const rows = response.data.split('\n');
             if (typeof rows === 'undefined' || rows.length === 0) throw Error('Could not split result in rows');
             let keyRow = rows.shift();

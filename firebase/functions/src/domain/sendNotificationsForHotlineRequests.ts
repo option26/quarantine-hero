@@ -21,14 +21,14 @@ export async function sendNotificationsForHotlineRequests(): Promise<void> {
     const db = admin.firestore();
     const now = Date.now();
     const askForHelpSnapsHotline: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.isHotline', '==', true)
+      .where('timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('isHotline', '==', true)
       .get();
 
     const eligibleAskForHelpSnapsHotline = askForHelpSnapsHotline.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      const { lastHelpRequestTimestamps, timestampLastEngagementAttempt } = data.d;
+      const { lastHelpRequestTimestamps, timestampLastEngagementAttempt } = data;
       if (lastHelpRequestTimestamps === undefined || lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
         return false;
       }
@@ -45,7 +45,7 @@ export async function sendNotificationsForHotlineRequests(): Promise<void> {
 
     for (const eligibleAskForHelpSnap of eligibleAskForHelpSnapsHotline) {
       const data = eligibleAskForHelpSnap.data() as AskForHelpCollectionEntry;
-      await askForReachIncrease(data.d.slackMessageRef, eligibleAskForHelpSnap.id);
+      await askForReachIncrease(data.slackMessageRef, eligibleAskForHelpSnap.id);
     }
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -101,7 +101,7 @@ async function askForReachIncrease(messageRef: string | undefined, askForHelpId:
     const db = admin.firestore();
     const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
     const updatedData = {
-      'd.timestampLastEngagementAttempt': Date.now(),
+      'timestampLastEngagementAttempt': Date.now(),
     };
     await document.update(updatedData);
   } catch (err) {

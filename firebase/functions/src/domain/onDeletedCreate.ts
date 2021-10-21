@@ -15,9 +15,10 @@ export async function onDeletedCreate(snap: admin.firestore.DocumentSnapshot): P
     const snapValue = snap.data() as DeletedCollectionEntry;
     // collectionName can be either "ask-for-help" or "solved-posts"
     const { collectionName } = snapValue;
-    const { uid } = snapValue.d;
+    const { uid } = snapValue;
 
-    if (!userIdsMatch(db, collectionName, snap.id, uid)) return;
+    // Check if user who created the entry is also owner of the original entry
+    if (!(await userIdsMatch(db, collectionName, snap.id, uid))) return;
 
     await migrateResponses(db, collectionName, snap.id, CollectionName.Deleted);
     await deleteDocumentWithSubCollections(db, collectionName, snap.id);

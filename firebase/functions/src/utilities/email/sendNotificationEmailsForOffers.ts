@@ -9,14 +9,14 @@ import { TemplateId } from "../../types/enum/TemplateId";
 
 export async function sendNotificationEmailsForOffers(
   db: FirebaseFirestore.Firestore,
-  eligibleHelpOffers: NotificationsCollectionEntry['d'][],
+  eligibleHelpOffers: NotificationsCollectionEntry[],
   askForHelpId: string,
   templateId: TemplateId,
   templateData: TemplateData,
   subject: string,
   transaction?: FirebaseFirestore.Transaction
 ): Promise<void> {
-  await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry['d']) => {
+  await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry) => {
     try {
       const { uid } = offerDoc;
 
@@ -25,8 +25,8 @@ export async function sendNotificationEmailsForOffers(
       const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
 
       const updatedData = {
-        'd.notificationCounter': admin.firestore.FieldValue.increment(1),
-        'd.notificationReceiver': admin.firestore.FieldValue.arrayUnion(uid),
+        'notificationCounter': admin.firestore.FieldValue.increment(1),
+        'notificationReceiver': admin.firestore.FieldValue.arrayUnion(uid),
       };
 
       if (transaction) {

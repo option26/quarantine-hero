@@ -28,7 +28,7 @@ export default function AskForHelp() {
   const askForHelpCollection = fb.store.collection('ask-for-help');
 
   const [existingDocsForUser] = useCollectionData(
-    user ? askForHelpCollection.where('d.uid', '==', user.uid) : null,
+    user ? askForHelpCollection.where('uid', '==', user.uid) : null,
     { idField: 'id' },
   );
 

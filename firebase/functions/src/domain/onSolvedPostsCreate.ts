@@ -14,7 +14,7 @@ export async function onSolvedPostsCreate(snap: admin.firestore.DocumentSnapshot
   try {
     const db = admin.firestore();
     const snapValue = snap.data() as SolvedPostsCollectionEntry;
-    const { uid } = snapValue.d;
+    const { uid } = snapValue;
 
     if (!userIdsMatch(db, CollectionName.AskForHelp, snap.id, uid)) return;
 
@@ -24,7 +24,7 @@ export async function onSolvedPostsCreate(snap: admin.firestore.DocumentSnapshot
     try {
       // Don't let message sending break everything
       const message = 'Der Eintrag wurde als gelöst markiert ✅';
-      await postReplyToSlack(snapValue.d.slackMessageRef, message, false);
+      await postReplyToSlack(snapValue.slackMessageRef, message, false);
 
     } catch (err) {
       console.log('Error posting to slack', err);

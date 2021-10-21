@@ -25,7 +25,7 @@ export async function onIncreaseReach(actions: Array<{ value: string }>, respons
         // Get the identified post
         const askForHelpData = askForHelpSnap.data() as AskForHelpCollectionEntry;
 
-        await askForMoreHelp(askForHelpSnap.id, askForHelpData.d.uid);
+        await askForMoreHelp(askForHelpSnap.id, askForHelpData.uid);
 
         await answerDirectly('Reichweite wurde erhöht.', responseUrl);
     } catch (err) {

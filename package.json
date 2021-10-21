@@ -9,7 +9,7 @@
     "autoprefixer": "^10.3.7",
     "date-fns": "^2.25.0",
     "firebase": "^7.11.0",
-    "geofirestore": "^3.6.0",
+    "geofirestore": "^4.4.2",
     "google-map-react": "^2.1.10",
     "i18next": "^21.3.3",
     "i18next-browser-languagedetector": "^6.1.2",

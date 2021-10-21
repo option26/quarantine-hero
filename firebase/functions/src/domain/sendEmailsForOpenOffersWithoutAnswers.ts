@@ -26,15 +26,15 @@ export async function sendEmailsForOpenOffersWithoutAnswers(): Promise<void> {
     const db = admin.firestore();
     const now = Date.now();
     const askForHelpSnapsWithoutAnswers: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
-      .where('d.responses', '==', 0)
-      .where('d.isHotline', '==', false)
+      .where('timestamp', '>=', now - MAXIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('timestamp', '<=', now - MINIMUM_FOLLOWUP_DELAY_DAYS * 24 * 60 * 60 * 1000)
+      .where('responses', '==', 0)
+      .where('isHotline', '==', false)
       .get();
 
     const eligibleAskForHelpSnapsWithoutAnswers = askForHelpSnapsWithoutAnswers.docs.filter((snap) => {
       const data = snap.data() as AskForHelpCollectionEntry;
-      const { lastHelpRequestTimestamps, timestampLastEngagementAttempt } = data.d;
+      const { lastHelpRequestTimestamps, timestampLastEngagementAttempt } = data;
       if (lastHelpRequestTimestamps === undefined || lastHelpRequestTimestamps.length >= MAXIMUM_ALLOWED_REQUESTS_FOR_HELP) {
         return false;
       }

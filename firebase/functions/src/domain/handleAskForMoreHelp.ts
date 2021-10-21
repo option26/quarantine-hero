@@ -50,11 +50,11 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     const askForHelpData = await transaction.get(askForHelpDoc).then(snap => snap.data() as AskForHelpCollectionEntry);
 
     // Check if entry belongs to caller
-    if (requestUid !== askForHelpData.d.uid) {
+    if (requestUid !== askForHelpData.uid) {
       throw new Error('Unauthorized');
     }
 
-    const { uid, lastHelpRequestTimestamps } = askForHelpData.d;
+    const { uid, lastHelpRequestTimestamps } = askForHelpData;
     if (lastHelpRequestTimestamps === undefined) {
       throw new Error('Last help request timestamp not set');
     }
@@ -79,15 +79,15 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       const templateId = TemplateId.TemplateForAskForHelp;
       const subject = 'QuarantäneHeld*innen - Jemand braucht Deine Hilfe!';
       const templateData = {
-        request: askForHelpData.d.request,
-        location: askForHelpData.d.location,
+        request: askForHelpData.request,
+        location: askForHelpData.location,
         link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
         reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
       };
       await sendNotificationEmailsForOffers(db, eligibleHelpOffers, askForHelpId, templateId, templateData, subject, transaction);
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
-        await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
+        await postReplyToSlack(askForHelpData.slackMessageRef, message, true);
       } catch (err) {
         console.log('Error posting to slack', err);
       }
@@ -95,7 +95,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
     } else {
       try {
         const message = `Mehr Hilfe gesucht\nPotentielle Helfende: ${initialSize}\nEmails deaktiviert!`;
-        await postReplyToSlack(askForHelpData.d.slackMessageRef, message, true);
+        await postReplyToSlack(askForHelpData.slackMessageRef, message, true);
       } catch (err) {
         console.log('Error posting to slack', err);
       }
@@ -104,7 +104,7 @@ function buildTransaction(askForHelpId: string, requestUid: string): (transactio
       console.log(sendingMailsDisabledLogMessage);
     }
     return transaction.update(askForHelpDoc, {
-      'd.lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(Date.now()),
+      'lastHelpRequestTimestamps': admin.firestore.FieldValue.arrayUnion(Date.now()),
     });
   };
 }
