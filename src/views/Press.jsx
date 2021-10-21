@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/browser';
-import * as firebase from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/loader/Loader';
 import useCms from '../util/useCms';
@@ -7,7 +6,7 @@ import useFirebaseDownload from '../util/useFirebaseDownload';
 import { ClipboardIcon } from '../util/Icons';
 
 export default function Press() {
-  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
+  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip');
   const [articles] = useCms('press');
   const { t } = useTranslation();
 

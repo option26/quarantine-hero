@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import * as firebase from 'firebase/app';
 import * as Sentry from '@sentry/browser';
 import i18next from 'i18next';
+import fb from '../firebase';
 
 export default function useCms(collectionName) {
   const [content, setContent] = useState([]);
@@ -10,7 +10,7 @@ export default function useCms(collectionName) {
   useEffect(() => {
     const getContent = async (collName, lang) => (
       new Promise((resolve, reject) => {
-        const contentRef = firebase.database().ref(`cmsContent/${collName}/${lang}`);
+        const contentRef = fb.realtimeDB.ref(`cmsContent/${collName}/${lang}`);
 
         contentRef.once('value', (snapshot) => {
           if (!snapshot.exists()) {

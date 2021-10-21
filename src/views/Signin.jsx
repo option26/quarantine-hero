@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import * as Sentry from '@sentry/browser';
 import { useTranslation } from 'react-i18next';
-import 'firebase/auth';
 import {
   Redirect,
   Link,
   useParams,
   useLocation,
 } from 'react-router-dom';
-import * as firebase from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import MailInput from '../components/MailInput';
 import fb from '../firebase';
@@ -23,9 +21,9 @@ export default function Signin() {
   const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
-  const [user] = useAuthState(firebase.auth());
-  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
-  const signInWithEmailAndPassword = (mail, pw) => firebase.auth().signInWithEmailAndPassword(mail, pw);
+  const [user] = useAuthState(fb.auth);
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(fb.auth);
+  const signInWithEmailAndPassword = (mail, pw) => fb.auth.signInWithEmailAndPassword(mail, pw);
 
   const { returnUrl } = useParams();
 

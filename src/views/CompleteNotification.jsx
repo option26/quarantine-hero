@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import * as Sentry from '@sentry/browser';
 import { GeoFirestore } from 'geofirestore';
 import { Link } from 'react-router-dom';
@@ -39,7 +37,7 @@ export default function CompleteNotification() {
       email,
       location: loc,
       plz,
-      uid: firebase.auth().currentUser.uid,
+      uid: fb.auth.currentUser.uid,
       timestamp: Date.now(),
       coordinates: new fb.app.firestore.GeoPoint(lat, lng),
     });

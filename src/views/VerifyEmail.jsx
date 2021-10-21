@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import { baseUrl } from '../appConfig';
 import { useEmailVerified } from '../util/emailVerified';
+import fb from '../firebase';
 
 export default () => {
   const [sendVerificationSuccess, setSendVerificationSuccess] = useState(false);
-  const [user, isAuthLoading] = useAuthState(firebase.auth());
-  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
+  const [user, isAuthLoading] = useAuthState(fb.auth);
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(fb.auth);
 
   const { t } = useTranslation();
 
