@@ -18,7 +18,7 @@ export async function onReportedPostsCreate(snap: admin.firestore.DocumentSnapsh
         .doc(askForHelpId)
         .get()
         .then(snapshot => {
-          return (snapshot.data() as AskForHelpCollectionEntry | undefined)?.d.slackMessageRef;
+          return (snapshot.data() as AskForHelpCollectionEntry | undefined)?.slackMessageRef;
         });
         await postReplyToSlack(slackMessageRef, 'Diese Anfrage wurde gemeldet', true);
     } catch (err) {
@@ -27,7 +27,7 @@ export async function onReportedPostsCreate(snap: admin.firestore.DocumentSnapsh
 
     // https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
     await db.collection(CollectionName.AskForHelp).doc(askForHelpId).update({
-      'd.reportedBy': admin.firestore.FieldValue.arrayUnion(uid),
+      'reportedBy': admin.firestore.FieldValue.arrayUnion(uid),
     });
   } catch (e) {
     // eslint-disable-next-line no-console

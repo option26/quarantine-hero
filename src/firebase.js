@@ -1,35 +1,40 @@
-import * as app from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/analytics';
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/database';
-import 'firebase/storage';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/analytics';
+import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
+import 'firebase/compat/database';
+import 'firebase/compat/storage';
 import config from './firebaseConfig';
 
-class Firebase {
-  constructor() {
-    app.initializeApp(config);
-    this.app = app;
-    this.auth = app.auth();
-    this.functions = app.app().functions('europe-west1'); // FIXME: Check what .app() actually is
-    this.setAnalytics(false);
-    this.store = app.firestore();
-  }
+const firebaseApp = firebase.initializeApp(config);
+const auth = firebaseApp.auth();
+const firestore = firebaseApp.firestore();
+const realtimeDB = firebaseApp.database();
+const storage = firebaseApp.storage();
+const functions = firebaseApp.functions('europe-west1');
 
-  setAnalytics(state) {
-    if (state) {
-      this.analytics = app.analytics();
-      return;
-    }
-    this.analytics = {
-      logEvent: () => { },
-    };
-  }
-
-  askForMoreHelp(askForHelpId) {
-    const handleAskForMoreHelp = this.functions.httpsCallable('handleAskForMoreHelp', { });
-    return handleAskForMoreHelp(askForHelpId);
-  }
+function askForMoreHelp(askForHelpId) {
+  const handleAskForMoreHelp = functions.httpsCallable('handleAskForMoreHelp', {});
+  return handleAskForMoreHelp(askForHelpId);
 }
-export default new Firebase();
+
+const mockAnalytics = {
+  logEvent: () => {},
+};
+// eslint-disable-next-line import/no-mutable-exports
+let analytics = mockAnalytics;
+
+function setAnalytics(enabled) {
+  analytics = enabled ? firebaseApp.analytics() : mockAnalytics;
+}
+
+export default {
+  auth,
+  analytics,
+  store: firestore,
+  storage,
+  realtimeDB,
+  setAnalytics,
+  askForMoreHelp,
+};

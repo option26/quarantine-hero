@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import EntryContainer from '../components/EntryContainer';
 import fb from '../firebase';
 import ArrowDown from '../components/ArrowDown';
 import Rules from '../components/Rules';
 import OnePagers from '../components/OnePagers';
+import { BmgLogoIcon, HelpWhiteIcon, HeroWhiteIcon } from '../util/Icons';
 
 export default function Main() {
   const { t } = useTranslation();
@@ -55,7 +56,7 @@ export default function Main() {
           <div className="m-2" />
           <img
             style={{ height: '54px' }}
-            src={require('../assets/bmg_logo.svg')}
+            src={BmgLogoIcon}
             alt="zusammen gegen corona logo"
           />
         </div>
@@ -97,7 +98,7 @@ export default function Main() {
           <OnePagers />
         </div>
 
-        <ArrowDown onClick={scrollTo} />
+        <ArrowDown onClick={() => scrollTo()} />
 
         <div className="flex justify-around mx-4 md:mx-0 my-6 md:my-10" id="hilfe-buttons">
           <Link
@@ -106,7 +107,7 @@ export default function Main() {
             className="flex justify-center items-center rounded text-white p-3 btn-main bg-primary flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_need_help')}
           >
-            <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
+            <img className="h-8 mr-1" src={HelpWhiteIcon} alt="" />
             {t('views.main.buttons.needHelp')}
           </Link>
           <div className="m-1 md:m-4" />
@@ -116,7 +117,7 @@ export default function Main() {
             className="flex justify-center items-center rounded text-white p-3 btn-main bg-secondary flex-1 hover:opacity-75"
             onClick={() => fb.analytics.logEvent('button_want_to_help')}
           >
-            <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
+            <img className="h-8 mr-1" src={HeroWhiteIcon} alt="" />
             {t('views.main.buttons.wantToHelp')}
           </Link>
         </div>

@@ -21,7 +21,7 @@ export async function getSuggestions(searchString) {
     const [plz] = plzMatch;
     const query = fb.store.collection('geo-data').orderBy('plz').startAt(plz).endAt(`${plz}\uf8ff`);
 
-    const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
+    const entries = (await query.get()).docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     return entries.filter((e) => {
       const needle = location.toLowerCase();
       const haystack = e.name.toLowerCase();
@@ -30,7 +30,7 @@ export async function getSuggestions(searchString) {
   }
 
   const query = fb.store.collection('geo-data').orderBy('name_lowercase').startAt(searchString.toLowerCase()).endAt(`${searchString.toLowerCase()}\uf8ff`);
-  const entries = (await query.get()).docs.map((d) => ({ id: d.id, ...d.data() }));
+  const entries = (await query.get()).docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
   const aggregated = entries
     .reduce((agg, curr) => ({

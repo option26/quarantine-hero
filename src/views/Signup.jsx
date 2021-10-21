@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import * as React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import {
   Link,
   Redirect,
@@ -19,10 +18,10 @@ import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
-import checkMark from '../assets/check.svg';
 import weakPasswords from '../assets/password-top500.json';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
+import { CheckIcon } from '../util/Icons';
 
 export default () => (
   <div className="p-4">
@@ -35,11 +34,11 @@ function SignupHeader() {
   const { t } = useTranslation();
   const { returnUrl } = useParams();
   const { source, fullExplanation } = useQuery();
-  const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
+  const [emailVerified, emailVerifiedLoading] = useEmailVerified(fb.auth);
   const [partners] = useCms('whitelabeling');
 
   const location = useLocation();
-  const [user] = useAuthState(firebase.auth());
+  const [user] = useAuthState(fb.auth);
 
   const { name: partnerName, logo: logoSource } = partners.find((p) => p.key === source) || {};
   const showPartner = !!(partnerName && logoSource);
@@ -83,7 +82,7 @@ function SignupHeader() {
 
 function Partner({ partnerName, logoSource }) {
   const { t } = useTranslation();
-  const [externalStats] = useDocumentDataOnce(firebase.firestore().collection('stats').doc('external'));
+  const [externalStats] = useDocumentDataOnce(fb.store.collection('stats').doc('external'));
   const [logoLink] = useFirebaseDownload(logoSource);
 
   return (
@@ -148,7 +147,7 @@ function SignupBody() {
   const location = useLocation();
   const { source } = useQuery();
 
-  const createUserWithEmailAndPassword = (mail, pw) => firebase.auth().createUserWithEmailAndPassword(mail, pw);
+  const createUserWithEmailAndPassword = (mail, pw) => fb.auth.createUserWithEmailAndPassword(mail, pw);
 
   const registerUser = async (e) => {
     // Prevent page reload
@@ -241,7 +240,7 @@ function SignupBody() {
           <label className="flex text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="privacy_policy">
             <div className="bg-white border rounded w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 checkbox">
               <input id="privacy_policy" type="checkbox" required="required" className="opacity-0 absolute" />
-              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={checkMark} />
+              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={CheckIcon} />
             </div>
             <div className="select-none">
               <Trans i18nKey="views.signUp.acceptPrivacyPolicy">

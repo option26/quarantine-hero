@@ -25,9 +25,9 @@ service cloud.firestore {
       // Everyone can read the help requests
       allow get, list: if true;
       // Admins can delete everyones post or the user can delete his/her own
-      allow delete: if matchesRequestUserId(resource.data.d.uid) || isAdmin();
+      allow delete: if matchesRequestUserId(resource.data.uid) || isAdmin();
       // Posts can only be created if the email is verfied and the user creates a post for himself
-      allow create: if emailVerified() && matchesRequestUserId(request.resource.data.d.uid);
+      allow create: if emailVerified() && matchesRequestUserId(request.resource.data.uid);
 
       // Function to get parent entry
       function askForHelpData() {
@@ -42,22 +42,22 @@ service cloud.firestore {
       	// Everyone can answer a request
         allow create: if true;
         // Only the admin and the user who inserted the request can read the responses
-        allow get, list: if matchesRequestUserId(askForHelpData().d.uid) || isAdmin();
+        allow get, list: if matchesRequestUserId(askForHelpData().uid) || isAdmin();
           // Users can only delete their own requests responses
-        allow delete: if matchesRequestUserId(askForHelpData().d.uid);
+        allow delete: if matchesRequestUserId(askForHelpData().uid);
       }
     }
     match /notifications/{notificationId} {
       // Only users with verified emails can create notification listeners for themselfs
-      allow create: if emailVerified() && matchesRequestUserId(request.resource.data.d.uid);
+      allow create: if emailVerified() && matchesRequestUserId(request.resource.data.uid);
       // Users can only see their own notifications
-      allow get, list: if matchesRequestUserId(resource.data.d.uid) || isAdmin();
+      allow get, list: if matchesRequestUserId(resource.data.uid) || isAdmin();
       // Users can only delete their own notifications
-      allow delete: if matchesRequestUserId(resource.data.d.uid);
+      allow delete: if matchesRequestUserId(resource.data.uid);
     }
     match /deleted/{deleteId} {
       // Users can create deleted requests in their own name
-      allow create: if matchesRequestUserId(request.resource.data.d.uid) || isAdmin();
+      allow create: if matchesRequestUserId(request.resource.data.uid) || isAdmin();
     }
     match /stats/{statsId} {
       // everyone can read the summarized stats
@@ -75,9 +75,9 @@ service cloud.firestore {
       // Everyone can read the solved requests
       allow get, list: if true;
       // Users can only move their own requests to the solved collection
-      allow create: if matchesRequestUserId(request.resource.data.d.uid);
+      allow create: if matchesRequestUserId(request.resource.data.uid);
       // Users can only delete their own solved requests
-      allow delete: if matchesRequestUserId(resource.data.d.uid);
+      allow delete: if matchesRequestUserId(resource.data.uid);
 
       // Function to get the parent entry
       function solvedPostData() {
@@ -86,11 +86,11 @@ service cloud.firestore {
 
       match /offer-help/{offerHelpId} {
         // Users can only see responses to their solved requests
-        allow create: if matchesRequestUserId(solvedPostData().d.uid);
+        allow create: if matchesRequestUserId(solvedPostData().uid);
         // Users can only read answers to their own solved requests
-        allow get, list: if matchesRequestUserId(solvedPostData().d.uid);
+        allow get, list: if matchesRequestUserId(solvedPostData().uid);
         // Users can only delete their own solved requests responses
-        allow delete: if matchesRequestUserId(solvedPostData().d.uid);
+        allow delete: if matchesRequestUserId(solvedPostData().uid);
       }
     }
     match /geo-data/{locationId} {

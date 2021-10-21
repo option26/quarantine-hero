@@ -14,14 +14,14 @@ import { postReplyToSlack } from '../utilities/slack';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { RequestInYourAreaTemplateData } from '../types/interface/email/TemplateData';
 import { CollectionName } from '../types/enum/CollectionName';
-import { TemplateId } from "../types/enum/TemplateId";
+import { TemplateId } from '../types/enum/TemplateId';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   try {
     const db = admin.firestore();
     const askForHelpSnaps = await db.collection(CollectionName.AskForHelp)
-      .where('d.timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_MINUTES * 60 * 1000)
-      .where('d.notificationCounter', '==', 0)
+      .where('timestamp', '<=', Date.now() - MINIMUM_NOTIFICATION_DELAY_MINUTES * 60 * 1000)
+      .where('notificationCounter', '==', 0)
       .limit(3)
       .get();
 
@@ -39,8 +39,8 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
       if (SEND_EMAILS) {
         const templateId = TemplateId.TemplateForAskForHelp;
         const templateData: RequestInYourAreaTemplateData = {
-          request: askForHelpSnapData.d.request,
-          location: askForHelpSnapData.d.location,
+          request: askForHelpSnapData.request,
+          location: askForHelpSnapData.location,
           link: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}`,
           reportLink: `https://www.quarantaenehelden.org/#/offer-help/${askForHelpId}?report`,
         };
@@ -48,7 +48,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
 
         try {
           const message = `Potentielle Helfende: ${initialSize}\nGesendete Emails: ${eligibleHelpOffers.length}`;
-          await postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
+          await postReplyToSlack(askForHelpSnapData.slackMessageRef, message);
         } catch (err) {
           console.log('Error posting to slack', err);
         }
@@ -58,7 +58,7 @@ export async function searchAndSendNotificationEmails(): Promise<void> {
 
       try {
         const message = `Potentielle Helfende: ${initialSize}\nEmails deaktiviert!`;
-        await postReplyToSlack(askForHelpSnapData.d.slackMessageRef, message);
+        await postReplyToSlack(askForHelpSnapData.slackMessageRef, message);
       } catch (err) {
         console.log('Error posting to slack', err);
       }

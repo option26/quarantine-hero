@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from '@material-ui/core/Drawer';
 import { useTranslation } from 'react-i18next';
@@ -16,23 +15,23 @@ export default function Sidebar(props) {
     return null;
   }
 
-  const MenuItem = (menuItemProps) => (
+  const MenuItem = ({ onClick, to, children, dataCy }) => (
     <li className="py-1 hover:opacity-75">
       <Link
         className="py-1 block"
         onClick={() => {
-          if (menuItemProps.onClick) menuItemProps.onClick();
+          if (onClick) onClick();
           onClose();
         }}
-        to={menuItemProps.to}
-        data-cy={menuItemProps['data-cy']}
+        to={to}
+        data-cy={dataCy}
       >
-        {menuItemProps.children}
+        {children}
       </Link>
     </li>
   );
 
-  const Menu = (menuProps) => (
+  const Menu = ({ isLoggedIn: isLoggedInProp, signOut: signOutProp }) => (
     <ul
       style={{
         height: '100%',
@@ -49,7 +48,7 @@ export default function Sidebar(props) {
       <MenuItem to="/">{t('components.sidebar.home')}</MenuItem>
       <MenuItem to="/ask-for-help">{t('components.sidebar.askForHelp')}</MenuItem>
       <MenuItem to="/overview">{t('components.sidebar.help')}</MenuItem>
-      {menuProps.isLoggedIn && <MenuItem to="/dashboard" data-cy="mobile-nav-my-overview">{t('components.sidebar.myOverview')}</MenuItem>}
+      {isLoggedInProp && <MenuItem to="/dashboard" dataCy="mobile-nav-my-overview">{t('components.sidebar.myOverview')}</MenuItem>}
       <MenuItem to="/security-tips">{t('components.sidebar.safety')}</MenuItem>
       <MenuItem to="/faq">{t('components.sidebar.FAQs')}</MenuItem>
       <MenuItem to="/press">{t('components.sidebar.press')}</MenuItem>
@@ -57,8 +56,8 @@ export default function Sidebar(props) {
       <MenuItem to="/impressum">{t('components.sidebar.legal')}</MenuItem>
       <MenuItem to="/privacy-policy">{t('components.sidebar.privacy')}</MenuItem>
 
-      {menuProps.isLoggedIn
-        ? <MenuItem to="/" onClick={menuProps.signOut} data-cy="mobile-nav-sign-out">{t('components.sidebar.signOut')}</MenuItem>
+      {isLoggedInProp
+        ? <MenuItem to="/" onClick={signOutProp} dataCy="mobile-nav-sign-out">{t('components.sidebar.signOut')}</MenuItem>
         : <MenuItem to="/signin/dashboard">{t('components.sidebar.login')}</MenuItem>}
 
       <div className="mt-4">

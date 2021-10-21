@@ -1,15 +1,15 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Rules from '../components/Rules';
 import useCms from '../util/useCms';
 import Loader from '../components/loader/Loader';
 import StyledMarkdown from '../util/StyledMarkdown';
+import { DistancedIcon, DontHelpIcon, ConsistentIcon, LocalIcon } from '../util/Icons';
 
 const icons = {
-  dont_help: require('../assets/dont_help.svg'),
-  local: require('../assets/lokal.svg'),
-  distanced: require('../assets/distanziert.svg'),
-  consistent: require('../assets/konsistent.svg'),
+  dont_help: DontHelpIcon,
+  local: LocalIcon,
+  distanced: DistancedIcon,
+  consistent: ConsistentIcon,
 };
 
 function ContentBlock({ className, title, text, icon }) {

@@ -27,16 +27,16 @@ export async function sendEmailForAskForHelpEntries(
     // eslint-disable-next-line no-console
     if (SEND_EMAILS) {
       const { data: templateData, subject } = getTemplateDateForEntry(templateId, askForHelpId, askForHelpSnapData);
-      await sendEmailToUser(askForHelpSnapData.d.uid, templateId, templateData, subject);
+      await sendEmailToUser(askForHelpSnapData.uid, templateId, templateData, subject);
 
       const db = admin.firestore();
       const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
       const updatedData = {
-        'd.timestampLastEngagementAttempt': Date.now(),
+        'timestampLastEngagementAttempt': Date.now(),
       };
       await document.update(updatedData);
 
-      return askForHelpSnapData.d.uid;
+      return askForHelpSnapData.uid;
     }
     // eslint-disable-next-line no-console
     console.log(sendingMailsDisabledLogMessage);
@@ -56,8 +56,8 @@ function getTemplateDateForEntry(
       return {
         subject: 'QuarantäneHeld*innen - Benötigst Du weiterhin Hilfe?',
         data: {
-          request: askForHelpSnapData.d.request,
-          location: askForHelpSnapData.d.location,
+          request: askForHelpSnapData.request,
+          location: askForHelpSnapData.location,
           requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&moreHelp=true`,
           deleteLink: `https://www.quarantaenehelden.org/#/dashboard?entry=${askForHelpId}&delete=true`,
         }
@@ -66,8 +66,8 @@ function getTemplateDateForEntry(
       return {
         subject: 'QuarantäneHeld*innen - Wurde Dir geholfen?',
         data: {
-          request: askForHelpSnapData.d.request,
-          location: askForHelpSnapData.d.location,
+          request: askForHelpSnapData.request,
+          location: askForHelpSnapData.location,
           solveLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&solve=true`,
           requestMoreHelpLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&moreHelp=true`,
           deleteLink: `https://www.quarantaenehelden.org/#/dashboard/?entry=${askForHelpId}&delete=true`,

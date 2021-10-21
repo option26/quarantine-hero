@@ -1,13 +1,28 @@
-import React from 'react';
 import * as Sentry from '@sentry/browser';
-import * as firebase from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/loader/Loader';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
+import { ClipboardIcon } from '../util/Icons';
+import ZDFImage from '../assets/zdf.jpg';
+import SZImage from '../assets/sueddeutsche_zeitung.jpg';
+import Sat1Image from '../assets/sat1.jpg';
+import BerlinerMorgenpostImage from '../assets/berliner_morgenpost.jpg';
+import DLFImage from '../assets/deutschlandfunk.jpg';
+import WDRImage from '../assets/wdr.jpg';
+import HRImage from '../assets/hr.jpg';
+import BRImage from '../assets/br.jpg';
+import WeltImage from '../assets/welt.jpg';
+import FocusImage from '../assets/focus_online.jpg';
+import GreenPeaceImage from '../assets/greenpeace_magazin.jpg';
+import AktionMenschImage from '../assets/aktion_mensch.jpg';
+import UtopiaImage from '../assets/utopia.jpg';
+import VogueImage from '../assets/vogue.jpg';
+import CosmoImage from '../assets/cosmopolitan.jpg';
+import BunteImage from '../assets/bunte_de.jpg';
 
 export default function Press() {
-  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
+  const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip');
   const [articles] = useCms('press');
   const { t } = useTranslation();
 
@@ -46,7 +61,7 @@ export default function Press() {
         </div>
         <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex">
           <div>
-            <img src={require('../assets/clipboard.svg')} alt="Clipboard" className="w-12 mr-4" />
+            <img src={ClipboardIcon} alt="Clipboard" className="w-12 mr-4" />
           </div>
           <div>
             <div className="font-bold">
@@ -61,7 +76,7 @@ export default function Press() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {t('views.press.pressKitFilename')}
+              {t('views.press.pressKitFileName')}
             </a>
             <div>
               {t('views.press.pressContact')}
@@ -73,52 +88,52 @@ export default function Press() {
         </div>
         <div className="my-8 flex flex-wrap mb-16">
           <div className="w-1/4 h-auto">
-            <img alt="zdf" src={require('../assets/zdf.jpg')} />
+            <img alt="zdf" src={ZDFImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="sueddeutsche_zeitung" src={require('../assets/sueddeutsche_zeitung.jpg')} />
+            <img alt="sueddeutsche_zeitung" src={SZImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="sat1" src={require('../assets/sat1.jpg')} />
+            <img alt="sat1" src={Sat1Image} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="berliner_morgenpost" src={require('../assets/berliner_morgenpost.jpg')} />
+            <img alt="berliner_morgenpost" src={BerlinerMorgenpostImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="deutschlandfunk" src={require('../assets/deutschlandfunk.jpg')} />
+            <img alt="deutschlandfunk" src={DLFImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="wdr" src={require('../assets/wdr.jpg')} />
+            <img alt="wdr" src={WDRImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="hr" src={require('../assets/hr.jpg')} />
+            <img alt="hr" src={HRImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="br" src={require('../assets/br.jpg')} />
+            <img alt="br" src={BRImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="welt" src={require('../assets/welt.jpg')} />
+            <img alt="welt" src={WeltImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="focus_online" src={require('../assets/focus_online.jpg')} />
+            <img alt="focus_online" src={FocusImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="greenpeace_magazin" src={require('../assets/greenpeace_magazin.jpg')} />
+            <img alt="greenpeace_magazin" src={GreenPeaceImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="aktion_mensch" src={require('../assets/aktion_mensch.jpg')} />
+            <img alt="aktion_mensch" src={AktionMenschImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="utopia" src={require('../assets/utopia.jpg')} />
+            <img alt="utopia" src={UtopiaImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="vogue" src={require('../assets/vogue.jpg')} />
+            <img alt="vogue" src={VogueImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="cosmopolitan" src={require('../assets/cosmopolitan.jpg')} />
+            <img alt="cosmopolitan" src={CosmoImage} />
           </div>
           <div className="w-1/4 h-auto">
-            <img alt="bunte_de" src={require('../assets/bunte_de.jpg')} />
+            <img alt="bunte_de" src={BunteImage} />
           </div>
         </div>
         <Loader waitOn={articles.length > 0}>

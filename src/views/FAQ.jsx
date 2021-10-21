@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { createElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -36,11 +36,11 @@ function QA({ question, children }) {
         <div className="font-semibold text-left mr-4">{question}</div>
         <div className="flex-1" />
         {
-          React.createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
-            className: 'cursor-pointer hover:opacity-50',
-            style: { fontSize: '40px' },
-          })
-        }
+        createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
+          className: 'cursor-pointer hover:opacity-50',
+          style: { fontSize: '40px' },
+        })
+      }
       </button>
       <Collapse in={isOpen}>
         <div className="p-4 bg-kaki">

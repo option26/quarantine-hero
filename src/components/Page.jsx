@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ScrollUpButton from 'react-scroll-up-button';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -8,9 +8,9 @@ import ShareButtons from './ShareButtons';
 import useScrollToTop from '../util/scrollToTop';
 import DesktopLowerNavigation from './DesktopMenu';
 import Footer from './Footer';
-import arrowUpIcon from '../assets/arrows_up.svg';
 import Sidebar from './Sidebar';
 import fb from '../firebase';
+import { ArrowUpIcon, LogoInvertIcon } from '../util/Icons';
 
 function DesktopTopNavigation({ isAuthLoading, user, signOut }) {
   const { t } = useTranslation();
@@ -84,7 +84,7 @@ function MobileTopNavigation({ onMenuIconClick }) {
           className="font-main ml-4"
           style={{ fontWeight: '600' }}
         >
-          <img alt="logo" src={require('../assets/logo_invert.svg')} className="h-10" />
+          <img alt="logo" src={LogoInvertIcon} className="h-10" />
         </Link>
         <div>
           <MenuIcon style={{ fontSize: '40px' }} className="text-gray-600" onClick={onMenuIconClick} data-cy="mobile-menu-icon" />
@@ -122,7 +122,7 @@ export default function Page({ children }) {
           ContainerClassName="scroll-up-btn"
           TransitionClassName="scroll-up-btn-fade"
         >
-          <img alt="arrow-down" className="arrow-down" src={arrowUpIcon} />
+          <img alt="arrow-up" className="arrow-down" src={ArrowUpIcon} />
         </ScrollUpButton>
 
         <Sidebar

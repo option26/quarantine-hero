@@ -169,18 +169,18 @@ module.exports = {
     },
     borderColor: theme => ({
       ...theme('colors'),
-      default: theme('colors.gray.300', 'currentColor'),
+      DEFAULT: theme('colors.gray.300', 'currentColor'),
     }),
     borderRadius: {
       none: '0',
       sm: '0.125rem',
-      default: '0.25rem',
+      DEFAULT: '0.25rem',
       md: '0.375rem',
       lg: '0.5rem',
       full: '9999px',
     },
     borderWidth: {
-      default: '1px',
+      DEFAULT: '1px',
       '0': '0',
       '2': '2px',
       '4': '4px',
@@ -189,7 +189,7 @@ module.exports = {
     boxShadow: {
       xs: '0 0 0 1px rgba(0, 0, 0, 0.05)',
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-      default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -219,11 +219,11 @@ module.exports = {
     },
     flexGrow: {
       '0': '0',
-      default: '1',
+      DEFAULT: '1',
     },
     flexShrink: {
       '0': '0',
-      default: '1',
+      DEFAULT: '1',
     },
     fontFamily: {
       sans: [
@@ -583,7 +583,7 @@ module.exports = {
     transitionProperty: {
       none: 'none',
       all: 'all',
-      default: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
+      DEFAULT: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
       colors: 'background-color, border-color, color, fill, stroke',
       opacity: 'opacity',
       shadow: 'box-shadow',
@@ -675,6 +675,7 @@ module.exports = {
     whitespace: ['responsive'],
     width: ['responsive'],
     wordBreak: ['responsive'],
+    textOverflow: ['responsive', 'group-hover'],
     zIndex: ['responsive'],
     gap: ['responsive'],
     gridAutoFlow: ['responsive'],

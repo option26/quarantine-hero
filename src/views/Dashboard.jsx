@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import Popup from 'reactjs-popup';
-import * as firebase from 'firebase/app';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';
@@ -54,25 +53,24 @@ function Dashboard(props) {
   const { solve: attemptingToSolve, delete: attemptingToDelete, entry: entryIdFromUrl, moreHelp: attemptingToRequestMoreHelp } = useQuery();
 
   const [requestsForHelpUnsorted, isLoadingRequestsForHelp] = useCollectionDataOnce(
-    askForHelpCollection.where('d.uid', '==', user.uid),
+    askForHelpCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
   const requestsForHelp = (requestsForHelpUnsorted || [])
-    .map((doc) => ({ ...doc.d, id: doc.id }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   const [offersDocs, isLoadingOffers] = useCollectionDataOnce(
-    notificationCollection.where('d.uid', '==', user.uid),
+    notificationCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
-  const offers = (offersDocs || []).map((doc) => ({ ...doc.d, id: doc.id }));
+  const offers = (offersDocs || []);
 
   const [solvedPostsDocs, isLoadingSolvedPosts] = useCollectionDataOnce(
-    solvedPostsCollection.where('d.uid', '==', user.uid),
+    solvedPostsCollection.where('uid', '==', user.uid),
     { idField: 'id' },
   );
   const solvedPosts = (solvedPostsDocs || [])
-    .map((doc) => ({ ...doc.d, id: doc.id, solved: true }))
+    .map((doc) => ({ ...doc, solved: true }))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   if (isLoadingRequestsForHelp || isLoadingOffers || isLoadingSolvedPosts) {
@@ -211,7 +209,7 @@ function DeleteAccountButton({ user, className }) {
     const pw = new FormData(e.target).get('password');
 
     try {
-      const credentials = await firebase.auth.EmailAuthProvider.credential(user.email, pw);
+      const credentials = await fb.auth.EmailAuthProvider.credential(user.email, pw);
       await user.reauthenticateWithCredential(credentials);
 
       user.delete();

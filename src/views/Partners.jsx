@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { createElement, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -79,7 +79,7 @@ function Category({ children, title, logoSource }) {
         <div className="font-semibold text-lg">{title}</div>
         <div className="flex-1" />
         {
-          React.createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
+          createElement((isOpen ? ExpandLessIcon : ExpandMoreIcon), {
             className: 'cursor-pointer hover:opacity-50',
             style: { fontSize: '40px' },
           })
@@ -95,7 +95,7 @@ function Category({ children, title, logoSource }) {
 function Partner({ name, description, link, logoSource }) {
   const [logoLink, logoError] = useFirebaseDownload(logoSource);
 
-  return React.createElement(link ? 'button' : 'div', {
+  return createElement(link ? 'button' : 'div', {
     className: 'mb-1 flex bg-gray-custom p-2 items-center text-left',
     ...(link ? {
       onClick: () => window.open(link, '_blank', 'noopener noreferrer'),

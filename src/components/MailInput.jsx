@@ -1,4 +1,3 @@
-import React from 'react';
 import dems from '../assets/dems.json';
 
 function validate(data) {

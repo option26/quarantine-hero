@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as firebase from 'firebase/app';
+import fb from '../firebase';
 
 export default function useFirebaseDownload(url) {
   const [link, setLink] = useState('');
@@ -8,7 +8,7 @@ export default function useFirebaseDownload(url) {
   useEffect(() => {
     const getLink = async () => {
       try {
-        const downloadLink = await firebase.storage().refFromURL(url).getDownloadURL();
+        const downloadLink = await fb.storage.refFromURL(url).getDownloadURL();
         setLink(downloadLink);
       } catch (err) {
         setError(err);

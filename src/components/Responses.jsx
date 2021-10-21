@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import formatDistance from 'date-fns/formatDistance';
 import loadResponses from '../services/loadResponses';

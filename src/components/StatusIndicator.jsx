@@ -1,6 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ErrorIcon, SuccessIcon } from '../util/Icons';
 
 export default function StatusIndicator(props) {
   const {
@@ -11,7 +11,7 @@ export default function StatusIndicator(props) {
 
   const { t } = useTranslation();
 
-  const imgSource = success ? require('../assets/success.svg') : require('../assets/error.svg');
+  const imgSource = success ? SuccessIcon : ErrorIcon;
 
   return (
     <div>

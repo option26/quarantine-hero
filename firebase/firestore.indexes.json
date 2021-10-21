@@ -5,11 +5,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "d.isHotline",
+          "fieldPath": "isHotline",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "d.timestamp",
+          "fieldPath": "timestamp",
           "order": "ASCENDING"
         }
       ]
@@ -19,11 +19,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "d.notificationCounter",
+          "fieldPath": "notificationCounter",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "d.timestamp",
+          "fieldPath": "timestamp",
           "order": "ASCENDING"
         }
       ]
@@ -33,11 +33,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "d.responses",
+          "fieldPath": "responses",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "d.timestamp",
+          "fieldPath": "timestamp",
           "order": "ASCENDING"
         }
       ]

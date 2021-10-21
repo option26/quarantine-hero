@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useHistory } from 'react-router-dom';
@@ -8,7 +8,7 @@ import LocationInput from '../components/LocationInput';
 import MailInput from '../components/MailInput';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
-import HelpNeededLogo from '../assets/help_needed.svg';
+import { HelpNeededIcon } from '../util/Icons';
 
 export default function NotifyMe() {
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ export default function NotifyMe() {
         </div>
         <div className="mt-6 flex flex-col items-center">
           <p className="font-light text-center">{t('views.notifyMe.willNotify')}</p>
-          <img className="mt-4" src={HelpNeededLogo} alt="" />
+          <img className="mt-4" src={HelpNeededIcon} alt="" />
           <p className="text-xl text-primary font-exo2 font-semibold">{location}</p>
         </div>
         <div className="flex mt-10 justify-center">

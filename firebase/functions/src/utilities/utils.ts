@@ -7,7 +7,7 @@ async function userIdsMatch(db: admin.firestore.Firestore, collectionName: Colle
   const docSnap = await db.collection(collectionName).doc(documentId).get();
   const docSnapData = docSnap.data() as AskForHelpCollectionEntry | SolvedPostsCollectionEntry;
   if (!docSnapData) return false;
-  const { uid } = docSnapData.d;
+  const { uid } = docSnapData;
   return uid === uidFromRequest;
 }
 

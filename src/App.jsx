@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import 'firebase/auth';
 import Routes from './components/Routes';

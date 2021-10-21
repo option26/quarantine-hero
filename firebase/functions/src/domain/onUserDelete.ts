@@ -7,6 +7,7 @@ import {
 
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { CollectionName } from '../types/enum/CollectionName';
+import { AskForHelpCollectionEntry } from 'src/types/interface/collections/AskForHelpCollectionEntry';
 
 export async function onUserDelete(user: UserRecord): Promise<void> {
   try {
@@ -14,15 +15,15 @@ export async function onUserDelete(user: UserRecord): Promise<void> {
     const promises = [];
 
     // Delete ask for helps
-    const askForHelpEntries = await getEntriesOfUser(db, CollectionName.AskForHelp, 'd.uid', user.uid);
+    const askForHelpEntries = await getEntriesOfUser(db, CollectionName.AskForHelp, 'uid', user.uid);
     promises.push(askForHelpEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, CollectionName.AskForHelp, doc.id)));
 
     // Delete solved posts
-    const solvedPostEntries = await getEntriesOfUser(db, CollectionName.SolvedPosts, 'd.uid', user.uid);
+    const solvedPostEntries = await getEntriesOfUser(db, CollectionName.SolvedPosts, 'uid', user.uid);
     promises.push(solvedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, CollectionName.SolvedPosts, doc.id)));
 
     // Delete deleted posts
-    const deletedPostEntries = await getEntriesOfUser(db, CollectionName.Deleted, 'd.uid', user.uid);
+    const deletedPostEntries = await getEntriesOfUser(db, CollectionName.Deleted, 'uid', user.uid);
     promises.push(deletedPostEntries.docs.map((doc) => deleteDocumentWithSubCollections(db, CollectionName.Deleted, doc.id)));
 
     // Delete help offers for all (ask-for-help, solved and deleted)
@@ -30,7 +31,7 @@ export async function onUserDelete(user: UserRecord): Promise<void> {
     promises.push(helpOfferEntries.docs.map((doc) => doc.ref.update({ email: '', answer: '' })));
 
     // Delete notifications
-    const notificationEntries = await getEntriesOfUser(db, CollectionName.Notifications, 'd.uid', user.uid);
+    const notificationEntries = await getEntriesOfUser(db, CollectionName.Notifications, 'uid', user.uid);
     promises.push(notificationEntries.docs.map((doc) => doc.ref.delete()));
 
     // Anonymize reported by
@@ -50,10 +51,10 @@ export async function onUserDelete(user: UserRecord): Promise<void> {
       reportedEntries.forEach((doc) => {
         if (!doc.exists) return;
   
-        promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
-        const data = doc && doc.data();
-        if (data && !data.d.reportedBy.includes('ghost-user')) {
-          promises.push(doc.ref.update({ 'd.reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
+        promises.push(doc.ref.update({ 'reportedBy': admin.firestore.FieldValue.arrayRemove(user.uid) }));
+        const data: AskForHelpCollectionEntry = doc && doc.data() as AskForHelpCollectionEntry;
+        if (data && !data.reportedBy.includes('ghost-user')) {
+          promises.push(doc.ref.update({ 'reportedBy': admin.firestore.FieldValue.arrayUnion('ghost-user') }));
         }
       });
     }

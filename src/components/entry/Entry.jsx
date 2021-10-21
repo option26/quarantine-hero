@@ -1,5 +1,5 @@
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';

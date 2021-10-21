@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import UnderlinedHeader from '../components/UnderlinedHeader';
+import {
+  IconBabyIcon,
+  IconBarbecueIcon,
+  IconIronIcon,
+  IconProposeIcon,
+  IconSaunaIcon, IconSawIcon,
+  IconTasteIcon,
+} from '../util/Icons';
 
 export default function NotFound() {
   const [randomNum, setRandomNum] = useState(null);
@@ -17,28 +25,28 @@ export default function NotFound() {
 
     switch (randomNum) {
       case 1:
-        srcPath = require('../assets/icon_iron.svg');
+        srcPath = IconIronIcon;
         break;
       case 2:
-        srcPath = require('../assets/icon_baby.svg');
+        srcPath = IconBabyIcon;
         break;
       case 3:
-        srcPath = require('../assets/icon_barbecue.svg');
+        srcPath = IconBarbecueIcon;
         break;
       case 4:
-        srcPath = require('../assets/icon_propose.svg');
+        srcPath = IconProposeIcon;
         break;
       case 5:
-        srcPath = require('../assets/icon_sauna.svg');
+        srcPath = IconSaunaIcon;
         break;
       case 6:
-        srcPath = require('../assets/icon_taste.svg');
+        srcPath = IconTasteIcon;
         break;
       case 7:
-        srcPath = require('../assets/icon_saw.svg');
+        srcPath = IconSawIcon;
         break;
       default:
-        srcPath = require('../assets/icon_taste.svg');
+        srcPath = IconTasteIcon;
     }
 
     return <img className="w-10/12 h-auto" src={srcPath} alt="svg" />;
@@ -51,7 +59,7 @@ export default function NotFound() {
 
         <div className="mx-auto md:w-4/5">
           <div className="mt-8">
-            <p className="text-3xl mt-6 font-thin mb-8">
+            <p className="text-3xl mt-6 font-extralight mb-8">
               {t('views.notFound.ooopsTitle')}
             </p>
           </div>

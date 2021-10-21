@@ -8,9 +8,9 @@ import {
 } from '../config';
 
 import { CollectionName } from '../types/enum/CollectionName';
-import { TemplateData } from "../types/interface/email/TemplateData";
-import { MailCollectionEntry } from "../types/interface/collections/MailCollectionEntry";
-import { TemplateId } from "../types/enum/TemplateId";
+import { TemplateData } from '../types/interface/email/TemplateData';
+import { MailCollectionEntry } from '../types/interface/collections/MailCollectionEntry';
+import { TemplateId } from '../types/enum/TemplateId';
 
 /*
  * This function regular checks if there are unsent emails and sends them off

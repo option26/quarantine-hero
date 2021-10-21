@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import * as functions from 'firebase-functions';
 import * as crypto from 'crypto';
 
@@ -8,45 +8,55 @@ import { AskForHelpCollectionEntry } from '../types/interface/collections/AskFor
 import { onDeletePost } from '../domain/onDeletePost';
 import { onIncreaseReach } from '../domain/onIncreaseReach';
 
-async function postToSlack(snapId: string, snapData: AskForHelpCollectionEntry): Promise<string> {
-  const { request, location, isHotline } = snapData.d;
+async function postToSlack(
+  snapId: string,
+  snapData: AskForHelpCollectionEntry
+): Promise<string> {
+  const { request, location, isHotline } = snapData;
 
   const url = `https://www.quarantaenehelden.org/#/offer-help/${snapId}`;
   const header = `${location}${isHotline ? ' - (Hotline)' : ''}`;
   const requestText = `>${request.replace(/\n/g, '\n>')}`;
   const text = `${url}\n${header}\n${requestText}`;
 
-  const response = await axios({
-    method: 'POST',
-    url: 'https://slack.com/api/chat.postMessage',
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': `Bearer ${functions.config().slack.token}`,
-    },
-    data: {
+  const response: AxiosResponse<{ ts: string }> = await axios.post(
+    'https://slack.com/api/chat.postMessage',
+    {
       channel: functions.config().slack.channel,
       text,
       unfurl_links: false,
-      unfurl_media: false
+      unfurl_media: false,
     },
-  });
+    {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${functions.config().slack.token}`,
+      },
+    }
+  );
 
   return response.data.ts;
 }
 
-async function postReplyToSlack(messageRef: string | undefined, message: string, mention = false): Promise<void> {
+async function postReplyToSlack(
+  messageRef: string | undefined,
+  message: string,
+  mention = false
+): Promise<void> {
   if (!messageRef) {
     return;
   }
 
-  const text = `${mention ? `<!subteam^${functions.config().slack.group}> ` : ''}${message}`;
+  const text = `${
+    mention ? `<!subteam^${functions.config().slack.group}> ` : ''
+  }${message}`;
 
   await axios({
     method: 'POST',
     url: 'https://slack.com/api/chat.postMessage',
     headers: {
       'Content-type': 'application/json',
-      'Authorization': `Bearer ${functions.config().slack.token}`,
+      Authorization: `Bearer ${functions.config().slack.token}`,
     },
     data: {
       channel: functions.config().slack.channel,
@@ -56,21 +66,27 @@ async function postReplyToSlack(messageRef: string | undefined, message: string,
   });
 }
 
-async function answerDirectly(message: string, responseUrl: string): Promise<void> {
+async function answerDirectly(
+  message: string,
+  responseUrl: string
+): Promise<void> {
   await axios({
     method: 'POST',
     url: responseUrl,
     headers: {
       'Content-type': 'application/json',
-      'Authorization': `Bearer ${functions.config().slack.token}`,
+      Authorization: `Bearer ${functions.config().slack.token}`,
     },
     data: {
-      text: message
+      text: message,
     },
   });
 }
 
-async function onSlackInteraction(request: functions.https.Request, response: functions.Response<any>): Promise<void> {
+async function onSlackInteraction(
+  request: functions.https.Request,
+  response: functions.Response<any>
+): Promise<void> {
   // validate message is from slack
   const { signing_secret } = functions.config().slack;
   const hmac = crypto.createHmac('sha256', signing_secret);
@@ -84,7 +100,7 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
   const mySignature = `${version}=${hash}`;
   const slackSignature = request.headers['x-slack-signature'];
 
-  if(slackSignature === undefined || mySignature !== slackSignature) {
+  if (slackSignature === undefined || mySignature !== slackSignature) {
     console.warn('Slack message signatures did not match');
     response.status(401).send();
     return;
@@ -102,9 +118,15 @@ async function onSlackInteraction(request: functions.https.Request, response: fu
   console.log('Incoming activity for', callbackId);
 
   switch (callbackId) {
-    case 'allow_hotline_answer': await onAllowHotlineAnswer(actions, responseUrl); break;
-    case 'delete_post': await onDeletePost(messageRef, responseUrl); break;
-    case 'increase_reach': await onIncreaseReach(actions, responseUrl); break;
+    case 'allow_hotline_answer':
+      await onAllowHotlineAnswer(actions, responseUrl);
+      break;
+    case 'delete_post':
+      await onDeletePost(messageRef, responseUrl);
+      break;
+    case 'increase_reach':
+      await onIncreaseReach(actions, responseUrl);
+      break;
   }
 
   response.status(200).send();
