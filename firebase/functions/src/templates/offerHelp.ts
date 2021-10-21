@@ -37,17 +37,17 @@ export default `
         <td role="module-content" valign="top" height="100%">
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Jemand hat auf Deine Anfrage geantwortet!</div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
-            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{{request}}}"</em></div>
+            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{request}}"</em></div>
             <div style="font-family: inherit"><br></div>
             <div style="font-family: inherit; line-height: 1.5"><strong>Antwort:</strong></div>
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; line-height: 1.5"><em>"{{{answer}}}"</em></div>
+            <div style="font-family: inherit; line-height: 1.5"><em>"{{answer}}"</em></div>
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; line-height: 1.5"><strong>Um Hilfe von dieser Person anzunehmen, schreib Ihr eine E-Mail unter <a href="mailto:{{email}}">{{{email}}}</a> oder antworte direkt auf diese E-Mail.</strong></div>
+            <div style="font-family: inherit; line-height: 1.5"><strong>Um Hilfe von dieser Person anzunehmen, schreib Ihr eine E-Mail unter <a href="mailto:{{email}}">{{email}}</a> oder antworte direkt auf diese E-Mail.</strong></div>
             <div style="font-family: inherit"><br></div>
             <div style="font-family: inherit; line-height: 1.5">Ab jetzt kommuniziert Ihr persönlich miteinander. Häufig hilft es hier auch, Eure Telefonnummern auszutauschen. Antworte zum Beispiel auf diese E-Mail mit Deinen Kontaktdaten.</div>
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; line-height: 1.5">Du hast bereits Hilfe bekommen oder möchtest Dein Hilfegesuch löschen? Dann kannst Du <a href="{{{askForHelpLink}}}">hier Dein Hilfegesuch</a> bearbeiten.</div>
+            <div style="font-family: inherit; line-height: 1.5">Du hast bereits Hilfe bekommen oder möchtest Dein Hilfegesuch löschen? Dann kannst Du <a href="{{askForHelpLink}}">hier Dein Hilfegesuch</a> bearbeiten.</div>
         </td>
     </tr>
     </tbody>

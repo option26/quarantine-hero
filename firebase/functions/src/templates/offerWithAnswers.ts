@@ -41,10 +41,10 @@ export default `
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Deine ursrpüngliche Anfrage:</div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
-            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{{request}}}"</em></div>
+            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{request}}"</em></div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Falls Dir mittlerweile geholfen
-                wurde, kannst Du <a href="{{{solveLink}}}">hier</a> Dein Gesuch als gelöst markieren!
+                wurde, kannst Du <a href="{{solveLink}}">hier</a> Dein Gesuch als gelöst markieren!
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Das Ziel unserer Plattform ist es,
@@ -54,12 +54,12 @@ export default `
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Falls dies also der Fall ist,
-                kannst Du <a href="{{{requestMoreHelpLink}}}">hier</a> um weitere Hilfe bitten!
+                kannst Du <a href="{{requestMoreHelpLink}}">hier</a> um weitere Hilfe bitten!
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Alternativ kannst Du <a
-                    href="{{{deleteLink}}}">hier</a> Deinen Beitrag löschen, falls Du keine weitere Hilfe benötigst.
+                    href="{{deleteLink}}">hier</a> Deinen Beitrag löschen, falls Du keine weitere Hilfe benötigst.
             </div>
 
         </td>

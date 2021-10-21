@@ -35,20 +35,20 @@ export default `<table class="module preheader preheader-hide" role="module"
     <tr>
         <td role="module-content" valign="top" height="100%">
             <div style="font-family: inherit; text-align: inherit"><br></div>
-            <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Aus <strong>{{{location}}}</strong> hat Jemand geschrieben:</div>
+            <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Aus <strong>{{location}}</strong> hat Jemand geschrieben:</div>
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; text-align:inherit; line-height: 1.5"><i>{{{request}}}</i></div>
+            <div style="font-family: inherit; text-align:inherit; line-height: 1.5"><i>{{request}}</i></div>
             <div style="font-family: inherit"><br></div>
             <div style="font-family: inherit; line-height: 1.5"><strong>Klicke auf den folgenden Link um die Anfrage zu beantworten:</strong></div>
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; line-height: 1.5"><a href="{{{link}}}">{{{link}}}</a></div>
+            <div style="font-family: inherit; line-height: 1.5"><a href="{{link}}">{{link}}</a></div>
             <div style="font-family: inherit"><br></div>
         </td>
     </tr>
     <tr>
         <td role="module-content" valign="top" height="100%">
             <div style="font-family: inherit"><br></div>
-            <div style="font-family: inherit; line-height: 1.5">Wenn Du glaubst, dass dieses Inserat unangemessene Inhalte enthält, kannst du es <a href="{{{reportLink}}}">hier</a> melden.</div>
+            <div style="font-family: inherit; line-height: 1.5">Wenn Du glaubst, dass dieses Inserat unangemessene Inhalte enthält, kannst du es <a href="{{reportLink}}">hier</a> melden.</div>
             <div style="font-family: inherit"><br></div>
         </td>
     </tr>
