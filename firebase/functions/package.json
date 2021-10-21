@@ -24,7 +24,7 @@
     "handlebars": "^4.7.7",
     "html-to-text": "^8.0.0",
     "moment-timezone": "^0.5.31",
-    "nodemailer": "^6.6.3"
+    "nodemailer": "^6.7.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
