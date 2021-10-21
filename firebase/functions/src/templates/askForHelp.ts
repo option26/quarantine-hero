@@ -45,6 +45,13 @@ export default `<table class="module preheader preheader-hide" role="module"
             <div style="font-family: inherit"><br></div>
         </td>
     </tr>
+    <tr>
+        <td role="module-content" valign="top" height="100%">
+            <div style="font-family: inherit"><br></div>
+            <div style="font-family: inherit; line-height: 1.5">Wenn Du glaubst, dass dieses Inserat unangemessene Inhalte enthält, kannst du es <a href="{{{reportLink}}}">hier</a> melden.</div>
+            <div style="font-family: inherit"><br></div>
+        </td>
+    </tr>
     </tbody>
 </table>
 `;
