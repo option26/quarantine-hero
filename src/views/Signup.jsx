@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import * as React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import * as firebase from 'firebase/app';
@@ -19,10 +20,10 @@ import fb from '../firebase';
 import { baseUrl } from '../appConfig';
 import useQuery from '../util/useQuery';
 import { useEmailVerified } from '../util/emailVerified';
-import checkMark from '../assets/check.svg';
 import weakPasswords from '../assets/password-top500.json';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
+import { CheckIcon } from '../util/Icons';
 
 export default () => (
   <div className="p-4">
@@ -241,7 +242,7 @@ function SignupBody() {
           <label className="flex text-gray-700 text-sm font-bold mb-1 text font-open-sans" htmlFor="privacy_policy">
             <div className="bg-white border rounded w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 checkbox">
               <input id="privacy_policy" type="checkbox" required="required" className="opacity-0 absolute" />
-              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={checkMark} />
+              <img alt="" className="fill-current hidden w-4 h-4 pointer-events-none" src={CheckIcon} />
             </div>
             <div className="select-none">
               <Trans i18nKey="views.signUp.acceptPrivacyPolicy">

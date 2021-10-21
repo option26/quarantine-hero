@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import EntryContainer from '../components/EntryContainer';
 import OnePagers from '../components/OnePagers';

@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CookieConsentContext } from '../util/CookieConsent';
-
 
 export default function Footer() {
   const { t } = useTranslation();

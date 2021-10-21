@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import fb from '../firebase';
 
-export const CookieConsentContext = React.createContext(null);
+export const CookieConsentContext = createContext(null);
 
 function CookieConsentBanner({ accept, reject }) {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ function CookieConsentBanner({ accept, reject }) {
   return (
     <div
       style={{ zIndex: 501 }}
-      className="fixed left-0 bottom-0 w-full bg-gray-900 md:pb-0 pb-4 px-4 text-white font-exo2 flex flex-wrap md:flex-no-wrap items-center space-between justify-end flex-row"
+      className="fixed left-0 bottom-0 w-full bg-gray-900 md:pb-0 pb-4 px-4 text-white font-exo2 flex flex-wrap md:flex-nowrap items-center space-between justify-end flex-row"
     >
       <div className="flex-grow mt-4 md:my-4">
         {t('App.usesCookies.preLink')}

@@ -1,5 +1,5 @@
 import { Link, useHistory, useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';

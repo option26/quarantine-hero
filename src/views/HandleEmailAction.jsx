@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation, Trans } from 'react-i18next';
@@ -254,7 +254,6 @@ function ResetPasswordView({ continueUrl, actionCode }) {
     init();
   }, [actionCode]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   if (tokenInvalid) {
     return <StatusIndicator success={false} text={t('views.emailActions.invalidToken')} />;
   }
@@ -378,7 +377,6 @@ function RecoverEmailView({ continueUrl, actionCode }) {
 
     init();
   }, [actionCode]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   if (tokenInvalid) {
     return <StatusIndicator success={false} text={t('views.emailActions.invalidToken')} />;

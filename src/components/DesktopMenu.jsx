@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { LogoMarkIcon } from '../util/Icons';
 
 export default function DesktopMenu() {
   const { t } = useTranslation();
 
-  const MenuItem = (menuItemProps) => (
+  const MenuItem = ({ to, onClick, children }) => (
     <li className="mr-6 hover:opacity-75">
-      <Link to={menuItemProps.to} onClick={menuItemProps.onClick}>{menuItemProps.children}</Link>
+      <Link to={to} onClick={onClick}>{children}</Link>
     </li>
   );
 
@@ -24,7 +24,7 @@ export default function DesktopMenu() {
   return (
     <div className="hidden md:flex justify-between relative">
       <Link className="-ml-16 block -mt-12" to="/">
-        <img alt="logo" src={require('../assets/logo_mark.svg')} />
+        <img alt="logo" src={LogoMarkIcon} />
       </Link>
       <Menu />
     </div>

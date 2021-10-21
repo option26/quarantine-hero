@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { GeoFirestore } from 'geofirestore';
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -139,7 +139,6 @@ export default function AskForHelp() {
         </label>
         <LocationInput required value={location} onChange={handleChange} onSelect={handleSelect} />
       </div>
-
 
       <div className="py-3">
         <div className="w-full">

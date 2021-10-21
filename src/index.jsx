@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 // At the time of linting style is not available yet.

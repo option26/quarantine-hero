@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import EntryMap from './EntryMap';
 import EntryList from './EntryList';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { baseUrl } from '../appConfig';
 import { useEmailVerified } from '../util/emailVerified';
 
 export default () => {
-  const [sendVerificationSuccess, setSendVerificationSuccess] = React.useState(false);
+  const [sendVerificationSuccess, setSendVerificationSuccess] = useState(false);
   const [user, isAuthLoading] = useAuthState(firebase.auth());
   const [emailVerified, emailVerifiedLoading] = useEmailVerified(firebase.auth());
 

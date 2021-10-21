@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css';
 import useSupercluster from 'use-supercluster';
@@ -9,6 +9,7 @@ import NotifyMe from './NotifyMe';
 
 import userIsOnMobile from '../util/userIsOnMobile';
 import parseDoc from '../util/parseDoc';
+import { HelpWhiteIcon } from '../util/Icons';
 
 const DEFAULT_ZOOM_LEVEL = userIsOnMobile() ? 5 : 6;
 
@@ -72,7 +73,7 @@ export default function EntryMap() {
   return (
     <div>
       <NotifyMe location={lastSelectedMarkerLocation} />
-      <p className="font-open-sans font-hairline text-s italic mb-3">
+      <p className="font-open-sans font-thin text-s italic mb-3">
         {t('components.map.hint')}
       </p>
       <div className="my-3" style={{ height: '600px', width: '100%' }}>
@@ -182,7 +183,7 @@ export default function EntryMap() {
                   <img
                     className="help-request-image"
                     alt="help-marker"
-                    src={require('../assets/help_white.svg')}
+                    src={HelpWhiteIcon}
                   />
                 </button>
               </Marker>

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../appConfig';
 import EntryContainer from '../components/EntryContainer';
+import { HelpWhiteIcon, HeroWhiteIcon, LogoWhiteIcon } from '../util/Icons';
 
 export default function FilteredListView() {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export default function FilteredListView() {
       <div className="flex items-center flex-col">
         <div className="block sm:hidden iframe-small-header w-full p-4 flex flex-col items-center justify-between relative overflow-hidden">
           <div className="iframe-small-overlay absolute" />
-          <img className="iframe-small-logo z-10" src={require('../assets/logo_white.svg')} alt="" />
+          <img className="iframe-small-logo z-10" src={LogoWhiteIcon} alt="" />
           <div className="mt-4 text-white text-center z-10">
             <Trans i18nKey="views.filteredListFrame.description">
               <strong>
@@ -54,7 +55,7 @@ export default function FilteredListView() {
               to="/overview"
               className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
             >
-              <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
+              <img className="h-8 mr-1" src={HeroWhiteIcon} alt="" />
               {t('views.main.buttons.wantToHelp')}
             </Link>
             <div className="m-1" />
@@ -62,14 +63,14 @@ export default function FilteredListView() {
               to="/signup/ask-for-help"
               className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
             >
-              <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
+              <img className="h-8 mr-1" src={HelpWhiteIcon} alt="" />
               {t('views.main.buttons.needHelp')}
             </Link>
           </div>
         </div>
         <div className="hidden sm:block iframe-header w-full relative overflow-hidden">
           <div className="iframe-header-overlay absolute h-full z-10 p-8">
-            <img className="iframe-header-logo" src={require('../assets/logo_white.svg')} alt="" />
+            <img className="iframe-header-logo" src={LogoWhiteIcon} alt="" />
           </div>
           <div className="h-full flex flex-col items-end justify-between p-4">
             <div className="text-white text-right">
@@ -90,7 +91,7 @@ export default function FilteredListView() {
                 to="/overview"
                 className="flex justify-center items-center rounded text-white py-3 pl-1 pr-3 btn-main btn-white-shadow bg-secondary flex-1"
               >
-                <img className="h-8 mr-1" src={require('../assets/hero_white.svg')} alt="" />
+                <img className="h-8 mr-1" src={HeroWhiteIcon} alt="" />
                 {t('views.main.buttons.wantToHelp')}
               </Link>
               <div className="mx-1" />
@@ -98,7 +99,7 @@ export default function FilteredListView() {
                 to="/signup/ask-for-help"
                 className="flex justify-center items-center rounded text-white py-3 pl-1 px-3 btn-main btn-white-shadow bg-primary flex-1"
               >
-                <img className="h-8 mr-1" src={require('../assets/help_white.svg')} alt="" />
+                <img className="h-8 mr-1" src={HelpWhiteIcon} alt="" />
                 {t('views.main.buttons.needHelp')}
               </Link>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';

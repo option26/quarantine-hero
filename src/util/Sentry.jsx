@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import * as ActualSentryFromSDK from '@sentry/browser';
 import { CookieConsentContext } from './CookieConsent';
 

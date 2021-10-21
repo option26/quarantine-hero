@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import * as Sentry from '@sentry/browser';
 import { useTranslation } from 'react-i18next';
 import 'firebase/auth';
@@ -17,10 +17,10 @@ import { baseUrl } from '../appConfig';
 import { useEmailVerified } from '../util/emailVerified';
 
 export default function Signin() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [error, setError] = React.useState('');
-  const [passwordResetSuccess, setPasswordResetSuccess] = React.useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
   const [user] = useAuthState(firebase.auth());

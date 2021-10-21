@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -11,6 +11,7 @@ import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
 import buildSha1Hash from '../util/buildHash';
 import useQuery from '../util/useQuery';
+import { ErrorIcon, SuccessIcon } from '../util/Icons';
 
 export default function CompleteNotification() {
   const { t } = useTranslation();
@@ -77,7 +78,7 @@ export default function CompleteNotification() {
           {t('views.completeNotification.error')}
         </p>
         <div className="flex justify-center flex-col items-center mb-8">
-          <img className="h-48 w-48 my-10" src={require('../assets/error.svg')} alt="" />
+          <img className="h-48 w-48 my-10" src={ErrorIcon} alt="" />
           <Link className="btn-green mt-10" to="/notify-me">{t('views.completeNotification.tryAgain')}</Link>
         </div>
       </>
@@ -95,7 +96,7 @@ export default function CompleteNotification() {
         {t('views.completeNotification.needsHelp')}
       </p>
       <div className="flex justify-center flex-col items-center mb-8">
-        <img className="h-48 w-48 my-10" src={require('../assets/success.svg')} alt="" />
+        <img className="h-48 w-48 my-10" src={SuccessIcon} alt="" />
         <Link className="btn-green mt-10" to="/dashboard">{t('views.completeNotification.toYourOverview')}</Link>
       </div>
     </>

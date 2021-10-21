@@ -1,10 +1,10 @@
-import React from 'react';
 import * as Sentry from '@sentry/browser';
 import * as firebase from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/loader/Loader';
 import useCms from '../util/useCms';
 import useFirebaseDownload from '../util/useFirebaseDownload';
+import { ClipboardIcon } from '../util/Icons';
 
 export default function Press() {
   const [presseLink, errorGeneratingPressLink] = useFirebaseDownload('gs://quarantine-hero-assets/MarketingKit.zip', firebase);
@@ -46,7 +46,7 @@ export default function Press() {
         </div>
         <div className="bg-kaki p-4 mb-10 mt-8 font-open-sans flex">
           <div>
-            <img src={require('../assets/clipboard.svg')} alt="Clipboard" className="w-12 mr-4" />
+            <img src={ClipboardIcon} alt="Clipboard" className="w-12 mr-4" />
           </div>
           <div>
             <div className="font-bold">

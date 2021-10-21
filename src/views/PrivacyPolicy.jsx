@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function PrivacyPolicy() {
   return (
     <div className="mt-4 p-4 text-justify hyphens-auto">
