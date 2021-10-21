@@ -40,7 +40,7 @@ export default `<table class="module preheader preheader-hide" role="module"
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Deine ursrpüngliche Anfrage:</div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
-            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{{request}}}"</em></div>
+            <div style="font-family: inherit; text-align: inherit; line-height: 1.5"><em>"{{request}}"</em></div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Das Ziel unserer Plattform ist es,
                 so viele Menschen wie möglich Zugang zu Hilfe zu vermitteln. Deswegen bieten wir Dir die Möglichkeit,
@@ -48,7 +48,7 @@ export default `<table class="module preheader preheader-hide" role="module"
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Falls Du also weitere Hilfe
-                benötigst, dann kannst Du <a href="{{{requestMoreHelpLink}}}">hier</a> darum bitten!
+                benötigst, dann kannst Du <a href="{{requestMoreHelpLink}}">hier</a> darum bitten!
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Sobald Dir dann geholfen wurde,
@@ -57,7 +57,7 @@ export default `<table class="module preheader preheader-hide" role="module"
             </div>
             <div style="font-family: inherit; text-align: inherit"><br></div>
             <div style="font-family: inherit; text-align: inherit; line-height: 1.5">Alternativ kannst Du <a
-                    href="{{{deleteLink}}}">hier</a> Deinen Beitrag löschen, falls keine weitere Hilfe benötigt wird.
+                    href="{{deleteLink}}">hier</a> Deinen Beitrag löschen, falls keine weitere Hilfe benötigt wird.
             </div>
         </td>
     </tr>
