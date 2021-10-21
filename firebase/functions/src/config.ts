@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions';
 const envVariables = functions.config();
 
 // MAIL SETTINGS
-const SMTP_HOST = 'smtp.mailgun.org';
+const SMTP_HOST = envVariables?.smtp?.host;
 const SMTP_PORT = 587;
 const MAIL_SECURE = false;
 const SMTP_USER = envVariables?.smtp?.user;
