@@ -14,7 +14,7 @@ import {
 import { CallableContext } from 'firebase-functions/lib/providers/https';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { TemplateId } from "../types/enum/TemplateId";
+import { TemplateId } from '../types/enum/TemplateId';
 
 export async function handleAskForMoreHelp(askForHelpId: string, context: CallableContext): Promise<void> {
   if (askForHelpId === undefined || context.auth === undefined || context.auth === null) {

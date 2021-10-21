@@ -1,12 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-import * as functions from "firebase-functions";
-import * as crypto from "crypto";
+import axios, { AxiosResponse } from 'axios';
+import * as functions from 'firebase-functions';
+import * as crypto from 'crypto';
 
-import { onAllowHotlineAnswer } from "../domain/onOfferHelpCreate";
+import { onAllowHotlineAnswer } from '../domain/onOfferHelpCreate';
 
-import { AskForHelpCollectionEntry } from "../types/interface/collections/AskForHelpCollectionEntry";
-import { onDeletePost } from "../domain/onDeletePost";
-import { onIncreaseReach } from "../domain/onIncreaseReach";
+import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
+import { onDeletePost } from '../domain/onDeletePost';
+import { onIncreaseReach } from '../domain/onIncreaseReach';
 
 async function postToSlack(
   snapId: string,
@@ -15,12 +15,12 @@ async function postToSlack(
   const { request, location, isHotline } = snapData;
 
   const url = `https://www.quarantaenehelden.org/#/offer-help/${snapId}`;
-  const header = `${location}${isHotline ? " - (Hotline)" : ""}`;
-  const requestText = `>${request.replace(/\n/g, "\n>")}`;
+  const header = `${location}${isHotline ? ' - (Hotline)' : ''}`;
+  const requestText = `>${request.replace(/\n/g, '\n>')}`;
   const text = `${url}\n${header}\n${requestText}`;
 
   const response: AxiosResponse<{ ts: string }> = await axios.post(
-    "https://slack.com/api/chat.postMessage",
+    'https://slack.com/api/chat.postMessage',
     {
       channel: functions.config().slack.channel,
       text,
@@ -29,7 +29,7 @@ async function postToSlack(
     },
     {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: `Bearer ${functions.config().slack.token}`,
       },
     }
@@ -48,14 +48,14 @@ async function postReplyToSlack(
   }
 
   const text = `${
-    mention ? `<!subteam^${functions.config().slack.group}> ` : ""
+    mention ? `<!subteam^${functions.config().slack.group}> ` : ''
   }${message}`;
 
   await axios({
-    method: "POST",
-    url: "https://slack.com/api/chat.postMessage",
+    method: 'POST',
+    url: 'https://slack.com/api/chat.postMessage',
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
       Authorization: `Bearer ${functions.config().slack.token}`,
     },
     data: {
@@ -71,10 +71,10 @@ async function answerDirectly(
   responseUrl: string
 ): Promise<void> {
   await axios({
-    method: "POST",
+    method: 'POST',
     url: responseUrl,
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
       Authorization: `Bearer ${functions.config().slack.token}`,
     },
     data: {
@@ -89,19 +89,19 @@ async function onSlackInteraction(
 ): Promise<void> {
   // validate message is from slack
   const { signing_secret } = functions.config().slack;
-  const hmac = crypto.createHmac("sha256", signing_secret);
+  const hmac = crypto.createHmac('sha256', signing_secret);
 
-  const version = "v0";
-  const body = request.rawBody.toString("utf-8");
-  const timestamp = request.headers["x-slack-request-timestamp"];
+  const version = 'v0';
+  const body = request.rawBody.toString('utf-8');
+  const timestamp = request.headers['x-slack-request-timestamp'];
   const signBasestring = `${version}:${timestamp}:${body}`;
 
-  const hash = hmac.update(signBasestring).digest("hex");
+  const hash = hmac.update(signBasestring).digest('hex');
   const mySignature = `${version}=${hash}`;
-  const slackSignature = request.headers["x-slack-signature"];
+  const slackSignature = request.headers['x-slack-signature'];
 
   if (slackSignature === undefined || mySignature !== slackSignature) {
-    console.warn("Slack message signatures did not match");
+    console.warn('Slack message signatures did not match');
     response.status(401).send();
     return;
   }
@@ -115,16 +115,16 @@ async function onSlackInteraction(
     message_ts: messageRef,
   } = actionContent;
 
-  console.log("Incoming activity for", callbackId);
+  console.log('Incoming activity for', callbackId);
 
   switch (callbackId) {
-    case "allow_hotline_answer":
+    case 'allow_hotline_answer':
       await onAllowHotlineAnswer(actions, responseUrl);
       break;
-    case "delete_post":
+    case 'delete_post':
       await onDeletePost(messageRef, responseUrl);
       break;
-    case "increase_reach":
+    case 'increase_reach':
       await onIncreaseReach(actions, responseUrl);
       break;
   }

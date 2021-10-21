@@ -67,7 +67,7 @@ export async function updateGeoDB(): Promise<void> {
                     } else if (existingEntry.typ === 'Ort' && result.typ === 'Gemeinde') {
                         // DO NOTHING
                     } else {
-                        console.log("collision", JSON.stringify(existingEntry), JSON.stringify(result));
+                        console.log('collision', JSON.stringify(existingEntry), JSON.stringify(result));
                     }
                 } else {
                     hashMap[dataHash] = result;

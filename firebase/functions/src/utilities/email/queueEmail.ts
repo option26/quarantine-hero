@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin';
 
 import { TemplateData } from '../../types/interface/email/TemplateData';
-import { CollectionName } from "../../types/enum/CollectionName";
-import { TemplateId } from "../../types/enum/TemplateId";
-import { MailCollectionEntry } from "../../types/interface/collections/MailCollectionEntry";
+import { CollectionName } from '../../types/enum/CollectionName';
+import { TemplateId } from '../../types/enum/TemplateId';
+import { MailCollectionEntry } from '../../types/interface/collections/MailCollectionEntry';
 
 interface MailData {
   receiver: string;

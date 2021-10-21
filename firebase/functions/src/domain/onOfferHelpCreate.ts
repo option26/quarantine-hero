@@ -8,8 +8,8 @@ import { AskForHelpCollectionEntry } from '../types/interface/collections/AskFor
 import { OfferHelpCollectionEntry } from '../types/interface/collections/OfferHelpCollectionEntry';
 import { HotlineCollectionEntry } from '../types/interface/collections/HotlineCollectionEntry';
 import { CollectionName } from '../types/enum/CollectionName';
-import { TemplateId } from "../types/enum/TemplateId";
-import { queueEmail } from "../utilities/email/queueEmail";
+import { TemplateId } from '../types/enum/TemplateId';
+import { queueEmail } from '../utilities/email/queueEmail';
 
 export async function onOfferHelpCreate(offer: admin.firestore.DocumentSnapshot): Promise<void> {
   try {

@@ -5,7 +5,7 @@ import { sendEmailToUser } from './sendEmailToUser';
 import { NotificationsCollectionEntry } from '../../types/interface/collections/NotificationsCollectionEntry';
 import { TemplateData } from '../../types/interface/email/TemplateData';
 import { CollectionName } from '../../types/enum/CollectionName';
-import { TemplateId } from "../../types/enum/TemplateId";
+import { TemplateId } from '../../types/enum/TemplateId';
 
 export async function sendNotificationEmailsForOffers(
   db: FirebaseFirestore.Firestore,

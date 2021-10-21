@@ -105,7 +105,8 @@
     "trailing-comma": {
       "severity": "warning"
     },
-    "semicolon": true
+    "semicolon": true,
+    "quotemark": [true, "single"]
   },
   "defaultSeverity": "error"
 }

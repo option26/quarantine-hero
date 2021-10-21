@@ -14,7 +14,7 @@ import { postReplyToSlack } from '../utilities/slack';
 import { AskForHelpCollectionEntry } from '../types/interface/collections/AskForHelpCollectionEntry';
 import { RequestInYourAreaTemplateData } from '../types/interface/email/TemplateData';
 import { CollectionName } from '../types/enum/CollectionName';
-import { TemplateId } from "../types/enum/TemplateId";
+import { TemplateId } from '../types/enum/TemplateId';
 
 export async function searchAndSendNotificationEmails(): Promise<void> {
   try {
