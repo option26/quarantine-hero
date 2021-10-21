@@ -16,17 +16,22 @@
     "node": "10"
   },
   "dependencies": {
-    "@sendgrid/mail": "^6.5.4",
     "axios": "^0.21.1",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
     "geofirestore": "^3.6.0",
     "googleapis": "^49.0.0",
-    "moment-timezone": "^0.5.31"
+    "handlebars": "^4.7.7",
+    "html-to-text": "^8.0.0",
+    "moment-timezone": "^0.5.31",
+    "nodemailer": "^6.7.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/firebase": "^3.2.1",
+    "@types/handlebars": "^4.1.0",
+    "@types/html-to-text": "^8.0.1",
+    "@types/nodemailer": "^6.4.4",
     "firebase-functions-test": "^0.1.6",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"

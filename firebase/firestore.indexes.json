@@ -41,6 +41,20 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "mails",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sendSuccess",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "sendAttempts",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [

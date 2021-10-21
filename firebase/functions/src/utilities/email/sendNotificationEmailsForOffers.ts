@@ -3,22 +3,24 @@ import * as admin from 'firebase-admin';
 import { sendEmailToUser } from './sendEmailToUser';
 
 import { NotificationsCollectionEntry } from '../../types/interface/collections/NotificationsCollectionEntry';
-import { SendgridTemplateData } from '../../types/interface/email/SendgridTemplateData';
+import { TemplateData } from '../../types/interface/email/TemplateData';
 import { CollectionName } from '../../types/enum/CollectionName';
+import { TemplateId } from "../../types/enum/TemplateId";
 
 export async function sendNotificationEmailsForOffers(
   db: FirebaseFirestore.Firestore,
   eligibleHelpOffers: NotificationsCollectionEntry['d'][],
   askForHelpId: string,
-  templateId: string,
-  templateData: SendgridTemplateData,
+  templateId: TemplateId,
+  templateData: TemplateData,
+  subject: string,
   transaction?: FirebaseFirestore.Transaction
 ): Promise<void> {
   await Promise.all(eligibleHelpOffers.map(async (offerDoc: NotificationsCollectionEntry['d']) => {
     try {
       const { uid } = offerDoc;
 
-      await sendEmailToUser(uid, templateId, templateData);
+      await sendEmailToUser(uid, templateId, templateData, subject);
 
       const document = db.collection(CollectionName.AskForHelp).doc(askForHelpId);
 
