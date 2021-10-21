@@ -4,6 +4,7 @@ import { Redirect, useHistory, Link } from 'react-router-dom';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
+import { GeoPoint } from 'firebase/firestore';
 import fb from '../firebase';
 import LocationInput from '../components/LocationInput';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
@@ -58,7 +59,7 @@ export default function AskForHelp() {
       uid: user.uid,
       timestamp: Date.now(),
       // The coordinates field must be a GeoPoint!
-      coordinates: new fb.app.firestore.GeoPoint(lat, lng),
+      coordinates: new GeoPoint(lat, lng),
       location,
       plz,
       isHotline,

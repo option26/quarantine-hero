@@ -30,7 +30,6 @@ function setAnalytics(enabled) {
 }
 
 export default {
-  app: firebaseApp,
   auth,
   analytics,
   store: firestore,

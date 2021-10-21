@@ -1,4 +1,5 @@
 import { GeoFirestore } from 'geofirestore';
+import { GeoPoint } from 'firebase/firestore';
 import fb from '../firebase';
 import { getLatLng } from './GeoService';
 import parseDoc from '../util/parseDoc';
@@ -46,7 +47,7 @@ export async function searchDocuments(geoData, radius) {
   const { lat, lng } = getLatLng(geoData);
 
   const query = geoCollectionAskForHelp.near({
-    center: new fb.app.firestore.GeoPoint(lat, lng),
+    center: new GeoPoint(lat, lng),
     radius,
   });
 

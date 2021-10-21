@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/browser';
 import { GeoFirestore } from 'geofirestore';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { GeoPoint } from 'firebase/firestore';
 import fb from '../firebase';
 import { getGeodataForPlace, getLatLng } from '../services/GeoService';
 import Loader from '../components/loader/Loader';
@@ -39,7 +40,7 @@ export default function CompleteNotification() {
       plz,
       uid: fb.auth.currentUser.uid,
       timestamp: Date.now(),
-      coordinates: new fb.app.firestore.GeoPoint(lat, lng),
+      coordinates: new GeoPoint(lat, lng),
     });
 
     fb.analytics.logEvent('success_subscribe_region_confirmation');
