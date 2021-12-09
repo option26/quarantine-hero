@@ -159,20 +159,20 @@ const onePager = [
   },
 ];
 
-export default function OnePagers() {
+export default function OnePagers({ extendedMargin }) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <div
-        className="mt-4 md:ml-0 md:mr-0 mb-1 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki"
+        className={`mt-4 md:ml-0 md:mr-0 mb-1 p-4 flex flex-row md:flex-row justify-start items-center bg-kaki ${extendedMargin ? 'pt-8' : ''}`}
       >
         <div>
           <img className="w-30 h-10 md:h-16 mr-4" src={require('../assets/aushang.svg')} alt="" />
         </div>
 
         <div className="px-4 w-full">
-          <div className="font-semibold">Poster / ورقة المعلومات / bilgi afişi / плакат</div>
+          <div className="font-semibold">Aushänge / ورقة المعلومات / bilgi afişi / плакат</div>
           {t('views.main.noInternet.preOptionalBreak')}
           {' '}
           <br className="hidden sm:block" />
