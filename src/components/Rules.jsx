@@ -6,19 +6,11 @@ export default () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <Rule title={t('views.main.importantNotes.cautious.title')} icon={require('../assets/dont_help.svg')}>
-        {t('views.main.importantNotes.cautious.text')}
-      </Rule>
-
-      <Rule title={t('views.main.importantNotes.local.title')} icon={require('../assets/lokal.svg')}>
-        {t('views.main.importantNotes.local.text')}
-      </Rule>
-
-      <Rule title={t('views.main.importantNotes.consistent.title')} icon={require('../assets/konsistent.svg')}>
-        {t('views.main.importantNotes.consistent.text')}
+        <p className="hyphens-auto">{t('views.main.importantNotes.cautious.text')}</p>
       </Rule>
 
       <Rule title={t('views.main.importantNotes.distanced.title')} icon={require('../assets/distanziert.svg')}>
-        {t('views.main.importantNotes.distanced.text')}
+        <p className="hyphens-auto">{t('views.main.importantNotes.distanced.text')}</p>
       </Rule>
     </div>
   );

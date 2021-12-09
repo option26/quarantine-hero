@@ -44,6 +44,7 @@ export default function Main() {
           <br />
         </div>
 
+        {/* Bundesministerium Logo */}
         <div className="w-full flex justify-center my-8">
           <div className="text-right text-xs">
             Partner der Initiative
@@ -60,45 +61,14 @@ export default function Main() {
           />
         </div>
 
-        <div className="w-full flex justify-center mt-4">
-          <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            {t('views.main.hotline.ourHotline')}
-          </div>
-        </div>
-        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
-          <a
-            className="text-3xl text-primary font-bold font-open-sans"
-            href={`tel:${t('views.main.hotline.number')}`}
-          >
-            {t('views.main.hotline.number')}
-          </a>
-          <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
-          <div className="text-xs">
-            {t('views.main.hotline.notGermany')}
-            {': '}
-            <a
-              href={`tel:${t('views.main.hotline.externalNumber')}`}
-            >
-              {t('views.main.hotline.externalNumber')}
-            </a>
-          </div>
+        {/* Platform explanation */}
+        <div className="p-4 font-open-sans flex space-between md:p-0 mb-4 md:mb-8">
+          <p className="hyphens-auto md:leading-7 text-justify flex-1">
+            <Trans i18nKey="views.main.explanations.platform" />
+          </p>
         </div>
 
-        <div className="w-full flex justify-center mt-8">
-          <div className="bg-primary -mb-8 rounded-full bg-red-500 w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            {t('views.main.importantNotes.title')}
-          </div>
-        </div>
-        <div className="bg-kaki p-4 mt-3 mx-4 md:mx-0">
-          <Rules />
-        </div>
-
-        <div className="mx-4 md:mx-0 mb-8 md:mb-16">
-          <OnePagers />
-        </div>
-
-        <ArrowDown onClick={scrollTo} />
-
+        {/* Action buttons  */}
         <div className="flex justify-around mx-4 md:mx-0 my-6 md:my-10" id="hilfe-buttons">
           <Link
             data-cy="cta-need-help"
@@ -121,6 +91,7 @@ export default function Main() {
           </Link>
         </div>
 
+        {/* Action Texts */}
         <div className="hidden md:flex p-4 font-open-sans flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
           <p className="hyphens-auto md:leading-7 text-justify flex-1">
             <Trans i18nKey="views.main.explanations.needHelp" />
@@ -130,12 +101,58 @@ export default function Main() {
             <Trans i18nKey="views.main.explanations.wantToHelp" />
           </p>
         </div>
-
         <div className="md:hidden p-4 font-open-sans flex flex-col md:flex-row space-between md:p-0 mb-4 md:mb-8">
           <p className="hyphens-auto md:leading-7 text-justify flex-1">
             <Trans i18nKey="views.main.explanations.combined" />
           </p>
         </div>
+
+        {/* Hotline */}
+        <div className="w-full flex justify-center mt-4">
+          <div className="bg-primary -mb-8 rounded-full w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {t('views.main.hotline.ourHotline')}
+          </div>
+        </div>
+        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
+          <a
+            className="text-3xl text-primary font-bold font-open-sans"
+            href={`tel:${t('views.main.hotline.number')}`}
+          >
+            {t('views.main.hotline.number')}
+          </a>
+          <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
+          <div className="text-xs">
+            {t('views.main.hotline.notGermany')}
+            {': '}
+            <a
+              href={`tel:${t('views.main.hotline.externalNumber')}`}
+            >
+              {t('views.main.hotline.externalNumber')}
+            </a>
+          </div>
+        </div>
+
+        {/* Rules */}
+        <div className="w-full flex justify-center mt-8">
+          <div className="bg-primary -mb-8 rounded-full w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {t('views.main.importantNotes.title')}
+          </div>
+        </div>
+        <div className="bg-kaki p-4 mt-3 mx-4 md:mx-0">
+          <Rules />
+        </div>
+
+        {/* Posters */}
+        <div className="w-full flex justify-center mt-8">
+          <div className="bg-primary -mb-8 rounded-full w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {t('views.main.resources.title')}
+          </div>
+        </div>
+        <div className="mx-4 md:mx-0 mt-3 mb-8">
+          <OnePagers extendedMargin />
+        </div>
+
+        <ArrowDown onClick={scrollTo} />
       </div>
       <div className="angle-cut-background pt-8 w-full">
         <div className="p-4">
