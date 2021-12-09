@@ -25,10 +25,10 @@
         "serviceHours": "Von 10:00 - 18:00 Uhr für Euch da!"
       },
       "importantNotes": {
-        "title": "WICHTIGER HINWEIS",
+        "title": "WICHTIGE HINWEISE",
         "cautious": {
           "title": "Umsichtig",
-          "text": "Helft nicht, wenn Ihr einer Risikogruppe angehört! Helft nicht, wenn Ihr Sorge habt, selbst eine Ansteckungsgefahr darzustellen!"
+          "text": "Helft nicht, wenn ihr eine Ansteckungsgefahr darstellen könntet und trefft geeignete Hygienemaßnahmen."
         },
         "local": {
           "title": "Lokal",
@@ -40,8 +40,11 @@
         },
         "distanced": {
           "title": "Distanziert",
-          "text": "Trefft Euch nicht mit anderen Menschen außer denen, denen Ihr helfen wollt. Vermeidet persönlichen Kontakt und achtet auf Eure eigene Hygiene!"
+          "text": "Tragt Masken, haltet Abstand und vermeidet persönlichen Kontakt."
         }
+      },
+      "resources": {
+        "title": "RESSOURCEN"
       },
       "noInternet": {
         "preOptionalBreak": "Nicht jeder Mensch hat Internet.",
@@ -52,9 +55,10 @@
         "needHelp": "ICH BRAUCHE HILFE"
       },
       "explanations": {
-        "wantToHelp": "Viele Menschen bleiben gerade zuhause, weil sie in Quarantäne sind oder beispielsweise zu einer Risikogruppe gehören und tragen damit aktiv dazu bei, die Verbreitung von Corona zu verlangsamen. Dabei sind diese Menschen auf <strong>Hilfe</strong> von außerhalb angewiesen. Wollt auch Ihr <strong>Held*innen</strong> sein? Dann könnt Ihr hier sehen, wobei Ihr Mitmenschen in Eurer Nachbarschaft <strong>unterstützen</strong> könnt!",
-        "needHelp": "Ihr seid in Quarantäne oder solltet gerade besser nicht das Haus verlassen, weil Ihr zu einer <strong>Risikogruppe</strong> gehört? Seid <strong>Held*innen</strong> und <strong>bleibt zuhause</strong>, um die Verbreitung von Corona aktiv zu verlangsamen. Schreibt einfach eine Hilfsanfrage und lasst Euch zum Beispiel bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> unterstützen.",
-        "combined": "Aktuell tragen alle ihren Teil zur <strong>Eindämmung</strong> der Pandemie bei, indem sie ihre Kontakte so gut es geht einschränken. Wer in Quarantäne ist, zu einer Risikogruppe gehört oder vielleicht selbst eine Ansteckungsgefahr darstellen könnte ist jedoch auf <strong>Unterstützung</strong> von außerhalb angewiesen und nicht jede*r hat Menschen in der Nähe, die einem helfen können. Über unsere Plattform vermitteln wir Hilfesuchende an Helfende - sodass diese Unterstützung für <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> finden können."
+        "platform": "QuarantäneHeld*innen ist eine Plattform, auf der <strong>Nachbarschaftshilfe</strong> in der Corona Pandemie koordiniert wird. Hilfesuchende werden mit ehrenamtlichen Helfenden zusammengebracht und über die Homepage und alternativ per Telefon vermittelt.",
+        "wantToHelp": "Ihr wollt andere Menschen <strong>unterstützen</strong>, die aktuell auf <strong>Hilfe</strong> angewiesen sind? Dann könnt Ihr hier sehen, wobei Ihr Mitmenschen in Eurer Nachbarschaft <strong>helfen</strong> könnt!",
+        "needHelp": "Ihr seid in <strong>Quarantäne</strong> oder solltet gerade besser nicht das Haus verlassen, weil Ihr zu einer <strong>Risikogruppe</strong> gehört? Schreibt einfach eine <strong>Hilfsanfrage</strong> und lasst Euch zum Beispiel bei <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassi gehen</strong> unterstützen.",
+        "combined": "Aktuell tragen alle ihren Teil zur <strong>Eindämmung</strong> der Pandemie bei, indem sie ihre Kontakte so gut es geht einschränken. Wer in <strong>Quarantäne</strong> ist, zu einer <strong>Risikogruppe</strong> gehört oder vielleicht selbst eine <strong>Ansteckungsgefahr</strong> darstellen könnte ist jedoch oft auf <strong>Unterstützung</strong> von außerhalb angewiesen. Wir vermitteln Hilfesuchende an Helfende, sodass diese Unterstützung für <strong>Einkäufen</strong>, <strong>Botengängen</strong> oder <strong>Gassigehen</strong> finden können."
       },
       "recentRequests": {
         "title": "Aktuelle Anfragen",
