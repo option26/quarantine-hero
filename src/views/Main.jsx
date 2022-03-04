@@ -90,7 +90,7 @@ export default function Main() {
         </div>
         <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col text-justify">
           <div className="font-open-sans">
-            Du hast eine unterstützenswerte Hilfsaktion für Geflüchtete aus der Ukraine in Deiner Nähe gestartet oder gefunden, auf die mehr Menschen aufmerksam werden sollen?
+            Du hast eine unterstützenswerte Hilfsaktion für Geflüchtete aus der Ukraine in Deiner Nähe gestartet oder gefunden, auf die mehr Menschen aufmerksam gemacht werden sollen?
             Dann teile sie als Inserat mit der Held*innen-Community!
           </div>
           <Link
