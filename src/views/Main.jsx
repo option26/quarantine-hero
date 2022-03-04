@@ -68,6 +68,42 @@ export default function Main() {
           </p>
         </div>
 
+        {/* Free Ukraine */}
+        <div className="w-full flex justify-center mt-4">
+          <div className="bg-primary -mb-8 rounded-full relative w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span
+              className="text-3xl absolute top-0 -mt-2 left-0 -ml-8 transform scale-x-flip"
+              role="img"
+            >
+              🇺🇦
+            </span>
+            #standwithukraine
+            {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span
+              className="text-3xl absolute top-0 -mt-2 right-0 -mr-8"
+              role="img"
+            >
+              🇺🇦
+            </span>
+          </div>
+        </div>
+        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col text-justify">
+          <div className="font-open-sans">
+            Du hast eine unterstützenswerte Hilfsaktion für Geflüchtete aus der Ukraine in Deiner Nähe gestartet oder gefunden, auf die mehr Menschen aufmerksam gemacht werden sollen?
+            Dann teile sie als Inserat mit der Held*innen-Community!
+          </div>
+          <Link
+            data-cy="cta-need-help"
+            to="/signup/ask-for-help"
+            className="self-end flex justify-center items-center rounded btn-main text-primary hover:opacity-75"
+            onClick={() => fb.analytics.logEvent('button_need_help')}
+          >
+            Inserat erstellen
+            <span className="ml-1 text-xl leading-0">&gt;</span>
+          </Link>
+        </div>
+
         {/* Action buttons  */}
         <div className="flex justify-around mx-4 md:mx-0 my-6 md:my-10" id="hilfe-buttons">
           <Link
