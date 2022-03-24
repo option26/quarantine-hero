@@ -11,10 +11,10 @@ const SMTP_PASSWORD = envVariables?.smtp?.password;
 const SENDER_EMAIL = 'help@quarantaenehelden.org';
 
 const REGION_EUROPE_WEST_1 = 'europe-west1';
-const MAX_RESULTS = 100;
+const MAX_RESULTS = 200;
 const MAPS_ENABLED = true;
 // How long we wait before we send email notifications after a person posted a help request
-const MINIMUM_NOTIFICATION_DELAY_MINUTES = 20;
+const MINIMUM_NOTIFICATION_DELAY_MINUTES = 30;
 const SEND_EMAILS = SMTP_USER && SMTP_PASSWORD;
 const sendingMailsDisabledLogMessage = 'Sending emails is currently disabled.';
 const EMAIL_NOTIFICATION_AUDIENCE_SIZE_SANITY_CHECK = 35_000;
