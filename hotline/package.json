@@ -19,7 +19,7 @@
     "@twilio-labs/serverless-runtime-types": "^1.1",
     "axios": "^0.21.1",
     "googleapis": "^67.0.0",
-    "moment-timezone": "^0.5.32"
+    "moment-timezone": "^0.5.35"
   },
   "devDependencies": {
     "copyfiles": "^2.2.0",
