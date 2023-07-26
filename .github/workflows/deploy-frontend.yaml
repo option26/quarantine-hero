@@ -6,6 +6,8 @@ on:
 jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 10.x
@@ -19,10 +21,10 @@ jobs:
         env:
           NODE_ENV: prod
           REACT_APP_SENTRY_RELEASE: ${{ github.sha }}
-      - name: Deploy
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: ./.github/workflows/deploy-frontend.sh
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
       - name: Create a release on Sentry
         uses: tclindner/sentry-releases-action@v1.0.0
         env:
