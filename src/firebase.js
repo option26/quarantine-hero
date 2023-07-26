@@ -1,10 +1,10 @@
-import * as app from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/analytics';
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/database';
-import 'firebase/storage';
+import app from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/analytics';
+import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
+import 'firebase/compat/database';
+import 'firebase/compat/storage';
 import config from './firebaseConfig';
 
 class Firebase {

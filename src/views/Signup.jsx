@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import {
   Link,

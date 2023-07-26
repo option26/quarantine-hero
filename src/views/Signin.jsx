@@ -8,7 +8,7 @@ import {
   useParams,
   useLocation,
 } from 'react-router-dom';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import MailInput from '../components/MailInput';
 import fb from '../firebase';

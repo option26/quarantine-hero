@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import Routes from './components/Routes';
 import Loader from './components/loader/Loader';
 import './i18n';

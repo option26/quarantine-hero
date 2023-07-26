@@ -4,7 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { useTranslation } from 'react-i18next';
 import Popup from 'reactjs-popup';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import * as Sentry from '@sentry/browser';
 import fb from '../firebase';
 import Entry from '../components/entry/Entry';

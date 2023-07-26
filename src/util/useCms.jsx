@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import * as Sentry from '@sentry/browser';
 import i18next from 'i18next';
 
