@@ -8,8 +8,11 @@ jobs:
   lint-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
       - name: Install dependencies
         run: yarn install
       - name: Lint
@@ -17,8 +20,11 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
       - name: Install Dependencies
         run: yarn install
       - name: Build
@@ -28,8 +34,11 @@ jobs:
   test-frontend-mobile:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
       - name: Install dependencies
         run: yarn install
       - name: Test frontend mobile
@@ -42,8 +51,11 @@ jobs:
   test-frontend-desktop:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
       - name: Install dependencies
         run: yarn install
       - name: Test frontend desktop
@@ -60,8 +72,11 @@ jobs:
       run:
         working-directory: firebase/functions
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
       - name: Install Dependencies
         run: npm install
       - name: Lint
