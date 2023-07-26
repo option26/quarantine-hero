@@ -25,4 +25,4 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
       - name: Deploy
-        run: ../.github/workflows/deploy-firebase.sh
+        run: ../../.github/workflows/deploy-firebase.sh
