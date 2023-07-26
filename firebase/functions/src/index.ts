@@ -19,7 +19,6 @@ import { onSlackInteraction } from './utilities/slack';
 
 import { CollectionName } from './types/enum/CollectionName';
 
-
 admin.initializeApp();
 
 export const contentUpdated = functions
