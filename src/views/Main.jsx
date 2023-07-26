@@ -143,31 +143,6 @@ export default function Main() {
           </p>
         </div>
 
-        {/* Hotline */}
-        <div className="w-full flex justify-center mt-4">
-          <div className="bg-primary -mb-8 rounded-full w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
-            {t('views.main.hotline.ourHotline')}
-          </div>
-        </div>
-        <div className="bg-kaki p-4 mt-3 pt-8 mx-4 md:mx-0 flex items-center justify-center flex-col">
-          <a
-            className="text-3xl text-primary font-bold font-open-sans"
-            href={`tel:${t('views.main.hotline.number')}`}
-          >
-            {t('views.main.hotline.number')}
-          </a>
-          <div className="font-open-sans">{t('views.main.hotline.serviceHours')}</div>
-          <div className="text-xs">
-            {t('views.main.hotline.notGermany')}
-            {': '}
-            <a
-              href={`tel:${t('views.main.hotline.externalNumber')}`}
-            >
-              {t('views.main.hotline.externalNumber')}
-            </a>
-          </div>
-        </div>
-
         {/* Rules */}
         <div className="w-full flex justify-center mt-8">
           <div className="bg-primary -mb-8 rounded-full w-48 text-center text-xs text-white font-bold py-2 font-open-sans">
