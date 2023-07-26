@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 
 import { REGION_EUROPE_WEST_1 } from './config';
 
+import { handleAskForMoreHelp as handleAskForMoreHelpFunction } from './domain/handleAskForMoreHelp';
 import { onAskForHelpCreate } from './domain/onAskForHelpCreate';
 import { onDeletedCreate } from './domain/onDeletedCreate';
 import { onUserDelete } from './domain/onUserDelete';
@@ -13,7 +14,6 @@ import { onSubscribeToBeNotifiedCreate } from './domain/onSubscribeToBeNotifiedC
 import { searchAndSendNotificationEmails } from './domain/searchAndSendNotificationEmails';
 import { updateGeoDB } from './domain/geoData';
 import { onContentUpdate } from './domain/onContentUpdate';
-import { sendNotificationsForHotlineRequests } from './domain/sendNotificationsForHotlineRequests';
 import { sendEmails } from './domain/sendEmails';
 import { onSlackInteraction } from './utilities/slack';
 
@@ -33,13 +33,6 @@ export const sendNotificationEmails = functions
   .schedule('*/3 9-22 * * *') // At every 3rd minute past every hour from 9 through 22. https://crontab.guru/#*/3_9-22_*_*_*
   .timeZone('Europe/Berlin')
   .onRun(searchAndSendNotificationEmails);
-
-export const sendSlackNotificationsForHotlineRequests = functions
-  .region(REGION_EUROPE_WEST_1)
-  .pubsub
-  .schedule('00 9-22/6 * * *') // Every day at 9:00, 15:00 & 21:00. https://crontab.guru/#0_9-22/6_*_*_*
-  .timeZone('Europe/Berlin')
-  .onRun(sendNotificationsForHotlineRequests);
 
 export const askForHelpCreate = functions
   .region(REGION_EUROPE_WEST_1)
@@ -76,6 +69,11 @@ export const offerHelpCreate = functions
   .firestore
   .document(`/${CollectionName.AskForHelp}/{requestId}/offer-help/{offerId}`)
   .onCreate(onOfferHelpCreate);
+
+export const handleAskForMoreHelp = functions
+  .region(REGION_EUROPE_WEST_1)
+  .https
+  .onCall(handleAskForMoreHelpFunction);
 
 export const deleteUserData = functions
   .region(REGION_EUROPE_WEST_1)
