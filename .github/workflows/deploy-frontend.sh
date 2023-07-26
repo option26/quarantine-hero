@@ -16,7 +16,7 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
     exit 1
 fi
 
-REPO="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+REPO="https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git"
 
 GIT_REV="$(git rev-parse HEAD)"
 cd build/
