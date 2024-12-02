@@ -23,7 +23,7 @@
     "googleapis": "^49.0.0",
     "handlebars": "^4.7.7",
     "html-to-text": "^8.0.0",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "nodemailer": "^6.7.0"
   },
   "devDependencies": {
